@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="user_property_type_description-data-01" author="AahzBrut">
+
+        <!-- EN -->
+        <insert tableName="user_property_type_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="user_property_type_id" valueComputed="SELECT user_property_type_id FROM REPOSITORY.user_property_type WHERE name='EMAIL'"/>
+            <column name="name" value="e-mail"/>
+            <column name="description" value="User's email address"/>
+        </insert>
+
+        <!-- RU -->
+        <insert tableName="user_property_type_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="user_property_type_id" valueComputed="SELECT user_property_type_id FROM REPOSITORY.user_property_type WHERE name='EMAIL'"/>
+            <column name="name" value="e-mail"/>
+            <column name="description" value="e-mail адрес пользователя"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="language-data-01" author="AahzBrut">
+        <insert tableName="language">
+            <column name="language_code" value="EN"/>
+            <column name="language_name" value="English"/>
+        </insert>
+        <insert tableName="language">
+            <column name="language_code" value="RU"/>
+            <column name="language_name" value="Русский"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

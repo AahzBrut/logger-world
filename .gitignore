@@ -38,4 +38,4 @@ out/
 .vscode/
 
 ### Database ###
-db
+./db

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="user_property_type_description-constraint-001" author="Aahz Brut">
+
+        <addForeignKeyConstraint baseColumnNames="language_id" baseTableName="user_property_type_description"
+                                 constraintName="fk-user_property_type_description-language"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="language_id" referencedTableName="language"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_property_type_id" baseTableName="user_property_type_description"
+                                 constraintName="fk-user_property_type_description-user_property_type"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="user_property_type_id" referencedTableName="user_property_type"/>
+    </changeSet>
+
+</databaseChangeLog>

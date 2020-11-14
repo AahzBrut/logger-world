@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="user_status_description-data-01" author="AahzBrut">
+
+        <!-- EN -->
+        <insert tableName="user_status_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="user_status_id" valueComputed="SELECT user_status_id FROM REPOSITORY.user_status WHERE name='OFFLINE'"/>
+            <column name="name" value="Offline"/>
+            <column name="description" value="The user is offline"/>
+        </insert>
+        <insert tableName="user_status_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="user_status_id" valueComputed="SELECT user_status_id FROM REPOSITORY.user_status WHERE name='ONLINE'"/>
+            <column name="name" value="Online"/>
+            <column name="description" value="The user is online"/>
+        </insert>
+        <insert tableName="user_status_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="user_status_id" valueComputed="SELECT user_status_id FROM REPOSITORY.user_status WHERE name='DISABLED'"/>
+            <column name="name" value="Disabled"/>
+            <column name="description" value="The user is disabled, completely"/>
+        </insert>
+
+        <!-- RU -->
+        <insert tableName="user_status_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="user_status_id" valueComputed="SELECT user_status_id FROM REPOSITORY.user_status WHERE name='OFFLINE'"/>
+            <column name="name" value="Оффлайн"/>
+            <column name="description" value="Пользователь оффлайн"/>
+        </insert>
+        <insert tableName="user_status_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="user_status_id" valueComputed="SELECT user_status_id FROM REPOSITORY.user_status WHERE name='ONLINE'"/>
+            <column name="name" value="Онлайн"/>
+            <column name="description" value="Пользователь онлайн"/>
+        </insert>
+        <insert tableName="user_status_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="user_status_id" valueComputed="SELECT user_status_id FROM REPOSITORY.user_status WHERE name='DISABLED'"/>
+            <column name="name" value="Забанен"/>
+            <column name="description" value="Пользователь забанен, напрочь"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>
