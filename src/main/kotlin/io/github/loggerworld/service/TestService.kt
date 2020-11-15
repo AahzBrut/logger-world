@@ -1,21 +1,20 @@
 package io.github.loggerworld.service
 
 import io.github.loggerworld.repository.main.LanguageRepository
-import org.slf4j.LoggerFactory
+import io.github.loggerworld.util.LogAware
+import io.github.loggerworld.util.logger
 import org.springframework.stereotype.Service
 import javax.annotation.PostConstruct
 
 @Service
 class TestService(
     private val repository: LanguageRepository
-) {
-
-    private val logger by lazy { LoggerFactory.getLogger(TestService::class.java) }
+) : LogAware {
 
     @PostConstruct
     fun test() {
         val languages = repository.findAll()
 
-        languages.forEach { logger.info(it.name) }
+        languages.forEach { logger().info(it.name) }
     }
 }
