@@ -11,10 +11,10 @@
 
     <changeSet id="user_property-02" author="AahzBrut">
         <createTable tableName="user_property">
-            <column name="user_property_id" type="TINYINT" defaultValueSequenceNext="user_property_seq">
+            <column name="user_property_id" type="INT" defaultValueSequenceNext="user_property_seq">
                 <constraints primaryKey="true" primaryKeyName="user_property_pk"/>
             </column>
-            <column name="user_account_id" type="INT">
+            <column name="user_account_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
             <column name="user_property_type_id" type="SMALLINT">

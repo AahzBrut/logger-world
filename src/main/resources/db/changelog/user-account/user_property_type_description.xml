@@ -11,13 +11,13 @@
 
     <changeSet id="user_property_type_description-02" author="AahzBrut">
         <createTable tableName="user_property_type_description">
-            <column name="user_property_type_description_id" type="SMALLINT" defaultValueSequenceNext="user_property_type_description_seq">
+            <column name="user_property_type_description_id" type="INT" defaultValueSequenceNext="user_property_type_description_seq">
                 <constraints primaryKey="true" primaryKeyName="user_property_type_description_pk"/>
             </column>
             <column name="language_id" type="TINYINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_property_type_id" type="TINYINT">
+            <column name="user_property_type_id" type="SMALLINT">
                 <constraints nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(255)">
