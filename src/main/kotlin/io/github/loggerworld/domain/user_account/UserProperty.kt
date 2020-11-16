@@ -27,8 +27,9 @@ data class UserProperty(
     @JoinColumn(name = "user_property_type_id")
     var propertyType: UserPropertyType? = null,
 
+    ) : BaseEntity<Int>() {
+
     @CreationTimestamp
     @Column(name = "created_at")
-    var createdAt: LocalDateTime? = null,
-
-    ) : BaseEntity<Int>()
+    var createdAt: LocalDateTime? = null
+}

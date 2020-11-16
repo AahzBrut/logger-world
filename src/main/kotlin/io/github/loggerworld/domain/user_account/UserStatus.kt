@@ -1,6 +1,7 @@
 package io.github.loggerworld.domain.user_account
 
 import io.github.loggerworld.domain.BaseEntity
+import io.github.loggerworld.domain.enums.UserStatuses
 import javax.persistence.AttributeOverride
 import javax.persistence.CascadeType
 import javax.persistence.Column
@@ -15,9 +16,14 @@ data class UserStatus(
     var name: String = "",
 
     @Column(name = "description")
-    var description: String = "",
+    var description: String = ""
+
+) : BaseEntity<Byte>() {
+
+    constructor(userStatus: UserStatuses) : this("", "") {
+        this.id = userStatus.ordinal.toByte()
+    }
 
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "status")
-    var users: List<UserAccount> = mutableListOf()
-
-) : BaseEntity<Byte>()
+    var users: MutableList<UserAccount> = mutableListOf()
+}

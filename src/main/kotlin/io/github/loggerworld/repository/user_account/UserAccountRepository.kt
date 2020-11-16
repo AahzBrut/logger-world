@@ -4,4 +4,7 @@ import io.github.loggerworld.domain.user_account.UserAccount
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
-interface UserAccountRepository : JpaRepository<UserAccount, Long>
+interface UserAccountRepository : JpaRepository<UserAccount, Long> {
+
+    fun existsByLoginName(loginName: String) : Boolean
+}

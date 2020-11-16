@@ -1,6 +1,7 @@
 package io.github.loggerworld.domain.user_account
 
 import io.github.loggerworld.domain.BaseEntity
+import io.github.loggerworld.domain.enums.UserPropertyTypes
 import javax.persistence.AttributeOverride
 import javax.persistence.CascadeType
 import javax.persistence.Column
@@ -17,10 +18,16 @@ data class UserPropertyType(
     @Column(name = "description")
     var description: String = "",
 
-    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "propertyType")
-    var properties: List<UserProperty> = mutableListOf(),
+) : BaseEntity<Short>() {
+
+    constructor(type: UserPropertyTypes) : this("", "") {
+        this.id = type.ordinal.toShort()
+    }
 
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "propertyType")
-    var typeDescriptions: List<UserPropertyTypeDescription> = mutableListOf()
+    var properties: MutableList<UserProperty> = mutableListOf()
 
-) : BaseEntity<Short>()
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "propertyType")
+    var typeDescriptions: MutableList<UserPropertyTypeDescription> = mutableListOf()
+
+}

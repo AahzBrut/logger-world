@@ -3,6 +3,7 @@ package io.github.loggerworld.domain.user_account
 import io.github.loggerworld.domain.BaseEntity
 import io.github.loggerworld.domain.main.Language
 import org.hibernate.annotations.CreationTimestamp
+import org.hibernate.annotations.UpdateTimestamp
 import java.time.LocalDateTime
 import javax.persistence.AttributeOverride
 import javax.persistence.CascadeType
@@ -38,10 +39,12 @@ data class UserAccount(
     @Column(name = "created_at")
     var createdAt: LocalDateTime? = null,
 
+    @UpdateTimestamp
     @Column(name = "last_login_at")
     var lastLoginAt: LocalDateTime? = null,
 
-    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "user")
-    var properties: List<UserProperty> = mutableListOf()
+    ) : BaseEntity<Long>() {
 
-    ) : BaseEntity<Long>()
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "user")
+    var properties: MutableList<UserProperty>  = mutableListOf()
+}

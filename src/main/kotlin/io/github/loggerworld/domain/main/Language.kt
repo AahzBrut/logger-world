@@ -1,6 +1,7 @@
 package io.github.loggerworld.domain.main
 
 import io.github.loggerworld.domain.BaseEntity
+import io.github.loggerworld.domain.enums.Languages
 import io.github.loggerworld.domain.user_account.UserAccount
 import io.github.loggerworld.domain.user_account.UserPropertyTypeDescription
 import io.github.loggerworld.domain.user_account.UserStatusDescription
@@ -19,15 +20,20 @@ data class Language(
     var code: String = "",
 
     @Column(name = "language_name")
-    var name: String = "",
+    var name: String = ""
+
+) : BaseEntity<Byte>() {
+
+    constructor(language: Languages) : this("", "") {
+        this.id = language.ordinal.toByte()
+    }
 
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "language")
-    var users: List<UserAccount> = mutableListOf(),
+    var users: List<UserAccount> = mutableListOf()
 
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "language")
-    var userStatusDescriptions: List<UserStatusDescription> = mutableListOf(),
+    var userStatusDescriptions: List<UserStatusDescription> = mutableListOf()
 
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "language")
-    var userPropertyTypeDescriptions : List<UserPropertyTypeDescription> = mutableListOf(),
-
-) : BaseEntity<Byte>()
+    var userPropertyTypeDescriptions : List<UserPropertyTypeDescription> = mutableListOf()
+}
