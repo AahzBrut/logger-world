@@ -1,6 +1,5 @@
 package io.github.loggerworld.mapper
 
-import io.github.loggerworld.domain.enums.Languages
 import io.github.loggerworld.domain.enums.UserPropertyTypes
 import io.github.loggerworld.domain.enums.UserStatuses
 import io.github.loggerworld.domain.main.Language
@@ -20,7 +19,7 @@ class UserMapper : Mapper<UserAccount, UserAddRequest> {
             source.password,
             source.displayName,
             UserStatus(UserStatuses.OFFLINE),
-            Language(Languages.valueOf(source.language))
+            Language(source.language)
         ).also {
             val userProperty = UserProperty(source.email, it, UserPropertyType(UserPropertyTypes.EMAIL))
             it.properties.add(userProperty)

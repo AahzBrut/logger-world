@@ -12,4 +12,3 @@ inline fun <reified T : LogAware> T.logger(): Logger =
 
 
 const val TOKEN_PREFIX = "Bearer "
-const val H2_CONSOLE_URL = "/h2-console/**"

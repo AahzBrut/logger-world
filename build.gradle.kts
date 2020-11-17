@@ -45,6 +45,9 @@ dependencies {
     implementation ("org.webjars:bootstrap:3.3.7")
     implementation ("org.webjars:jquery:3.1.1-1")
 
+    implementation( "io.springfox:springfox-boot-starter:3.0.0")
+    implementation( "io.springfox:springfox-swagger-ui:3.0.0")
+
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.h2database:h2")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
