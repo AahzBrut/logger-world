@@ -12,6 +12,8 @@ group = "io.github"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
+val jwtVersion = "0.11.2"
+
 configurations {
     compileOnly {
         extendsFrom(configurations.annotationProcessor.get())
@@ -32,6 +34,10 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.liquibase:liquibase-core")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
+    implementation("io.jsonwebtoken:jjwt-api:${jwtVersion}")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:${jwtVersion}")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:${jwtVersion}")
 
     implementation ("org.webjars:webjars-locator-core")
     implementation ("org.webjars:sockjs-client:1.0.2")

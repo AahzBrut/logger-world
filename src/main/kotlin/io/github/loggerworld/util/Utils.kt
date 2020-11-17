@@ -9,3 +9,7 @@ interface LogAware
 @Suppress("unused")
 inline fun <reified T : LogAware> T.logger(): Logger =
     getLogger(T::class.java)
+
+
+const val TOKEN_PREFIX = "Bearer "
+const val H2_CONSOLE_URL = "/h2-console/**"

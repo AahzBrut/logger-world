@@ -2,6 +2,7 @@ package io.github.loggerworld.service
 
 import io.github.loggerworld.domain.user_account.UserAccount
 import io.github.loggerworld.dto.request.UserAddRequest
+import io.github.loggerworld.dto.request.UserLoginRequest
 import io.github.loggerworld.exception.UserAlreadyExistsException
 import io.github.loggerworld.mapper.Mapper
 import io.github.loggerworld.repository.user_account.UserAccountRepository
@@ -24,5 +25,11 @@ class UserService(
         val newUserAccount = userMapper.from(request)
         newUserAccount.password = passwordEncoder.encode(request.password)
         userAccountRepository.save(newUserAccount)
+    }
+
+    fun authenticate(request: UserLoginRequest) : Boolean {
+
+        val user = userAccountRepository.findByLoginName(request.userName) ?: return false
+        return passwordEncoder.matches(request.password, user.password)
     }
 }

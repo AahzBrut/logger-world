@@ -8,13 +8,16 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 
+
+const val SIGN_UP_URL = "/api/user/sign-up"
+
 @RestController
 class UserController(
     private val userService: UserService
 ) {
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/api/user/sign-up")
+    @PostMapping(SIGN_UP_URL)
     fun addNewUser(@RequestBody request: UserAddRequest) {
         userService.addNewUser(request)
     }
