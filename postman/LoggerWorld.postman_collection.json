@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"userName\": \"AahzBrut1\",\r\n    \"password\": \"pwd123\",\r\n    \"language\": \"RU\",\r\n    \"displayName\": \"AahzBrut\",\r\n    \"email\": \"aahzbrut@mail.ru\"\r\n}",
+					"raw": "{\r\n    \"userName\": \"AahzBrut\",\r\n    \"password\": \"pwd123\",\r\n    \"language\": \"RU\",\r\n    \"displayName\": \"AahzBrut\",\r\n    \"email\": \"aahzbrut@mail.ru\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -30,6 +30,36 @@
 						"api",
 						"user",
 						"sign-up"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userName\": \"AahzBrut\",\r\n    \"password\": \"pwd123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"user",
+						"login"
 					]
 				}
 			},
