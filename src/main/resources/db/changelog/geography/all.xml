@@ -5,9 +5,9 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <include file="classpath:/db/changelog/constraint/main/all.xml"/>
-    <include file="classpath:/db/changelog/constraint/user-account/all.xml"/>
-    <include file="classpath:/db/changelog/constraint/geography/all.xml"/>
-    <include file="classpath:/db/changelog/constraint/character/all.xml"/>
+    <include file="classpath:/db/changelog/geography/location.xml"/>
+    <include file="classpath:/db/changelog/geography/location_description.xml"/>
+    <include file="classpath:/db/changelog/geography/location_type.xml"/>
+    <include file="classpath:/db/changelog/geography/location_type_description.xml"/>
 
 </databaseChangeLog>
