@@ -11,7 +11,7 @@
 
     <changeSet id="character-02" author="AahzBrut">
         <createTable tableName="character">
-            <column name="character_id" type="SMALLINT" defaultValueSequenceNext="character_seq">
+            <column name="character_id" type="BIGINT" defaultValueSequenceNext="character_seq">
                 <constraints primaryKey="true" primaryKeyName="character_pk"/>
             </column>
             <column name="user_account_id" type="BIGINT">
@@ -20,7 +20,7 @@
             <column name="character_class_id" type="TINYINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="location_id" type="TINYINT">
+            <column name="location_id" type="SMALLINT">
                 <constraints nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(255)">

@@ -11,7 +11,7 @@
 
     <changeSet id="location_type_description-02" author="AahzBrut">
         <createTable tableName="location_type_description">
-            <column name="location_type_description_id" type="SMALLINT" defaultValueSequenceNext="location_type_description_seq">
+            <column name="location_type_description_id" type="INT" defaultValueSequenceNext="location_type_description_seq">
                 <constraints primaryKey="true" primaryKeyName="location_type_description_pk"/>
             </column>
             <column name="language_id" type="TINYINT">

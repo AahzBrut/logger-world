@@ -11,7 +11,7 @@
 
     <changeSet id="location_type-02" author="AahzBrut">
         <createTable tableName="location_type">
-            <column name="location_type_id" type="SMALLINT" defaultValueSequenceNext="location_type_seq">
+            <column name="location_type_id" type="TINYINT" defaultValueSequenceNext="location_type_seq">
                 <constraints primaryKey="true" primaryKeyName="location_type_pk"/>
             </column>
             <column name="code" type="VARCHAR(50)">

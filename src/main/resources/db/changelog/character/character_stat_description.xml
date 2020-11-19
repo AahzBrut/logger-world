@@ -11,7 +11,7 @@
 
     <changeSet id="character_stat_description-02" author="AahzBrut">
         <createTable tableName="character_stat_description">
-            <column name="character_stat_description_id" type="TINYINT" defaultValueSequenceNext="character_stat_description_seq">
+            <column name="character_stat_description_id" type="SMALLINT" defaultValueSequenceNext="character_stat_description_seq">
                 <constraints primaryKey="true" primaryKeyName="character_stat_description_pk"/>
             </column>
             <column name="character_stat_id" type="TINYINT">

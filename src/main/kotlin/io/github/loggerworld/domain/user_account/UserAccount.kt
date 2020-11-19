@@ -1,6 +1,7 @@
 package io.github.loggerworld.domain.user_account
 
 import io.github.loggerworld.domain.BaseEntity
+import io.github.loggerworld.domain.character.Player
 import io.github.loggerworld.domain.main.Language
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
@@ -46,5 +47,9 @@ data class UserAccount(
     ) : BaseEntity<Long>() {
 
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "user")
-    var properties: MutableList<UserProperty>  = mutableListOf()
+    var properties: MutableList<UserProperty> = mutableListOf()
+
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "userAccount")
+    var players: MutableList<Player> = mutableListOf()
+
 }
