@@ -11,6 +11,8 @@
     <include file="classpath:/db/changelog/character/all.xml"/>
     <include file="classpath:/db/changelog/data-init/main/all.xml"/>
     <include file="classpath:/db/changelog/data-init/user-account/all.xml"/>
+    <include file="classpath:/db/changelog/data-init/geography/all.xml"/>
+    <include file="classpath:/db/changelog/data-init/character/all.xml"/>
     <include file="classpath:/db/changelog/constraint/all.xml"/>
 
 </databaseChangeLog>

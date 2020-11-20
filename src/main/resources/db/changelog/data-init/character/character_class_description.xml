@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="character_class_description-data-01" author="AahzBrut">
+
+        <!-- EN -->
+
+        <insert tableName="character_class_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='DUMMY'"/>
+            <column name="name" value="Dummy"/>
+            <column name="description" value="Old dusty dummy."/>
+        </insert>
+        <insert tableName="character_class_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='WARRIOR'"/>
+            <column name="name" value="Warrior"/>
+            <column name="description" value="Big, not so bright, good with melee weapons."/>
+        </insert>
+        <insert tableName="character_class_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ARCHER'"/>
+            <column name="name" value="Archer"/>
+            <column name="description" value="Average build, with above average height, good with bows and crossbows."/>
+        </insert>
+        <insert tableName="character_class_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='WIZARD'"/>
+            <column name="name" value="Wizard"/>
+            <column name="description" value="Old, in hooded cloak, inspire uneasy."/>
+        </insert>
+        <insert tableName="character_class_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="name" value="Assassin"/>
+            <column name="description" value="Slim, swarthy, smug, good with knives and silent movements."/>
+        </insert>
+
+        <!-- RU -->
+
+        <insert tableName="character_class_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='DUMMY'"/>
+            <column name="name" value="Боксерская груша"/>
+            <column name="description" value="Old dusty dummy."/>
+        </insert>
+        <insert tableName="character_class_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='WARRIOR'"/>
+            <column name="name" value="Воин"/>
+            <column name="description" value="Big, not so bright, good with melee weapons."/>
+        </insert>
+        <insert tableName="character_class_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ARCHER'"/>
+            <column name="name" value="Лучник"/>
+            <column name="description" value="Average build, with above average height, good with bows and crossbows."/>
+        </insert>
+        <insert tableName="character_class_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='WIZARD'"/>
+            <column name="name" value="Маг"/>
+            <column name="description" value="Old, in hooded cloak, inspire uneasy."/>
+        </insert>
+        <insert tableName="character_class_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="name" value="Убийца"/>
+            <column name="description" value="Slim, swarthy, smug, good with knives and silent movements."/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>

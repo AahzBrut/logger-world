@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="character_stat-data-01" author="AahzBrut">
+        <insert tableName="character_stat">
+            <column name="code" value="NOTHING"/>
+        </insert>
+        <insert tableName="character_stat">
+            <column name="code" value="HP"/>
+        </insert>
+        <insert tableName="character_stat">
+            <column name="code" value="MP"/>
+        </insert>
+        <insert tableName="character_stat">
+            <column name="code" value="DEF"/>
+        </insert>
+        <insert tableName="character_stat">
+            <column name="code" value="ATK"/>
+        </insert>
+        <insert tableName="character_stat">
+            <column name="code" value="SPD"/>
+        </insert>
+        <insert tableName="character_stat">
+            <column name="code" value="CRT"/>
+        </insert>
+        <insert tableName="character_stat">
+            <column name="code" value="EVS"/>
+        </insert>
+        <insert tableName="character_stat">
+            <column name="code" value="STR"/>
+        </insert>
+        <insert tableName="character_stat">
+            <column name="code" value="INT"/>
+        </insert>
+        <insert tableName="character_stat">
+            <column name="code" value="CON"/>
+        </insert>
+        <insert tableName="character_stat">
+            <column name="code" value="AGI"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

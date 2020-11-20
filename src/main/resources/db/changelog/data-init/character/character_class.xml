@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+
+    <changeSet id="character_class-data-01" author="AahzBrut">
+        <insert tableName="character_class">
+            <column name="code" value="DUMMY"/>
+        </insert>
+        <insert tableName="character_class">
+            <column name="code" value="WARRIOR"/>
+        </insert>
+        <insert tableName="character_class">
+            <column name="code" value="ARCHER"/>
+        </insert>
+        <insert tableName="character_class">
+            <column name="code" value="WIZARD"/>
+        </insert>
+        <insert tableName="character_class">
+            <column name="code" value="ASSASSIN"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

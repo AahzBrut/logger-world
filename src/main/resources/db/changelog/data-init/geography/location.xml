@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="location-data-01" author="AahzBrut">
+        <insert tableName="location">
+            <column name="xcoord" valueNumeric="-1"/>
+            <column name="ycoord" valueNumeric="-1"/>
+            <column name="location_type_id" valueComputed="SELECT location_type_id FROM REPOSITORY.location_type WHERE code='VOID'"/>
+        </insert>
+        <insert tableName="location">
+            <column name="xcoord" valueNumeric="-1"/>
+            <column name="ycoord" valueNumeric="-1"/>
+            <column name="location_type_id" valueComputed="SELECT location_type_id FROM REPOSITORY.location_type WHERE code='IN_TRANSIT'"/>
+        </insert>
+        <insert tableName="location">
+            <column name="xcoord" valueNumeric="0"/>
+            <column name="ycoord" valueNumeric="0"/>
+            <column name="location_type_id" valueComputed="SELECT location_type_id FROM REPOSITORY.location_type WHERE code='VILLAGE'"/>
+        </insert>
+        <insert tableName="location">
+            <column name="xcoord" valueNumeric="1"/>
+            <column name="ycoord" valueNumeric="0"/>
+            <column name="location_type_id" valueComputed="SELECT location_type_id FROM REPOSITORY.location_type WHERE code='WOODS'"/>
+        </insert>
+        <insert tableName="location">
+            <column name="xcoord" valueNumeric="2"/>
+            <column name="ycoord" valueNumeric="0"/>
+            <column name="location_type_id" valueComputed="SELECT location_type_id FROM REPOSITORY.location_type WHERE code='WOODS'"/>
+        </insert>
+        <insert tableName="location">
+            <column name="xcoord" valueNumeric="0"/>
+            <column name="ycoord" valueNumeric="1"/>
+            <column name="location_type_id" valueComputed="SELECT location_type_id FROM REPOSITORY.location_type WHERE code='WOODS'"/>
+        </insert>
+        <insert tableName="location">
+            <column name="xcoord" valueNumeric="1"/>
+            <column name="ycoord" valueNumeric="1"/>
+            <column name="location_type_id" valueComputed="SELECT location_type_id FROM REPOSITORY.location_type WHERE code='CITY'"/>
+        </insert>
+        <insert tableName="location">
+            <column name="xcoord" valueNumeric="2"/>
+            <column name="ycoord" valueNumeric="1"/>
+            <column name="location_type_id" valueComputed="SELECT location_type_id FROM REPOSITORY.location_type WHERE code='WOODS'"/>
+        </insert>
+        <insert tableName="location">
+            <column name="xcoord" valueNumeric="0"/>
+            <column name="ycoord" valueNumeric="2"/>
+            <column name="location_type_id" valueComputed="SELECT location_type_id FROM REPOSITORY.location_type WHERE code='WOODS'"/>
+        </insert>
+        <insert tableName="location">
+            <column name="xcoord" valueNumeric="1"/>
+            <column name="ycoord" valueNumeric="2"/>
+            <column name="location_type_id" valueComputed="SELECT location_type_id FROM REPOSITORY.location_type WHERE code='WOODS'"/>
+        </insert>
+        <insert tableName="location">
+            <column name="xcoord" valueNumeric="2"/>
+            <column name="ycoord" valueNumeric="2"/>
+            <column name="location_type_id" valueComputed="SELECT location_type_id FROM REPOSITORY.location_type WHERE code='VILLAGE'"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

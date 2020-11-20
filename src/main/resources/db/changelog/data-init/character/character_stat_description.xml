@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="character_stat_description-data-01" author="AahzBrut">
+
+        <!-- EN -->
+
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='NOTHING'"/>
+            <column name="name" value="Nothing"/>
+            <column name="description" value="Stub for null values"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="name" value="HP"/>
+            <column name="description" value="Health"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="name" value="MP"/>
+            <column name="description" value="Mana points"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='DEF'"/>
+            <column name="name" value="Defence"/>
+            <column name="description" value="Defence value"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="name" value="Attack"/>
+            <column name="description" value="Attack value"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='SPD'"/>
+            <column name="name" value="Speed"/>
+            <column name="description" value="Speed value"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='CRT'"/>
+            <column name="name" value="Critical hit"/>
+            <column name="description" value="Chance of critical hit"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='EVS'"/>
+            <column name="name" value="Evasion"/>
+            <column name="description" value="Chance of evasion"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='STR'"/>
+            <column name="name" value="Strength"/>
+            <column name="description" value="Physical strength"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='INT'"/>
+            <column name="name" value="Intelligence"/>
+            <column name="description" value="Level of intellect"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='CON'"/>
+            <column name="name" value="Constitution"/>
+            <column name="description" value="Physical toughness"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='AGI'"/>
+            <column name="name" value="Agility"/>
+            <column name="description" value="Agility"/>
+        </insert>
+
+
+        <!-- RU -->
+
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='NOTHING'"/>
+            <column name="name" value="Nothing"/>
+            <column name="description" value="Stub for null values"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="name" value="HP"/>
+            <column name="description" value="Уровень здоровья"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="name" value="MP"/>
+            <column name="description" value="Уровень маны"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='DEF'"/>
+            <column name="name" value="Defence"/>
+            <column name="description" value="Уровень защиты"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="name" value="Attack"/>
+            <column name="description" value="Уровень атаки"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='SPD'"/>
+            <column name="name" value="Speed"/>
+            <column name="description" value="Скорость"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='CRT'"/>
+            <column name="name" value="Critical hit"/>
+            <column name="description" value="Шанс критического удара"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='EVS'"/>
+            <column name="name" value="Evasion"/>
+            <column name="description" value="Шанс увернуться от атаки"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='STR'"/>
+            <column name="name" value="Strength"/>
+            <column name="description" value="Физическач сила"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='INT'"/>
+            <column name="name" value="Intelligence"/>
+            <column name="description" value="Уровень интеллекта"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='CON'"/>
+            <column name="name" value="Constitution"/>
+            <column name="description" value="Здоровье"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='AGI'"/>
+            <column name="name" value="Agility"/>
+            <column name="description" value="Ловкость"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

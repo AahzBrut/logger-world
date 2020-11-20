@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="location_type_description-data-01" author="AahzBrut">
+
+        <!-- EN -->
+
+        <insert tableName="location_type_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="location_type_id" valueComputed="SELECT location_type_id FROM REPOSITORY.location_type WHERE code='VOID'"/>
+            <column name="name" value="Void"/>
+            <column name="description" value="Darkest place out of the world, when all things get births and where all thing goes after their lives are ended."/>
+        </insert>
+        <insert tableName="location_type_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="location_type_id" valueComputed="SELECT location_type_id FROM REPOSITORY.location_type WHERE code='IN_TRANSIT'"/>
+            <column name="name" value="In transit"/>
+            <column name="description" value="A road from one location to the other."/>
+        </insert>
+        <insert tableName="location_type_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="location_type_id" valueComputed="SELECT location_type_id FROM REPOSITORY.location_type WHERE code='CITY'"/>
+            <column name="name" value="City"/>
+            <column name="description" value="Big settlement with various services and people in need of tough adventurers."/>
+        </insert>
+        <insert tableName="location_type_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="location_type_id" valueComputed="SELECT location_type_id FROM REPOSITORY.location_type WHERE code='VILLAGE'"/>
+            <column name="name" value="Village"/>
+            <column name="description" value="Small settlement with agricultural activities and services centered on it."/>
+        </insert>
+        <insert tableName="location_type_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="location_type_id" valueComputed="SELECT location_type_id FROM REPOSITORY.location_type WHERE code='WOODS'"/>
+            <column name="name" value="Woods"/>
+            <column name="description" value="Old woods with big ancient trees, deep and dark shadows and bloodcurdling whispers."/>
+        </insert>
+
+        <!-- RU -->
+
+        <insert tableName="location_type_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="location_type_id" valueComputed="SELECT location_type_id FROM REPOSITORY.location_type WHERE code='VOID'"/>
+            <column name="name" value="Пустота"/>
+            <column name="description" value="Darkest place out of the world, when all things get births and where all thing goes after their lives are ended."/>
+        </insert>
+        <insert tableName="location_type_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="location_type_id" valueComputed="SELECT location_type_id FROM REPOSITORY.location_type WHERE code='IN_TRANSIT'"/>
+            <column name="name" value="В пути"/>
+            <column name="description" value="A road from one location to the other."/>
+        </insert>
+        <insert tableName="location_type_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="location_type_id" valueComputed="SELECT location_type_id FROM REPOSITORY.location_type WHERE code='CITY'"/>
+            <column name="name" value="Город"/>
+            <column name="description" value="Big settlement with various services and people in need of tough adventurers."/>
+        </insert>
+        <insert tableName="location_type_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="location_type_id" valueComputed="SELECT location_type_id FROM REPOSITORY.location_type WHERE code='VILLAGE'"/>
+            <column name="name" value="Деревня"/>
+            <column name="description" value="Small settlement with agricultural activities and services centered on it."/>
+        </insert>
+        <insert tableName="location_type_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="location_type_id" valueComputed="SELECT location_type_id FROM REPOSITORY.location_type WHERE code='WOODS'"/>
+            <column name="name" value="Леса"/>
+            <column name="description" value="Old woods with big ancient trees, deep and dark shadows and bloodcurdling whispers."/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>
