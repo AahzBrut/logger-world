@@ -13,6 +13,8 @@ version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 val jwtVersion = "0.11.2"
+val libKtxVersion = "1.9.11-b2"
+val ashleyVersion = "1.7.3"
 
 configurations {
     compileOnly {
@@ -48,6 +50,9 @@ dependencies {
 
     implementation( "io.springfox:springfox-boot-starter:3.0.0")
     implementation( "io.springfox:springfox-swagger-ui:3.0.0")
+
+    implementation("com.badlogicgames.ashley:ashley:$ashleyVersion")
+    implementation("io.github.libktx:ktx-ashley:$libKtxVersion")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.h2database:h2")

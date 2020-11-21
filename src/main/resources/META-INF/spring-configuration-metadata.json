@@ -14,5 +14,25 @@
       "name": "logger-world.login.endpoint",
       "type": "java.lang.String",
       "description": "Description for logger-world.login.endpoint."
+    },
+    {
+      "name": "entityPoolInitialSize",
+      "type": "java.lang.String",
+      "description": "Description for entityPoolInitialSize."
+    },
+    {
+      "name": "entityPoolMaxSize",
+      "type": "java.lang.String",
+      "description": "Description for entityPoolMaxSize."
+    },
+    {
+      "name": "componentPoolInitialSize",
+      "type": "java.lang.String",
+      "description": "Description for componentPoolInitialSize."
+    },
+    {
+      "name": "componentPoolMaxSize",
+      "type": "java.lang.String",
+      "description": "Description for componentPoolMaxSize."
     }
   ] }
