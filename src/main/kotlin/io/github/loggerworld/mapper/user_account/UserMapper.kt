@@ -1,4 +1,4 @@
-package io.github.loggerworld.mapper
+package io.github.loggerworld.mapper.user_account
 
 import io.github.loggerworld.domain.enums.UserPropertyTypes
 import io.github.loggerworld.domain.enums.UserStatuses
@@ -8,6 +8,7 @@ import io.github.loggerworld.domain.user_account.UserProperty
 import io.github.loggerworld.domain.user_account.UserPropertyType
 import io.github.loggerworld.domain.user_account.UserStatus
 import io.github.loggerworld.dto.request.UserAddRequest
+import io.github.loggerworld.mapper.Mapper
 import org.springframework.stereotype.Service
 
 @Service

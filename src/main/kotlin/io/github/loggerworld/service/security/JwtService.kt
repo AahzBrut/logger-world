@@ -1,5 +1,6 @@
 package io.github.loggerworld.service.security
 
+import io.github.loggerworld.util.TOKEN_PREFIX
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
@@ -24,11 +25,12 @@ class JwtService {
     }
 
     fun getClaimsFromToken(authToken: String): Claims {
+        val realToken = authToken.drop(TOKEN_PREFIX.length)
         val key: String = Base64.getEncoder().encodeToString(secret.toByteArray())
         return Jwts.parserBuilder()
             .setSigningKey(key)
             .build()
-            .parseClaimsJws(authToken)
+            .parseClaimsJws(realToken)
             .body
     }
 

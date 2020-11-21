@@ -20,7 +20,7 @@ abstract class BaseEntity<T : Serializable> {
         parameters = [
             Parameter(name = SequenceStyleGenerator.CONFIG_PREFER_SEQUENCE_PER_ENTITY, value = "true"),
             Parameter(name = SequenceStyleGenerator.CONFIG_SEQUENCE_PER_ENTITY_SUFFIX, value = "_SEQ")])
-    protected var id: T? = null
+    var id: T? = null
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

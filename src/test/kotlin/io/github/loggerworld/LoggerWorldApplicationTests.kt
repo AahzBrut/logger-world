@@ -7,12 +7,15 @@ import io.github.loggerworld.dto.request.ChatMessageRequest
 import io.github.loggerworld.dto.request.UserAddRequest
 import io.github.loggerworld.dto.request.UserLoginRequest
 import io.github.loggerworld.dto.response.ChatMessageResponse
+import io.github.loggerworld.dto.response.character.PlayerClassesResponse
+import io.github.loggerworld.dto.response.character.PlayersResponse
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.TOKEN_PREFIX
 import io.github.loggerworld.util.logger
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.messaging.converter.MappingJackson2MessageConverter
 import org.springframework.messaging.simp.stomp.StompCommand
@@ -21,6 +24,7 @@ import org.springframework.messaging.simp.stomp.StompSession
 import org.springframework.messaging.simp.stomp.StompSessionHandler
 import org.springframework.test.context.TestPropertySource
 import org.springframework.web.client.RestTemplate
+import org.springframework.web.socket.WebSocketHttpHeaders
 import org.springframework.web.socket.client.WebSocketClient
 import org.springframework.web.socket.client.standard.StandardWebSocketClient
 import org.springframework.web.socket.messaging.WebSocketStompClient
@@ -39,6 +43,7 @@ class LoggerWorldApplicationTests : LogAware {
     private final val client: WebSocketClient = StandardWebSocketClient()
     private final val stompClient = WebSocketStompClient(client)
     private lateinit var stompSession: StompSession
+    private lateinit var token: String
     private var wsConnectionEstablished = false
     private var wsMessageReceived = false
 
@@ -48,6 +53,18 @@ class LoggerWorldApplicationTests : LogAware {
         loginNewUser()
         connectToWebSocket()
         sendChatMessage()
+        getCharacterClasses()
+        getUserPlayers()
+    }
+
+    private fun getUserPlayers() {
+        stompSession.send("/app/player", "")
+        TimeUnit.MILLISECONDS.sleep(1000)
+    }
+
+    private fun getCharacterClasses() {
+        stompSession.send("/app/player/classes", "")
+        TimeUnit.MILLISECONDS.sleep(100)
     }
 
     private fun sendChatMessage() {
@@ -56,7 +73,7 @@ class LoggerWorldApplicationTests : LogAware {
     }
 
     private fun waitTillMessageReceived() {
-        while (!wsMessageReceived) TimeUnit.MILLISECONDS.sleep(10)
+        if (!wsMessageReceived) TimeUnit.MILLISECONDS.sleep(100)
         assert(wsMessageReceived)
     }
 
@@ -69,14 +86,18 @@ class LoggerWorldApplicationTests : LogAware {
         stompClient.messageConverter = jacksonMapper
 
         val sessionHandler: StompSessionHandler = MyStompSessionHandler()
+        val webSocketHttpHeaders = WebSocketHttpHeaders()
+        webSocketHttpHeaders.putAll(mutableMapOf(HttpHeaders.AUTHORIZATION to mutableListOf(token)))
+        val stompHeader = StompHeaders()
+        stompHeader.putAll(mutableMapOf(HttpHeaders.AUTHORIZATION to mutableListOf(token)))
 
-        stompClient.connect("ws://localhost:$port/chat", sessionHandler)
+        stompClient.connect("ws://localhost:$port/chat", webSocketHttpHeaders, stompHeader, sessionHandler)
 
         waitTillConnectionEstablished()
     }
 
     private fun waitTillConnectionEstablished() {
-        while (!wsConnectionEstablished) TimeUnit.MILLISECONDS.sleep(10)
+        if (!wsConnectionEstablished) TimeUnit.MILLISECONDS.sleep(300)
         assert(wsConnectionEstablished)
     }
 
@@ -84,15 +105,24 @@ class LoggerWorldApplicationTests : LogAware {
     inner class MyStompSessionHandler : StompSessionHandler, LogAware {
 
         override fun getPayloadType(headers: StompHeaders): Type {
-            return ChatMessageResponse::class.java
+            logger().info("Getting payload type for ${headers.destination}")
+
+            return when (headers.destination){
+                "/topic/messages" -> ChatMessageResponse::class.java
+                "/player/messages" -> PlayersResponse::class.java
+                else -> PlayerClassesResponse::class.java
+            }
         }
 
         override fun handleFrame(headers: StompHeaders, payload: Any?) {
-            assert(payload is ChatMessageResponse)
             if (payload is ChatMessageResponse) {
                 assert(payload.from == getChatMessageRequest().from)
                 assert(payload.message == getChatMessageRequest().message)
                 wsMessageReceived = true
+            } else if (payload is PlayerClassesResponse) {
+                assert(payload.playerClasses.isNotEmpty())
+            } else if (payload is PlayersResponse) {
+                assert(payload.players.isEmpty())
             }
             logger().info("Got payload over web socket:\n$payload")
         }
@@ -100,6 +130,9 @@ class LoggerWorldApplicationTests : LogAware {
         override fun afterConnected(session: StompSession, connectedHeaders: StompHeaders) {
             logger().info("WebSocket connected")
             session.subscribe("/topic/messages", this)
+            session.subscribe("/player/classes/messages", this)
+            session.subscribe("/player/messages", this)
+
             wsConnectionEstablished = true
             stompSession = session
         }
@@ -116,10 +149,11 @@ class LoggerWorldApplicationTests : LogAware {
     fun loginNewUser() {
         val responseEntity = restTemplate.postForEntity("http://localhost:$port/api/user/login", getUserLoginRequest(), Object::class.java)
         assert(responseEntity.statusCode == HttpStatus.OK)
-        assert(responseEntity.headers["Authorization"]?.any {
+        assert(responseEntity.headers[HttpHeaders.AUTHORIZATION]?.any {
+            token = it
             it.startsWith(TOKEN_PREFIX)
         }!!)
-        logger().info("Token: ${responseEntity.headers["Authorization"]?.get(0)}")
+        logger().info("Token: ${responseEntity.headers[HttpHeaders.AUTHORIZATION]?.get(0)}")
     }
 
     fun addNewUser() {

@@ -1,6 +1,7 @@
 package io.github.loggerworld.config
 
 import io.github.loggerworld.controller.SIGN_UP_URL
+import io.github.loggerworld.controller.TEST_URL
 import io.github.loggerworld.service.security.JwtAuthenticationFilter
 import io.github.loggerworld.service.security.JwtAuthorizationFilter
 import org.springframework.context.annotation.Configuration
@@ -23,7 +24,9 @@ class WebSecurityConfig(
             .headers().frameOptions().disable()
             .and().cors().and().csrf().disable()
             .authorizeRequests()
-            .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+            .antMatchers(SIGN_UP_URL).permitAll()
+            .antMatchers(TEST_URL).authenticated()
+            .antMatchers("/chat").authenticated()
             .antMatchers("/**").permitAll()
             .anyRequest().authenticated()
             .and()
