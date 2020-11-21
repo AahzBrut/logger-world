@@ -1,7 +1,7 @@
 package io.github.loggerworld.domain.character
 
 import io.github.loggerworld.domain.BaseEntity
-import io.github.loggerworld.domain.enums.CharacterStatEnum
+import io.github.loggerworld.domain.enums.PlayerStatEnum
 import javax.persistence.AttributeOverride
 import javax.persistence.CascadeType
 import javax.persistence.Column
@@ -16,7 +16,7 @@ data class PlayerStat(
 
     @Enumerated(EnumType.STRING)
     @Column(name = "code")
-    var code: CharacterStatEnum = CharacterStatEnum.NOTHING
+    var code: PlayerStatEnum = PlayerStatEnum.NOTHING
 
 
 ) : BaseEntity<Byte>(){

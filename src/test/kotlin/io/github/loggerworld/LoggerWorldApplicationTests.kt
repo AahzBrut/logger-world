@@ -2,8 +2,11 @@ package io.github.loggerworld
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import io.github.loggerworld.controller.SIGN_UP_URL
 import io.github.loggerworld.domain.enums.Languages
+import io.github.loggerworld.domain.enums.PlayerClasses
 import io.github.loggerworld.dto.request.ChatMessageRequest
+import io.github.loggerworld.dto.request.PlayerAddRequest
 import io.github.loggerworld.dto.request.UserAddRequest
 import io.github.loggerworld.dto.request.UserLoginRequest
 import io.github.loggerworld.dto.response.ChatMessageResponse
@@ -11,6 +14,15 @@ import io.github.loggerworld.dto.response.character.PlayerClassesResponse
 import io.github.loggerworld.dto.response.character.PlayersResponse
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.TOKEN_PREFIX
+import io.github.loggerworld.util.WS_CHAT
+import io.github.loggerworld.util.WS_CONNECTION_POINT
+import io.github.loggerworld.util.WS_DESTINATION_PREFIX
+import io.github.loggerworld.util.WS_DS_PLAYER_CLASSES_MESSAGES
+import io.github.loggerworld.util.WS_DS_PLAYER_MESSAGES
+import io.github.loggerworld.util.WS_DS_TOPIC_MESSAGES
+import io.github.loggerworld.util.WS_PLAYERS_CLASSES_GET_ALL
+import io.github.loggerworld.util.WS_PLAYERS_GET_ALL
+import io.github.loggerworld.util.WS_PLAYERS_NEW
 import io.github.loggerworld.util.logger
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
@@ -54,21 +66,27 @@ class LoggerWorldApplicationTests : LogAware {
         connectToWebSocket()
         sendChatMessage()
         getCharacterClasses()
+        addNewPlayer()
         getUserPlayers()
     }
 
+    private fun addNewPlayer() {
+        stompSession.send(WS_DESTINATION_PREFIX + WS_PLAYERS_NEW, getNewPlayerRequest())
+        TimeUnit.MILLISECONDS.sleep(1000)
+    }
+
     private fun getUserPlayers() {
-        stompSession.send("/app/player", "")
+        stompSession.send(WS_DESTINATION_PREFIX + WS_PLAYERS_GET_ALL, "")
         TimeUnit.MILLISECONDS.sleep(1000)
     }
 
     private fun getCharacterClasses() {
-        stompSession.send("/app/player/classes", "")
+        stompSession.send(WS_DESTINATION_PREFIX + WS_PLAYERS_CLASSES_GET_ALL, "")
         TimeUnit.MILLISECONDS.sleep(100)
     }
 
     private fun sendChatMessage() {
-        stompSession.send("/app/chat", getChatMessageRequest())
+        stompSession.send(WS_DESTINATION_PREFIX + WS_CHAT, getChatMessageRequest())
         waitTillMessageReceived()
     }
 
@@ -91,7 +109,7 @@ class LoggerWorldApplicationTests : LogAware {
         val stompHeader = StompHeaders()
         stompHeader.putAll(mutableMapOf(HttpHeaders.AUTHORIZATION to mutableListOf(token)))
 
-        stompClient.connect("ws://localhost:$port/chat", webSocketHttpHeaders, stompHeader, sessionHandler)
+        stompClient.connect("ws://localhost:$port$WS_CONNECTION_POINT", webSocketHttpHeaders, stompHeader, sessionHandler)
 
         waitTillConnectionEstablished()
     }
@@ -105,33 +123,42 @@ class LoggerWorldApplicationTests : LogAware {
     inner class MyStompSessionHandler : StompSessionHandler, LogAware {
 
         override fun getPayloadType(headers: StompHeaders): Type {
-            logger().info("Getting payload type for ${headers.destination}")
 
-            return when (headers.destination){
-                "/topic/messages" -> ChatMessageResponse::class.java
-                "/player/messages" -> PlayersResponse::class.java
+            val payloadType = when (headers.destination) {
+                WS_DS_TOPIC_MESSAGES -> ChatMessageResponse::class.java
+                WS_DS_PLAYER_MESSAGES -> PlayersResponse::class.java
                 else -> PlayerClassesResponse::class.java
             }
+
+            logger().info("Payload type for ${headers.destination} is: ${payloadType.simpleName}")
+
+            return payloadType
+
         }
 
         override fun handleFrame(headers: StompHeaders, payload: Any?) {
-            if (payload is ChatMessageResponse) {
-                assert(payload.from == getChatMessageRequest().from)
-                assert(payload.message == getChatMessageRequest().message)
-                wsMessageReceived = true
-            } else if (payload is PlayerClassesResponse) {
-                assert(payload.playerClasses.isNotEmpty())
-            } else if (payload is PlayersResponse) {
-                assert(payload.players.isEmpty())
+
+            when (payload) {
+                is ChatMessageResponse -> {
+                    assert(payload.from == getChatMessageRequest().from)
+                    assert(payload.message == getChatMessageRequest().message)
+                    wsMessageReceived = true
+                }
+                is PlayerClassesResponse -> {
+                    assert(payload.playerClasses.isNotEmpty())
+                }
+                is PlayersResponse -> {
+                    assert(payload.players.isNotEmpty())
+                }
             }
             logger().info("Got payload over web socket:\n$payload")
         }
 
         override fun afterConnected(session: StompSession, connectedHeaders: StompHeaders) {
             logger().info("WebSocket connected")
-            session.subscribe("/topic/messages", this)
-            session.subscribe("/player/classes/messages", this)
-            session.subscribe("/player/messages", this)
+            session.subscribe(WS_DS_TOPIC_MESSAGES, this)
+            session.subscribe(WS_DS_PLAYER_CLASSES_MESSAGES, this)
+            session.subscribe(WS_DS_PLAYER_MESSAGES, this)
 
             wsConnectionEstablished = true
             stompSession = session
@@ -157,12 +184,12 @@ class LoggerWorldApplicationTests : LogAware {
     }
 
     fun addNewUser() {
-        val responseEntity = restTemplate.postForEntity("http://localhost:$port/api/user/sign-up", getUserAddRequest(), Object::class.java)
+        val responseEntity = restTemplate.postForEntity("http://localhost:$port$SIGN_UP_URL", getUserAddRequest(), Object::class.java)
         assert(responseEntity.statusCode == HttpStatus.CREATED)
     }
 
 
-    fun getUserAddRequest(): UserAddRequest =
+    private fun getUserAddRequest(): UserAddRequest =
         UserAddRequest(
             "testUser",
             "pwd123",
@@ -170,7 +197,7 @@ class LoggerWorldApplicationTests : LogAware {
             "Test User",
             "testuser@mail.ru")
 
-    fun getUserLoginRequest(): UserLoginRequest =
+    private fun getUserLoginRequest(): UserLoginRequest =
         UserLoginRequest(
             "testUser",
             "pwd123"
@@ -178,4 +205,7 @@ class LoggerWorldApplicationTests : LogAware {
 
     private fun getChatMessageRequest(): ChatMessageRequest =
         ChatMessageRequest("Uncle Bob", "Hello!")
+
+    private fun getNewPlayerRequest(): PlayerAddRequest =
+        PlayerAddRequest("Superman", PlayerClasses.WARRIOR)
 }

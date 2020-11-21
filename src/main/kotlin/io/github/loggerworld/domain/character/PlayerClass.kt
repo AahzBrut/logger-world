@@ -1,7 +1,7 @@
 package io.github.loggerworld.domain.character
 
 import io.github.loggerworld.domain.BaseEntity
-import io.github.loggerworld.domain.enums.CharacterClasses
+import io.github.loggerworld.domain.enums.PlayerClasses
 import javax.persistence.AttributeOverride
 import javax.persistence.CascadeType
 import javax.persistence.Column
@@ -16,7 +16,7 @@ data class PlayerClass(
 
     @Enumerated(EnumType.STRING)
     @Column(name = "code")
-    var code: CharacterClasses = CharacterClasses.DUMMY
+    var code: PlayerClasses = PlayerClasses.DUMMY
 
 ) : BaseEntity<Byte>() {
 

@@ -1,10 +1,10 @@
 package io.github.loggerworld.domain.enums
 
-enum class CharacterClasses {
+enum class PlayerClasses {
     DUMMY, WARRIOR, ARCHER, WIZARD, ASSASSIN;
 
     companion object {
-        fun getById(id: Byte): CharacterClasses =
+        fun getById(id: Byte): PlayerClasses =
             values()[id.toInt()]
     }
 }

@@ -1,5 +1,6 @@
 package io.github.loggerworld.service
 
+import io.github.loggerworld.dto.request.PlayerAddRequest
 import io.github.loggerworld.dto.response.character.PlayerClassesResponse
 import io.github.loggerworld.dto.response.character.PlayersResponse
 import io.github.loggerworld.service.domain.PlayerDomainService
@@ -20,5 +21,11 @@ class PlayerService(
     fun getAllClasses(userName: String): PlayerClassesResponse {
         val user = userDomainService.getUserByName(userName)!!
         return PlayerClassesResponse(playerDomainService.getAllPlayerClasses(user.id, user.language))
+    }
+
+    fun addNewPlayer(userName: String, request: PlayerAddRequest) {
+        val user = userDomainService.getUserByName(userName)!!
+
+        playerDomainService.addNewPlayer(user.id, request)
     }
 }

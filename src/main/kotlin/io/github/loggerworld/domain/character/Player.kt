@@ -1,7 +1,7 @@
 package io.github.loggerworld.domain.character
 
 import io.github.loggerworld.domain.BaseEntity
-import io.github.loggerworld.domain.enums.CharacterClasses
+import io.github.loggerworld.domain.enums.PlayerClasses
 import io.github.loggerworld.domain.geography.Location
 import io.github.loggerworld.domain.user_account.UserAccount
 import org.hibernate.annotations.CreationTimestamp
@@ -25,7 +25,7 @@ data class Player(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "character_class_id")
-    var playerClass: PlayerClass = PlayerClass(CharacterClasses.DUMMY),
+    var playerClass: PlayerClass = PlayerClass(PlayerClasses.DUMMY),
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id")

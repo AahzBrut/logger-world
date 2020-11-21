@@ -1,7 +1,7 @@
 package io.github.loggerworld.domain.character
 
 import io.github.loggerworld.domain.BaseEntity
-import io.github.loggerworld.domain.enums.CharacterStatEnum
+import io.github.loggerworld.domain.enums.PlayerStatEnum
 import javax.persistence.AttributeOverride
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -19,7 +19,7 @@ data class PlayerStats(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "character_stat_id")
-    var playerStat: PlayerStat = PlayerStat(CharacterStatEnum.NOTHING),
+    var playerStat: PlayerStat = PlayerStat(PlayerStatEnum.NOTHING),
 
     @Column(name = "value")
     var value: Int = 0
