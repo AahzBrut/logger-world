@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.Pool
 import io.github.loggerworld.domain.enums.LocationTypes
 import ktx.ashley.mapperFor
 
-class LocationComponent : Component, Pool.Poolable{
+class LocationComponent : Component, Pool.Poolable {
 
     var locationId: Short = -1
     var xCoord: Byte = -1

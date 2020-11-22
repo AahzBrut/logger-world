@@ -4,9 +4,13 @@ import io.github.loggerworld.domain.enums.Languages
 import io.github.loggerworld.domain.enums.LocationTypes
 import io.github.loggerworld.domain.enums.PlayerClasses
 import io.github.loggerworld.domain.enums.PlayerStatEnum
+import io.github.loggerworld.dto.event.StartGameEvent
 import io.github.loggerworld.dto.request.PlayerAddRequest
+import io.github.loggerworld.dto.request.PlayerStartGameRequest
 import io.github.loggerworld.dto.response.character.PlayerClassesResponse
+import io.github.loggerworld.dto.response.character.PlayerResponse
 import io.github.loggerworld.dto.response.character.PlayersResponse
+import io.github.loggerworld.messagebus.IncomingEventBus
 import io.github.loggerworld.service.domain.PlayerDomainService
 import io.github.loggerworld.service.domain.UserDomainService
 import org.springframework.stereotype.Service
@@ -19,6 +23,7 @@ typealias PlayerStatDescriptionsMap = Map<PlayerStatEnum, Map<Languages, Pair<St
 class PlayerService(
     private val playerDomainService: PlayerDomainService,
     private val userDomainService: UserDomainService,
+    private val incomingEventBus: IncomingEventBus,
 ) {
 
     fun getAllPlayers(userName: String): PlayersResponse {
@@ -45,5 +50,17 @@ class PlayerService(
     fun getAllPlayerStatDescriptions() : PlayerStatDescriptionsMap {
 
         return playerDomainService.getAllPlayerStatDescriptions()
+    }
+
+    fun startGameForPlayer(name: String, request: PlayerStartGameRequest) {
+        val user = userDomainService.getUserByName(name)!!
+        val player : PlayerResponse = playerDomainService.getPlayer(user.id, request.playerId)
+
+        incomingEventBus.pushEvent(StartGameEvent(player.id, player.locationId))
+    }
+
+    fun getPlayerById(playerId: Long) : PlayerResponse {
+
+        return playerDomainService.getPlayer(playerId)
     }
 }

@@ -13,8 +13,10 @@ class PlayerResponseMapper : Mapper<PlayerResponse, Player> {
 
         return PlayerResponse(
             source.id!!,
+            source.userAccount.id!!,
             source.name,
-            PlayerClasses.getById(source.playerClass.id!!).name
+            PlayerClasses.getById(source.playerClass.id!!).name,
+            source.location.id!!
         )
     }
 }

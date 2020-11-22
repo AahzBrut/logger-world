@@ -82,4 +82,18 @@ class PlayerDomainService(
                 }
             }
     }
+
+    fun getPlayer(userId: Long, playerId: Long): PlayerResponse {
+
+        val player = playerRepository.findByUserAccountIdAndId(userId, playerId) ?: error("There is no player with id:$playerId which belong to user with id: $userId")
+
+        return playerResponseMapper.from(player)
+    }
+
+    fun getPlayer(playerId: Long): PlayerResponse {
+
+        val player = playerRepository.getOne(playerId)
+
+        return playerResponseMapper.from(player)
+    }
 }

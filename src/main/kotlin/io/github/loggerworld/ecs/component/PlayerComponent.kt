@@ -6,8 +6,10 @@ import ktx.ashley.mapperFor
 
 class PlayerComponent : Component, Pool.Poolable{
 
-    override fun reset() {
+    var playerId: Long = -1
 
+    override fun reset() {
+        playerId = -1
     }
 
     companion object {

@@ -5,8 +5,10 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import io.github.loggerworld.controller.SIGN_UP_URL
 import io.github.loggerworld.domain.enums.Languages
 import io.github.loggerworld.domain.enums.PlayerClasses
+import io.github.loggerworld.dto.event.LocationArriveEvent
 import io.github.loggerworld.dto.request.ChatMessageRequest
 import io.github.loggerworld.dto.request.PlayerAddRequest
+import io.github.loggerworld.dto.request.PlayerStartGameRequest
 import io.github.loggerworld.dto.request.UserAddRequest
 import io.github.loggerworld.dto.request.UserLoginRequest
 import io.github.loggerworld.dto.response.ChatMessageResponse
@@ -20,9 +22,11 @@ import io.github.loggerworld.util.WS_DESTINATION_PREFIX
 import io.github.loggerworld.util.WS_DS_PLAYER_CLASSES_MESSAGES
 import io.github.loggerworld.util.WS_DS_PLAYER_MESSAGES
 import io.github.loggerworld.util.WS_DS_TOPIC_MESSAGES
+import io.github.loggerworld.util.WS_GAMEPLAY_EVENTS_QUEUE
 import io.github.loggerworld.util.WS_PLAYERS_CLASSES_GET_ALL
 import io.github.loggerworld.util.WS_PLAYERS_GET_ALL
 import io.github.loggerworld.util.WS_PLAYERS_NEW
+import io.github.loggerworld.util.WS_PLAYERS_START
 import io.github.loggerworld.util.logger
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
@@ -68,6 +72,12 @@ class LoggerWorldApplicationTests : LogAware {
         getCharacterClasses()
         addNewPlayer()
         getUserPlayers()
+        startGameForPlayer()
+    }
+
+    private fun startGameForPlayer() {
+        stompSession.send(WS_DESTINATION_PREFIX + WS_PLAYERS_START, getStartGameRequest())
+        TimeUnit.MILLISECONDS.sleep(1000)
     }
 
     private fun addNewPlayer() {
@@ -127,6 +137,7 @@ class LoggerWorldApplicationTests : LogAware {
             val payloadType = when (headers.destination) {
                 WS_DS_TOPIC_MESSAGES -> ChatMessageResponse::class.java
                 WS_DS_PLAYER_MESSAGES -> PlayersResponse::class.java
+                "/user/queue" -> LocationArriveEvent::class.java
                 else -> PlayerClassesResponse::class.java
             }
 
@@ -159,6 +170,7 @@ class LoggerWorldApplicationTests : LogAware {
             session.subscribe(WS_DS_TOPIC_MESSAGES, this)
             session.subscribe(WS_DS_PLAYER_CLASSES_MESSAGES, this)
             session.subscribe(WS_DS_PLAYER_MESSAGES, this)
+            session.subscribe("/user$WS_GAMEPLAY_EVENTS_QUEUE", this)
 
             wsConnectionEstablished = true
             stompSession = session
@@ -208,4 +220,10 @@ class LoggerWorldApplicationTests : LogAware {
 
     private fun getNewPlayerRequest(): PlayerAddRequest =
         PlayerAddRequest("Superman", PlayerClasses.WARRIOR)
+
+    private fun getStartGameRequest(): PlayerStartGameRequest {
+        return PlayerStartGameRequest(
+            playerId = 1
+        )
+    }
 }

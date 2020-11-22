@@ -16,6 +16,6 @@ class CombatSystem: IteratingSystem(allOf(LocationComponent::class).get()), LogA
     override fun processEntity(entity: Entity, deltaTime: Float) {
         val locationComponent = entity[LocationComponent.mapper]!!
 
-        logger().info("${locationComponent.locationType}: ${locationComponent.locationId}-(${locationComponent.xCoord},${locationComponent.yCoord})")
+        //logger().info("${locationComponent.locationType}: ${locationComponent.locationId}-(${locationComponent.xCoord},${locationComponent.yCoord})")
     }
 }

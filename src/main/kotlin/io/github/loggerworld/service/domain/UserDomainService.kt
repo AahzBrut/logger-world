@@ -44,4 +44,9 @@ class UserDomainService(
 
         return userResponseMapper.from(user)
     }
+
+    fun getUserById(userId: Long): UserResponse {
+
+        return userResponseMapper.from(userAccountRepository.getOne(userId))
+    }
 }

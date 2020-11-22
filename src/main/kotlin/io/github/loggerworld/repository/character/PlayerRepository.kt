@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 interface PlayerRepository : JpaRepository<Player, Long> {
 
     fun findAllByUserAccountId(userId: Long) : List<Player>
+
+    fun findByUserAccountIdAndId(userId: Long, playerId: Long) : Player?
 }
