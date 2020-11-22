@@ -34,5 +34,10 @@
       "name": "componentPoolMaxSize",
       "type": "java.lang.String",
       "description": "Description for componentPoolMaxSize."
+    },
+    {
+      "name": "worldRefreshRate",
+      "type": "java.lang.String",
+      "description": "Description for worldRefreshRate."
     }
   ] }

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="location_description-data-01" author="AahzBrut">
+
+        <!-- EN -->
+
+        <insert tableName="location_description">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=-1 AND ycoord=-1 AND location_type_id IN(SELECT location_type_id FROM REPOSITORY.location_type WHERE code='VOID')"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="Void"/>
+            <column name="description" value="Location to safely park things currently not needed in the world."/>
+        </insert>
+        <insert tableName="location_description">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=-1 AND ycoord=-1 AND location_type_id IN(SELECT location_type_id FROM REPOSITORY.location_type WHERE code='IN_TRANSIT')"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="In transit"/>
+            <column name="description" value="The road between two locations."/>
+        </insert>
+        <insert tableName="location_description">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=0 AND ycoord=0"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="Villageville"/>
+            <column name="description" value="Small village in the woods."/>
+        </insert>
+        <insert tableName="location_description">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=1 AND ycoord=0"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="Dark woods"/>
+            <column name="description" value="Very dark woods"/>
+        </insert>
+        <insert tableName="location_description">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=2 AND ycoord=0"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="Creepy woods"/>
+            <column name="description" value="Very creepy woods"/>
+        </insert>
+        <insert tableName="location_description">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=0 AND ycoord=1"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="Silent woods"/>
+            <column name="description" value="Very silent woods"/>
+        </insert>
+        <insert tableName="location_description">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=1 AND ycoord=1"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="Logger City"/>
+            <column name="description" value="The capital of the Logger World"/>
+        </insert>
+        <insert tableName="location_description">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=2 AND ycoord=1"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="Old woods"/>
+            <column name="description" value="Very old looking woods"/>
+        </insert>
+        <insert tableName="location_description">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=0 AND ycoord=2"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="Bald woods"/>
+            <column name="description" value="Woods with trees standing far apart"/>
+        </insert>
+        <insert tableName="location_description">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=1 AND ycoord=2"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="Dead woods"/>
+            <column name="description" value="Dead trees, no vegetation, no animals"/>
+        </insert>
+        <insert tableName="location_description">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=2 AND ycoord=2"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="Bag end"/>
+            <column name="description" value="Hobbit village"/>
+        </insert>
+
+        <!-- RU -->
+
+        <insert tableName="location_description">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=-1 AND ycoord=-1 AND location_type_id IN(SELECT location_type_id FROM REPOSITORY.location_type WHERE code='VOID')"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Void"/>
+            <column name="description" value="Location to safely park things currently not needed in the world."/>
+        </insert>
+        <insert tableName="location_description">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=-1 AND ycoord=-1 AND location_type_id IN(SELECT location_type_id FROM REPOSITORY.location_type WHERE code='IN_TRANSIT')"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="In transit"/>
+            <column name="description" value="The road between two locations."/>
+        </insert>
+        <insert tableName="location_description">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=0 AND ycoord=0"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Villageville"/>
+            <column name="description" value="Small village in the woods."/>
+        </insert>
+        <insert tableName="location_description">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=1 AND ycoord=0"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Dark woods"/>
+            <column name="description" value="Very dark woods"/>
+        </insert>
+        <insert tableName="location_description">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=2 AND ycoord=0"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Creepy woods"/>
+            <column name="description" value="Very creepy woods"/>
+        </insert>
+        <insert tableName="location_description">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=0 AND ycoord=1"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Silent woods"/>
+            <column name="description" value="Very silent woods"/>
+        </insert>
+        <insert tableName="location_description">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=1 AND ycoord=1"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Logger City"/>
+            <column name="description" value="The capital of the Logger World"/>
+        </insert>
+        <insert tableName="location_description">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=2 AND ycoord=1"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Old woods"/>
+            <column name="description" value="Very old looking woods"/>
+        </insert>
+        <insert tableName="location_description">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=0 AND ycoord=2"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Bald woods"/>
+            <column name="description" value="Woods with trees standing far apart"/>
+        </insert>
+        <insert tableName="location_description">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=1 AND ycoord=2"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Dead woods"/>
+            <column name="description" value="Dead trees, no vegetation, no animals"/>
+        </insert>
+        <insert tableName="location_description">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=2 AND ycoord=2"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Bag end"/>
+            <column name="description" value="Hobbit village"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>

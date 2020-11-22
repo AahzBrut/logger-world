@@ -12,6 +12,5 @@ import org.springframework.stereotype.Component
 class MovementSystem : IteratingSystem(allOf(PlayerComponent::class).get()), LogAware {
 
     override fun processEntity(entity: Entity, deltaTime: Float) {
-        logger().info("In MovementSystem, deltaTime: $deltaTime")
     }
 }

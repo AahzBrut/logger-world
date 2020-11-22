@@ -8,5 +8,6 @@
     <include file="classpath:/db/changelog/data-init/geography/location_type.xml"/>
     <include file="classpath:/db/changelog/data-init/geography/location_type_description.xml"/>
     <include file="classpath:/db/changelog/data-init/geography/location.xml"/>
+    <include file="classpath:/db/changelog/data-init/geography/location_description.xml"/>
 
 </databaseChangeLog>

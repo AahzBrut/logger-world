@@ -14,7 +14,7 @@ class EngineRunner(
     private var firstRun = true
     private var timeCount = 0L
 
-    @Scheduled(fixedDelay = 20, initialDelay = 500)
+    @Scheduled(fixedDelayString = "\${worldRefreshRate}", initialDelay = 500)
     fun doWorldStep() {
         val currentTime = System.currentTimeMillis()
         firstTimeRunner(currentTime)

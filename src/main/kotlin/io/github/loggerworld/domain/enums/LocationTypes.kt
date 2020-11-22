@@ -5,5 +5,10 @@ enum class LocationTypes {
     IN_TRANSIT,
     CITY,
     VILLAGE,
-    WOODS
+    WOODS;
+
+    companion object {
+        fun getById(id: Byte): LocationTypes =
+            values()[id.toInt()]
+    }
 }

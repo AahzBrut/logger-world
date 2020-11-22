@@ -9,9 +9,15 @@ import io.github.loggerworld.dto.request.PlayerAddRequest
 import io.github.loggerworld.dto.response.character.PlayerClassResponse
 import io.github.loggerworld.dto.response.character.PlayerResponse
 import io.github.loggerworld.mapper.Mapper
+import io.github.loggerworld.mapper.character.PlayerClassDescriptionInnerMapper
 import io.github.loggerworld.mapper.character.PlayerClassResponseMapper
+import io.github.loggerworld.mapper.character.PlayerStatDescriptionInnerMapper
+import io.github.loggerworld.repository.character.PlayerClassDescriptionRepository
 import io.github.loggerworld.repository.character.PlayerClassRepository
 import io.github.loggerworld.repository.character.PlayerRepository
+import io.github.loggerworld.repository.character.PlayerStatDescriptionRepository
+import io.github.loggerworld.service.PlayerClassDescriptionsMap
+import io.github.loggerworld.service.PlayerStatDescriptionsMap
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
@@ -19,8 +25,12 @@ import javax.transaction.Transactional
 class PlayerDomainService(
     private val playerRepository: PlayerRepository,
     private val playerClassRepository: PlayerClassRepository,
+    private val playerClassDescriptionRepository: PlayerClassDescriptionRepository,
+    private val playerStatDescriptionRepository: PlayerStatDescriptionRepository,
     private val playerResponseMapper: Mapper<PlayerResponse, Player>,
-    private val playerClassResponseMapper: PlayerClassResponseMapper
+    private val playerClassResponseMapper: PlayerClassResponseMapper,
+    private val playerClassDescriptionInnerMapper: PlayerClassDescriptionInnerMapper,
+    private val playerStatDescriptionInnerMapper: PlayerStatDescriptionInnerMapper,
 ) {
 
     @Transactional
@@ -44,5 +54,32 @@ class PlayerDomainService(
             request.name)
 
         playerRepository.save(player)
+    }
+
+    @Transactional
+    fun getAllPlayerClassDescriptions(): PlayerClassDescriptionsMap {
+        val allDescriptions = playerClassDescriptionRepository.findAll()
+
+        return playerClassDescriptionInnerMapper
+            .from(allDescriptions)
+            .groupBy { it.playerClass }
+            .mapValues { entry ->
+                entry.value.associate {
+                    it.language to Pair(it.name, it.description)
+                }
+            }
+    }
+
+    fun getAllPlayerStatDescriptions(): PlayerStatDescriptionsMap {
+        val allStatDescriptions = playerStatDescriptionRepository.findAll()
+
+        return playerStatDescriptionInnerMapper
+            .from(allStatDescriptions)
+            .groupBy { it.playerStat }
+            .mapValues { entry ->
+                entry.value.associate {
+                    it.language to Pair(it.name, it.description)
+                }
+            }
     }
 }
