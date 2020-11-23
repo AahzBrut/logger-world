@@ -13,6 +13,7 @@ import io.github.loggerworld.util.WS_PLAYERS_NEW
 import io.github.loggerworld.util.WS_PLAYERS_START
 import org.springframework.messaging.handler.annotation.MessageMapping
 import org.springframework.messaging.handler.annotation.SendTo
+import org.springframework.messaging.simp.annotation.SendToUser
 import org.springframework.stereotype.Controller
 import java.security.Principal
 
@@ -22,7 +23,7 @@ class PlayerController(
 ) {
 
     @MessageMapping(WS_PLAYERS_GET_ALL)
-    @SendTo(WS_DS_PLAYER_MESSAGES)
+    @SendToUser(WS_DS_PLAYER_MESSAGES)
     fun getAllPlayers(principal: Principal) : PlayersResponse {
         return playerService.getAllPlayers(principal.name)
     }
@@ -33,7 +34,7 @@ class PlayerController(
     }
 
     @MessageMapping(WS_PLAYERS_CLASSES_GET_ALL)
-    @SendTo(WS_DS_PLAYER_CLASSES_MESSAGES)
+    @SendToUser(WS_DS_PLAYER_CLASSES_MESSAGES)
     fun getAllClasses(principal: Principal) : PlayerClassesResponse {
         return playerService.getAllClasses(principal.name)
     }

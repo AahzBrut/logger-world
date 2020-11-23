@@ -7,6 +7,8 @@ import io.github.loggerworld.dto.response.UserResponse
 import io.github.loggerworld.exception.UserAlreadyExistsException
 import io.github.loggerworld.mapper.Mapper
 import io.github.loggerworld.repository.user_account.UserAccountRepository
+import io.github.loggerworld.util.LogAware
+import io.github.loggerworld.util.logger
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
@@ -17,7 +19,7 @@ class UserDomainService(
     private val userMapper: Mapper<UserAccount, UserAddRequest>,
     private val userResponseMapper: Mapper<UserResponse, UserAccount>,
     private val passwordEncoder: PasswordEncoder
-) {
+) : LogAware {
 
     @Transactional
     fun addNewUser(request: UserAddRequest) {
