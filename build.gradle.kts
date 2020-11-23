@@ -53,6 +53,7 @@ dependencies {
 
     implementation("com.badlogicgames.ashley:ashley:$ashleyVersion")
     implementation("io.github.libktx:ktx-ashley:$libKtxVersion")
+    implementation("io.github.libktx:ktx-collections:$libKtxVersion")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     runtimeOnly("com.h2database:h2")
