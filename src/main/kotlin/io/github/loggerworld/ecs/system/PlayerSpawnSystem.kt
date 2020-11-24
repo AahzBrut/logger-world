@@ -1,7 +1,8 @@
 package io.github.loggerworld.ecs.system
 
 import com.badlogic.ashley.core.EntitySystem
-import io.github.loggerworld.dto.event.StartGameEvent
+import io.github.loggerworld.dto.event.PlayerStartEvent
+import io.github.loggerworld.ecs.component.LocationComponent
 import io.github.loggerworld.ecs.component.LocationMapComponent
 import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.PositionComponent
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Service
 @Service
 class PlayerSpawnSystem(
     private val incomingEventBus: IncomingEventBus,
-) : EntitySystem(2), LogAware {
+) : EntitySystem(3), LogAware {
 
     private val locationMap by lazy { engine.getEntitiesFor(allOf(LocationMapComponent::class).get())[0][LocationMapComponent.mapper]!!.locationMap }
 
@@ -27,19 +28,31 @@ class PlayerSpawnSystem(
             val event = incomingEventBus.popEvent()
 
             spawnPlayer(event)
+            addPlayerToTargetLocation(event)
             locationMap[event.locationId].updated = true
 
-            logger().info("Player with id: ${event.playerId} is spawned to location ${event.locationId}")
+            logger().debug("Player with id: ${event.playerId} is spawned to location ${event.locationId}")
+            incomingEventBus.destroyEvent(event)
         }
     }
 
-    private fun spawnPlayer(event: StartGameEvent) {
+    private fun addPlayerToTargetLocation(event: PlayerStartEvent) {
+        val locationEntity = locationMap[event.locationId].entity
+        val locationComponent = locationEntity[LocationComponent.mapper]!!
+        locationComponent.players.add(event.playerId)
+    }
+
+    private fun spawnPlayer(event: PlayerStartEvent) {
         engine.entity {
             with<PositionComponent> {
                 locationId = event.locationId
             }
             with<PlayerComponent> {
                 playerId = event.playerId
+                userId = event.userId
+                playerName = event.name
+                classId = event.classId
+                level = event.level
             }
         }
     }

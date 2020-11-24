@@ -15,7 +15,7 @@ class PlayerResponseMapper : Mapper<PlayerResponse, Player> {
             source.id!!,
             source.userAccount.id!!,
             source.name,
-            PlayerClasses.getById(source.playerClass.id!!).name,
+            source.playerClass.id!!,
             source.location.id!!
         )
     }

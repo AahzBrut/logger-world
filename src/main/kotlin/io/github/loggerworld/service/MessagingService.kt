@@ -16,19 +16,24 @@ class MessagingService(
     private val simpleMessagingTemplate: SimpMessagingTemplate,
 ) : LogAware {
 
-    @Scheduled(fixedDelay = 5, initialDelay = 500)
+    @Scheduled(fixedDelay = 5, initialDelay = 100)
     fun sendMessages() {
 
         while (!outGoingEventBus.isQueueEmpty()) {
 
             val event = outGoingEventBus.popEvent()
 
-            logger().info("Event of player is arrived to location is ready to send: $event")
-            val player = playerService.getPlayerById(event.playerId)
+            logger().debug("Event of player is arrived to location is ready to send: $event")
 
-            val user = userService.getUserById(player.userId)
+            event.players.forEach {
+                val player = playerService.getPlayerById(it.id)
 
-            simpleMessagingTemplate.convertAndSendToUser(user.loginName, WS_GAMEPLAY_EVENTS_QUEUE, event)
+                val user = userService.getUserById(player.userId)
+
+                simpleMessagingTemplate.convertAndSendToUser(user.loginName, WS_GAMEPLAY_EVENTS_QUEUE, event)
+            }
+
+            outGoingEventBus.destroyEvent(event)
         }
     }
 }

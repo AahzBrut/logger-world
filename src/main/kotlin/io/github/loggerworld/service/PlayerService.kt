@@ -1,10 +1,8 @@
 package io.github.loggerworld.service
 
 import io.github.loggerworld.domain.enums.Languages
-import io.github.loggerworld.domain.enums.LocationTypes
 import io.github.loggerworld.domain.enums.PlayerClasses
 import io.github.loggerworld.domain.enums.PlayerStatEnum
-import io.github.loggerworld.dto.event.StartGameEvent
 import io.github.loggerworld.dto.request.PlayerAddRequest
 import io.github.loggerworld.dto.request.PlayerStartGameRequest
 import io.github.loggerworld.dto.response.character.PlayerClassesResponse
@@ -56,7 +54,7 @@ class PlayerService(
         val user = userDomainService.getUserByName(name)!!
         val player : PlayerResponse = playerDomainService.getPlayer(user.id, request.playerId)
 
-        incomingEventBus.pushEvent(StartGameEvent(player.id, player.locationId))
+        incomingEventBus.pushEvent(incomingEventBus.createEvent(user.id, player.id, player.locationId, player.name, player.classId, 1))
     }
 
     fun getPlayerById(playerId: Long) : PlayerResponse {

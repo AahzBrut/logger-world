@@ -1,19 +1,23 @@
 package io.github.loggerworld.messagebus
 
-import io.github.loggerworld.dto.event.LocationArriveEvent
-import io.github.loggerworld.dto.event.StartGameEvent
+import com.badlogic.gdx.utils.Pools
+import io.github.loggerworld.dto.event.LocationChangedEvent
+import io.github.loggerworld.dto.event.PlayerStartEvent
+import io.github.loggerworld.dto.response.character.ShortPlayerResponse
 import org.springframework.stereotype.Component
 import java.util.concurrent.ConcurrentLinkedDeque
 
 @Component
 class OutGoingEventBus {
-    private val startGameQueue = ConcurrentLinkedDeque<LocationArriveEvent>()
 
-    fun pushEvent(event: LocationArriveEvent) {
+    private val startGameQueue = ConcurrentLinkedDeque<LocationChangedEvent>()
+    private val eventPool = Pools.get(LocationChangedEvent::class.java)
+
+    fun pushEvent(event: LocationChangedEvent) {
         startGameQueue.push(event)
     }
 
-    fun popEvent(): LocationArriveEvent {
+    fun popEvent(): LocationChangedEvent {
 
         return startGameQueue.pop()
     }
@@ -26,4 +30,16 @@ class OutGoingEventBus {
 
         return startGameQueue.size
     }
+
+    fun createEvent(locationId: Short, players: List<ShortPlayerResponse>): LocationChangedEvent {
+        val event = eventPool.obtain()
+        event.locationId = locationId
+        event.players.addAll(players)
+        return event
+    }
+
+    fun destroyEvent(event: LocationChangedEvent) {
+        eventPool.free(event)
+    }
+
 }

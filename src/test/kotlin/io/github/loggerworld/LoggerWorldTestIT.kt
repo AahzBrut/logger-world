@@ -5,7 +5,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import io.github.loggerworld.controller.SIGN_UP_URL
 import io.github.loggerworld.domain.enums.Languages
 import io.github.loggerworld.domain.enums.PlayerClasses
-import io.github.loggerworld.dto.event.LocationArriveEvent
+import io.github.loggerworld.dto.event.LocationChangedEvent
 import io.github.loggerworld.dto.request.ChatMessageRequest
 import io.github.loggerworld.dto.request.PlayerAddRequest
 import io.github.loggerworld.dto.request.PlayerStartGameRequest
@@ -28,8 +28,6 @@ import io.github.loggerworld.util.WS_PLAYERS_GET_ALL
 import io.github.loggerworld.util.WS_PLAYERS_NEW
 import io.github.loggerworld.util.WS_PLAYERS_START
 import io.github.loggerworld.util.logger
-import org.aspectj.lang.annotation.Before
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
@@ -261,11 +259,11 @@ class LoggerWorldTestIT : LogAware {
             val payloadType = when (headers.destination) {
                 WS_DS_TOPIC_MESSAGES -> ChatMessageResponse::class.java
                 "/user$WS_DS_PLAYER_MESSAGES" -> PlayersResponse::class.java
-                "/user/queue" -> LocationArriveEvent::class.java
+                "/user/queue" -> LocationChangedEvent::class.java
                 else -> PlayerClassesResponse::class.java
             }
 
-            logger().info("User: received message, payload type for ${headers.destination} is: ${payloadType.simpleName}")
+            logger().debug("User received message, payload type for ${headers.destination} is: ${payloadType.simpleName}")
 
             return payloadType
 
