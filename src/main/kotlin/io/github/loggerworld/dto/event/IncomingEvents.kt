@@ -22,3 +22,15 @@ data class PlayerStartEvent(
         level=-1
     }
 }
+
+
+data class PlayerMoveEvent(
+    var playerId: Long = -1,
+    var locationId: Short = -1,
+) : IncomingEvent() {
+
+    override fun reset() {
+        playerId = -1
+        locationId = -1
+    }
+}

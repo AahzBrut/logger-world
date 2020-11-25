@@ -6,7 +6,7 @@ import io.github.loggerworld.ecs.component.LocationComponent
 import io.github.loggerworld.ecs.component.LocationMapComponent
 import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.PositionComponent
-import io.github.loggerworld.messagebus.IncomingEventBus
+import io.github.loggerworld.messagebus.StartEventBus
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.logger
 import ktx.ashley.allOf
@@ -17,22 +17,22 @@ import org.springframework.stereotype.Service
 
 @Service
 class PlayerSpawnSystem(
-    private val incomingEventBus: IncomingEventBus,
-) : EntitySystem(3), LogAware {
+    private val startEventBus: StartEventBus,
+) : EntitySystem(4), LogAware {
 
     private val locationMap by lazy { engine.getEntitiesFor(allOf(LocationMapComponent::class).get())[0][LocationMapComponent.mapper]!!.locationMap }
 
     override fun update(deltaTime: Float) {
-        while (!incomingEventBus.isQueueEmpty()) {
+        while (!startEventBus.isQueueEmpty()) {
 
-            val event = incomingEventBus.popEvent()
+            val event = startEventBus.popEvent()
 
             spawnPlayer(event)
             addPlayerToTargetLocation(event)
             locationMap[event.locationId].updated = true
 
             logger().debug("Player with id: ${event.playerId} is spawned to location ${event.locationId}")
-            incomingEventBus.destroyEvent(event)
+            startEventBus.destroyEvent(event)
         }
     }
 

@@ -4,7 +4,7 @@ import com.badlogic.ashley.core.Component
 import com.badlogic.gdx.utils.Pool
 import ktx.ashley.mapperFor
 
-class PositionComponent : Component, Pool.Poolable {
+class PlayerMoveComponent : Component, Pool.Poolable {
 
     var locationId: Short = -1
 
@@ -13,6 +13,6 @@ class PositionComponent : Component, Pool.Poolable {
     }
 
     companion object{
-        val mapper = mapperFor<PositionComponent>()
+        val mapper = mapperFor<PlayerMoveComponent>()
     }
 }

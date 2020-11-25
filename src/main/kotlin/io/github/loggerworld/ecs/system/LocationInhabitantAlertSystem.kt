@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component
 @Component
 class LocationInhabitantAlertSystem(
     private val outBus: OutGoingEventBus
-) : EntitySystem(4), LogAware {
+) : EntitySystem(6), LogAware {
 
     private val locationMap by lazy { engine.getEntitiesFor(allOf(LocationMapComponent::class).get())[0][LocationMapComponent.mapper]!!.locationMap }
     private val playerMap by lazy { engine.getEntitiesFor(allOf(PlayerMapComponent::class).get())[0][PlayerMapComponent.mapper]!!.playerMap }

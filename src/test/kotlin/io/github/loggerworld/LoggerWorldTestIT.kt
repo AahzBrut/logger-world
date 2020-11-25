@@ -8,6 +8,7 @@ import io.github.loggerworld.domain.enums.PlayerClasses
 import io.github.loggerworld.dto.event.LocationChangedEvent
 import io.github.loggerworld.dto.request.ChatMessageRequest
 import io.github.loggerworld.dto.request.PlayerAddRequest
+import io.github.loggerworld.dto.request.PlayerMoveRequest
 import io.github.loggerworld.dto.request.PlayerStartGameRequest
 import io.github.loggerworld.dto.request.UserAddRequest
 import io.github.loggerworld.dto.request.UserLoginRequest
@@ -25,6 +26,7 @@ import io.github.loggerworld.util.WS_DS_TOPIC_MESSAGES
 import io.github.loggerworld.util.WS_GAMEPLAY_EVENTS_QUEUE
 import io.github.loggerworld.util.WS_PLAYERS_CLASSES_GET_ALL
 import io.github.loggerworld.util.WS_PLAYERS_GET_ALL
+import io.github.loggerworld.util.WS_PLAYERS_MOVE
 import io.github.loggerworld.util.WS_PLAYERS_NEW
 import io.github.loggerworld.util.WS_PLAYERS_START
 import io.github.loggerworld.util.logger
@@ -246,6 +248,21 @@ class LoggerWorldTestIT : LogAware {
         stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_START, PlayerStartGameRequest(playerId = 2))
         TimeUnit.MILLISECONDS.sleep(300)
     }
+
+    @Test
+    @Order(17)
+    fun firstUserMove() {
+        stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_MOVE, PlayerMoveRequest(5))
+        TimeUnit.MILLISECONDS.sleep(300)
+    }
+
+    @Test
+    @Order(18)
+    fun secondUserMove() {
+        stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_MOVE, PlayerMoveRequest(7))
+        TimeUnit.MILLISECONDS.sleep(300)
+    }
+
     private fun getJwtToken(userLoginRequest: UserLoginRequest): String? {
         val responseEntity = restTemplate.postForEntity(LOGIN_URL, userLoginRequest, Object::class.java)
         return responseEntity.headers[HttpHeaders.AUTHORIZATION]?.get(0)

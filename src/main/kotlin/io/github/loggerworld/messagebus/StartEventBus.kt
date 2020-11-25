@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 import java.util.concurrent.ConcurrentLinkedDeque
 
 @Component
-class IncomingEventBus {
+class StartEventBus {
 
     private val startGameQueue = ConcurrentLinkedDeque<PlayerStartEvent>()
     private val eventPool = Pools.get(PlayerStartEvent::class.java)
@@ -22,11 +22,6 @@ class IncomingEventBus {
 
     fun isQueueEmpty(): Boolean {
         return startGameQueue.isEmpty()
-    }
-
-    fun getQueueSize(): Int {
-
-        return startGameQueue.size
     }
 
     fun createEvent(userId: Long, playerId: Long, locationId: Short, name: String, classId: Byte, level: Byte): PlayerStartEvent {
