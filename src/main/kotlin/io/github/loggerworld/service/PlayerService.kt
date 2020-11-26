@@ -9,8 +9,9 @@ import io.github.loggerworld.dto.request.PlayerStartGameRequest
 import io.github.loggerworld.dto.response.character.PlayerClassesResponse
 import io.github.loggerworld.dto.response.character.PlayerResponse
 import io.github.loggerworld.dto.response.character.PlayersResponse
-import io.github.loggerworld.messagebus.MoveEventBus
-import io.github.loggerworld.messagebus.StartEventBus
+import io.github.loggerworld.messagebus.CommandEventBus
+import io.github.loggerworld.messagebus.event.PlayerMoveCommand
+import io.github.loggerworld.messagebus.event.PlayerStartCommand
 import io.github.loggerworld.service.domain.PlayerDomainService
 import io.github.loggerworld.service.domain.UserDomainService
 import org.springframework.stereotype.Service
@@ -23,8 +24,8 @@ typealias PlayerStatDescriptionsMap = Map<PlayerStatEnum, Map<Languages, Pair<St
 class PlayerService(
     private val playerDomainService: PlayerDomainService,
     private val userDomainService: UserDomainService,
-    private val startEventBus: StartEventBus,
-    private val moveEventBus: MoveEventBus,
+    private val startEventBus: CommandEventBus<PlayerStartCommand>,
+    private val moveEventBus: CommandEventBus<PlayerMoveCommand>,
 ) {
     private val activePlayers: MutableMap<Long, Long> = mutableMapOf()
 
@@ -49,23 +50,30 @@ class PlayerService(
         return playerDomainService.getAllPlayerClassDescriptions()
     }
 
-    fun getAllPlayerStatDescriptions() : PlayerStatDescriptionsMap {
+    fun getAllPlayerStatDescriptions(): PlayerStatDescriptionsMap {
 
         return playerDomainService.getAllPlayerStatDescriptions()
     }
 
     fun startGameForPlayer(name: String, request: PlayerStartGameRequest) {
         val user = userDomainService.getUserByName(name)!!
-        val player : PlayerResponse = playerDomainService.getPlayer(user.id, request.playerId)
+        val player: PlayerResponse = playerDomainService.getPlayer(user.id, request.playerId)
 
         if (activePlayers.containsKey(user.id)) error("User already have active player in game.")
 
         activePlayers[user.id] = player.id
 
-        startEventBus.pushEvent(startEventBus.createEvent(user.id, player.id, player.locationId, player.name, player.classId, 1))
+        startEventBus.pushEvent(startEventBus.newEvent().also {
+            it.userId = user.id
+            it.playerId = player.id
+            it.locationId = player.locationId
+            it.name = player.name
+            it.classId = player.classId
+            it.level = 1
+        })
     }
 
-    fun getPlayerById(playerId: Long) : PlayerResponse {
+    fun getPlayerById(playerId: Long): PlayerResponse {
 
         return playerDomainService.getPlayer(playerId)
     }
@@ -75,7 +83,10 @@ class PlayerService(
 
         if (!activePlayers.containsKey(user.id)) error("User have no active player.")
 
-        val moveEvent = moveEventBus.createEvent(user.id, activePlayers[user.id]!!, request.locationId)
+        val moveEvent = moveEventBus.newEvent().also {
+            it.locationId = request.locationId
+            it.playerId = activePlayers[user.id]!!
+        }
 
         moveEventBus.pushEvent(moveEvent)
     }

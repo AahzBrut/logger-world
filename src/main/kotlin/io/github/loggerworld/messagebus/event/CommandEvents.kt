@@ -1,17 +1,17 @@
-package io.github.loggerworld.dto.event
+package io.github.loggerworld.messagebus.event
 
 import com.badlogic.gdx.utils.Pool
 
-sealed class IncomingEvent : Pool.Poolable
+sealed class CommandEvent : Pool.Poolable
 
-data class PlayerStartEvent(
+data class PlayerStartCommand(
     var userId: Long = -1,
     var playerId: Long = -1,
     var locationId: Short = -1,
     var name: String = "",
     var classId: Byte = -1,
     var level: Byte = -1
-) : IncomingEvent() {
+) : CommandEvent() {
 
     override fun reset() {
         userId = -1
@@ -23,11 +23,10 @@ data class PlayerStartEvent(
     }
 }
 
-
-data class PlayerMoveEvent(
+data class PlayerMoveCommand(
     var playerId: Long = -1,
     var locationId: Short = -1,
-) : IncomingEvent() {
+) : CommandEvent() {
 
     override fun reset() {
         playerId = -1

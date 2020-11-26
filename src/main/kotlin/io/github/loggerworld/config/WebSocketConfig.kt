@@ -62,7 +62,7 @@ class WebSocketConfig(
     override fun configureClientInboundChannel(registration: ChannelRegistration) {
         registration.interceptors(object : ChannelInterceptor {
 
-            override fun preSend(message: Message<*>, channel: MessageChannel): Message<*>? {
+            override fun preSend(message: Message<*>, channel: MessageChannel): Message<*> {
                 val accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor::class.java)!!
                 if (StompCommand.CONNECT != accessor.command) return message
 
@@ -72,7 +72,7 @@ class WebSocketConfig(
                 val userName = jwtService.extractUsername(authToken)
                 val authUser = UsernamePasswordAuthenticationToken(userName, null, emptyList())
                 accessor.user = authUser
-                logger().info("STOMP user: ${authUser.name}")
+                logger().info("STOMP пользователь: ${authUser.name}")
                 return message
             }
         })

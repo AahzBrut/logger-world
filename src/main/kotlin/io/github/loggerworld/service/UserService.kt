@@ -1,5 +1,6 @@
 package io.github.loggerworld.service
 
+import io.github.loggerworld.domain.enums.Languages
 import io.github.loggerworld.dto.request.UserAddRequest
 import io.github.loggerworld.dto.request.UserLoginRequest
 import io.github.loggerworld.dto.response.UserResponse
@@ -25,4 +26,7 @@ class UserService(
 
         return userDomainService.getUserById(userId)
     }
+
+    fun getUserLanguage(userName: String) =
+        userDomainService.getUserByName(userName)?.language ?: Languages.EN
 }

@@ -5,9 +5,14 @@ import io.github.loggerworld.dto.request.PlayerAddRequest
 import io.github.loggerworld.dto.request.PlayerMoveRequest
 import io.github.loggerworld.dto.response.character.PlayerClassesResponse
 import io.github.loggerworld.dto.response.character.PlayersResponse
+import io.github.loggerworld.dto.response.geography.LocationTypesResponse
+import io.github.loggerworld.ecs.WorldCache
 import io.github.loggerworld.service.PlayerService
+import io.github.loggerworld.service.UserService
+import io.github.loggerworld.util.WS_DS_MAP_LOCATION_TYPES
 import io.github.loggerworld.util.WS_DS_PLAYER_CLASSES_MESSAGES
 import io.github.loggerworld.util.WS_DS_PLAYER_MESSAGES
+import io.github.loggerworld.util.WS_MAP_LOCATION_TYPES
 import io.github.loggerworld.util.WS_PLAYERS_CLASSES_GET_ALL
 import io.github.loggerworld.util.WS_PLAYERS_GET_ALL
 import io.github.loggerworld.util.WS_PLAYERS_MOVE
@@ -21,7 +26,7 @@ import java.security.Principal
 
 @Controller
 class PlayerController(
-    private val playerService: PlayerService
+    private val playerService: PlayerService,
 ) {
 
     @MessageMapping(WS_PLAYERS_GET_ALL)

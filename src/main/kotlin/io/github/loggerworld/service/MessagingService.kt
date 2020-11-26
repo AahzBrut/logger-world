@@ -1,6 +1,7 @@
 package io.github.loggerworld.service
 
-import io.github.loggerworld.messagebus.OutGoingEventBus
+import io.github.loggerworld.messagebus.NotificationEventBus
+import io.github.loggerworld.messagebus.event.LocationChangedEvent
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.WS_GAMEPLAY_EVENTS_QUEUE
 import io.github.loggerworld.util.logger
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class MessagingService(
-    private val outGoingEventBus: OutGoingEventBus,
+    private val outGoingEventBus: NotificationEventBus<LocationChangedEvent>,
     private val playerService: PlayerService,
     private val userService: UserService,
     private val simpleMessagingTemplate: SimpMessagingTemplate,

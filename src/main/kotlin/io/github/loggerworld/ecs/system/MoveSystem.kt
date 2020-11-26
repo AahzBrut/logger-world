@@ -2,6 +2,7 @@ package io.github.loggerworld.ecs.system
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.systems.IteratingSystem
+import io.github.loggerworld.ecs.EngineSystems.MOVE_SYSTEM
 import io.github.loggerworld.ecs.component.LocationComponent
 import io.github.loggerworld.ecs.component.LocationMapComponent
 import io.github.loggerworld.ecs.component.PlayerComponent
@@ -13,7 +14,7 @@ import ktx.ashley.get
 import org.springframework.stereotype.Service
 
 @Service
-class MoveSystem : IteratingSystem(allOf(PlayerMoveComponent::class).get(),5), LogAware {
+class MoveSystem : IteratingSystem(allOf(PlayerMoveComponent::class).get(), MOVE_SYSTEM.ordinal), LogAware {
 
     private val locationMap by lazy { engine.getEntitiesFor(allOf(LocationMapComponent::class).get())[0][LocationMapComponent.mapper]!!.locationMap }
 

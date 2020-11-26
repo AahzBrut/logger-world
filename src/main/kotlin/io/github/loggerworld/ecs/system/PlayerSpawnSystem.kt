@@ -1,12 +1,13 @@
 package io.github.loggerworld.ecs.system
 
 import com.badlogic.ashley.core.EntitySystem
-import io.github.loggerworld.dto.event.PlayerStartEvent
+import io.github.loggerworld.ecs.EngineSystems.PLAYER_SPAWN_SYSTEM
 import io.github.loggerworld.ecs.component.LocationComponent
 import io.github.loggerworld.ecs.component.LocationMapComponent
 import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.PositionComponent
-import io.github.loggerworld.messagebus.StartEventBus
+import io.github.loggerworld.messagebus.CommandEventBus
+import io.github.loggerworld.messagebus.event.PlayerStartCommand
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.logger
 import ktx.ashley.allOf
@@ -17,8 +18,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class PlayerSpawnSystem(
-    private val startEventBus: StartEventBus,
-) : EntitySystem(4), LogAware {
+    private val startEventBus: CommandEventBus<PlayerStartCommand>,
+) : EntitySystem(PLAYER_SPAWN_SYSTEM.ordinal), LogAware {
 
     private val locationMap by lazy { engine.getEntitiesFor(allOf(LocationMapComponent::class).get())[0][LocationMapComponent.mapper]!!.locationMap }
 
@@ -36,23 +37,23 @@ class PlayerSpawnSystem(
         }
     }
 
-    private fun addPlayerToTargetLocation(event: PlayerStartEvent) {
-        val locationEntity = locationMap[event.locationId].entity
+    private fun addPlayerToTargetLocation(command: PlayerStartCommand) {
+        val locationEntity = locationMap[command.locationId].entity
         val locationComponent = locationEntity[LocationComponent.mapper]!!
-        locationComponent.players.add(event.playerId)
+        locationComponent.players.add(command.playerId)
     }
 
-    private fun spawnPlayer(event: PlayerStartEvent) {
+    private fun spawnPlayer(command: PlayerStartCommand) {
         engine.entity {
             with<PositionComponent> {
-                locationId = event.locationId
+                locationId = command.locationId
             }
             with<PlayerComponent> {
-                playerId = event.playerId
-                userId = event.userId
-                playerName = event.name
-                classId = event.classId
-                level = event.level
+                playerId = command.playerId
+                userId = command.userId
+                playerName = command.name
+                classId = command.classId
+                level = command.level
             }
         }
     }

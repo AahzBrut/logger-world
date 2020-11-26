@@ -4,7 +4,7 @@ import com.badlogic.ashley.core.Engine
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.EntityListener
 import com.badlogic.ashley.systems.IteratingSystem
-import io.github.loggerworld.ecs.component.LocationComponent
+import io.github.loggerworld.ecs.EngineSystems.PLAYER_MAP_SYSTEM
 import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.PlayerMapComponent
 import io.github.loggerworld.util.LogAware
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component
 
 
 @Component
-class PlayerMapSystem : IteratingSystem(allOf(PlayerComponent::class).get(),2), EntityListener, LogAware {
+class PlayerMapSystem : IteratingSystem(allOf(PlayerComponent::class).get(), PLAYER_MAP_SYSTEM.ordinal), EntityListener, LogAware {
 
     private lateinit var playerMapEntity: Entity
 

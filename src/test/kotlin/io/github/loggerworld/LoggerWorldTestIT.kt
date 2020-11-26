@@ -5,7 +5,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import io.github.loggerworld.controller.SIGN_UP_URL
 import io.github.loggerworld.domain.enums.Languages
 import io.github.loggerworld.domain.enums.PlayerClasses
-import io.github.loggerworld.dto.event.LocationChangedEvent
+import io.github.loggerworld.messagebus.event.LocationChangedEvent
 import io.github.loggerworld.dto.request.ChatMessageRequest
 import io.github.loggerworld.dto.request.PlayerAddRequest
 import io.github.loggerworld.dto.request.PlayerMoveRequest
@@ -15,15 +15,22 @@ import io.github.loggerworld.dto.request.UserLoginRequest
 import io.github.loggerworld.dto.response.ChatMessageResponse
 import io.github.loggerworld.dto.response.character.PlayerClassesResponse
 import io.github.loggerworld.dto.response.character.PlayersResponse
+import io.github.loggerworld.dto.response.geography.LocationTypesResponse
+import io.github.loggerworld.dto.response.geography.LocationsResponse
 import io.github.loggerworld.util.LogAware
+import io.github.loggerworld.util.PERSONAL
 import io.github.loggerworld.util.TOKEN_PREFIX
 import io.github.loggerworld.util.WS_CHAT
 import io.github.loggerworld.util.WS_CONNECTION_POINT
 import io.github.loggerworld.util.WS_DESTINATION_PREFIX
+import io.github.loggerworld.util.WS_DS_GAMEPLAY_EVENTS_QUEUE
+import io.github.loggerworld.util.WS_DS_MAP
+import io.github.loggerworld.util.WS_DS_MAP_LOCATION_TYPES
 import io.github.loggerworld.util.WS_DS_PLAYER_CLASSES_MESSAGES
 import io.github.loggerworld.util.WS_DS_PLAYER_MESSAGES
 import io.github.loggerworld.util.WS_DS_TOPIC_MESSAGES
-import io.github.loggerworld.util.WS_GAMEPLAY_EVENTS_QUEUE
+import io.github.loggerworld.util.WS_MAP
+import io.github.loggerworld.util.WS_MAP_LOCATION_TYPES
 import io.github.loggerworld.util.WS_PLAYERS_CLASSES_GET_ALL
 import io.github.loggerworld.util.WS_PLAYERS_GET_ALL
 import io.github.loggerworld.util.WS_PLAYERS_MOVE
@@ -39,17 +46,21 @@ import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.messaging.converter.MappingJackson2MessageConverter
+import org.springframework.messaging.converter.StringMessageConverter
 import org.springframework.messaging.simp.stomp.StompCommand
 import org.springframework.messaging.simp.stomp.StompHeaders
 import org.springframework.messaging.simp.stomp.StompSession
 import org.springframework.messaging.simp.stomp.StompSessionHandler
 import org.springframework.test.context.TestPropertySource
+import org.springframework.util.MimeType
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.socket.WebSocketHttpHeaders
 import org.springframework.web.socket.client.WebSocketClient
 import org.springframework.web.socket.client.standard.StandardWebSocketClient
 import org.springframework.web.socket.messaging.WebSocketStompClient
 import java.lang.reflect.Type
+import java.nio.charset.Charset
+import java.nio.charset.StandardCharsets
 import java.util.concurrent.TimeUnit
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -61,8 +72,8 @@ class LoggerWorldTestIT : LogAware {
     @LocalServerPort
     private var port = -1
     private final val restTemplate = RestTemplate()
-    private val SIGNUP_URL by lazy { "http://localhost:$port$SIGN_UP_URL" }
-    private val LOGIN_URL by lazy { "http://localhost:$port/api/user/login" }
+    private final val signupUrl by lazy { "http://localhost:$port$SIGN_UP_URL" }
+    private final val loginUrl by lazy { "http://localhost:$port/api/user/login" }
 
     companion object {
         private var client1: WebSocketClient = StandardWebSocketClient()
@@ -84,8 +95,8 @@ class LoggerWorldTestIT : LogAware {
     val secondUserAddRequest = UserAddRequest(
         "testUser2",
         "pwd123",
-        Languages.EN,
-        "Test User 2",
+        Languages.RU,
+        "Вася",
         "testuser2@mail.ru")
 
     val firstUserLoginRequest = UserLoginRequest(
@@ -102,21 +113,21 @@ class LoggerWorldTestIT : LogAware {
     @Test
     @Order(1)
     fun createFirstUser() {
-        val responseEntity = restTemplate.postForEntity(SIGNUP_URL, firstUserAddRequest, Object::class.java)
+        val responseEntity = restTemplate.postForEntity(signupUrl, firstUserAddRequest, Object::class.java)
         assert(responseEntity.statusCode == HttpStatus.CREATED)
     }
 
     @Test
     @Order(2)
     fun createSecondUser() {
-        val responseEntity = restTemplate.postForEntity(SIGNUP_URL, secondUserAddRequest, Object::class.java)
+        val responseEntity = restTemplate.postForEntity(signupUrl, secondUserAddRequest, Object::class.java)
         assert(responseEntity.statusCode == HttpStatus.CREATED)
     }
 
     @Test
     @Order(3)
     fun loginFirstUser() {
-        val responseEntity = restTemplate.postForEntity(LOGIN_URL, firstUserLoginRequest, Object::class.java)
+        val responseEntity = restTemplate.postForEntity(loginUrl, firstUserLoginRequest, Object::class.java)
         assert(responseEntity.statusCode == HttpStatus.OK)
         assert(responseEntity.headers[HttpHeaders.AUTHORIZATION]?.any {
             it.startsWith(TOKEN_PREFIX)
@@ -126,7 +137,7 @@ class LoggerWorldTestIT : LogAware {
     @Test
     @Order(4)
     fun loginSecondUser() {
-        val responseEntity = restTemplate.postForEntity(LOGIN_URL, secondUserLoginRequest, Object::class.java)
+        val responseEntity = restTemplate.postForEntity(loginUrl, secondUserLoginRequest, Object::class.java)
         assert(responseEntity.statusCode == HttpStatus.OK)
         assert(responseEntity.headers[HttpHeaders.AUTHORIZATION]?.any {
             it.startsWith(TOKEN_PREFIX)
@@ -182,14 +193,14 @@ class LoggerWorldTestIT : LogAware {
     @Test
     @Order(7)
     fun firstUserSendChatMessage() {
-        stompSession1.send(WS_DESTINATION_PREFIX + WS_CHAT, ChatMessageRequest("Uncle Bob", "Hello!"))
+        stompSession1.send(WS_DESTINATION_PREFIX + WS_CHAT, ChatMessageRequest("Uncle Bob", "Привет!"))
         TimeUnit.MILLISECONDS.sleep(300)
     }
 
     @Test
     @Order(8)
     fun secondUserSendChatMessage() {
-        stompSession2.send(WS_DESTINATION_PREFIX + WS_CHAT, ChatMessageRequest("Uncle Sam", "Hello!"))
+        stompSession2.send(WS_DESTINATION_PREFIX + WS_CHAT, ChatMessageRequest("Uncle Sam", "Привет!"))
         TimeUnit.MILLISECONDS.sleep(300)
     }
 
@@ -263,8 +274,36 @@ class LoggerWorldTestIT : LogAware {
         TimeUnit.MILLISECONDS.sleep(300)
     }
 
+    @Test
+    @Order(19)
+    fun firstUserGetLocationTypesDictionary() {
+        stompSession1.send(WS_DESTINATION_PREFIX + WS_MAP_LOCATION_TYPES, "")
+        TimeUnit.MILLISECONDS.sleep(300)
+    }
+
+    @Test
+    @Order(20)
+    fun secondUserGetLocationTypesDictionary() {
+        stompSession2.send(WS_DESTINATION_PREFIX + WS_MAP_LOCATION_TYPES, "")
+        TimeUnit.MILLISECONDS.sleep(300)
+    }
+
+    @Test
+    @Order(21)
+    fun firstUserGetLocationsDictionary() {
+        stompSession1.send(WS_DESTINATION_PREFIX + WS_MAP, "")
+        TimeUnit.MILLISECONDS.sleep(300)
+    }
+
+    @Test
+    @Order(22)
+    fun secondUserGetLocationsDictionary() {
+        stompSession2.send(WS_DESTINATION_PREFIX + WS_MAP, "")
+        TimeUnit.MILLISECONDS.sleep(300)
+    }
+
     private fun getJwtToken(userLoginRequest: UserLoginRequest): String? {
-        val responseEntity = restTemplate.postForEntity(LOGIN_URL, userLoginRequest, Object::class.java)
+        val responseEntity = restTemplate.postForEntity(loginUrl, userLoginRequest, Object::class.java)
         return responseEntity.headers[HttpHeaders.AUTHORIZATION]?.get(0)
     }
 
@@ -275,8 +314,10 @@ class LoggerWorldTestIT : LogAware {
 
             val payloadType = when (headers.destination) {
                 WS_DS_TOPIC_MESSAGES -> ChatMessageResponse::class.java
-                "/user$WS_DS_PLAYER_MESSAGES" -> PlayersResponse::class.java
-                "/user/queue" -> LocationChangedEvent::class.java
+                PERSONAL + WS_DS_PLAYER_MESSAGES -> PlayersResponse::class.java
+                PERSONAL + WS_DS_GAMEPLAY_EVENTS_QUEUE -> LocationChangedEvent::class.java
+                PERSONAL + WS_DS_MAP_LOCATION_TYPES -> LocationTypesResponse::class.java
+                PERSONAL + WS_DS_MAP -> LocationsResponse::class.java
                 else -> PlayerClassesResponse::class.java
             }
 
@@ -303,10 +344,14 @@ class LoggerWorldTestIT : LogAware {
 
         override fun afterConnected(session: StompSession, connectedHeaders: StompHeaders) {
             logger().info("WebSocket connected")
+
             session.subscribe(WS_DS_TOPIC_MESSAGES, this)
-            session.subscribe("/user$WS_DS_PLAYER_CLASSES_MESSAGES", this)
-            session.subscribe("/user$WS_DS_PLAYER_MESSAGES", this)
-            session.subscribe("/user$WS_GAMEPLAY_EVENTS_QUEUE", this)
+            session.subscribe(PERSONAL + WS_DS_PLAYER_CLASSES_MESSAGES, this)
+            session.subscribe(PERSONAL + WS_DS_PLAYER_MESSAGES, this)
+            session.subscribe(PERSONAL + WS_DS_GAMEPLAY_EVENTS_QUEUE, this)
+            session.subscribe(PERSONAL + WS_DS_MAP_LOCATION_TYPES, this)
+            session.subscribe(PERSONAL + WS_DS_MAP, this)
+
             when (connectedHeaders["user-name"][0]) {
                 firstUserLoginRequest.userName -> stompSession1 = session
                 secondUserLoginRequest.userName -> stompSession2 = session

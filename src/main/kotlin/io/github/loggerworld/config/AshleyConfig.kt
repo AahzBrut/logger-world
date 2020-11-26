@@ -6,6 +6,8 @@ import com.badlogic.ashley.core.PooledEngine
 import io.github.loggerworld.domain.enums.LocationTypes
 import io.github.loggerworld.ecs.WorldCache
 import io.github.loggerworld.ecs.component.LocationComponent
+import io.github.loggerworld.util.LogAware
+import io.github.loggerworld.util.logger
 import ktx.ashley.entity
 import ktx.ashley.with
 import org.springframework.beans.factory.annotation.Value
@@ -16,7 +18,7 @@ import org.springframework.context.annotation.Configuration
 class AshleyConfig(
     private val entitySystems: List<EntitySystem>,
     private val worldCache: WorldCache
-) {
+) : LogAware {
 
     @Value("\${entityPoolInitialSize}")
     private var entityPoolInitialSize: Int = 0
@@ -45,7 +47,7 @@ class AshleyConfig(
         }
 
         loadWorld(engine)
-
+        logger().info("Карта мира загружена.")
         return engine
     }
 

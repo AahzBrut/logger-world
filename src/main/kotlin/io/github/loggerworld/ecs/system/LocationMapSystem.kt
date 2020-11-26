@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.EntityListener
 import com.badlogic.ashley.systems.IteratingSystem
 import io.github.loggerworld.dto.LocationInhabitantsChanged
+import io.github.loggerworld.ecs.EngineSystems.LOCATION_MAP_SYSTEM
 import io.github.loggerworld.ecs.component.LocationComponent
 import io.github.loggerworld.ecs.component.LocationMapComponent
 import io.github.loggerworld.util.LogAware
@@ -18,7 +19,7 @@ import org.springframework.stereotype.Component
 
 
 @Component
-class LocationMapSystem : IteratingSystem(allOf(LocationComponent::class).get(),1), EntityListener, LogAware {
+class LocationMapSystem : IteratingSystem(allOf(LocationComponent::class).get(), LOCATION_MAP_SYSTEM.ordinal), EntityListener, LogAware {
 
     private lateinit var locationMapEntity: Entity
 
