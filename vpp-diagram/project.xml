@@ -1965,7 +1965,7 @@
 		</DBTable>
 		<ModelRelationshipContainer BacklogActivityId="0" Documentation_plain="" Id="_OMoY66GAqAAbAYP" Name="relationships" PmAuthor="party" PmCreateDateTime="2020-11-14T12:27:31.903" PmLastModified="2020-11-14T12:27:31.911" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true">
 			<ModelChildren>
-				<ModelRelationshipContainer BacklogActivityId="0" Documentation_plain="" Id="_OMoY66GAqAAbAYQ" Name="DBForeignKey" PmAuthor="party" PmCreateDateTime="2020-11-14T12:27:31.903" PmLastModified="2020-11-18T18:52:21.484" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true">
+				<ModelRelationshipContainer BacklogActivityId="0" Documentation_plain="" Id="_OMoY66GAqAAbAYQ" Name="DBForeignKey" PmAuthor="party" PmCreateDateTime="2020-11-14T12:27:31.903" PmLastModified="2020-11-27T16:45:37.668" QualityReason_IsNull="true" QualityScore="-1" UserIDLastNumericValue="0" UserID_IsNull="true">
 					<ModelChildren>
 						<DBForeignKey BacklogActivityId="0" DataModel="Physical" Documentation_plain="" ForeignKeyRelationshipPattern="{association_name}" From="I_tIY66GAqAAbAXI" FromMultiplicity="1" FromPhrase_IsNull="true" Id="5wSoY66GAqAAbAYk" Identifying="false" Name="" OnDelete_IsNull="true" OnUpdate_IsNull="true" PmAuthor="party" PmCreateDateTime="2020-11-14T12:27:54.855" PmLastModified="2020-11-14T13:21:28.419" QualityReason_IsNull="true" QualityScore="-1" Subtype="false" SyncToAssociation="Yes" SyncType="Not Sync" To="WKFwY66GAqAAbAWc" ToMultiplicity="0..*" ToPhrase_IsNull="true" UserIDLastNumericValue="0" UserID_IsNull="true">
 							<MasterView>
@@ -2017,9 +2017,9 @@
 								<DBForeignKey Idref="qj8D266AUfAUlQqx" Name=""/>
 							</MasterView>
 						</DBForeignKey>
-						<DBForeignKey BacklogActivityId="0" DataModel="Physical" Documentation_plain="" ForeignKeyRelationshipPattern="{association_name}" From="cxp9266AUfAUlQpV" FromMultiplicity="1" FromPhrase_IsNull="true" Id=".YGD266AUfAUlQrH" Identifying="false" Name="" OnDelete_IsNull="true" OnUpdate_IsNull="true" PmAuthor="party" PmCreateDateTime="2020-11-18T17:28:13.343" PmLastModified="2020-11-18T17:28:37.822" QualityReason_IsNull="true" QualityScore="-1" Subtype="false" SyncToAssociation="Yes" SyncType="Not Sync" To="vqf9266AUfAUlQqk" ToMultiplicity="0..*" ToPhrase_IsNull="true" UserIDLastNumericValue="0" UserID_IsNull="true">
+						<DBForeignKey BacklogActivityId="0" DataModel="Physical" Documentation_plain="" ForeignKeyRelationshipPattern="{association_name}" From="cxp9266AUfAUlQpV" FromMultiplicity="1" FromPhrase_IsNull="true" Id=".YGD266AUfAUlQrH" Identifying="false" Name="" OnDelete_IsNull="true" OnUpdate_IsNull="true" PmAuthor="party" PmCreateDateTime="2020-11-18T17:28:13.343" PmLastModified="2020-11-27T16:40:47.135" QualityReason_IsNull="true" QualityScore="-1" Subtype="false" SyncToAssociation="Yes" SyncType="Not Sync" To="vqf9266AUfAUlQqk" ToMultiplicity="0..*" ToPhrase_IsNull="true" UserIDLastNumericValue="0" UserID_IsNull="true">
 							<MasterView>
-								<DBForeignKey Idref="LYGD266AUfAUlQrI" Name=""/>
+								<DBForeignKey Idref="0yj3kG6AUfAQjgms" Name=""/>
 							</MasterView>
 						</DBForeignKey>
 						<DBForeignKey BacklogActivityId="0" DataModel="Physical" Documentation_plain="" ForeignKeyRelationshipPattern="{association_name}" From="cxp9266AUfAUlQpV" FromMultiplicity="1" FromPhrase_IsNull="true" Id="jH.D266AUfAUlQrd" Identifying="false" Name="" OnDelete_IsNull="true" OnUpdate_IsNull="true" PmAuthor="party" PmCreateDateTime="2020-11-18T17:28:45.233" PmLastModified="2020-11-18T17:29:08.940" QualityReason_IsNull="true" QualityScore="-1" Subtype="false" SyncToAssociation="Yes" SyncType="Not Sync" To="mq_d266AUfAUlQml" ToMultiplicity="0..*" ToPhrase_IsNull="true" UserIDLastNumericValue="0" UserID_IsNull="true">
@@ -2032,7 +2032,7 @@
 								<DBForeignKey Idref="cWlj266AUfAUlQsm" Name=""/>
 							</MasterView>
 						</DBForeignKey>
-						<DBForeignKey BacklogActivityId="0" DataModel="Physical" Documentation_plain="" ForeignKeyRelationshipPattern="{association_name}" From="qdYj266AUfAUlQr2" FromMultiplicity="1" FromPhrase_IsNull="true" Id="E_Nj266AUfAUlQsx" Identifying="false" Name="" OnDelete_IsNull="true" OnUpdate_IsNull="true" PmAuthor="party" PmCreateDateTime="2020-11-18T17:34:01.032" PmLastModified="2020-11-18T17:34:19.389" QualityReason_IsNull="true" QualityScore="-1" Subtype="false" SyncToAssociation="Yes" SyncType="Not Sync" To="jUGj266AUfAUlQsK" ToMultiplicity="0..*" ToPhrase_IsNull="true" UserIDLastNumericValue="0" UserID_IsNull="true">
+						<DBForeignKey BacklogActivityId="0" DataModel="Physical" Documentation_plain="" ForeignKeyRelationshipPattern="{association_name}" From="qdYj266AUfAUlQr2" FromMultiplicity="1" FromPhrase_IsNull="true" Id="E_Nj266AUfAUlQsx" Identifying="false" Name="" OnDelete_IsNull="true" OnUpdate_IsNull="true" PmAuthor="party" PmCreateDateTime="2020-11-18T17:34:01.032" PmLastModified="2020-11-27T16:44:13.002" QualityReason_IsNull="true" QualityScore="-1" Subtype="false" SyncToAssociation="Yes" SyncType="Not Sync" To="jUGj266AUfAUlQsK" ToMultiplicity="0..*" ToPhrase_IsNull="true" UserIDLastNumericValue="0" UserID_IsNull="true">
 							<MasterView>
 								<DBForeignKey Idref="e_Nj266AUfAUlQsy" Name=""/>
 							</MasterView>
@@ -2075,6 +2075,16 @@
 						<DBForeignKey BacklogActivityId="0" DataModel="Physical" Documentation_plain="" ForeignKeyRelationshipPattern="{association_name}" From="meq7266AUfAUlQub" FromMultiplicity="1" FromPhrase_IsNull="true" Id="ZDRwO66AUfAUlQyY" Identifying="false" Name="" OnDelete_IsNull="true" OnUpdate_IsNull="true" PmAuthor="party" PmCreateDateTime="2020-11-18T18:51:57.734" PmLastModified="2020-11-18T18:52:21.478" QualityReason_IsNull="true" QualityScore="-1" Subtype="false" SyncToAssociation="Yes" SyncType="Not Sync" To="mq_d266AUfAUlQml" ToMultiplicity="0..*" ToPhrase_IsNull="true" UserIDLastNumericValue="0" UserID_IsNull="true">
 							<MasterView>
 								<DBForeignKey Idref="UjRwO66AUfAUlQyZ" Name=""/>
+							</MasterView>
+						</DBForeignKey>
+						<DBForeignKey BacklogActivityId="0" DataModel="Physical" Documentation_plain="" ForeignKeyRelationshipPattern="{association_name}" From="cxp9266AUfAUlQpV" FromMultiplicity="1" FromPhrase_IsNull="true" Id="sjzPkG6AUfAQjgot" Identifying="false" Name="" OnDelete_IsNull="true" OnUpdate_IsNull="true" PmAuthor="party" PmCreateDateTime="2020-11-27T16:45:04.333" PmLastModified="2020-11-27T16:45:37.676" QualityReason_IsNull="true" QualityScore="-1" Subtype="false" SyncToAssociation="Yes" SyncType="Not Sync" To="jBRPkG6AUfAQjgoV" ToMultiplicity="0..*" ToPhrase_IsNull="true" UserIDLastNumericValue="0" UserID_IsNull="true">
+							<MasterView>
+								<DBForeignKey Idref="RjzPkG6AUfAQjgou" Name=""/>
+							</MasterView>
+						</DBForeignKey>
+						<DBForeignKey BacklogActivityId="0" DataModel="Physical" Documentation_plain="" ForeignKeyRelationshipPattern="{association_name}" From="qdYj266AUfAUlQr2" FromMultiplicity="1" FromPhrase_IsNull="true" Id="Or7PkG6AUfAQjgo9" Identifying="false" Name="" OnDelete_IsNull="true" OnUpdate_IsNull="true" PmAuthor="party" PmCreateDateTime="2020-11-27T16:45:20.988" PmLastModified="2020-11-27T16:45:37.675" QualityReason_IsNull="true" QualityScore="-1" Subtype="false" SyncToAssociation="Yes" SyncType="Not Sync" To="jBRPkG6AUfAQjgoV" ToMultiplicity="0..*" ToPhrase_IsNull="true" UserIDLastNumericValue="0" UserID_IsNull="true">
+							<MasterView>
+								<DBForeignKey Idref="br7PkG6AUfAQjgo." Name=""/>
 							</MasterView>
 						</DBForeignKey>
 					</ModelChildren>
@@ -2219,7 +2229,7 @@
 				<DBTable Idref="mq_d266AUfAUlQmk" Name="character"/>
 			</MasterView>
 		</DBTable>
-		<DBTable BacklogActivityId="0" DDLClauses_IsNull="true" DataModel="Physical" Documentation_plain="" Id="cxp9266AUfAUlQpV" Name="character_class" OrmSyncState="Not Sync" PmAuthor="party" PmCreateDateTime="2020-11-18T17:24:46.286" PmLastModified="2020-11-18T17:29:08.950" PrimaryKeyClustered="Unspecified" PrimaryKeyConstraintName="character_class_pk" PrimaryKeyConstraintNamePattern="" PrimaryKeyDDLClauses_IsNull="true" QualityReason_IsNull="true" QualityScore="-1" SyncType="Not Sync" Type="0" Unlogged="false" UserIDLastNumericValue="0" UserID_IsNull="true">
+		<DBTable BacklogActivityId="0" DDLClauses_IsNull="true" DataModel="Physical" Documentation_plain="" Id="cxp9266AUfAUlQpV" Name="character_class" OrmSyncState="Not Sync" PmAuthor="party" PmCreateDateTime="2020-11-18T17:24:46.286" PmLastModified="2020-11-27T16:45:37.677" PrimaryKeyClustered="Unspecified" PrimaryKeyConstraintName="character_class_pk" PrimaryKeyConstraintNamePattern="" PrimaryKeyDDLClauses_IsNull="true" QualityReason_IsNull="true" QualityScore="-1" SyncType="Not Sync" Type="0" Unlogged="false" UserIDLastNumericValue="0" UserID_IsNull="true">
 			<ModelChildren>
 				<DBColumn BacklogActivityId="0" CheckConstraint_IsNull="true" Collation_IsNull="true" DDLClauses_IsNull="true" DbColumnName_IsNull="true" DefaultValue_IsNull="true" Documentation_plain="" ForeignKeyNamePattern_IsNull="true" Generated="Unspecified" Id="MYl9266AUfAUlQpa" IdGenerator="assigned" IdentityIncrement="-1" IdentitySeed="-1" Index="false" Length="3" Name="character_class_id" Nullable="false" PmAuthor="party" PmCreateDateTime="2020-11-18T17:25:00.812" PmLastModified="2020-11-18T17:25:32.287" PrimaryKey="true" QualityReason_IsNull="true" QualityScore="-1" Scale="0" SequenceAllocationSize="-1" SyncToAttribute="Yes" SyncType="Not Sync" Type="tinyint" TypeName_IsNull="true" Type_internalValue="7" Unique="true" UserIDLastNumericValue="0" UserID_IsNull="true"/>
 				<DBColumn BacklogActivityId="0" CheckConstraint_IsNull="true" Collation_IsNull="true" DDLClauses_IsNull="true" DbColumnName_IsNull="true" DefaultValue_IsNull="true" Documentation_plain="" ForeignKeyNamePattern_IsNull="true" Generated="Unspecified" Id="Y179266AUfAUlQqb" IdGenerator_IsNull="true" IdentityIncrement="-1" IdentitySeed="-1" Index="false" Length="50" Name="code" Nullable="false" PmAuthor="party" PmCreateDateTime="2020-11-18T17:26:00.518" PmLastModified="2020-11-18T17:26:46.265" PrimaryKey="false" QualityReason_IsNull="true" QualityScore="-1" Scale="0" SequenceAllocationSize="-1" SyncToAttribute="Yes" SyncType="Not Sync" Type="varchar" TypeName_IsNull="true" Type_internalValue="27" Unique="false" UserIDLastNumericValue="0" UserID_IsNull="true"/>
@@ -2227,12 +2237,13 @@
 			<FromSimpleRelationships>
 				<DBForeignKey Idref=".YGD266AUfAUlQrH" Name=""/>
 				<DBForeignKey Idref="jH.D266AUfAUlQrd" Name=""/>
+				<DBForeignKey Idref="sjzPkG6AUfAQjgot" Name=""/>
 			</FromSimpleRelationships>
 			<MasterView>
 				<DBTable Idref="cxp9266AUfAUlQpU" Name="character_class"/>
 			</MasterView>
 		</DBTable>
-		<DBTable BacklogActivityId="0" DDLClauses_IsNull="true" DataModel="Physical" Documentation_plain="" Id="vqf9266AUfAUlQqk" Name="character_class_description" OrmSyncState="Not Sync" PmAuthor="party" PmCreateDateTime="2020-11-18T17:26:27.837" PmLastModified="2020-11-18T17:34:50.417" PrimaryKeyClustered="Unspecified" PrimaryKeyConstraintName="character_class_description_pk" PrimaryKeyConstraintNamePattern="" PrimaryKeyDDLClauses_IsNull="true" QualityReason_IsNull="true" QualityScore="-1" SyncType="Not Sync" Type="0" Unlogged="false" UserIDLastNumericValue="0" UserID_IsNull="true">
+		<DBTable BacklogActivityId="0" DDLClauses_IsNull="true" DataModel="Physical" Documentation_plain="" Id="vqf9266AUfAUlQqk" Name="character_class_description" OrmSyncState="Not Sync" PmAuthor="party" PmCreateDateTime="2020-11-18T17:26:27.837" PmLastModified="2020-11-27T16:40:47.135" PrimaryKeyClustered="Unspecified" PrimaryKeyConstraintName="character_class_description_pk" PrimaryKeyConstraintNamePattern="" PrimaryKeyDDLClauses_IsNull="true" QualityReason_IsNull="true" QualityScore="-1" SyncType="Not Sync" Type="0" Unlogged="false" UserIDLastNumericValue="0" UserID_IsNull="true">
 			<ModelChildren>
 				<DBColumn BacklogActivityId="0" CheckConstraint_IsNull="true" Collation_IsNull="true" DDLClauses_IsNull="true" DbColumnName_IsNull="true" DefaultValue_IsNull="true" Documentation_plain="" ForeignKeyNamePattern_IsNull="true" Generated="Unspecified" Id="RdQD266AUfAUlQqp" IdGenerator_IsNull="true" IdentityIncrement="-1" IdentitySeed="-1" Index="false" Length="5" Name="character_class_description_id" Nullable="false" PmAuthor="party" PmCreateDateTime="2020-11-18T17:26:45.794" PmLastModified="2020-11-18T17:28:08.810" PrimaryKey="true" QualityReason_IsNull="true" QualityScore="-1" Scale="0" SequenceAllocationSize="-1" SyncToAttribute="Yes" SyncType="Not Sync" Type="smallint" TypeName_IsNull="true" Type_internalValue="8" Unique="true" UserIDLastNumericValue="0" UserID_IsNull="true"/>
 				<DBColumn BacklogActivityId="0" CheckConstraint_IsNull="true" Collation_IsNull="true" DDLClauses_IsNull="true" DbColumnName_IsNull="true" DefaultValue_IsNull="true" Documentation_plain="" ForeignKeyNamePattern_IsNull="true" Generated="Unspecified" Id="kImD266AUfAUlQrL" IdGenerator_IsNull="true" IdentityIncrement="-1" IdentitySeed="-1" Index="false" Length="3" Name="character_class_id" Nullable="false" PmAuthor="party" PmCreateDateTime="2020-11-18T17:28:17.289" PmLastModified="2020-11-18T17:28:37.828" PrimaryKey="false" QualityReason_IsNull="true" QualityScore="-1" Scale="0" SequenceAllocationSize="-1" SyncToAttribute="Yes" SyncType="Not Sync" Type="tinyint" TypeName_IsNull="true" Type_internalValue="7" Unique="false" UserIDLastNumericValue="0" UserID_IsNull="true">
@@ -2256,7 +2267,7 @@
 				<DBTable Idref="Pqf9266AUfAUlQqj" Name="character_class_description"/>
 			</MasterView>
 		</DBTable>
-		<DBTable BacklogActivityId="0" DDLClauses_IsNull="true" DataModel="Physical" Documentation_plain="" Id="qdYj266AUfAUlQr2" Name="character_stat" OrmSyncState="Not Sync" PmAuthor="party" PmCreateDateTime="2020-11-18T17:31:24.309" PmLastModified="2020-11-18T17:36:52.431" PrimaryKeyClustered="Unspecified" PrimaryKeyConstraintName="character_stat_pk" PrimaryKeyConstraintNamePattern="" PrimaryKeyDDLClauses_IsNull="true" QualityReason_IsNull="true" QualityScore="-1" SyncType="Not Sync" Type="0" Unlogged="false" UserIDLastNumericValue="0" UserID_IsNull="true">
+		<DBTable BacklogActivityId="0" DDLClauses_IsNull="true" DataModel="Physical" Documentation_plain="" Id="qdYj266AUfAUlQr2" Name="character_stat" OrmSyncState="Not Sync" PmAuthor="party" PmCreateDateTime="2020-11-18T17:31:24.309" PmLastModified="2020-11-27T16:45:37.678" PrimaryKeyClustered="Unspecified" PrimaryKeyConstraintName="character_stat_pk" PrimaryKeyConstraintNamePattern="" PrimaryKeyDDLClauses_IsNull="true" QualityReason_IsNull="true" QualityScore="-1" SyncType="Not Sync" Type="0" Unlogged="false" UserIDLastNumericValue="0" UserID_IsNull="true">
 			<ModelChildren>
 				<DBColumn BacklogActivityId="0" CheckConstraint_IsNull="true" Collation_IsNull="true" DDLClauses_IsNull="true" DbColumnName_IsNull="true" DefaultValue_IsNull="true" Documentation_plain="" ForeignKeyNamePattern_IsNull="true" Generated="Unspecified" Id="OSUj266AUfAUlQr7" IdGenerator="native" IdentityIncrement="-1" IdentitySeed="-1" Index="false" Length="3" Name="character_stat_id" Nullable="false" PmAuthor="party" PmCreateDateTime="2020-11-18T17:31:38.908" PmLastModified="2020-11-18T17:32:25.370" PrimaryKey="true" QualityReason_IsNull="true" QualityScore="-1" Scale="0" SequenceAllocationSize="-1" SyncToAttribute="Yes" SyncType="Not Sync" Type="tinyint" TypeName_IsNull="true" Type_internalValue="7" Unique="true" UserIDLastNumericValue="0" UserID_IsNull="true"/>
 				<DBColumn BacklogActivityId="0" CheckConstraint_IsNull="true" Collation_IsNull="true" DDLClauses_IsNull="true" DbColumnName_IsNull="true" DefaultValue_IsNull="true" Documentation_plain="" ForeignKeyNamePattern_IsNull="true" Generated="Unspecified" Id="fe8j266AUfAUlQr9" IdGenerator_IsNull="true" IdentityIncrement="-1" IdentitySeed="-1" Index="false" Length="50" Name="code" Nullable="false" PmAuthor="party" PmCreateDateTime="2020-11-18T17:32:00.190" PmLastModified="2020-11-18T17:32:25.370" PrimaryKey="false" QualityReason_IsNull="true" QualityScore="-1" Scale="0" SequenceAllocationSize="-1" SyncToAttribute="Yes" SyncType="Not Sync" Type="varchar" TypeName_IsNull="true" Type_internalValue="27" Unique="false" UserIDLastNumericValue="0" UserID_IsNull="true"/>
@@ -2264,12 +2275,13 @@
 			<FromSimpleRelationships>
 				<DBForeignKey Idref="E_Nj266AUfAUlQsx" Name=""/>
 				<DBForeignKey Idref="orST266AUfAUlQty" Name=""/>
+				<DBForeignKey Idref="Or7PkG6AUfAQjgo9" Name=""/>
 			</FromSimpleRelationships>
 			<MasterView>
 				<DBTable Idref="qdYj266AUfAUlQr1" Name="character_stat"/>
 			</MasterView>
 		</DBTable>
-		<DBTable BacklogActivityId="0" DDLClauses_IsNull="true" DataModel="Physical" Documentation_plain="" Id="jUGj266AUfAUlQsK" Name="character_stat_description" OrmSyncState="Not Sync" PmAuthor="party" PmCreateDateTime="2020-11-18T17:32:35.761" PmLastModified="2020-11-18T17:35:05.591" PrimaryKeyClustered="Unspecified" PrimaryKeyConstraintName="character_stat_description_pk" PrimaryKeyConstraintNamePattern="" PrimaryKeyDDLClauses_IsNull="true" QualityReason_IsNull="true" QualityScore="-1" SyncType="Not Sync" Type="0" Unlogged="false" UserIDLastNumericValue="0" UserID_IsNull="true">
+		<DBTable BacklogActivityId="0" DDLClauses_IsNull="true" DataModel="Physical" Documentation_plain="" Id="jUGj266AUfAUlQsK" Name="character_stat_description" OrmSyncState="Not Sync" PmAuthor="party" PmCreateDateTime="2020-11-18T17:32:35.761" PmLastModified="2020-11-27T16:44:13.002" PrimaryKeyClustered="Unspecified" PrimaryKeyConstraintName="character_stat_description_pk" PrimaryKeyConstraintNamePattern="" PrimaryKeyDDLClauses_IsNull="true" QualityReason_IsNull="true" QualityScore="-1" SyncType="Not Sync" Type="0" Unlogged="false" UserIDLastNumericValue="0" UserID_IsNull="true">
 			<ModelChildren>
 				<DBColumn BacklogActivityId="0" CheckConstraint_IsNull="true" Collation_IsNull="true" DDLClauses_IsNull="true" DbColumnName_IsNull="true" DefaultValue_IsNull="true" Documentation_plain="" ForeignKeyNamePattern_IsNull="true" Generated="Unspecified" Id="t2ej266AUfAUlQsV" IdGenerator="assigned" IdentityIncrement="-1" IdentitySeed="-1" Index="false" Length="5" Name="character_stat_description_id" Nullable="false" PmAuthor="party" PmCreateDateTime="2020-11-18T17:33:01.421" PmLastModified="2020-11-18T17:33:30.628" PrimaryKey="true" QualityReason_IsNull="true" QualityScore="-1" Scale="0" SequenceAllocationSize="-1" SyncToAttribute="Yes" SyncType="Not Sync" Type="smallint" TypeName_IsNull="true" Type_internalValue="8" Unique="true" UserIDLastNumericValue="0" UserID_IsNull="true"/>
 				<DBColumn BacklogActivityId="0" CheckConstraint_IsNull="true" Collation_IsNull="true" DDLClauses_IsNull="true" DbColumnName_IsNull="true" DefaultValue_IsNull="true" Documentation_plain="" ForeignKeyNamePattern_IsNull="true" Generated="Unspecified" Id="y05j266AUfAUlQsf" IdGenerator_IsNull="true" IdentityIncrement="-1" IdentitySeed="-1" Index="false" Length="3" Name="language_id" Nullable="false" PmAuthor="party" PmCreateDateTime="2020-11-18T17:33:37.240" PmLastModified="2020-11-18T17:33:59.437" PrimaryKey="false" QualityReason_IsNull="true" QualityScore="-1" Scale="0" SequenceAllocationSize="-1" SyncToAttribute="Yes" SyncType="Not Sync" Type="tinyint" TypeName_IsNull="true" Type_internalValue="7" Unique="false" UserIDLastNumericValue="0" UserID_IsNull="true">
@@ -2397,6 +2409,29 @@
 			</ToSimpleRelationships>
 			<MasterView>
 				<DBTable Idref="ZQSH266AUfAUlQw4" Name="location_type_description"/>
+			</MasterView>
+		</DBTable>
+		<DBTable BacklogActivityId="0" DDLClauses_IsNull="true" DataModel="Physical" Documentation_plain="" Id="jBRPkG6AUfAQjgoV" Name="class_initial_stats" OrmSyncState="Not Sync" PmAuthor="party" PmCreateDateTime="2020-11-27T16:43:53.649" PmLastModified="2020-11-27T16:46:40.806" PrimaryKeyClustered="Unspecified" PrimaryKeyConstraintName="class_stats_pk" PrimaryKeyConstraintNamePattern="" PrimaryKeyDDLClauses_IsNull="true" QualityReason_IsNull="true" QualityScore="-1" SyncType="Not Sync" Type="0" Unlogged="false" UserIDLastNumericValue="0" UserID_IsNull="true">
+			<ModelChildren>
+				<DBColumn BacklogActivityId="0" CheckConstraint_IsNull="true" Collation_IsNull="true" DDLClauses_IsNull="true" DbColumnName_IsNull="true" DefaultValue_IsNull="true" Documentation_plain="" ForeignKeyNamePattern_IsNull="true" Generated="Unspecified" Id="qY5PkG6AUfAQjgoa" IdGenerator="assigned" IdentityIncrement="-1" IdentitySeed="-1" Index="false" Length="5" Name="class_stats_id" Nullable="false" PmAuthor="party" PmCreateDateTime="2020-11-27T16:44:12.437" PmLastModified="2020-11-27T16:45:01.530" PrimaryKey="true" QualityReason_IsNull="true" QualityScore="-1" Scale="0" SequenceAllocationSize="-1" SyncToAttribute="Yes" SyncType="Not Sync" Type="smallint" TypeName_IsNull="true" Type_internalValue="8" Unique="true" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+				<DBColumn BacklogActivityId="0" CheckConstraint_IsNull="true" Collation_IsNull="true" DDLClauses_IsNull="true" DbColumnName_IsNull="true" DefaultValue_IsNull="true" Documentation_plain="" ForeignKeyNamePattern_IsNull="true" Generated="Unspecified" Id="LeLPkG6AUfAQjgox" IdGenerator_IsNull="true" IdentityIncrement="-1" IdentitySeed="-1" Index="false" Length="3" Name="character_class_id" Nullable="false" PmAuthor="party" PmCreateDateTime="2020-11-27T16:45:07.253" PmLastModified="2020-11-27T16:45:37.678" PrimaryKey="false" QualityReason_IsNull="true" QualityScore="-1" Scale="0" SequenceAllocationSize="-1" SyncToAttribute="Yes" SyncType="Not Sync" Type="tinyint" TypeName_IsNull="true" Type_internalValue="7" Unique="false" UserIDLastNumericValue="0" UserID_IsNull="true">
+					<ForeignKeyConstraints>
+						<DBForeignKeyConstraint BacklogActivityId="0" Documentation_plain="" ForeignKey="sjzPkG6AUfAQjgot" Id="MYrPkG6AUfAQjgoz" Name="" PmAuthor="party" PmCreateDateTime="2020-11-27T16:45:09.772" PmLastModified_IsNull="true" QualityReason_IsNull="true" QualityScore="-1" RefColumn="MYl9266AUfAUlQpa" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+					</ForeignKeyConstraints>
+				</DBColumn>
+				<DBColumn BacklogActivityId="0" CheckConstraint_IsNull="true" Collation_IsNull="true" DDLClauses_IsNull="true" DbColumnName_IsNull="true" DefaultValue_IsNull="true" Documentation_plain="" ForeignKeyNamePattern_IsNull="true" Generated="Unspecified" Id="nJHPkG6AUfAQjgpB" IdGenerator_IsNull="true" IdentityIncrement="-1" IdentitySeed="-1" Index="false" Length="3" Name="character_stat_id" Nullable="false" PmAuthor="party" PmCreateDateTime="2020-11-27T16:45:24.025" PmLastModified="2020-11-27T16:45:37.678" PrimaryKey="false" QualityReason_IsNull="true" QualityScore="-1" Scale="0" SequenceAllocationSize="-1" SyncToAttribute="Yes" SyncType="Not Sync" Type="tinyint" TypeName_IsNull="true" Type_internalValue="7" Unique="false" UserIDLastNumericValue="0" UserID_IsNull="true">
+					<ForeignKeyConstraints>
+						<DBForeignKeyConstraint BacklogActivityId="0" Documentation_plain="" ForeignKey="Or7PkG6AUfAQjgo9" Id="ZunPkG6AUfAQjgpD" Name="" PmAuthor="party" PmCreateDateTime="2020-11-27T16:45:27.654" PmLastModified_IsNull="true" QualityReason_IsNull="true" QualityScore="-1" RefColumn="OSUj266AUfAUlQr7" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+					</ForeignKeyConstraints>
+				</DBColumn>
+				<DBColumn BacklogActivityId="0" CheckConstraint_IsNull="true" Collation_IsNull="true" DDLClauses_IsNull="true" DbColumnName_IsNull="true" DefaultValue_IsNull="true" Documentation_plain="" ForeignKeyNamePattern_IsNull="true" Generated="Unspecified" Id="lkPPkG6AUfAQjgqc" IdGenerator_IsNull="true" IdentityIncrement="-1" IdentitySeed="-1" Index="false" Length="10" Name="value" Nullable="false" PmAuthor="party" PmCreateDateTime="2020-11-27T16:45:38.665" PmLastModified="2020-11-27T16:46:12.481" PrimaryKey="false" QualityReason_IsNull="true" QualityScore="-1" Scale="0" SequenceAllocationSize="-1" SyncToAttribute="Yes" SyncType="Not Sync" Type="integer" TypeName_IsNull="true" Type_internalValue="9" Unique="false" UserIDLastNumericValue="0" UserID_IsNull="true"/>
+			</ModelChildren>
+			<ToSimpleRelationships>
+				<DBForeignKey Idref="sjzPkG6AUfAQjgot" Name=""/>
+				<DBForeignKey Idref="Or7PkG6AUfAQjgo9" Name=""/>
+			</ToSimpleRelationships>
+			<MasterView>
+				<DBTable Idref="jBRPkG6AUfAQjgoU" Name="class_initial_stats"/>
 			</MasterView>
 		</DBTable>
 	</Models>
@@ -2591,7 +2626,7 @@
 					<FillColor Color="rgb(245, 182, 122)" Style="1" Transparency="0" Type="1"/>
 					<CompartmentFont Value="none"/>
 				</DBTable>
-				<DBTable Background="rgb(245, 182, 122)" ColSortType="0" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" CreatorDiagramType="ERDiagram" Foreground="rgb(0, 0, 0)" Height="113" Id="DUGj266AUfAUlQsJ" MetaModelElement="jUGj266AUfAUlQsK" Model="jUGj266AUfAUlQsK" ModelElementNameAlignment="9" Name="character_stat_description" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowColumnStereotypes="0" ShowColumnsMode="0" ShowStereotypeIconName="0" Width="287" X="818" Y="20" ZOrder="6">
+				<DBTable Background="rgb(245, 182, 122)" ColSortType="0" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" CreatorDiagramType="ERDiagram" Foreground="rgb(0, 0, 0)" Height="113" Id="DUGj266AUfAUlQsJ" MetaModelElement="jUGj266AUfAUlQsK" Model="jUGj266AUfAUlQsK" ModelElementNameAlignment="9" Name="character_stat_description" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowColumnStereotypes="0" ShowColumnsMode="0" ShowStereotypeIconName="0" Width="287" X="818" Y="20" ZOrder="4">
 					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
 					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
 						<Stroke/>
@@ -2600,7 +2635,7 @@
 					<FillColor Color="rgb(245, 182, 122)" Style="1" Transparency="0" Type="1"/>
 					<CompartmentFont Value="none"/>
 				</DBTable>
-				<DBTable Background="rgb(245, 182, 122)" ColSortType="0" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" CreatorDiagramType="ERDiagram" Foreground="rgb(0, 0, 0)" Height="59" Id="qdYj266AUfAUlQr1" MetaModelElement="qdYj266AUfAUlQr2" Model="qdYj266AUfAUlQr2" ModelElementNameAlignment="9" Name="character_stat" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowColumnStereotypes="0" ShowColumnsMode="0" ShowStereotypeIconName="0" Width="215" X="854" Y="376" ZOrder="8">
+				<DBTable Background="rgb(245, 182, 122)" ColSortType="0" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" CreatorDiagramType="ERDiagram" Foreground="rgb(0, 0, 0)" Height="59" Id="qdYj266AUfAUlQr1" MetaModelElement="qdYj266AUfAUlQr2" Model="qdYj266AUfAUlQr2" ModelElementNameAlignment="9" Name="character_stat" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowColumnStereotypes="0" ShowColumnsMode="0" ShowStereotypeIconName="0" Width="215" X="854" Y="376" ZOrder="7">
 					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
 					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
 						<Stroke/>
@@ -2768,7 +2803,7 @@
 				</DBForeignKey>
 			</Connectors>
 		</ERDiagram>
-		<ERDiagram AlignToGrid="false" AutoFitShapesSize="false" ConnectionPointStyle="0" ConnectorLabelOrientation="0" ConnectorLineJumps="0" ConnectorLineJumpsSize="0" ConnectorModelElementNameAlignment="4" ConnectorStyle="1" DataModel="2" DiagramBackground="rgb(255, 255, 255)" Editable="true" FollowDiagramParentElement="true" ForeignKeyArrowHeadSize="3" GridColor="rgb(192, 192, 192)" GridHeight="10" GridVisible="false" GridWidth="10" Height="526" HideConnectorIfFromToIsHidden="0" HideEmptyTaggedValues="false" Id="0GK7266AUfAUlQuK" ImageHeight="0" ImageScale="1.0" ImageWidth="0" InitializeDiagramForCreate="true" LogicalPhysicalColumnNameAbbreviationSetAddress="" LogicalPhysicalEntityNameAbbreviationSetAddress="" LogicalPhysicalSchemaNameAbbreviationSetAddress="" Maximized="true" ModelElementNameAlignment="4" Name="Geography" PaintConnectorThroughLabel="1" PmAuthor="party" PmCreateDateTime="2020-11-18T17:58:33.099" PmLastModified="2020-11-18T19:11:18.000" PointConnectorEndToCompartmentMember="true" QualityScore="-1" RequestFitSizeWithPromptUser="false" RequestValidateSnapToGrid="false" ShapePresentationOption="0" ShowActivityStateNodeCaption="524287" ShowAllocatedFrom="true" ShowAllocatedTo="true" ShowColorLegend="false" ShowConnectorLegend="false" ShowConnectorName="0" ShowConstraints="false" ShowDefaultPackage="false" ShowInformationItemOption="2" ShowPMAuthor="false" ShowPMDifficulty="false" ShowPMDiscipline="false" ShowPMIteration="false" ShowPMPhase="false" ShowPMPriority="false" ShowPMStatus="false" ShowPMVersion="false" ShowPackageNameStyle="0" ShowSchemaName="true" ShowShapeLegend="false" ShowShapeStereotypeIconName="true" ShowStereotypes="true" ShowTaggedValues="false" TeamworkCreateDateTime="0" TrimmedHeight="0" TrimmedWidth="0" Width="1255" X="0" Y="0" ZoomRatio="1.0" _alignColumnProperties="true" _columnConstraintsDisplayOption="2" _globalPaletteOption="true" _pointForeignKeyEndToColumn="false" _showColumnDefaultValue="false" _showColumnStereotypes="true" _showColumnTypes="true" _showColumnUserType="false" _showDBTableColumnsMode="1" _showDBViewColumnsMode="1" _showExtraColumnProperties="true" _showProcedureStereotypes="true" _showStoredProcedureResultSetColumns="true" _showStoredProcedures="true" _showTriggerStereotypes="true" _showTriggers="true" documentation="&lt;html&gt;&#13;&#10;  &lt;head&gt;&#13;&#10;    &lt;style type=&quot;text/css&quot;&gt;&#10;      &lt;!--&#10;        body { color: #000000; font-family: Dialog; font-size: 12px }&#10;      --&gt;&#10;    &lt;/style&gt;&#13;&#10;    &#13;&#10;  &lt;/head&gt;&#13;&#10;  &lt;body&gt;&#13;&#10;    &lt;p&gt;&#13;&#10;      &#13;&#10;    &lt;/p&gt;&#13;&#10;  &lt;/body&gt;&#13;&#10;&lt;/html&gt;&#13;&#10;">
+		<ERDiagram AlignToGrid="false" AutoFitShapesSize="false" ConnectionPointStyle="0" ConnectorLabelOrientation="0" ConnectorLineJumps="0" ConnectorLineJumpsSize="0" ConnectorModelElementNameAlignment="4" ConnectorStyle="1" DataModel="2" DiagramBackground="rgb(255, 255, 255)" Editable="true" FollowDiagramParentElement="true" ForeignKeyArrowHeadSize="3" GridColor="rgb(192, 192, 192)" GridHeight="10" GridVisible="false" GridWidth="10" Height="0" HideConnectorIfFromToIsHidden="0" HideEmptyTaggedValues="false" Id="0GK7266AUfAUlQuK" ImageHeight="0" ImageScale="1.0" ImageWidth="0" InitializeDiagramForCreate="true" LogicalPhysicalColumnNameAbbreviationSetAddress="" LogicalPhysicalEntityNameAbbreviationSetAddress="" LogicalPhysicalSchemaNameAbbreviationSetAddress="" Maximized="false" ModelElementNameAlignment="4" Name="Geography" PaintConnectorThroughLabel="1" PmAuthor="party" PmCreateDateTime="2020-11-18T17:58:33.099" PmLastModified="2020-11-18T19:11:18.000" PointConnectorEndToCompartmentMember="true" QualityScore="-1" RequestFitSizeWithPromptUser="false" RequestValidateSnapToGrid="false" ShapePresentationOption="0" ShowActivityStateNodeCaption="524287" ShowAllocatedFrom="true" ShowAllocatedTo="true" ShowColorLegend="false" ShowConnectorLegend="false" ShowConnectorName="0" ShowConstraints="false" ShowDefaultPackage="false" ShowInformationItemOption="2" ShowPMAuthor="false" ShowPMDifficulty="false" ShowPMDiscipline="false" ShowPMIteration="false" ShowPMPhase="false" ShowPMPriority="false" ShowPMStatus="false" ShowPMVersion="false" ShowPackageNameStyle="0" ShowSchemaName="true" ShowShapeLegend="false" ShowShapeStereotypeIconName="true" ShowStereotypes="true" ShowTaggedValues="false" TeamworkCreateDateTime="0" TrimmedHeight="0" TrimmedWidth="0" Width="0" X="0" Y="0" ZoomRatio="1.0" _alignColumnProperties="true" _columnConstraintsDisplayOption="2" _globalPaletteOption="true" _pointForeignKeyEndToColumn="false" _showColumnDefaultValue="false" _showColumnStereotypes="true" _showColumnTypes="true" _showColumnUserType="false" _showDBTableColumnsMode="1" _showDBViewColumnsMode="1" _showExtraColumnProperties="true" _showProcedureStereotypes="true" _showStoredProcedureResultSetColumns="true" _showStoredProcedures="true" _showTriggerStereotypes="true" _showTriggers="true" documentation="&lt;html&gt;&#13;&#10;  &lt;head&gt;&#13;&#10;    &lt;style type=&quot;text/css&quot;&gt;&#10;      &lt;!--&#10;        body { color: #000000; font-family: Dialog; font-size: 12px }&#10;      --&gt;&#10;    &lt;/style&gt;&#13;&#10;    &#13;&#10;  &lt;/head&gt;&#13;&#10;  &lt;body&gt;&#13;&#10;    &lt;p&gt;&#13;&#10;      &#13;&#10;    &lt;/p&gt;&#13;&#10;  &lt;/body&gt;&#13;&#10;&lt;/html&gt;&#13;&#10;">
 			<Shapes>
 				<DBTable Background="rgb(245, 182, 122)" ColSortType="0" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" CreatorDiagramType="ERDiagram" Foreground="rgb(0, 0, 0)" Height="113" Id="ZQSH266AUfAUlQw4" MetaModelElement="5QSH266AUfAUlQw5" Model="5QSH266AUfAUlQw5" ModelElementNameAlignment="9" Name="location_type_description" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowColumnStereotypes="0" ShowColumnsMode="0" ShowStereotypeIconName="0" Width="282" X="510" Y="369" ZOrder="2">
 					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
@@ -2870,6 +2905,101 @@
 					<Points>
 						<Point X="407.0" Y="426.0"/>
 						<Point X="509.0" Y="426.0"/>
+					</Points>
+				</DBForeignKey>
+			</Connectors>
+		</ERDiagram>
+		<ERDiagram AlignToGrid="false" AutoFitShapesSize="false" ConnectionPointStyle="0" ConnectorLabelOrientation="0" ConnectorLineJumps="0" ConnectorLineJumpsSize="0" ConnectorModelElementNameAlignment="4" ConnectorStyle="1" DataModel="2" DiagramBackground="rgb(255, 255, 255)" Editable="true" FollowDiagramParentElement="true" ForeignKeyArrowHeadSize="3" GridColor="rgb(192, 192, 192)" GridHeight="10" GridVisible="false" GridWidth="10" Height="526" HideConnectorIfFromToIsHidden="0" HideEmptyTaggedValues="false" Id="tCwTkG6AUfAQjgey" ImageHeight="0" ImageScale="1.0" ImageWidth="0" InitializeDiagramForCreate="true" LogicalPhysicalColumnNameAbbreviationSetAddress="" LogicalPhysicalEntityNameAbbreviationSetAddress="" LogicalPhysicalSchemaNameAbbreviationSetAddress="" Maximized="true" ModelElementNameAlignment="4" Name="Character classes" PaintConnectorThroughLabel="1" PmAuthor="party" PmCreateDateTime="2020-11-27T15:58:04.205" PmLastModified="2020-11-27T16:46:44.948" PointConnectorEndToCompartmentMember="true" QualityScore="-1" RequestFitSizeWithPromptUser="false" RequestValidateSnapToGrid="false" ShapePresentationOption="0" ShowActivityStateNodeCaption="524287" ShowAllocatedFrom="true" ShowAllocatedTo="true" ShowColorLegend="false" ShowConnectorLegend="false" ShowConnectorName="0" ShowConstraints="false" ShowDefaultPackage="false" ShowInformationItemOption="2" ShowPMAuthor="false" ShowPMDifficulty="false" ShowPMDiscipline="false" ShowPMIteration="false" ShowPMPhase="false" ShowPMPriority="false" ShowPMStatus="false" ShowPMVersion="false" ShowPackageNameStyle="0" ShowSchemaName="true" ShowShapeLegend="false" ShowShapeStereotypeIconName="true" ShowStereotypes="true" ShowTaggedValues="false" TeamworkCreateDateTime="0" TrimmedHeight="0" TrimmedWidth="0" Width="1255" X="0" Y="0" ZoomRatio="1.0" _alignColumnProperties="true" _columnConstraintsDisplayOption="2" _globalPaletteOption="true" _pointForeignKeyEndToColumn="false" _showColumnDefaultValue="false" _showColumnStereotypes="true" _showColumnTypes="true" _showColumnUserType="false" _showDBTableColumnsMode="1" _showDBViewColumnsMode="1" _showExtraColumnProperties="true" _showProcedureStereotypes="true" _showStoredProcedureResultSetColumns="true" _showStoredProcedures="true" _showTriggerStereotypes="true" _showTriggers="true" documentation="&lt;html&gt;&#13;&#10;  &lt;head&gt;&#13;&#10;    &lt;style type=&quot;text/css&quot;&gt;&#10;      &lt;!--&#10;        body { color: #000000; font-family: Dialog; font-size: 12px }&#10;      --&gt;&#10;    &lt;/style&gt;&#13;&#10;    &#13;&#10;  &lt;/head&gt;&#13;&#10;  &lt;body&gt;&#13;&#10;    &lt;p&gt;&#13;&#10;      &#13;&#10;    &lt;/p&gt;&#13;&#10;  &lt;/body&gt;&#13;&#10;&lt;/html&gt;&#13;&#10;">
+			<Shapes>
+				<DBTable Background="rgb(245, 182, 122)" ColSortType="0" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="59" Id="FvF3kG6AUfAQjglt" MetaModelElement="cxp9266AUfAUlQpV" Model="cxp9266AUfAUlQpV" ModelElementNameAlignment="9" Name="character_class" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowColumnStereotypes="0" ShowColumnsMode="0" ShowStereotypeIconName="0" Width="229" X="499" Y="67" ZOrder="10">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="15" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="FreeMove" Visible="true" Width="229" X="0" Y="0"/>
+					<FillColor Color="rgb(245, 182, 122)" Style="1" Transparency="0" Type="1"/>
+					<CompartmentFont Value="none"/>
+				</DBTable>
+				<DBTable Background="rgb(245, 182, 122)" ColSortType="0" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="113" Id="XPD3kG6AUfAQjgmn" MetaModelElement="vqf9266AUfAUlQqk" Model="vqf9266AUfAUlQqk" ModelElementNameAlignment="9" Name="character_class_description" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowColumnStereotypes="0" ShowColumnsMode="0" ShowStereotypeIconName="0" Width="294" X="467" Y="145" ZOrder="8">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="15" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="FreeMove" Visible="true" Width="294" X="0" Y="0"/>
+					<FillColor Color="rgb(245, 182, 122)" Style="1" Transparency="0" Type="1"/>
+					<CompartmentFont Value="none"/>
+				</DBTable>
+				<DBTable Background="rgb(245, 182, 122)" ColSortType="0" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="59" Id="tu.PkG6AUfAQjgn." MetaModelElement="qdYj266AUfAUlQr2" Model="qdYj266AUfAUlQr2" ModelElementNameAlignment="9" Name="character_stat" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowColumnStereotypes="0" ShowColumnsMode="0" ShowStereotypeIconName="0" Width="215" X="222" Y="307" ZOrder="6">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="15" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="FreeMove" Visible="true" Width="215" X="0" Y="0"/>
+					<FillColor Color="rgb(245, 182, 122)" Style="1" Transparency="0" Type="1"/>
+					<CompartmentFont Value="none"/>
+				</DBTable>
+				<DBTable Background="rgb(245, 182, 122)" ColSortType="0" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" Foreground="rgb(0, 0, 0)" Height="113" Id="Hu.PkG6AUfAQjgoB" MetaModelElement="jUGj266AUfAUlQsK" Model="jUGj266AUfAUlQsK" ModelElementNameAlignment="9" Name="character_stat_description" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowColumnStereotypes="0" ShowColumnsMode="0" ShowStereotypeIconName="0" Width="287" X="470" Y="280" ZOrder="4">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="15" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="FreeMove" Visible="true" Width="287" X="0" Y="0"/>
+					<FillColor Color="rgb(245, 182, 122)" Style="1" Transparency="0" Type="1"/>
+					<CompartmentFont Value="none"/>
+				</DBTable>
+				<DBTable Background="rgb(245, 182, 122)" ColSortType="0" ConnectToPoint="true" ConnectionPointType="2" CoverConnector="false" CreatorDiagramType="ERDiagram" Foreground="rgb(0, 0, 0)" Height="95" Id="jBRPkG6AUfAQjgoU" MetaModelElement="jBRPkG6AUfAQjgoV" Model="jBRPkG6AUfAQjgoV" ModelElementNameAlignment="9" Name="class_initial_stats" OverrideAppearanceWithStereotypeIcon="true" ParentConnectorDTheta="0.0" ParentConnectorHeaderLength="40" ParentConnectorLineLength="10" PresentationOption="4" PrimitiveShapeType="0" RequestDefaultSize="false" RequestFitSize="false" RequestFitSizeFromCenter="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestSetSizeOption="0" Selectable="true" ShowAllocatedFrom="0" ShowAllocatedTo="0" ShowColumnStereotypes="0" ShowColumnsMode="0" ShowStereotypeIconName="0" Width="215" X="222" Y="50" ZOrder="2">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="15" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="FreeMove" Visible="true" Width="215" X="0" Y="0"/>
+					<FillColor Color="rgb(245, 182, 122)" Style="1" Transparency="0" Type="1"/>
+					<CompartmentFont Value="none"/>
+				</DBTable>
+			</Shapes>
+			<Connectors>
+				<DBForeignKey Background="rgb(122, 207, 245)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" Foreground="rgb(0, 0, 0)" From="FvF3kG6AUfAQjglt" FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" HasFromLabel="false" HasToLabel="false" Height="118" Id="0yj3kG6AUfAQjgms" MetaModelElement=".YGD266AUfAUlQrH" Model=".YGD266AUfAUlQrH" ModelElementNameAlignment="9" Name="" PaintThroughLabel="2" RequestRebuild="false" RequestRebuildFromEnd="false" RequestRebuildToEnd="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestResetLabels="false" Selectable="true" ShowConnectorName="2" To="XPD3kG6AUfAQjgmn" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="100" X="564" Y="76" ZOrder="12">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="592" Y="135"/>
+					<Points>
+						<Point X="614.0" Y="126.0"/>
+						<Point X="614.0" Y="144.0"/>
+					</Points>
+				</DBForeignKey>
+				<DBForeignKey Background="rgb(122, 207, 245)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" Foreground="rgb(0, 0, 0)" From="tu.PkG6AUfAQjgn." FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" HasFromLabel="false" HasToLabel="false" Height="100" Id="Ae.PkG6AUfAQjgoE" MetaModelElement="E_Nj266AUfAUlQsx" Model="E_Nj266AUfAUlQsx" ModelElementNameAlignment="9" Name="" PaintThroughLabel="2" RequestRebuild="false" RequestRebuildFromEnd="false" RequestRebuildToEnd="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestResetLabels="false" Selectable="true" ShowConnectorName="2" To="Hu.PkG6AUfAQjgoB" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="132" X="387" Y="287" ZOrder="14">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="443" Y="334"/>
+					<Points>
+						<Point X="437.0" Y="337.0"/>
+						<Point X="469.0" Y="337.0"/>
+					</Points>
+				</DBForeignKey>
+				<DBForeignKey Background="rgb(122, 207, 245)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" CreatorDiagramType="ERDiagram" Foreground="rgb(0, 0, 0)" From="FvF3kG6AUfAQjglt" FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" HasFromLabel="false" HasToLabel="false" Height="100" Id="RjzPkG6AUfAQjgou" MetaModelElement="sjzPkG6AUfAQjgot" Model="sjzPkG6AUfAQjgot" ModelElementNameAlignment="9" Name="" PaintThroughLabel="2" RequestRebuild="false" RequestRebuildFromEnd="false" RequestRebuildToEnd="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestResetLabels="false" Selectable="true" ShowConnectorName="2" To="jBRPkG6AUfAQjgoU" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="161" X="387" Y="47" ZOrder="16">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="458" Y="94"/>
+					<Points>
+						<Point X="498.0" Y="97.0"/>
+						<Point X="437.0" Y="97.0"/>
+					</Points>
+				</DBForeignKey>
+				<DBForeignKey Background="rgb(122, 207, 245)" ConnectorLabelOrientation="4" ConnectorLineJumps="4" ConnectorStyle="Follow Diagram" CreatorDiagramType="ERDiagram" Foreground="rgb(0, 0, 0)" From="tu.PkG6AUfAQjgn." FromConnectType="0" FromPinType="1" FromShapeXDiff="0" FromShapeYDiff="0" HasFromLabel="false" HasToLabel="false" Height="261" Id="br7PkG6AUfAQjgo." MetaModelElement="Or7PkG6AUfAQjgo9" Model="Or7PkG6AUfAQjgo9" ModelElementNameAlignment="9" Name="" PaintThroughLabel="2" RequestRebuild="false" RequestRebuildFromEnd="false" RequestRebuildToEnd="false" RequestResetCaption="false" RequestResetCaptionFitWidth="false" RequestResetCaptionSize="false" RequestResetLabels="false" Selectable="true" ShowConnectorName="2" To="jBRPkG6AUfAQjgoU" ToConnectType="0" ToPinType="1" ToShapeXDiff="0" ToShapeYDiff="0" UseFromShapeCenter="true" UseToShapeCenter="true" Width="100" X="279" Y="95" ZOrder="18">
+					<ElementFont Color="rgb(0, 0, 0)" Name="Dialog" Size="11" Style="0"/>
+					<Line Cap="0" Color="rgb(0, 0, 0)" Transparency="0" Weight="1.0">
+						<Stroke/>
+					</Line>
+					<Caption Height="0" InternalHeight="-2147483648" InternalWidth="-2147483648" Side="None" Visible="true" Width="20" X="307" Y="225"/>
+					<Points>
+						<Point X="329.0" Y="306.0"/>
+						<Point X="329.0" Y="145.0"/>
 					</Points>
 				</DBForeignKey>
 			</Connectors>

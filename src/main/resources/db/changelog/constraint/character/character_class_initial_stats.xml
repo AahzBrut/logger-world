@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="character_class_initial_stats-constraint-001" author="Aahz Brut">
+        <addForeignKeyConstraint baseColumnNames="character_class_id" baseTableName="class_initial_stats"
+                                 constraintName="fk-class_initial_stats-character_class"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="character_class_id" referencedTableName="character_class"/>
+
+        <addForeignKeyConstraint baseColumnNames="character_stat_id" baseTableName="class_initial_stats"
+                                 constraintName="fk-class_initial_stats-character_stat"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="character_stat_id" referencedTableName="character_stat"/>
+    </changeSet>
+
+</databaseChangeLog>

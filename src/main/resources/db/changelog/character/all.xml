@@ -11,5 +11,6 @@
     <include file="classpath:/db/changelog/character/character_stat.xml"/>
     <include file="classpath:/db/changelog/character/character_stat_description.xml"/>
     <include file="classpath:/db/changelog/character/character_stats.xml"/>
+    <include file="classpath:/db/changelog/character/character_class_initial_stats.xml"/>
 
 </databaseChangeLog>

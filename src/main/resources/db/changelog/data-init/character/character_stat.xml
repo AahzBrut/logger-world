@@ -42,6 +42,12 @@
         <insert tableName="character_stat">
             <column name="code" value="AGI"/>
         </insert>
+        <insert tableName="character_stat">
+            <column name="code" value="LEVEL"/>
+        </insert>
+        <insert tableName="character_stat">
+            <column name="code" value="POINTS_ON_LEVELUP"/>
+        </insert>
     </changeSet>
 
 </databaseChangeLog>
