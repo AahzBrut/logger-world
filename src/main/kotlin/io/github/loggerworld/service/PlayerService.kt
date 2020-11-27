@@ -39,10 +39,12 @@ class PlayerService(
         return PlayerClassesResponse(playerDomainService.getAllPlayerClasses(user.id, user.language))
     }
 
-    fun addNewPlayer(userName: String, request: PlayerAddRequest) {
+    fun addNewPlayer(userName: String, request: PlayerAddRequest) : PlayerResponse {
         val user = userDomainService.getUserByName(userName)!!
 
-        playerDomainService.addNewPlayer(user.id, request)
+        val playerId = playerDomainService.addNewPlayer(user.id, request)
+
+        return playerDomainService.getPlayer(playerId)
     }
 
     fun getAllPlayerClassDescriptions(): PlayerClassDescriptionsMap {

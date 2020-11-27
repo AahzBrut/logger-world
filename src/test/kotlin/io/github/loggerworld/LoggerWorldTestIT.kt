@@ -2,10 +2,13 @@ package io.github.loggerworld
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import io.github.loggerworld.controller.LOCATIONS_URL
+import io.github.loggerworld.controller.LOCATION_TYPES_URL
+import io.github.loggerworld.controller.PLAYERS_CLASSES_URL
+import io.github.loggerworld.controller.PLAYERS_URL
 import io.github.loggerworld.controller.SIGN_UP_URL
 import io.github.loggerworld.domain.enums.Languages
 import io.github.loggerworld.domain.enums.PlayerClasses
-import io.github.loggerworld.messagebus.event.LocationChangedEvent
 import io.github.loggerworld.dto.request.ChatMessageRequest
 import io.github.loggerworld.dto.request.PlayerAddRequest
 import io.github.loggerworld.dto.request.PlayerMoveRequest
@@ -14,9 +17,11 @@ import io.github.loggerworld.dto.request.UserAddRequest
 import io.github.loggerworld.dto.request.UserLoginRequest
 import io.github.loggerworld.dto.response.ChatMessageResponse
 import io.github.loggerworld.dto.response.character.PlayerClassesResponse
+import io.github.loggerworld.dto.response.character.PlayerResponse
 import io.github.loggerworld.dto.response.character.PlayersResponse
 import io.github.loggerworld.dto.response.geography.LocationTypesResponse
 import io.github.loggerworld.dto.response.geography.LocationsResponse
+import io.github.loggerworld.messagebus.event.LocationChangedEvent
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.PERSONAL
 import io.github.loggerworld.util.TOKEN_PREFIX
@@ -24,17 +29,8 @@ import io.github.loggerworld.util.WS_CHAT
 import io.github.loggerworld.util.WS_CONNECTION_POINT
 import io.github.loggerworld.util.WS_DESTINATION_PREFIX
 import io.github.loggerworld.util.WS_DS_GAMEPLAY_EVENTS_QUEUE
-import io.github.loggerworld.util.WS_DS_MAP
-import io.github.loggerworld.util.WS_DS_MAP_LOCATION_TYPES
-import io.github.loggerworld.util.WS_DS_PLAYER_CLASSES_MESSAGES
-import io.github.loggerworld.util.WS_DS_PLAYER_MESSAGES
 import io.github.loggerworld.util.WS_DS_TOPIC_MESSAGES
-import io.github.loggerworld.util.WS_MAP
-import io.github.loggerworld.util.WS_MAP_LOCATION_TYPES
-import io.github.loggerworld.util.WS_PLAYERS_CLASSES_GET_ALL
-import io.github.loggerworld.util.WS_PLAYERS_GET_ALL
 import io.github.loggerworld.util.WS_PLAYERS_MOVE
-import io.github.loggerworld.util.WS_PLAYERS_NEW
 import io.github.loggerworld.util.WS_PLAYERS_START
 import io.github.loggerworld.util.logger
 import org.junit.jupiter.api.MethodOrderer
@@ -42,25 +38,25 @@ import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestMethodOrder
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.web.client.RestTemplateBuilder
+import org.springframework.boot.web.client.RestTemplateCustomizer
 import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
+import org.springframework.http.client.ClientHttpRequestInterceptor
 import org.springframework.messaging.converter.MappingJackson2MessageConverter
-import org.springframework.messaging.converter.StringMessageConverter
 import org.springframework.messaging.simp.stomp.StompCommand
 import org.springframework.messaging.simp.stomp.StompHeaders
 import org.springframework.messaging.simp.stomp.StompSession
 import org.springframework.messaging.simp.stomp.StompSessionHandler
 import org.springframework.test.context.TestPropertySource
-import org.springframework.util.MimeType
 import org.springframework.web.client.RestTemplate
+import org.springframework.web.client.postForEntity
 import org.springframework.web.socket.WebSocketHttpHeaders
 import org.springframework.web.socket.client.WebSocketClient
 import org.springframework.web.socket.client.standard.StandardWebSocketClient
 import org.springframework.web.socket.messaging.WebSocketStompClient
 import java.lang.reflect.Type
-import java.nio.charset.Charset
-import java.nio.charset.StandardCharsets
 import java.util.concurrent.TimeUnit
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -74,6 +70,7 @@ class LoggerWorldTestIT : LogAware {
     private final val restTemplate = RestTemplate()
     private final val signupUrl by lazy { "http://localhost:$port$SIGN_UP_URL" }
     private final val loginUrl by lazy { "http://localhost:$port/api/user/login" }
+    private final val baseUrl by lazy {  "http://localhost:$port" }
 
     companion object {
         private var client1: WebSocketClient = StandardWebSocketClient()
@@ -207,43 +204,86 @@ class LoggerWorldTestIT : LogAware {
     @Test
     @Order(9)
     fun firstUserGetCharacterClasses() {
-        stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_CLASSES_GET_ALL, "")
-        TimeUnit.MILLISECONDS.sleep(300)
+
+        val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
+            it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
+                request.headers.add("Authorization", getJwtToken(firstUserLoginRequest))
+                execution.execute(request, body)
+            })
+        }).build()
+
+        val classes = restTemplate1.getForEntity(baseUrl + PLAYERS_CLASSES_URL, PlayerClassesResponse::class.java)
+        logger().info(classes.toString())
     }
 
     @Test
     @Order(10)
     fun secondUserGetCharacterClasses() {
-        stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_CLASSES_GET_ALL, "")
-        TimeUnit.MILLISECONDS.sleep(300)
+        val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
+            it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
+                request.headers.add("Authorization", getJwtToken(secondUserLoginRequest))
+                execution.execute(request, body)
+            })
+        }).build()
+
+        val classes = restTemplate1.getForEntity(baseUrl + PLAYERS_CLASSES_URL, PlayerClassesResponse::class.java)
+        logger().info(classes.toString())
     }
 
     @Test
     @Order(11)
     fun firstUserCreateNewPlayer() {
-        stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_NEW, PlayerAddRequest("Superman", PlayerClasses.WARRIOR))
-        TimeUnit.MILLISECONDS.sleep(300)
+        val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
+            it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
+                request.headers.add("Authorization", getJwtToken(firstUserLoginRequest))
+                execution.execute(request, body)
+            })
+        }).build()
+
+        val newPlayer = restTemplate1.postForEntity<PlayerResponse>(baseUrl + PLAYERS_URL, PlayerAddRequest("Superman", PlayerClasses.WARRIOR))
+        logger().info(newPlayer.toString())
     }
 
     @Test
     @Order(12)
     fun secondUserCreateNewPlayer() {
-        stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_NEW, PlayerAddRequest("Spiderman", PlayerClasses.ASSASSIN))
-        TimeUnit.MILLISECONDS.sleep(300)
+        val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
+            it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
+                request.headers.add("Authorization", getJwtToken(secondUserLoginRequest))
+                execution.execute(request, body)
+            })
+        }).build()
+
+        val newPlayer = restTemplate1.postForEntity<PlayerResponse>(baseUrl + PLAYERS_URL, PlayerAddRequest("Spiderman", PlayerClasses.ASSASSIN))
+        logger().info(newPlayer.toString())
     }
 
     @Test
     @Order(13)
     fun firstUserGetPlayers() {
-        stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_GET_ALL, "")
-        TimeUnit.MILLISECONDS.sleep(300)
+        val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
+            it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
+                request.headers.add("Authorization", getJwtToken(firstUserLoginRequest))
+                execution.execute(request, body)
+            })
+        }).build()
+
+        val classes = restTemplate1.getForEntity(baseUrl + PLAYERS_URL, PlayersResponse::class.java)
+        logger().info(classes.toString())
     }
 
     @Test
     @Order(14)
     fun secondUserGetPlayers() {
-        stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_GET_ALL, "")
-        TimeUnit.MILLISECONDS.sleep(300)
+        val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
+            it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
+                request.headers.add("Authorization", getJwtToken(secondUserLoginRequest))
+                execution.execute(request, body)
+            })
+        }).build()
+
+        val classes = restTemplate1.getForEntity(baseUrl + PLAYERS_URL, PlayersResponse::class.java)
+        logger().info(classes.toString())
     }
 
     @Test
@@ -277,29 +317,57 @@ class LoggerWorldTestIT : LogAware {
     @Test
     @Order(19)
     fun firstUserGetLocationTypesDictionary() {
-        stompSession1.send(WS_DESTINATION_PREFIX + WS_MAP_LOCATION_TYPES, "")
-        TimeUnit.MILLISECONDS.sleep(300)
+        val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
+            it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
+                request.headers.add("Authorization", getJwtToken(firstUserLoginRequest))
+                execution.execute(request, body)
+            })
+        }).build()
+
+        val classes = restTemplate1.getForEntity(baseUrl + LOCATION_TYPES_URL, LocationTypesResponse::class.java)
+        logger().info(classes.toString())
     }
 
     @Test
     @Order(20)
     fun secondUserGetLocationTypesDictionary() {
-        stompSession2.send(WS_DESTINATION_PREFIX + WS_MAP_LOCATION_TYPES, "")
-        TimeUnit.MILLISECONDS.sleep(300)
+        val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
+            it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
+                request.headers.add("Authorization", getJwtToken(secondUserLoginRequest))
+                execution.execute(request, body)
+            })
+        }).build()
+
+        val classes = restTemplate1.getForEntity(baseUrl + LOCATION_TYPES_URL, LocationTypesResponse::class.java)
+        logger().info(classes.toString())
     }
 
     @Test
     @Order(21)
     fun firstUserGetLocationsDictionary() {
-        stompSession1.send(WS_DESTINATION_PREFIX + WS_MAP, "")
-        TimeUnit.MILLISECONDS.sleep(300)
+        val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
+            it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
+                request.headers.add("Authorization", getJwtToken(firstUserLoginRequest))
+                execution.execute(request, body)
+            })
+        }).build()
+
+        val classes = restTemplate1.getForEntity(baseUrl + LOCATIONS_URL, LocationsResponse::class.java)
+        logger().info(classes.toString())
     }
 
     @Test
     @Order(22)
     fun secondUserGetLocationsDictionary() {
-        stompSession2.send(WS_DESTINATION_PREFIX + WS_MAP, "")
-        TimeUnit.MILLISECONDS.sleep(300)
+        val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
+            it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
+                request.headers.add("Authorization", getJwtToken(secondUserLoginRequest))
+                execution.execute(request, body)
+            })
+        }).build()
+
+        val classes = restTemplate1.getForEntity(baseUrl + LOCATIONS_URL, LocationsResponse::class.java)
+        logger().info(classes.toString())
     }
 
     private fun getJwtToken(userLoginRequest: UserLoginRequest): String? {
@@ -314,11 +382,7 @@ class LoggerWorldTestIT : LogAware {
 
             val payloadType = when (headers.destination) {
                 WS_DS_TOPIC_MESSAGES -> ChatMessageResponse::class.java
-                PERSONAL + WS_DS_PLAYER_MESSAGES -> PlayersResponse::class.java
-                PERSONAL + WS_DS_GAMEPLAY_EVENTS_QUEUE -> LocationChangedEvent::class.java
-                PERSONAL + WS_DS_MAP_LOCATION_TYPES -> LocationTypesResponse::class.java
-                PERSONAL + WS_DS_MAP -> LocationsResponse::class.java
-                else -> PlayerClassesResponse::class.java
+                else -> LocationChangedEvent::class.java
             }
 
             logger().debug("User received message, payload type for ${headers.destination} is: ${payloadType.simpleName}")
@@ -346,11 +410,7 @@ class LoggerWorldTestIT : LogAware {
             logger().info("WebSocket connected")
 
             session.subscribe(WS_DS_TOPIC_MESSAGES, this)
-            session.subscribe(PERSONAL + WS_DS_PLAYER_CLASSES_MESSAGES, this)
-            session.subscribe(PERSONAL + WS_DS_PLAYER_MESSAGES, this)
             session.subscribe(PERSONAL + WS_DS_GAMEPLAY_EVENTS_QUEUE, this)
-            session.subscribe(PERSONAL + WS_DS_MAP_LOCATION_TYPES, this)
-            session.subscribe(PERSONAL + WS_DS_MAP, this)
 
             when (connectedHeaders["user-name"][0]) {
                 firstUserLoginRequest.userName -> stompSession1 = session

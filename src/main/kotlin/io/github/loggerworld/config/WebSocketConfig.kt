@@ -5,8 +5,6 @@ import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.WS_CONNECTION_POINT
 import io.github.loggerworld.util.WS_DESTINATION_PREFIX
 import io.github.loggerworld.util.WS_GAMEPLAY_EVENTS_QUEUE
-import io.github.loggerworld.util.WS_PLAYERS_CLASSES_GET_ALL
-import io.github.loggerworld.util.WS_PLAYERS_GET_ALL
 import io.github.loggerworld.util.WS_TOPIC
 import io.github.loggerworld.util.logger
 import org.springframework.context.annotation.Configuration
@@ -43,7 +41,7 @@ class WebSocketConfig(
 
     override fun configureMessageBroker(registry: MessageBrokerRegistry) {
         registry.run {
-            enableSimpleBroker(WS_TOPIC, WS_PLAYERS_GET_ALL, WS_PLAYERS_CLASSES_GET_ALL, WS_GAMEPLAY_EVENTS_QUEUE)
+            enableSimpleBroker(WS_TOPIC, WS_GAMEPLAY_EVENTS_QUEUE)
             setApplicationDestinationPrefixes(WS_DESTINATION_PREFIX)
         }
     }

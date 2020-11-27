@@ -25,7 +25,7 @@ data class Player(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "character_class_id")
-    var playerClass: PlayerClass = PlayerClass(PlayerClasses.DUMMY),
+    var playerClass: PlayerClass = PlayerClass(),
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id")

@@ -1,10 +1,7 @@
 package io.github.loggerworld.service.domain
 
 import io.github.loggerworld.domain.character.Player
-import io.github.loggerworld.domain.character.PlayerClass
 import io.github.loggerworld.domain.enums.Languages
-import io.github.loggerworld.domain.geography.Location
-import io.github.loggerworld.domain.user_account.UserAccount
 import io.github.loggerworld.dto.request.PlayerAddRequest
 import io.github.loggerworld.dto.response.character.PlayerClassResponse
 import io.github.loggerworld.dto.response.character.PlayerResponse
@@ -46,14 +43,15 @@ class PlayerDomainService(
     }
 
     @Transactional
-    fun addNewPlayer(userId: Long, request: PlayerAddRequest) {
-        val player = Player(
-            UserAccount().also { it.id = userId },
-            PlayerClass(request.playerClass),
-            Location().also { it.id = 6 },
-            request.name)
+    fun addNewPlayer(userId: Long, request: PlayerAddRequest): Long {
+        val player = Player().also {
+            it.userAccount.id = userId
+            it.playerClass.id = request.playerClass.ordinal.toByte()
+            it.location.id = 6
+            it.name = request.name
+        }
 
-        playerRepository.save(player)
+        return requireNotNull(playerRepository.save(player).id)
     }
 
     @Transactional
@@ -85,7 +83,8 @@ class PlayerDomainService(
 
     fun getPlayer(userId: Long, playerId: Long): PlayerResponse {
 
-        val player = playerRepository.findByUserAccountIdAndId(userId, playerId) ?: error("There is no player with id:$playerId which belong to user with id: $userId")
+        val player = playerRepository.findByUserAccountIdAndId(userId, playerId)
+            ?: error("There is no player with id:$playerId which belong to user with id: $userId")
 
         return playerResponseMapper.from(player)
     }
