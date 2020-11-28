@@ -1,7 +1,8 @@
 package io.github.loggerworld.dto.response.character
 
-data class PlayerClassResponse(
+data class PlayerStatResponse(
     var id: Byte = -1,
     var code: String = "",
-    var stats: Map<Byte, Int> = emptyMap(),
+    var name: String = "",
+    var description: String = "",
 )

@@ -8,10 +8,12 @@ import io.github.loggerworld.dto.request.PlayerMoveRequest
 import io.github.loggerworld.dto.request.PlayerStartGameRequest
 import io.github.loggerworld.dto.response.character.PlayerClassesResponse
 import io.github.loggerworld.dto.response.character.PlayerResponse
+import io.github.loggerworld.dto.response.character.PlayerStatsResponse
 import io.github.loggerworld.dto.response.character.PlayersResponse
 import io.github.loggerworld.messagebus.CommandEventBus
 import io.github.loggerworld.messagebus.event.PlayerMoveCommand
 import io.github.loggerworld.messagebus.event.PlayerStartCommand
+import io.github.loggerworld.service.domain.PlayerClassDomainService
 import io.github.loggerworld.service.domain.PlayerDomainService
 import io.github.loggerworld.service.domain.UserDomainService
 import org.springframework.stereotype.Service
@@ -23,6 +25,7 @@ typealias PlayerStatDescriptionsMap = Map<PlayerStatEnum, Map<Languages, Pair<St
 @Service
 class PlayerService(
     private val playerDomainService: PlayerDomainService,
+    private val playerClassDomainService: PlayerClassDomainService,
     private val userDomainService: UserDomainService,
     private val startEventBus: CommandEventBus<PlayerStartCommand>,
     private val moveEventBus: CommandEventBus<PlayerMoveCommand>,
@@ -36,7 +39,11 @@ class PlayerService(
 
     fun getAllClasses(userName: String): PlayerClassesResponse {
         val user = userDomainService.getUserByName(userName)!!
-        return PlayerClassesResponse(playerDomainService.getAllPlayerClasses(user.id, user.language))
+        val response = PlayerClassesResponse(playerDomainService.getAllPlayerClasses(user.id, user.language))
+        response.playerClasses.forEach {
+            it.stats = playerClassDomainService.getInitialStatsForPlayerClass(it.id)
+        }
+        return response
     }
 
     fun addNewPlayer(userName: String, request: PlayerAddRequest) : PlayerResponse {

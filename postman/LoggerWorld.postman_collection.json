@@ -30,6 +30,27 @@
 					"response": []
 				},
 				{
+					"name": "Get stats dictionary",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/players/stats",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"players",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get all players",
 					"request": {
 						"method": "GET",

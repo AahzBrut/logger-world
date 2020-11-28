@@ -1,6 +1,8 @@
 package io.github.loggerworld.ecs
 
 import io.github.loggerworld.domain.enums.Languages
+import io.github.loggerworld.dto.response.character.PlayerStatResponse
+import io.github.loggerworld.dto.response.character.PlayerStatsResponse
 import io.github.loggerworld.dto.response.geography.LocationResponse
 import io.github.loggerworld.dto.response.geography.LocationTypeResponse
 import io.github.loggerworld.dto.response.geography.LocationTypesResponse
@@ -53,6 +55,19 @@ class WorldCache(
                     ((locationDescriptions[it.key]
                         ?: error("There is no location with id: ${it.key} in location description cache"))[userLanguage]
                         ?: error("There is no language: $userLanguage in location descriptions cache.")).second)
+            }.toList())
+    }
+
+    fun getPlayerStats(userLanguage: Languages): PlayerStatsResponse {
+
+        return PlayerStatsResponse(
+            playerStatDescriptions.entries.map {
+                PlayerStatResponse(
+                    it.key.ordinal.toByte(),
+                    it.key.name,
+                    requireNotNull(it.value[userLanguage]).first,
+                    requireNotNull(it.value[userLanguage]).second
+                )
             }.toList())
     }
 }
