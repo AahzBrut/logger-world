@@ -48,6 +48,9 @@
         <insert tableName="character_stat">
             <column name="code" value="POINTS_ON_LEVELUP"/>
         </insert>
+        <insert tableName="character_stat">
+            <column name="code" value="UNALLOCATED_POINTS"/>
+        </insert>
     </changeSet>
 
 </databaseChangeLog>

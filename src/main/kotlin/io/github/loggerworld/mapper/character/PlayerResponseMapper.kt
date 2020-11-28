@@ -16,7 +16,10 @@ class PlayerResponseMapper : Mapper<PlayerResponse, Player> {
             source.userAccount.id!!,
             source.name,
             source.playerClass.id!!,
-            source.location.id!!
+            source.location.id!!,
+            source.playerStats.associate {
+                it.playerStat.id!! to it.value
+            }
         )
     }
 }

@@ -8,7 +8,6 @@ import io.github.loggerworld.dto.request.PlayerMoveRequest
 import io.github.loggerworld.dto.request.PlayerStartGameRequest
 import io.github.loggerworld.dto.response.character.PlayerClassesResponse
 import io.github.loggerworld.dto.response.character.PlayerResponse
-import io.github.loggerworld.dto.response.character.PlayerStatsResponse
 import io.github.loggerworld.dto.response.character.PlayersResponse
 import io.github.loggerworld.messagebus.CommandEventBus
 import io.github.loggerworld.messagebus.event.PlayerMoveCommand
@@ -46,10 +45,13 @@ class PlayerService(
         return response
     }
 
-    fun addNewPlayer(userName: String, request: PlayerAddRequest) : PlayerResponse {
+    fun addNewPlayer(userName: String, request: PlayerAddRequest): PlayerResponse {
         val user = userDomainService.getUserByName(userName)!!
 
-        val playerId = playerDomainService.addNewPlayer(user.id, request)
+        val classStats = playerClassDomainService.getInitialStatsForPlayerClass(request.playerClass.ordinal.toByte())
+
+        val playerId = playerDomainService.addNewPlayer(user.id, request, classStats)
+
 
         return playerDomainService.getPlayer(playerId)
     }
