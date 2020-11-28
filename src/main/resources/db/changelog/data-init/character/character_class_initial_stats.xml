@@ -87,6 +87,12 @@
             <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='POINTS_ON_LEVELUP'"/>
             <column name="value" valueNumeric="5"/>
         </insert>
+        <insert tableName="class_initial_stats">
+            <!-- UNALLOCATED_POINTS -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='WARRIOR'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='UNALLOCATED_POINTS'"/>
+            <column name="value" valueNumeric="0"/>
+        </insert>
 
         <!-- ARCHER -->
 
@@ -167,6 +173,12 @@
             <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ARCHER'"/>
             <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='POINTS_ON_LEVELUP'"/>
             <column name="value" valueNumeric="5"/>
+        </insert>
+        <insert tableName="class_initial_stats">
+            <!-- UNALLOCATED_POINTS -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ARCHER'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='UNALLOCATED_POINTS'"/>
+            <column name="value" valueNumeric="0"/>
         </insert>
 
         <!-- WIZARD -->
@@ -249,6 +261,12 @@
             <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='POINTS_ON_LEVELUP'"/>
             <column name="value" valueNumeric="5"/>
         </insert>
+        <insert tableName="class_initial_stats">
+            <!-- UNALLOCATED_POINTS -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='WIZARD'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='UNALLOCATED_POINTS'"/>
+            <column name="value" valueNumeric="0"/>
+        </insert>
 
         <!-- ASSASSIN -->
 
@@ -329,6 +347,12 @@
             <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
             <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='POINTS_ON_LEVELUP'"/>
             <column name="value" valueNumeric="5"/>
+        </insert>
+        <insert tableName="class_initial_stats">
+            <!-- UNALLOCATED_POINTS -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='UNALLOCATED_POINTS'"/>
+            <column name="value" valueNumeric="0"/>
         </insert>
     </changeSet>
 

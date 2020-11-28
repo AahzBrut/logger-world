@@ -81,6 +81,24 @@
             <column name="name" value="Agility"/>
             <column name="description" value="Agility"/>
         </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='LEVEL'"/>
+            <column name="name" value="Level"/>
+            <column name="description" value="Character's level"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='POINTS_ON_LEVELUP'"/>
+            <column name="name" value="Attribute points on level up"/>
+            <column name="description" value="Number of attribute points to distribute on level up"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='UNALLOCATED_POINTS'"/>
+            <column name="name" value="Free attribute points"/>
+            <column name="description" value="Number of not yet allocated attribute points"/>
+        </insert>
 
 
         <!-- RU -->
@@ -156,6 +174,24 @@
             <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='AGI'"/>
             <column name="name" value="Agility"/>
             <column name="description" value="Ловкость"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='LEVEL'"/>
+            <column name="name" value="Level"/>
+            <column name="description" value="Уровень персонажа"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='POINTS_ON_LEVELUP'"/>
+            <column name="name" value="Attribute points on level up"/>
+            <column name="description" value="Количество очков атрибутов, получаемых при увеличении уровня"/>
+        </insert>
+        <insert tableName="character_stat_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='UNALLOCATED_POINTS'"/>
+            <column name="name" value="Нераспределенные очки атрибутов"/>
+            <column name="description" value="Количество нераспределенных очков атрибутов"/>
         </insert>
     </changeSet>
 
