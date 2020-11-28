@@ -8,6 +8,8 @@ import io.github.loggerworld.dto.request.PlayerMoveRequest
 import io.github.loggerworld.dto.request.PlayerStartGameRequest
 import io.github.loggerworld.dto.response.character.PlayerClassesResponse
 import io.github.loggerworld.dto.response.character.PlayerResponse
+import io.github.loggerworld.dto.response.character.PlayerStatResponse
+import io.github.loggerworld.dto.response.character.PlayerStatsResponse
 import io.github.loggerworld.dto.response.character.PlayersResponse
 import io.github.loggerworld.messagebus.CommandEventBus
 import io.github.loggerworld.messagebus.event.PlayerMoveCommand
@@ -101,4 +103,18 @@ class PlayerService(
 
         moveEventBus.pushEvent(moveEvent)
     }
+
+    fun getPlayerStats(userLanguage: Languages): PlayerStatsResponse {
+
+        return PlayerStatsResponse(
+            getAllPlayerStatDescriptions().entries.map {
+                PlayerStatResponse(
+                    it.key.ordinal.toByte(),
+                    it.key.name,
+                    requireNotNull(it.value[userLanguage]).first,
+                    requireNotNull(it.value[userLanguage]).second
+                )
+            }.toList())
+    }
+
 }

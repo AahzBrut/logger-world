@@ -5,7 +5,6 @@ import io.github.loggerworld.dto.response.character.PlayerClassesResponse
 import io.github.loggerworld.dto.response.character.PlayerResponse
 import io.github.loggerworld.dto.response.character.PlayerStatsResponse
 import io.github.loggerworld.dto.response.character.PlayersResponse
-import io.github.loggerworld.ecs.WorldCache
 import io.github.loggerworld.service.PlayerService
 import io.github.loggerworld.service.UserService
 import org.springframework.http.HttpStatus
@@ -23,7 +22,6 @@ const val PLAYERS_STATS_URL = "/api/players/stats"
 @RestController
 class PlayerRestController(
     private val playerService: PlayerService,
-    private val worldCache: WorldCache,
     private val userService: UserService,
 ) {
 
@@ -42,7 +40,7 @@ class PlayerRestController(
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(PLAYERS_STATS_URL)
     fun getAllStats(principal: Principal) : PlayerStatsResponse {
-        return worldCache.getPlayerStats(userService.getUserLanguage(principal.name))
+        return playerService.getPlayerStats(userService.getUserLanguage(principal.name))
     }
 
     @ResponseStatus(HttpStatus.CREATED)

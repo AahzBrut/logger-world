@@ -4,8 +4,8 @@ import com.badlogic.ashley.core.Engine
 import com.badlogic.ashley.core.EntitySystem
 import com.badlogic.ashley.core.PooledEngine
 import io.github.loggerworld.domain.enums.LocationTypes
-import io.github.loggerworld.ecs.WorldCache
 import io.github.loggerworld.ecs.component.LocationComponent
+import io.github.loggerworld.service.LocationService
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.logger
 import ktx.ashley.entity
@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class AshleyConfig(
     private val entitySystems: List<EntitySystem>,
-    private val worldCache: WorldCache
+    private val locationService: LocationService,
 ) : LogAware {
 
     @Value("\${entityPoolInitialSize}")
@@ -53,7 +53,7 @@ class AshleyConfig(
 
     private fun loadWorld(engine: Engine) {
 
-        worldCache.worldMap.locations.values
+        locationService.getWorldMap().locations.values
             .filter { it.type != LocationTypes.VOID && it.type != LocationTypes.IN_TRANSIT }
             .forEach { location ->
                 engine.entity {
