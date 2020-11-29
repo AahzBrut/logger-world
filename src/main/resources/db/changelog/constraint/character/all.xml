@@ -9,5 +9,6 @@
     <include file="classpath:/db/changelog/constraint/character/character_class_description.xml"/>
     <include file="classpath:/db/changelog/constraint/character/character_stat_description.xml"/>
     <include file="classpath:/db/changelog/constraint/character/character_stats.xml"/>
+    <include file="classpath:/db/changelog/constraint/character/character_class_level_stats.xml"/>
 
 </databaseChangeLog>

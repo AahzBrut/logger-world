@@ -10,7 +10,7 @@ class PlayerClassDomainService(
 
     fun getInitialStatsForPlayerClass(classId: Byte): Map<Byte, Int> {
         return playerClassInitialStatsRepository
-            .findAllByPlayerClassId(classId)
+            .findAllByPlayerClassIdAndLevel(classId, 1)
             .associate {
                 it.playerStat.id!! to it.value
             }

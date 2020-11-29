@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet author="class_level_stats_view-01" id="AahzBrut">
+        <createView viewName="V_CLASS_LEVEL_STATS">
+            SELECT
+            CC.CODE AS CHARACTER_CLASS_CODE,
+            CLS.LEVEL,
+            CS.CODE AS STAT_CODE,
+            CLS.VALUE,
+            CT.CODE AS CHANGE_TYPE_CODE
+            FROM REPOSITORY.CLASS_LEVEL_STATS CLS
+            INNER JOIN REPOSITORY.CHARACTER_CLASS CC ON CC.CHARACTER_CLASS_ID=CLS.CHARACTER_CLASS_ID
+            INNER JOIN REPOSITORY.CHANGE_TYPE CT ON CT.CHANGE_TYPE_ID=CLS.CHANGE_TYPE_ID
+            INNER JOIN REPOSITORY.CHARACTER_STAT CS ON CS.CHARACTER_STAT_ID=CLS.CHARACTER_STAT_ID
+        </createView>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="change_type-01" author="AahzBrut">
+        <createSequence sequenceName="change_type_seq" startValue="0"/>
+    </changeSet>
+
+    <changeSet id="change_type-02" author="AahzBrut">
+        <createTable tableName="change_type">
+            <column name="change_type_id" type="TINYINT" defaultValueSequenceNext="change_type_seq">
+                <constraints primaryKey="true" primaryKeyName="change_type_pk"/>
+            </column>
+            <column name="code" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

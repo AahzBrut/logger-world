@@ -6,15 +6,20 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet id="character_class_initial_stats-constraint-001" author="Aahz Brut">
-        <addForeignKeyConstraint baseColumnNames="character_class_id" baseTableName="class_initial_stats"
-                                 constraintName="fk-class_initial_stats-character_class"
+        <addForeignKeyConstraint baseColumnNames="character_class_id" baseTableName="class_level_stats"
+                                 constraintName="fk-class_level_stats-character_class"
                                  deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="character_class_id" referencedTableName="character_class"/>
 
-        <addForeignKeyConstraint baseColumnNames="character_stat_id" baseTableName="class_initial_stats"
-                                 constraintName="fk-class_initial_stats-character_stat"
+        <addForeignKeyConstraint baseColumnNames="character_stat_id" baseTableName="class_level_stats"
+                                 constraintName="fk-class_level_stats-character_stat"
                                  deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="character_stat_id" referencedTableName="character_stat"/>
+
+        <addForeignKeyConstraint baseColumnNames="change_type_id" baseTableName="class_level_stats"
+                                 constraintName="fk-class_level_stats-change_type"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="change_type_id" referencedTableName="change_type"/>
     </changeSet>
 
 </databaseChangeLog>

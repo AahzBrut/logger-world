@@ -5,19 +5,25 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="character_class_initial_stats-01" author="AahzBrut">
-        <createSequence sequenceName="class_initial_stats_seq" startValue="0"/>
+    <changeSet id="character_class_level_stats-01" author="AahzBrut">
+        <createSequence sequenceName="class_level_stats_seq" startValue="0"/>
     </changeSet>
 
-    <changeSet id="character_class_initial_stats-02" author="AahzBrut">
-        <createTable tableName="class_initial_stats">
-            <column name="class_initial_stats_id" type="SMALLINT" defaultValueSequenceNext="class_initial_stats_seq">
-                <constraints primaryKey="true" primaryKeyName="class_initial_stats_pk"/>
+    <changeSet id="character_class_level_stats-02" author="AahzBrut">
+        <createTable tableName="class_level_stats">
+            <column name="class_level_stats_id" type="SMALLINT" defaultValueSequenceNext="class_level_stats_seq">
+                <constraints primaryKey="true" primaryKeyName="class_level_stats_pk"/>
+            </column>
+            <column name="level" type="TINYINT">
+                <constraints nullable="false"/>
             </column>
             <column name="character_stat_id" type="TINYINT">
                 <constraints nullable="false"/>
             </column>
             <column name="character_class_id" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="change_type_id" type="TINYINT">
                 <constraints nullable="false"/>
             </column>
             <column name="value" type="INT">

@@ -9,6 +9,6 @@
     <include file="classpath:/db/changelog/data-init/character/character_class_description.xml"/>
     <include file="classpath:/db/changelog/data-init/character/character_stat.xml"/>
     <include file="classpath:/db/changelog/data-init/character/character_stat_description.xml"/>
-    <include file="classpath:/db/changelog/data-init/character/character_class_initial_stats.xml"/>
+    <includeAll path="classpath:/db/changelog/data-init/character/level_stats"/>
 
 </databaseChangeLog>

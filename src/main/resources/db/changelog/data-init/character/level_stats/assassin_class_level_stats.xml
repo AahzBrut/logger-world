@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="assassin_class_level_stats-data-01" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="1"/>
+            <column name="value" valueNumeric="100"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="1"/>
+            <column name="value" valueNumeric="100"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- DEF -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='DEF'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="1"/>
+            <column name="value" valueNumeric="0"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="1"/>
+            <column name="value" valueNumeric="0"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- SPD -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='SPD'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="1"/>
+            <column name="value" valueNumeric="0"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- CRT -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='CRT'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="1"/>
+            <column name="value" valueNumeric="0"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- EVS -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='EVS'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="1"/>
+            <column name="value" valueNumeric="0"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- STR -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='STR'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="1"/>
+            <column name="value" valueNumeric="0"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- INT -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='INT'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="1"/>
+            <column name="value" valueNumeric="0"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- CON -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='CON'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="1"/>
+            <column name="value" valueNumeric="0"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- AGI -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='AGI'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="1"/>
+            <column name="value" valueNumeric="0"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- LEVEL -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='LEVEL'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="1"/>
+            <column name="value" valueNumeric="1"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- POINTS_ON_LEVELUP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='POINTS_ON_LEVELUP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="1"/>
+            <column name="value" valueNumeric="5"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- UNALLOCATED_POINTS -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='UNALLOCATED_POINTS'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="1"/>
+            <column name="value" valueNumeric="0"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-02" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="2"/>
+            <column name="value" valueNumeric="105"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="2"/>
+            <column name="value" valueNumeric="105"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="2"/>
+            <column name="value" valueNumeric="6"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-03" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="3"/>
+            <column name="value" valueNumeric="115"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="3"/>
+            <column name="value" valueNumeric="115"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="3"/>
+            <column name="value" valueNumeric="8"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-04" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="4"/>
+            <column name="value" valueNumeric="130"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="4"/>
+            <column name="value" valueNumeric="130"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="4"/>
+            <column name="value" valueNumeric="11"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-05" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="5"/>
+            <column name="value" valueNumeric="150"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="5"/>
+            <column name="value" valueNumeric="150"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="5"/>
+            <column name="value" valueNumeric="15"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-06" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="6"/>
+            <column name="value" valueNumeric="175"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="6"/>
+            <column name="value" valueNumeric="175"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="6"/>
+            <column name="value" valueNumeric="20"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-07" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="7"/>
+            <column name="value" valueNumeric="205"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="7"/>
+            <column name="value" valueNumeric="205"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="7"/>
+            <column name="value" valueNumeric="26"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-08" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="8"/>
+            <column name="value" valueNumeric="240"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="8"/>
+            <column name="value" valueNumeric="240"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="8"/>
+            <column name="value" valueNumeric="33"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-09" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="9"/>
+            <column name="value" valueNumeric="280"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="9"/>
+            <column name="value" valueNumeric="280"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="9"/>
+            <column name="value" valueNumeric="41"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-10" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="10"/>
+            <column name="value" valueNumeric="325"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="10"/>
+            <column name="value" valueNumeric="325"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="10"/>
+            <column name="value" valueNumeric="50"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-11" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="11"/>
+            <column name="value" valueNumeric="375"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="11"/>
+            <column name="value" valueNumeric="375"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="11"/>
+            <column name="value" valueNumeric="60"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-12" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="12"/>
+            <column name="value" valueNumeric="430"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="12"/>
+            <column name="value" valueNumeric="430"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="12"/>
+            <column name="value" valueNumeric="71"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-13" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="13"/>
+            <column name="value" valueNumeric="490"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="13"/>
+            <column name="value" valueNumeric="490"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="13"/>
+            <column name="value" valueNumeric="83"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-14" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="14"/>
+            <column name="value" valueNumeric="555"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="14"/>
+            <column name="value" valueNumeric="555"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="14"/>
+            <column name="value" valueNumeric="96"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-15" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="15"/>
+            <column name="value" valueNumeric="625"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="15"/>
+            <column name="value" valueNumeric="625"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="15"/>
+            <column name="value" valueNumeric="110"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-16" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="16"/>
+            <column name="value" valueNumeric="700"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="16"/>
+            <column name="value" valueNumeric="700"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="16"/>
+            <column name="value" valueNumeric="125"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-17" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="17"/>
+            <column name="value" valueNumeric="780"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="17"/>
+            <column name="value" valueNumeric="780"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="17"/>
+            <column name="value" valueNumeric="141"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-18" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="18"/>
+            <column name="value" valueNumeric="865"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="18"/>
+            <column name="value" valueNumeric="865"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="18"/>
+            <column name="value" valueNumeric="158"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-19" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="19"/>
+            <column name="value" valueNumeric="955"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="19"/>
+            <column name="value" valueNumeric="955"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="19"/>
+            <column name="value" valueNumeric="176"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-20" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="20"/>
+            <column name="value" valueNumeric="1050"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="20"/>
+            <column name="value" valueNumeric="1050"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="20"/>
+            <column name="value" valueNumeric="195"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-21" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="21"/>
+            <column name="value" valueNumeric="1150"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="21"/>
+            <column name="value" valueNumeric="1150"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="21"/>
+            <column name="value" valueNumeric="215"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-22" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="22"/>
+            <column name="value" valueNumeric="1255"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="22"/>
+            <column name="value" valueNumeric="1255"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="22"/>
+            <column name="value" valueNumeric="236"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-23" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="23"/>
+            <column name="value" valueNumeric="1365"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="23"/>
+            <column name="value" valueNumeric="1365"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="23"/>
+            <column name="value" valueNumeric="258"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-24" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="24"/>
+            <column name="value" valueNumeric="1480"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="24"/>
+            <column name="value" valueNumeric="1480"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="24"/>
+            <column name="value" valueNumeric="281"/>
+        </insert>
+    </changeSet>
+    <changeSet id="assassin_class_level_stats-data-25" author="AahzBrut">
+        <insert tableName="class_level_stats">
+            <!-- HP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="25"/>
+            <column name="value" valueNumeric="1600"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- MP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="25"/>
+            <column name="value" valueNumeric="1600"/>
+        </insert>
+        <insert tableName="class_level_stats">
+            <!-- ATK -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="25"/>
+            <column name="value" valueNumeric="305"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

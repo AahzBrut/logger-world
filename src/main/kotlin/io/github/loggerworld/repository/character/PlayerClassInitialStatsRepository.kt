@@ -1,9 +1,9 @@
 package io.github.loggerworld.repository.character
 
-import io.github.loggerworld.domain.character.PlayerClassInitialStats
+import io.github.loggerworld.domain.character.PlayerClassLevelStats
 import org.springframework.data.jpa.repository.JpaRepository
 
-interface PlayerClassInitialStatsRepository: JpaRepository<PlayerClassInitialStats, Short> {
+interface PlayerClassInitialStatsRepository: JpaRepository<PlayerClassLevelStats, Short> {
 
-    fun findAllByPlayerClassId(classId: Byte) : List<PlayerClassInitialStats>
+    fun findAllByPlayerClassIdAndLevel(classId: Byte, level: Byte) : List<PlayerClassLevelStats>
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="change_type-data-01" author="AahzBrut">
+        <insert tableName="change_type">
+            <column name="code" value="SET"/>
+        </insert>
+        <insert tableName="change_type">
+            <column name="code" value="ADD"/>
+        </insert>
+        <insert tableName="change_type">
+            <column name="code" value="MUL"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
