@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="monster_spawner-01" author="AahzBrut">
+        <createSequence sequenceName="monster_spawner_seq"/>
+    </changeSet>
+
+    <changeSet id="monster_spawner-02" author="AahzBrut">
+        <createTable tableName="monster_spawner">
+            <column name="monster_spawner_id" type="SMALLINT" defaultValueSequenceNext="monster_spawner_seq">
+                <constraints primaryKey="true" primaryKeyName="monster_spawner_pk"/>
+            </column>
+            <column name="level" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="monster_class_id" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="monster_type_id" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="probability" type="DECIMAL(9,5)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

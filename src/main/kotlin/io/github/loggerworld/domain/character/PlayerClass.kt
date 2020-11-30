@@ -20,6 +20,10 @@ data class PlayerClass(
 
 ) : BaseEntity<Byte>() {
 
+    init {
+        this.id = code.ordinal.toByte()
+    }
+
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "playerClass")
     var playerClassDescriptions: MutableList<PlayerClassDescription> = mutableListOf()
 

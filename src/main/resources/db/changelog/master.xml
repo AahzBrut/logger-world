@@ -9,10 +9,12 @@
     <include file="classpath:/db/changelog/user-account/all.xml"/>
     <include file="classpath:/db/changelog/geography/all.xml"/>
     <include file="classpath:/db/changelog/character/all.xml"/>
+    <includeAll path="classpath:/db/changelog/monster/"/>
     <include file="classpath:/db/changelog/data-init/main/all.xml"/>
     <include file="classpath:/db/changelog/data-init/user-account/all.xml"/>
     <include file="classpath:/db/changelog/data-init/geography/all.xml"/>
     <include file="classpath:/db/changelog/data-init/character/all.xml"/>
+    <include file="classpath:/db/changelog/data-init/monster/all.xml"/>
     <include file="classpath:/db/changelog/constraint/all.xml"/>
     <include file="classpath:/db/changelog/utility/all.xml"/>
 

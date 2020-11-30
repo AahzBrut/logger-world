@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="monster_spawner_stats-data-01" author="AahzBrut">
+
+        <!-- GREY_RAT -->
+
+        <!-- HP -->
+        <insert tableName="monster_spawner_stats">
+            <column name="monster_spawner_id" valueComputed="SELECT monster_spawner_id FROM REPOSITORY.monster_spawner WHERE level=1
+                                                             AND monster_class_id IN (SELECT monster_class_id FROM REPOSITORY.monster_class WHERE code='GREY_RAT')
+                                                             AND monster_type_id IN (SELECT monster_type_id FROM REPOSITORY.monster_type WHERE code='NORMAL')"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="value" valueNumeric="20"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>

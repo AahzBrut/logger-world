@@ -1,14 +1,13 @@
 package io.github.loggerworld.service.domain
 
-import io.github.loggerworld.domain.user_account.UserAccount
 import io.github.loggerworld.dto.request.UserAddRequest
 import io.github.loggerworld.dto.request.UserLoginRequest
 import io.github.loggerworld.dto.response.UserResponse
 import io.github.loggerworld.exception.UserAlreadyExistsException
-import io.github.loggerworld.mapper.Mapper
+import io.github.loggerworld.mapper.user_account.UserMapper
+import io.github.loggerworld.mapper.user_account.UserResponseMapper
 import io.github.loggerworld.repository.user_account.UserAccountRepository
 import io.github.loggerworld.util.LogAware
-import io.github.loggerworld.util.logger
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
@@ -16,8 +15,8 @@ import javax.transaction.Transactional
 @Service
 class UserDomainService(
     private val userAccountRepository: UserAccountRepository,
-    private val userMapper: Mapper<UserAccount, UserAddRequest>,
-    private val userResponseMapper: Mapper<UserResponse, UserAccount>,
+    private val userMapper: UserMapper,
+    private val userResponseMapper: UserResponseMapper,
     private val passwordEncoder: PasswordEncoder
 ) : LogAware {
 
