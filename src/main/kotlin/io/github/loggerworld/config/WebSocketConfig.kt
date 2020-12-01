@@ -8,6 +8,7 @@ import io.github.loggerworld.util.WS_GAMEPLAY_EVENTS_QUEUE
 import io.github.loggerworld.util.WS_TOPIC
 import io.github.loggerworld.util.logger
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.event.EventListener
 import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order
 import org.springframework.http.HttpHeaders
@@ -25,9 +26,11 @@ import org.springframework.util.MultiValueMap
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer
+import org.springframework.web.socket.messaging.SessionDisconnectEvent
 import org.springframework.web.socket.server.RequestUpgradeStrategy
 import org.springframework.web.socket.server.standard.TomcatRequestUpgradeStrategy
 import org.springframework.web.socket.server.support.DefaultHandshakeHandler
+
 
 const val NATIVE_HEADERS = "nativeHeaders"
 const val AUTH_FAILED_MESSAGE = "JWT token not provided."

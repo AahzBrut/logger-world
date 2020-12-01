@@ -17,7 +17,11 @@ import io.github.loggerworld.messagebus.event.PlayerStartCommand
 import io.github.loggerworld.service.domain.PlayerClassDomainService
 import io.github.loggerworld.service.domain.PlayerDomainService
 import io.github.loggerworld.service.domain.UserDomainService
+import io.github.loggerworld.util.LogAware
+import io.github.loggerworld.util.logger
+import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Service
+import org.springframework.web.socket.messaging.SessionDisconnectEvent
 
 typealias PlayerClassDescriptionsMap = Map<PlayerClasses, Map<Languages, Pair<String, String>>>
 typealias PlayerStatDescriptionsMap = Map<PlayerStatEnum, Map<Languages, Pair<String, String>>>
@@ -30,7 +34,8 @@ class PlayerService(
     private val userDomainService: UserDomainService,
     private val startEventBus: CommandEventBus<PlayerStartCommand>,
     private val moveEventBus: CommandEventBus<PlayerMoveCommand>,
-) {
+) : LogAware {
+
     private val activePlayers: MutableMap<Long, Long> = mutableMapOf()
 
     fun getAllPlayers(userName: String): PlayersResponse {
@@ -72,7 +77,11 @@ class PlayerService(
         val user = userDomainService.getUserByName(name)!!
         val player: PlayerResponse = playerDomainService.getPlayer(user.id, request.playerId)
 
-        if (activePlayers.containsKey(user.id)) error("User already have active player in game.")
+        if (activePlayers.containsKey(user.id)) {
+            if (activePlayers[user.id] != request.playerId) {
+                error("User already have active player in the game. To proceed with new player you must logoff other player.")
+            }
+        }
 
         activePlayers[user.id] = player.id
 
@@ -117,4 +126,15 @@ class PlayerService(
             }.toList())
     }
 
+    @EventListener
+    fun onDisconnectEvent(event: SessionDisconnectEvent) {
+        logger().debug("Socket closed for user:${(event.user ?: "null")} with status:${event.closeStatus}")
+        event.user?.let {
+            val disconnectedUser = userDomainService.getUserByName(it.name)
+            disconnectedUser?.let {
+                activePlayers.remove(disconnectedUser.id)
+                logger().debug("Active players:$activePlayers")
+            }
+        }
+    }
 }

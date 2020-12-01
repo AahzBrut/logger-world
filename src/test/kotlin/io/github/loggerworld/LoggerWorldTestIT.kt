@@ -370,6 +370,20 @@ class LoggerWorldTestIT : LogAware {
         logger().info(classes.toString())
     }
 
+    @Test
+    @Order(23)
+    fun firstUserDisconnect() {
+        stompSession1.disconnect()
+        TimeUnit.MILLISECONDS.sleep(300)
+    }
+
+    @Test
+    @Order(24)
+    fun secondUserDisconnect() {
+        stompSession2.disconnect()
+        TimeUnit.MILLISECONDS.sleep(300)
+    }
+
     private fun getJwtToken(userLoginRequest: UserLoginRequest): String? {
         val responseEntity = restTemplate.postForEntity(loginUrl, userLoginRequest, Object::class.java)
         return responseEntity.headers[HttpHeaders.AUTHORIZATION]?.get(0)
