@@ -30,4 +30,6 @@ data class Location(
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "location")
     var locationDescriptions: MutableList<LocationDescription> = mutableListOf()
 
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "location")
+    var locationMonsterSpawners: MutableList<LocationMonsterSpawner> = mutableListOf()
 }

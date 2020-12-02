@@ -7,7 +7,10 @@
 
     <include file="classpath:/db/changelog/data-init/monster/monster_class.xml"/>
     <include file="classpath:/db/changelog/data-init/monster/monster_type.xml"/>
-    <include file="classpath:/db/changelog/data-init/monster/monster_spawner.xml"/>
-    <include file="classpath:/db/changelog/data-init/monster/monster_spawner_stats.xml"/>
+    <include file="classpath:/db/changelog/data-init/monster/v_monster_spawners.xml"/>
+    <includeAll path="classpath:/db/changelog/data-init/monster/grey_rat/spawners"/>
+    <includeAll path="classpath:/db/changelog/data-init/monster/grey_rat/spawner_types"/>
+    <includeAll path="classpath:/db/changelog/data-init/monster/grey_rat/spawner_stats"/>
+    <includeAll path="classpath:/db/changelog/data-init/monster/location_spawners"/>
 
 </databaseChangeLog>

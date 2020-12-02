@@ -7,13 +7,13 @@
 
     <changeSet id="monster_spawner_stats-constraint-001" author="Aahz Brut">
 
-        <addForeignKeyConstraint baseColumnNames="monster_spawner_id" baseTableName="monster_spawner_stats"
-                                 constraintName="fk-monster_spawner_stats-monster_spawner"
+        <addForeignKeyConstraint baseColumnNames="spawner_type_id" baseTableName="spawner_stats"
+                                 constraintName="fk-spawner_stats-spawner_type"
                                  deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
-                                 referencedColumnNames="monster_spawner_id" referencedTableName="monster_spawner"/>
+                                 referencedColumnNames="spawner_type_id" referencedTableName="spawner_type"/>
 
-        <addForeignKeyConstraint baseColumnNames="character_stat_id" baseTableName="monster_spawner_stats"
-                                 constraintName="fk-monster_spawner_stats-character_stat"
+        <addForeignKeyConstraint baseColumnNames="character_stat_id" baseTableName="spawner_stats"
+                                 constraintName="fk-spawner_stats-character_stat"
                                  deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="character_stat_id" referencedTableName="character_stat"/>
 

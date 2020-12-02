@@ -5,16 +5,16 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="monster_spawner_stats-01" author="AahzBrut">
-        <createSequence sequenceName="monster_spawner_stats_seq"/>
+    <changeSet id="spawner_stats-01" author="AahzBrut">
+        <createSequence sequenceName="spawner_stats_seq"/>
     </changeSet>
 
-    <changeSet id="monster_spawner_stats-02" author="AahzBrut">
-        <createTable tableName="monster_spawner_stats">
-            <column name="monster_spawner_stats_id" type="SMALLINT" defaultValueSequenceNext="monster_spawner_stats_seq">
-                <constraints primaryKey="true" primaryKeyName="monster_spawner_stats_pk"/>
+    <changeSet id="spawner_stats-02" author="AahzBrut">
+        <createTable tableName="spawner_stats">
+            <column name="spawner_stats_id" type="SMALLINT" defaultValueSequenceNext="spawner_stats_seq">
+                <constraints primaryKey="true" primaryKeyName="spawner_stats_pk"/>
             </column>
-            <column name="monster_spawner_id" type="SMALLINT">
+            <column name="spawner_type_id" type="SMALLINT">
                 <constraints nullable="false"/>
             </column>
             <column name="character_stat_id" type="TINYINT">

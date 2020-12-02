@@ -7,11 +7,6 @@
 
     <changeSet id="monster_spawner-constraint-001" author="Aahz Brut">
 
-        <addForeignKeyConstraint baseColumnNames="monster_type_id" baseTableName="monster_spawner"
-                                 constraintName="fk-monster_spawner-monster_type"
-                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
-                                 referencedColumnNames="monster_type_id" referencedTableName="monster_type"/>
-
         <addForeignKeyConstraint baseColumnNames="monster_class_id" baseTableName="monster_spawner"
                                  constraintName="fk-monster_spawner-monster_class"
                                  deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"

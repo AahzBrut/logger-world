@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="spawner_type-constraint-001" author="Aahz Brut">
+
+        <addForeignKeyConstraint baseColumnNames="monster_spawner_id" baseTableName="spawner_type"
+                                 constraintName="fk-spawner_type-monster_spawner"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="monster_spawner_id" referencedTableName="monster_spawner"/>
+
+        <addForeignKeyConstraint baseColumnNames="monster_type_id" baseTableName="spawner_type"
+                                 constraintName="fk-spawner_type-monster_type"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="monster_type_id" referencedTableName="monster_type"/>
+
+    </changeSet>
+
+</databaseChangeLog>

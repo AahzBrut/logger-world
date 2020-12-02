@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="location_monster_spawner-01" author="AahzBrut">
+        <createSequence sequenceName="location_monster_spawner_seq"/>
+    </changeSet>
+
+    <changeSet id="location_monster_spawner-02" author="AahzBrut">
+        <createTable tableName="location_monster_spawner">
+            <column name="location_monster_spawner_id" type="SMALLINT" defaultValueSequenceNext="location_monster_spawner_seq">
+                <constraints primaryKey="true" primaryKeyName="location_monster_spawner_pk"/>
+            </column>
+            <column name="location_id" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="monster_spawner_id" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
+

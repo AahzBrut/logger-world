@@ -9,13 +9,13 @@ import javax.persistence.FetchType
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 
-@Entity(name = "monster_spawner_stats")
-@AttributeOverride(name = "id", column = Column(name = "monster_spawner_stats_id"))
+@Entity(name = "spawner_stats")
+@AttributeOverride(name = "id", column = Column(name = "spawner_stats_id"))
 data class MonsterSpawnerStats(
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "monster_spawner_id")
-    var monsterSpawner: MonsterSpawner = MonsterSpawner(),
+    @JoinColumn(name = "spawner_type_id")
+    var spawnerType: MonsterSpawnerType = MonsterSpawnerType(),
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "character_stat_id")

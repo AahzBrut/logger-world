@@ -71,4 +71,6 @@ class LocationService(
 
     fun getAllLocationTypeDescriptions() =
         locationDomainService.getAllLocationTypeDescriptions()
+
+    fun getAllLocationMonsterSpawners() = Unit
 }

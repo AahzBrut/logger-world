@@ -1,6 +1,7 @@
 package io.github.loggerworld.controller
 
 import io.github.loggerworld.dto.request.UserAddRequest
+import io.github.loggerworld.dto.response.ResponseObject
 import io.github.loggerworld.service.UserService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.PostMapping
@@ -18,7 +19,9 @@ class UserController(
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(SIGN_UP_URL)
-    fun addNewUser(@RequestBody request: UserAddRequest) {
+    fun addNewUser(@RequestBody request: UserAddRequest): ResponseObject {
+
         userService.addNewUser(request)
+        return ResponseObject(true, "User ${request.userName} successfully registered.")
     }
 }

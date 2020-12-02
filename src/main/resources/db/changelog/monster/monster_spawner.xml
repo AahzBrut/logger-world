@@ -20,12 +20,6 @@
             <column name="monster_class_id" type="TINYINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="monster_type_id" type="TINYINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="probability" type="DECIMAL(9,5)">
-                <constraints nullable="false"/>
-            </column>
         </createTable>
     </changeSet>
 

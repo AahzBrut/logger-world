@@ -1,6 +1,7 @@
 package io.github.loggerworld.domain.monster
 
 import io.github.loggerworld.domain.BaseEntity
+import io.github.loggerworld.domain.geography.LocationMonsterSpawner
 import java.math.BigDecimal
 import javax.persistence.AttributeOverride
 import javax.persistence.CascadeType
@@ -22,15 +23,11 @@ data class MonsterSpawner(
     @JoinColumn(name = "monster_class_id")
     var monsterClass: MonsterClass = MonsterClass(),
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "monster_type_id")
-    var monsterType: MonsterType = MonsterType(),
-
-    @Column(name = "probability")
-    var probability: BigDecimal = BigDecimal.ZERO
-
 ) : BaseEntity<Short>() {
 
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "monsterSpawner")
-    var stats: MutableList<MonsterSpawnerStats> = mutableListOf()
+    var stats: MutableList<MonsterSpawnerType> = mutableListOf()
+
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "monsterSpawner")
+    var locationMonsterSpawners: MutableList<LocationMonsterSpawner> = mutableListOf()
 }

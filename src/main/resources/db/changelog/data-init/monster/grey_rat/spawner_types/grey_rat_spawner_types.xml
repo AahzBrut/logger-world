@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="spawner_types-data-01" author="AahzBrut">
+
+        <!-- LVL 1 -->
+        <insert tableName="spawner_type">
+            <column name="monster_spawner_id" valueComputed="SELECT monster_spawner_id FROM REPOSITORY.monster_spawner
+            WHERE level=1 and
+            monster_class_id IN(SELECT monster_class_id FROM REPOSITORY.monster_class WHERE code='GREY_RAT')"/>
+            <column name="monster_type_id" valueComputed="SELECT monster_type_id FROM REPOSITORY.monster_type WHERE code='NORMAL'"/>
+            <column name="probability" valueNumeric="95"/>
+        </insert>
+        <insert tableName="spawner_type">
+            <column name="monster_spawner_id" valueComputed="SELECT monster_spawner_id FROM REPOSITORY.monster_spawner
+            WHERE level=1 and
+            monster_class_id IN(SELECT monster_class_id FROM REPOSITORY.monster_class WHERE code='GREY_RAT')"/>
+            <column name="monster_type_id" valueComputed="SELECT monster_type_id FROM REPOSITORY.monster_type WHERE code='VETERAN'"/>
+            <column name="probability" valueNumeric="4"/>
+        </insert>
+        <insert tableName="spawner_type">
+            <column name="monster_spawner_id" valueComputed="SELECT monster_spawner_id FROM REPOSITORY.monster_spawner
+            WHERE level=1 and
+            monster_class_id IN(SELECT monster_class_id FROM REPOSITORY.monster_class WHERE code='GREY_RAT')"/>
+            <column name="monster_type_id" valueComputed="SELECT monster_type_id FROM REPOSITORY.monster_type WHERE code='ELITE'"/>
+            <column name="probability" valueNumeric="1"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>

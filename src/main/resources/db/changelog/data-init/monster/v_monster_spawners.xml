@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="v_monster_spawners-01" author="AahzBrut">
+        <createView viewName="V_MONSTER_SPAWNERS" replaceIfExists="true">
+            SELECT
+            ST.SPAWNER_TYPE_ID,
+            MS.LEVEL,
+            MC.CODE AS MONSTER_CLASS,
+            MT.CODE AS MONSTER_TYPE,
+            ST.PROBABILITY
+            FROM REPOSITORY.SPAWNER_TYPE ST
+            INNER JOIN REPOSITORY.MONSTER_TYPE MT ON MT.MONSTER_TYPE_ID=ST.MONSTER_TYPE_ID
+            INNER JOIN REPOSITORY.MONSTER_SPAWNER MS ON MS.MONSTER_SPAWNER_ID=ST.MONSTER_SPAWNER_ID
+            INNER JOIN REPOSITORY.MONSTER_CLASS MC ON MC.MONSTER_CLASS_ID=MS.MONSTER_CLASS_ID
+        </createView>
+    </changeSet>
+
+</databaseChangeLog>

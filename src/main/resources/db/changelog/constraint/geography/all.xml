@@ -8,5 +8,6 @@
     <include file="classpath:/db/changelog/constraint/geography/location.xml"/>
     <include file="classpath:/db/changelog/constraint/geography/location_description.xml"/>
     <include file="classpath:/db/changelog/constraint/geography/location_type_description.xml"/>
+    <include file="classpath:/db/changelog/constraint/geography/location_monster_spawner.xml"/>
 
 </databaseChangeLog>

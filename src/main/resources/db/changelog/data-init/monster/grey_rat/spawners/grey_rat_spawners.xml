@@ -7,25 +7,22 @@
 
     <changeSet id="monster_spawner-data-01" author="AahzBrut">
 
-        <!-- GREY_RAT -->
+        <!-- LVL 1 -->
+        <insert tableName="monster_spawner">
+            <column name="level" valueNumeric="1"/>
+            <column name="monster_class_id" valueComputed="SELECT monster_class_id FROM REPOSITORY.monster_class WHERE code='GREY_RAT'"/>
+        </insert>
 
+        <!-- LVL 2 -->
         <insert tableName="monster_spawner">
-            <column name="level" valueNumeric="1"/>
+            <column name="level" valueNumeric="2"/>
             <column name="monster_class_id" valueComputed="SELECT monster_class_id FROM REPOSITORY.monster_class WHERE code='GREY_RAT'"/>
-            <column name="monster_type_id" valueComputed="SELECT monster_type_id FROM REPOSITORY.monster_type WHERE code='NORMAL'"/>
-            <column name="probability" valueComputed="95"/>
         </insert>
+
+        <!-- LVL 3 -->
         <insert tableName="monster_spawner">
-            <column name="level" valueNumeric="1"/>
+            <column name="level" valueNumeric="3"/>
             <column name="monster_class_id" valueComputed="SELECT monster_class_id FROM REPOSITORY.monster_class WHERE code='GREY_RAT'"/>
-            <column name="monster_type_id" valueComputed="SELECT monster_type_id FROM REPOSITORY.monster_type WHERE code='VETERAN'"/>
-            <column name="probability" valueComputed="4"/>
-        </insert>
-        <insert tableName="monster_spawner">
-            <column name="level" valueNumeric="1"/>
-            <column name="monster_class_id" valueComputed="SELECT monster_class_id FROM REPOSITORY.monster_class WHERE code='GREY_RAT'"/>
-            <column name="monster_type_id" valueComputed="SELECT monster_type_id FROM REPOSITORY.monster_type WHERE code='ELITE'"/>
-            <column name="probability" valueComputed="1"/>
         </insert>
 
     </changeSet>

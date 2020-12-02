@@ -26,7 +26,4 @@ data class MonsterType(
 
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "monsterType")
     var descriptions: MutableList<MonsterTypeDescription> = mutableListOf()
-
-    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "monsterType")
-    var spawners: MutableList<MonsterSpawner> = mutableListOf()
 }
