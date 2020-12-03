@@ -8,7 +8,7 @@ class PlayerClassDomainService(
     private val playerClassInitialStatsRepository: PlayerClassInitialStatsRepository
 ) {
 
-    fun getInitialStatsForPlayerClass(classId: Byte): Map<Byte, Int> {
+    fun getInitialStatsForPlayerClass(classId: Byte): Map<Byte, Double> {
         return playerClassInitialStatsRepository
             .findAllByPlayerClassIdAndLevel(classId, 1)
             .associate {

@@ -22,6 +22,6 @@ data class MonsterSpawnerStats(
     var playerStat: PlayerStat = PlayerStat(),
 
     @Column(name = "value")
-    var name: Int = 0
+    var value: Double = 0.0
 
     ) : BaseEntity<Short>()

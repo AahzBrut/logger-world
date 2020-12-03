@@ -6,5 +6,5 @@ data class PlayerResponse (
     var name: String = "",
     var classId: Byte = -1,
     var locationId: Short = -1,
-    var stats: Map<Byte, Int> = emptyMap()
+    var stats: Map<Byte, Double> = emptyMap()
 )

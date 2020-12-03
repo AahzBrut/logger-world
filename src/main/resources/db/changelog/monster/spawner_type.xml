@@ -20,7 +20,7 @@
             <column name="monster_type_id" type="TINYINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="probability" type="DECIMAL(9,5)">
+            <column name="probability" type="DOUBLE">
                 <constraints nullable="false"/>
             </column>
         </createTable>

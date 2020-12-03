@@ -47,7 +47,7 @@ class PlayerDomainService(
     }
 
     @Transactional
-    fun addNewPlayer(userId: Long, request: PlayerAddRequest, classStats: Map<Byte, Int>): Long {
+    fun addNewPlayer(userId: Long, request: PlayerAddRequest, classStats: Map<Byte, Double>): Long {
 
         checkRequestStats(request, classStats)
 
@@ -65,7 +65,7 @@ class PlayerDomainService(
                             getPointsLeft(request.statPoints, classStats)
                         else
                             (request.statPoints[it.key]
-                                ?: 0) + it.value)
+                                ?: 0.0) + it.value)
                 }
             )
         }
@@ -73,16 +73,16 @@ class PlayerDomainService(
         return requireNotNull(playerRepository.save(player).id)
     }
 
-    private fun getPointsLeft(points: Map<Byte, Int>, classStats: Map<Byte, Int>): Int {
-        val maxPoints: Int = requireNotNull(classStats[PlayerStatEnum.POINTS_ON_LEVELUP.ordinal.toByte()])
+    private fun getPointsLeft(points: Map<Byte, Double>, classStats: Map<Byte, Double>): Double {
+        val maxPoints: Double = requireNotNull(classStats[PlayerStatEnum.POINTS_ON_LEVELUP.ordinal.toByte()])
         return maxPoints - points.entries
             .sumOf {
                 it.value
             }
     }
 
-    private fun checkRequestStats(request: PlayerAddRequest, classStats: Map<Byte, Int>) {
-        val maxPoints: Int = requireNotNull(classStats[PlayerStatEnum.POINTS_ON_LEVELUP.ordinal.toByte()])
+    private fun checkRequestStats(request: PlayerAddRequest, classStats: Map<Byte, Double>) {
+        val maxPoints: Double = requireNotNull(classStats[PlayerStatEnum.POINTS_ON_LEVELUP.ordinal.toByte()])
         val anyNegativeStats = request.statPoints.entries.filter { PlayerStatEnum.getById(it.key).isEditable }.any { it.value < 0 }
         val anyWrongStats = request.statPoints.entries.any { !PlayerStatEnum.getById(it.key).isEditable }
         val sumOfPoints = request.statPoints.entries

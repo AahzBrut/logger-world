@@ -1,6 +1,7 @@
 package io.github.loggerworld.ecs.component
 
 import com.badlogic.ashley.core.Component
+import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.utils.Pool
 import io.github.loggerworld.domain.enums.LocationTypes
 import ktx.ashley.mapperFor
@@ -14,6 +15,7 @@ class LocationComponent : Component, Pool.Poolable {
     var yCoord: Byte = -1
     var locationType: LocationTypes = LocationTypes.VOID
     val players = gdxSetOf<Long>()
+    val monsterSpawners = gdxSetOf<Entity>()
 
     override fun reset() {
         locationId = -1
@@ -21,6 +23,7 @@ class LocationComponent : Component, Pool.Poolable {
         yCoord = -1
         locationType = LocationTypes.VOID
         players.clear()
+        monsterSpawners.clear()
     }
 
     companion object {

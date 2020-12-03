@@ -5,5 +5,5 @@ import io.github.loggerworld.domain.enums.PlayerClasses
 data class PlayerAddRequest (
     var name: String = "",
     var playerClass: PlayerClasses = PlayerClasses.DUMMY,
-    var statPoints: Map<Byte, Int> = emptyMap(),
+    var statPoints: Map<Byte, Double> = emptyMap(),
 )

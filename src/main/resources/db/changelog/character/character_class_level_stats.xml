@@ -26,7 +26,7 @@
             <column name="change_type_id" type="TINYINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="value" type="INT">
+            <column name="value" type="DOUBLE">
                 <constraints nullable="false"/>
             </column>
         </createTable>

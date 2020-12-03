@@ -22,7 +22,13 @@ data class LocationMonsterSpawner(
     var monsterSpawner: MonsterSpawner = MonsterSpawner(),
 
     @Column(name = "amount")
-    var amount: Short
+    var amount: Short = Short.MIN_VALUE,
 
-) : BaseEntity<Short>() {
+    @Column(name = "min_respawn_time")
+    var minRespawnTime: Double = 0.0,
+
+    @Column(name = "max_respawn_time")
+    var maxRespawnTime: Double = 0.0,
+
+    ) : BaseEntity<Short>() {
 }

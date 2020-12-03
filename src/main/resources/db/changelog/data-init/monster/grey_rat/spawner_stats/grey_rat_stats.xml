@@ -21,14 +21,14 @@
         <!-- ATK -->
         <insert tableName="spawner_stats">
             <column name="spawner_type_id" valueComputed="SELECT spawner_type_id FROM REPOSITORY.V_MONSTER_SPAWNERS WHERE
-                                                            level=1 AND monster_class='GREY_RAT' AND MONSTER_TYPE='VETERAN'"/>
+                                                            level=1 AND monster_class='GREY_RAT' AND MONSTER_TYPE='NORMAL'"/>
             <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
             <column name="value" valueNumeric="2"/>
         </insert>
         <!-- DEF -->
         <insert tableName="spawner_stats">
             <column name="spawner_type_id" valueComputed="SELECT spawner_type_id FROM REPOSITORY.V_MONSTER_SPAWNERS WHERE
-                                                            level=1 AND monster_class='GREY_RAT' AND MONSTER_TYPE='ELITE'"/>
+                                                            level=1 AND monster_class='GREY_RAT' AND MONSTER_TYPE='NORMAL'"/>
             <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='DEF'"/>
             <column name="value" valueNumeric="2"/>
         </insert>

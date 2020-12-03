@@ -22,7 +22,7 @@ data class PlayerStats(
     var playerStat: PlayerStat = PlayerStat(PlayerStatEnum.NOTHING),
 
     @Column(name = "value")
-    var value: Int = 0
+    var value: Double = 0.0
 
     ) : BaseEntity<Long>() {
 }

@@ -5,18 +5,18 @@ import io.github.loggerworld.domain.enums.MonsterTypes
 import io.github.loggerworld.domain.enums.PlayerStatEnum
 
 data class MonsterClassSpawnerData(
-    var classes: Map<MonsterClasses, MonsterLevelSpawnerData>
+    var classes: MutableMap<MonsterClasses, MonsterLevelSpawnerData> = mutableMapOf()
 )
 
 data class MonsterLevelSpawnerData(
-    var levels: Map<Byte, MonsterTypeSpawnerData>
+    var levels: MutableMap<Byte, MonsterTypeSpawnerData> = mutableMapOf()
 )
 
 data class MonsterTypeSpawnerData(
-    var types: Map<MonsterTypes, MonsterSpawnerData>,
-    var probabilities: Map<MonsterTypes, Int>
+    var types: MutableMap<MonsterTypes, MonsterSpawnerData> = mutableMapOf(),
+    var probabilities: MutableMap<MonsterTypes, Double> = mutableMapOf()
 )
 
 data class MonsterSpawnerData(
-    var stats: Map<PlayerStatEnum, Int>
+    var stats: MutableMap<PlayerStatEnum, Double> = mutableMapOf()
 )

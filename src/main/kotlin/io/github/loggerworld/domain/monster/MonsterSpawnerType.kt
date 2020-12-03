@@ -24,7 +24,7 @@ data class MonsterSpawnerType(
     var monsterType: MonsterType = MonsterType(),
 
     @Column(name = "probability")
-    var probability: BigDecimal = BigDecimal.ZERO
+    var probability: Double = 0.0
 
 ) : BaseEntity<Short>(){
 

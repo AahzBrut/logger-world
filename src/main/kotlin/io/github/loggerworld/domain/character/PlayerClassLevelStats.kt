@@ -29,5 +29,5 @@ data class PlayerClassLevelStats(
     var level: Byte = 0,
 
     @Column(name = "value")
-    var value: Int = 0
+    var value: Double = 0.0
 )  : BaseEntity<Short>()

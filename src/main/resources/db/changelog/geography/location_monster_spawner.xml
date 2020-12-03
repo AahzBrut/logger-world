@@ -23,6 +23,12 @@
             <column name="amount" type="SMALLINT">
                 <constraints nullable="false"/>
             </column>
+            <column name="min_respawn_time" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="max_respawn_time" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

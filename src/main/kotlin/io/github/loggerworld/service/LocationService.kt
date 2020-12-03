@@ -3,6 +3,7 @@ package io.github.loggerworld.service
 import io.github.loggerworld.domain.enums.Languages
 import io.github.loggerworld.domain.enums.LocationTypes
 import io.github.loggerworld.dto.inner.WorldMap
+import io.github.loggerworld.dto.response.MobNestResponse
 import io.github.loggerworld.dto.response.geography.LocationResponse
 import io.github.loggerworld.dto.response.geography.LocationTypeResponse
 import io.github.loggerworld.dto.response.geography.LocationTypesResponse
@@ -29,7 +30,8 @@ class LocationService(
                     (it.value[userLanguage]
                         ?: error("Language $userLanguage not found in location types cache")).first,
                     (it.value[userLanguage]
-                        ?: error("Language $userLanguage not found in location types cache")).second)
+                        ?: error("Language $userLanguage not found in location types cache")).second
+                )
             }
                 .toList())
     }
@@ -48,19 +50,31 @@ class LocationService(
                         ?: error("There is no language: $userLanguage in location descriptions cache.")).first,
                     ((getAllLocationDescriptions()[it.key]
                         ?: error("There is no location with id: ${it.key} in location description cache"))[userLanguage]
-                        ?: error("There is no language: $userLanguage in location descriptions cache.")).second)
-            }.toList())
+                        ?: error("There is no language: $userLanguage in location descriptions cache.")).second,
+                    it.value.monsterNests.map {nestData ->
+                        MobNestResponse(
+                            nestData.id,
+                            nestData.monsterClass,
+                            nestData.level,
+                            nestData.amount
+                        )
+                    }
+                )
+            }.toList()
+        )
     }
 
 
-    fun getWorldMap() : WorldMap{
+    fun getWorldMap(): WorldMap {
         val allLocations = locationDomainService.getAllLocations()
         val locationDescriptions = getAllLocationDescriptions()
         val locationTypeDescriptions = getAllLocationTypeDescriptions()
 
         allLocations.forEach { mapEntry ->
-            mapEntry.value.descriptions = locationDescriptions[mapEntry.key] ?: error("There is no descriptions of location with id: ${mapEntry.key}")
-            mapEntry.value.typeDescriptions = locationTypeDescriptions[mapEntry.value.type] ?: error("There is no type descriptions of location with id: ${mapEntry.key}")
+            mapEntry.value.descriptions = locationDescriptions[mapEntry.key]
+                ?: error("There is no descriptions of location with id: ${mapEntry.key}")
+            mapEntry.value.typeDescriptions = locationTypeDescriptions[mapEntry.value.type]
+                ?: error("There is no type descriptions of location with id: ${mapEntry.key}")
         }
 
         return WorldMap(allLocations)
@@ -71,6 +85,4 @@ class LocationService(
 
     fun getAllLocationTypeDescriptions() =
         locationDomainService.getAllLocationTypeDescriptions()
-
-    fun getAllLocationMonsterSpawners() = Unit
 }
