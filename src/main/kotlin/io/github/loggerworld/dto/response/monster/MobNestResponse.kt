@@ -1,4 +1,4 @@
-package io.github.loggerworld.dto.response
+package io.github.loggerworld.dto.response.monster
 
 import io.github.loggerworld.domain.enums.MonsterClasses
 

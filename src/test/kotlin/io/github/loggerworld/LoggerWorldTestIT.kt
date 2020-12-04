@@ -15,7 +15,7 @@ import io.github.loggerworld.dto.request.PlayerMoveRequest
 import io.github.loggerworld.dto.request.PlayerStartGameRequest
 import io.github.loggerworld.dto.request.UserAddRequest
 import io.github.loggerworld.dto.request.UserLoginRequest
-import io.github.loggerworld.dto.response.ChatMessageResponse
+import io.github.loggerworld.dto.response.chat.ChatMessageResponse
 import io.github.loggerworld.dto.response.character.PlayerClassesResponse
 import io.github.loggerworld.dto.response.character.PlayerResponse
 import io.github.loggerworld.dto.response.character.PlayersResponse

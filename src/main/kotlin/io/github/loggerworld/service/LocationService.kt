@@ -3,7 +3,7 @@ package io.github.loggerworld.service
 import io.github.loggerworld.domain.enums.Languages
 import io.github.loggerworld.domain.enums.LocationTypes
 import io.github.loggerworld.dto.inner.WorldMap
-import io.github.loggerworld.dto.response.MobNestResponse
+import io.github.loggerworld.dto.response.monster.MobNestResponse
 import io.github.loggerworld.dto.response.geography.LocationResponse
 import io.github.loggerworld.dto.response.geography.LocationTypeResponse
 import io.github.loggerworld.dto.response.geography.LocationTypesResponse

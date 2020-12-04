@@ -19,7 +19,7 @@ class UserController(
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(SIGN_UP_URL)
-    fun addNewUser(@RequestBody request: UserAddRequest): ResponseObject {
+    fun addNewUser(@RequestBody request: UserAddRequest): ResponseObject<Any> {
 
         userService.addNewUser(request)
         return ResponseObject(true, "User ${request.userName} successfully registered.")

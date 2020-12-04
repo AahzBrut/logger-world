@@ -17,6 +17,6 @@ class ErrorController : ResponseEntityExceptionHandler() {
     @ExceptionHandler(value = [UserAlreadyExistsException::class, EmailAlreadyExistsException::class])
     fun errorHandler(ex: RuntimeException, request: WebRequest): ResponseEntity<Any> {
 
-        return ResponseEntity(ResponseObject(false, ex.message ?: ""), HttpStatus.BAD_REQUEST)
+        return ResponseEntity(ResponseObject(false, ex.message ?: "", null), HttpStatus.BAD_REQUEST)
     }
 }

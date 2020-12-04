@@ -1,4 +1,4 @@
-package io.github.loggerworld.dto.response
+package io.github.loggerworld.dto.response.chat
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import java.time.LocalDateTime

@@ -1,4 +1,4 @@
-package io.github.loggerworld.dto.response
+package io.github.loggerworld.dto.response.user
 
 import io.github.loggerworld.domain.enums.Languages
 

@@ -3,7 +3,7 @@ package io.github.loggerworld.service.domain
 import io.github.loggerworld.domain.enums.UserPropertyTypes
 import io.github.loggerworld.dto.request.UserAddRequest
 import io.github.loggerworld.dto.request.UserLoginRequest
-import io.github.loggerworld.dto.response.UserResponse
+import io.github.loggerworld.dto.response.user.UserResponse
 import io.github.loggerworld.exception.EmailAlreadyExistsException
 import io.github.loggerworld.exception.UserAlreadyExistsException
 import io.github.loggerworld.mapper.user_account.UserMapper
