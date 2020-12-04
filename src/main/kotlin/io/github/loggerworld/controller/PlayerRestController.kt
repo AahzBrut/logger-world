@@ -1,6 +1,7 @@
 package io.github.loggerworld.controller
 
 import io.github.loggerworld.dto.request.PlayerAddRequest
+import io.github.loggerworld.dto.response.ResponseObject
 import io.github.loggerworld.dto.response.character.PlayerClassesResponse
 import io.github.loggerworld.dto.response.character.PlayerResponse
 import io.github.loggerworld.dto.response.character.PlayerStatsResponse
@@ -27,25 +28,28 @@ class PlayerRestController(
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(PLAYERS_URL)
-    fun getAllPlayers(principal: Principal) : PlayersResponse {
-        return playerService.getAllPlayers(principal.name)
+    fun getAllPlayers(principal: Principal): ResponseObject<PlayersResponse> {
+        return ResponseObject(success = true, data = playerService.getAllPlayers(principal.name))
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(PLAYERS_CLASSES_URL)
-    fun getAllClasses(principal: Principal) : PlayerClassesResponse {
-        return playerService.getAllClasses(principal.name)
+    fun getAllClasses(principal: Principal): ResponseObject<PlayerClassesResponse> {
+        return ResponseObject(success = true, data = playerService.getAllClasses(principal.name))
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(PLAYERS_STATS_URL)
-    fun getAllStats(principal: Principal) : PlayerStatsResponse {
-        return playerService.getPlayerStats(userService.getUserLanguage(principal.name))
+    fun getAllStats(principal: Principal): ResponseObject<PlayerStatsResponse> {
+        return ResponseObject(
+            success = true,
+            data = playerService.getPlayerStats(userService.getUserLanguage(principal.name))
+        )
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(PLAYERS_URL)
-    fun addNewPlayer(principal: Principal, @RequestBody request: PlayerAddRequest) : PlayerResponse {
-        return playerService.addNewPlayer(principal.name, request)
+    fun addNewPlayer(principal: Principal, @RequestBody request: PlayerAddRequest): ResponseObject<PlayerResponse> {
+        return ResponseObject(success = true, data = playerService.addNewPlayer(principal.name, request))
     }
 }

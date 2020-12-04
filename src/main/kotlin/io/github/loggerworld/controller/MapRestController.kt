@@ -1,5 +1,6 @@
 package io.github.loggerworld.controller
 
+import io.github.loggerworld.dto.response.ResponseObject
 import io.github.loggerworld.dto.response.geography.LocationTypesResponse
 import io.github.loggerworld.dto.response.geography.LocationsResponse
 import io.github.loggerworld.service.LocationService
@@ -21,13 +22,13 @@ class MapRestController(
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(LOCATION_TYPES_URL)
-    fun getAllLocationTypes(principal: Principal) : LocationTypesResponse {
-        return locationService.getLocationTypes(userService.getUserLanguage(principal.name))
+    fun getAllLocationTypes(principal: Principal) : ResponseObject<LocationTypesResponse> {
+        return ResponseObject(success = true, data = locationService.getLocationTypes(userService.getUserLanguage(principal.name)))
     }
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping(LOCATIONS_URL)
-    fun getAllLocations(principal: Principal) : LocationsResponse {
-        return locationService.getLocations(userService.getUserLanguage(principal.name))
+    fun getAllLocations(principal: Principal) : ResponseObject<LocationsResponse> {
+        return ResponseObject(success = true, data = locationService.getLocations(userService.getUserLanguage(principal.name)))
     }
 }

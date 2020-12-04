@@ -1,7 +1,7 @@
 package io.github.loggerworld.service
 
 import io.github.loggerworld.dto.request.ChatMessageRequest
-import io.github.loggerworld.dto.response.ChatMessageResponse
+import io.github.loggerworld.dto.response.chat.ChatMessageResponse
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 

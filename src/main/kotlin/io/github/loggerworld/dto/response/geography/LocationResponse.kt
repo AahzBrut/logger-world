@@ -1,6 +1,6 @@
 package io.github.loggerworld.dto.response.geography
 
-import io.github.loggerworld.dto.response.MobNestResponse
+import io.github.loggerworld.dto.response.monster.MobNestResponse
 
 data class LocationResponse(
     var id: Short = -1,
