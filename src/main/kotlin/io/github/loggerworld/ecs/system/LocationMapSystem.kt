@@ -29,28 +29,28 @@ class LocationMapSystem : IteratingSystem(allOf(LocationComponent::class).get(),
             with<LocationMapComponent> {}
         }
         engine.addEntityListener(allOf(LocationComponent::class).get(),this)
-        logger().debug("LocationMapSystem added to engine.")
+        logger().debug("\nLocationMapSystem added to engine.")
     }
 
     override fun removedFromEngine(engine: Engine) {
         super.removedFromEngine(engine)
         engine.removeEntityListener(this)
         engine.removeEntity(locationMapEntity)
-        logger().debug("LocationMapSystem removed from engine.")
+        logger().debug("\nLocationMapSystem removed from engine.")
     }
 
     override fun entityAdded(entity: Entity) {
         val locationMapComponent = locationMapEntity[LocationMapComponent.mapper]!!
         val locationComponent = entity[LocationComponent.mapper]!!
         locationMapComponent.locationMap[locationComponent.locationId] = LocationInhabitantsChanged(entity, false)
-        logger().debug("Entity with id:${locationComponent.locationId} added to the world.")
+        logger().debug("\nEntity with id:${locationComponent.locationId} added to the world.")
     }
 
     override fun entityRemoved(entity: Entity) {
         val locationMapComponent = locationMapEntity[LocationMapComponent.mapper]!!
         val locationComponent = entity[LocationComponent.mapper]!!
         locationMapComponent.locationMap.remove(locationComponent.locationId)
-        logger().debug("Entity with id:${locationComponent.locationId} removed from the world.")
+        logger().debug("\nEntity with id:${locationComponent.locationId} removed from the world.")
     }
 
     override fun processEntity(entity: Entity, deltaTime: Float) = Unit

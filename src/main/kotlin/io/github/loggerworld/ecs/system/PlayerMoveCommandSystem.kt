@@ -13,6 +13,7 @@ import io.github.loggerworld.messagebus.event.PlayerMoveCommand
 import io.github.loggerworld.messagebus.event.WrongCommandEvent
 import io.github.loggerworld.service.LocationService
 import io.github.loggerworld.util.LogAware
+import io.github.loggerworld.util.logger
 import ktx.ashley.addComponent
 import ktx.ashley.allOf
 import ktx.ashley.get
@@ -34,6 +35,7 @@ class PlayerMoveCommandSystem(
             val player = playerMap[moveCommand.playerId]
             val positionComponent = player[PositionComponent.mapper]!!
 
+            logger().debug("\nPlayer with id: ${moveCommand.playerId} received command to move to location with id:${moveCommand.locationId}")
 
             if (!locationService
                     .getWorldMap()
@@ -42,9 +44,9 @@ class PlayerMoveCommandSystem(
                 val command = wrongCommandEventEventBus.newEvent().also {
                     it.playerId = moveCommand.playerId
                     it.message =
-                        "Location with id:${moveCommand.locationId} is not reachable from location with id:${positionComponent.locationId}"
+                        "\nLocation with id:${moveCommand.locationId} is not reachable from location with id:${positionComponent.locationId}"
                 }
-
+                logger().debug(command.message)
                 wrongCommandEventEventBus.pushEvent(command)
             } else {
 
@@ -54,7 +56,7 @@ class PlayerMoveCommandSystem(
                     toLocationId = moveCommand.locationId
                     timeToArrive = 5f
                 }
-
+                logger().debug("\nMove command started successfully $moveCommand")
                 player[MoveStateComponent.mapper]!!.state = MoveStates.DEPARTING
             }
             moveCommandBus.destroyEvent(moveCommand)

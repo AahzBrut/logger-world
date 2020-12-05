@@ -52,7 +52,7 @@ class LocationInhabitantAlertSystem(
 
                     updateMoveStates(players)
 
-                    logger().debug("Inhabitants changed in location with id: ${it.key}")
+                    logger().debug("\nInhabitants changed in location with id: ${it.key}")
                     it.value.updated = false
                 }
             }

@@ -27,7 +27,7 @@ class MessagingService(
 
             val event = locationNotificationBus.popEvent()
 
-            logger().debug("Event of player is arrived to location is ready to send: $event")
+            logger().debug("\nEvent of player is arrived to location is ready to send: $event")
 
             notifyOnArrival(event)
 

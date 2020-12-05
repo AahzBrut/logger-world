@@ -8,9 +8,11 @@ import io.github.loggerworld.ecs.component.LocationComponent
 import io.github.loggerworld.ecs.component.LocationMapComponent
 import io.github.loggerworld.ecs.component.MoveStateComponent
 import io.github.loggerworld.ecs.component.MoveStates
+import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.PlayerMoveComponent
 import io.github.loggerworld.ecs.component.PositionComponent
 import io.github.loggerworld.util.LogAware
+import io.github.loggerworld.util.logger
 import ktx.ashley.allOf
 import ktx.ashley.get
 import org.springframework.stereotype.Service
@@ -23,9 +25,11 @@ class MoveSystem : IteratingSystem(allOf(PlayerMoveComponent::class).get(), MOVE
     override fun processEntity(entity: Entity, deltaTime: Float) {
         val moveComponent = entity[PlayerMoveComponent.mapper]!!
         val positionComponent = entity[PositionComponent.mapper]!!
+        val playerComponent = entity[PlayerComponent.mapper]!!
 
         if (moveComponent.currentLocationId == moveComponent.fromLocationId) {
             locationMap[moveComponent.currentLocationId].updated = true
+            logger().debug("\nPlayer with id:${playerComponent.playerId} is departing from location with id:${positionComponent.locationId}")
             moveComponent.currentLocationId =
                 locationMap[LocationTypes.IN_TRANSIT.ordinal.toShort()].entity[LocationComponent.mapper]!!.locationId
             positionComponent.locationId = LocationTypes.IN_TRANSIT.ordinal.toShort()
@@ -38,6 +42,7 @@ class MoveSystem : IteratingSystem(allOf(PlayerMoveComponent::class).get(), MOVE
                 positionComponent.locationId = moveComponent.toLocationId
                 entity[MoveStateComponent.mapper]!!.state = MoveStates.ARRIVING
                 entity.remove(PlayerMoveComponent::class.java)
+                logger().debug("\nPlayer with id:${playerComponent.playerId} is arriving to location with id:${positionComponent.locationId}")
             }
         }
     }

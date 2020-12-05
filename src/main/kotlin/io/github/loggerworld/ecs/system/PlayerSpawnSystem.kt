@@ -12,6 +12,7 @@ import io.github.loggerworld.ecs.component.PositionComponent
 import io.github.loggerworld.messagebus.CommandEventBus
 import io.github.loggerworld.messagebus.event.PlayerStartCommand
 import io.github.loggerworld.util.LogAware
+import io.github.loggerworld.util.logger
 import ktx.ashley.allOf
 import ktx.ashley.entity
 import ktx.ashley.get
@@ -30,6 +31,7 @@ class PlayerSpawnSystem(
 
             val event = startEventBus.popEvent()
 
+            logger().debug("\nPlayer with id:${event.playerId} spawned into location with id:${event.locationId}")
             val player = spawnPlayer(event)
             addPlayerToTargetLocation(player, event)
             locationMap[event.locationId].updated = true

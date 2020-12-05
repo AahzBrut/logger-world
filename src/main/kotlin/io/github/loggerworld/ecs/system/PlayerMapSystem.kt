@@ -36,21 +36,21 @@ class PlayerMapSystem : IteratingSystem(allOf(PlayerComponent::class).get(), PLA
         super.removedFromEngine(engine)
         engine.removeEntityListener(this)
         engine.removeEntity(playerMapEntity)
-        logger().debug("LocationMapSystem removed from engine.")
+        logger().debug("\nLocationMapSystem removed from engine.")
     }
 
     override fun entityAdded(entity: Entity) {
         val playerMap = playerMapEntity[PlayerMapComponent.mapper]!!
         val playerComponent = entity[PlayerComponent.mapper]!!
         playerMap.playerMap[playerComponent.playerId] = entity
-        logger().debug("Player with id: ${playerComponent.playerId} added to the player map")
+        logger().debug("\nPlayer with id: ${playerComponent.playerId} added to the player map")
     }
 
     override fun entityRemoved(entity: Entity) {
         val playerMap = playerMapEntity[PlayerMapComponent.mapper]!!
         val playerComponent = entity[PlayerComponent.mapper]!!
         playerMap.playerMap.remove(playerComponent.playerId)
-        logger().debug("Player with id: ${playerComponent.playerId} added to the player map")
+        logger().debug("\nPlayer with id: ${playerComponent.playerId} added to the player map")
     }
 
     override fun processEntity(entity: Entity, deltaTime: Float) = Unit
