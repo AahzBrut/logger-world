@@ -60,7 +60,7 @@ class AshleyConfig(
             .getWorldMap()
             .locations
             .values
-            .filter { it.type != LocationTypes.VOID && it.type != LocationTypes.IN_TRANSIT }
+            .filter { it.type != LocationTypes.VOID}
             .forEach { location ->
                 val locationEntity = engine.entity {
                     with<LocationComponent> {

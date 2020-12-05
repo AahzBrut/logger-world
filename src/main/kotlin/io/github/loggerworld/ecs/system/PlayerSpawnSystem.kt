@@ -1,15 +1,17 @@
 package io.github.loggerworld.ecs.system
 
+import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.EntitySystem
 import io.github.loggerworld.ecs.EngineSystems.PLAYER_SPAWN_SYSTEM
 import io.github.loggerworld.ecs.component.LocationComponent
 import io.github.loggerworld.ecs.component.LocationMapComponent
+import io.github.loggerworld.ecs.component.MoveStateComponent
+import io.github.loggerworld.ecs.component.MoveStates
 import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.PositionComponent
 import io.github.loggerworld.messagebus.CommandEventBus
 import io.github.loggerworld.messagebus.event.PlayerStartCommand
 import io.github.loggerworld.util.LogAware
-import io.github.loggerworld.util.logger
 import ktx.ashley.allOf
 import ktx.ashley.entity
 import ktx.ashley.get
@@ -28,23 +30,22 @@ class PlayerSpawnSystem(
 
             val event = startEventBus.popEvent()
 
-            spawnPlayer(event)
-            addPlayerToTargetLocation(event)
+            val player = spawnPlayer(event)
+            addPlayerToTargetLocation(player, event)
             locationMap[event.locationId].updated = true
 
-            logger().debug("Player with id: ${event.playerId} is spawned to location ${event.locationId}")
             startEventBus.destroyEvent(event)
         }
     }
 
-    private fun addPlayerToTargetLocation(command: PlayerStartCommand) {
+    private fun addPlayerToTargetLocation(player: Entity, command: PlayerStartCommand) {
         val locationEntity = locationMap[command.locationId].entity
         val locationComponent = locationEntity[LocationComponent.mapper]!!
-        locationComponent.players.add(command.playerId)
+        locationComponent.players.add(player)
     }
 
-    private fun spawnPlayer(command: PlayerStartCommand) {
-        engine.entity {
+    private fun spawnPlayer(command: PlayerStartCommand): Entity {
+        return engine.entity {
             with<PositionComponent> {
                 locationId = command.locationId
             }
@@ -55,6 +56,7 @@ class PlayerSpawnSystem(
                 classId = command.classId
                 level = command.level
             }
+            with<MoveStateComponent> { state = MoveStates.ARRIVING }
         }
     }
 }

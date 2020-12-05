@@ -15,20 +15,22 @@ import io.github.loggerworld.dto.request.PlayerMoveRequest
 import io.github.loggerworld.dto.request.PlayerStartGameRequest
 import io.github.loggerworld.dto.request.UserAddRequest
 import io.github.loggerworld.dto.request.UserLoginRequest
-import io.github.loggerworld.dto.response.chat.ChatMessageResponse
 import io.github.loggerworld.dto.response.character.PlayerClassesResponse
 import io.github.loggerworld.dto.response.character.PlayerResponse
 import io.github.loggerworld.dto.response.character.PlayersResponse
+import io.github.loggerworld.dto.response.chat.ChatMessageResponse
 import io.github.loggerworld.dto.response.geography.LocationTypesResponse
 import io.github.loggerworld.dto.response.geography.LocationsResponse
 import io.github.loggerworld.messagebus.event.LocationChangedEvent
+import io.github.loggerworld.messagebus.event.WrongCommandEvent
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.PERSONAL
 import io.github.loggerworld.util.TOKEN_PREFIX
 import io.github.loggerworld.util.WS_CHAT
 import io.github.loggerworld.util.WS_CONNECTION_POINT
 import io.github.loggerworld.util.WS_DESTINATION_PREFIX
-import io.github.loggerworld.util.WS_DS_GAMEPLAY_EVENTS_QUEUE
+import io.github.loggerworld.util.WS_DS_GAMEPLAY_EVENTS_WRONG_COMMAND_QUEUE
+import io.github.loggerworld.util.WS_DS_GAMEPLAY_LOCATION_NOTIFICATIO_QUEUE
 import io.github.loggerworld.util.WS_DS_TOPIC_MESSAGES
 import io.github.loggerworld.util.WS_PLAYERS_MOVE
 import io.github.loggerworld.util.WS_PLAYERS_START
@@ -303,15 +305,17 @@ class LoggerWorldTestIT : LogAware {
     @Test
     @Order(17)
     fun firstUserMove() {
-        stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_MOVE, PlayerMoveRequest(5))
+        stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_MOVE, PlayerMoveRequest(8))
         TimeUnit.MILLISECONDS.sleep(300)
+        stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_MOVE, PlayerMoveRequest(5))
+        TimeUnit.MILLISECONDS.sleep(7000)
     }
 
     @Test
     @Order(18)
     fun secondUserMove() {
         stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_MOVE, PlayerMoveRequest(7))
-        TimeUnit.MILLISECONDS.sleep(300)
+        TimeUnit.MILLISECONDS.sleep(7000)
     }
 
     @Test
@@ -396,6 +400,7 @@ class LoggerWorldTestIT : LogAware {
 
             val payloadType = when (headers.destination) {
                 WS_DS_TOPIC_MESSAGES -> ChatMessageResponse::class.java
+                PERSONAL + WS_DS_GAMEPLAY_EVENTS_WRONG_COMMAND_QUEUE -> WrongCommandEvent::class.java
                 else -> LocationChangedEvent::class.java
             }
 
@@ -424,7 +429,8 @@ class LoggerWorldTestIT : LogAware {
             logger().info("WebSocket connected")
 
             session.subscribe(WS_DS_TOPIC_MESSAGES, this)
-            session.subscribe(PERSONAL + WS_DS_GAMEPLAY_EVENTS_QUEUE, this)
+            session.subscribe(PERSONAL + WS_DS_GAMEPLAY_LOCATION_NOTIFICATIO_QUEUE, this)
+            session.subscribe(PERSONAL + WS_DS_GAMEPLAY_EVENTS_WRONG_COMMAND_QUEUE, this)
 
             when (connectedHeaders["user-name"][0]) {
                 firstUserLoginRequest.userName -> stompSession1 = session

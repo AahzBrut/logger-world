@@ -19,3 +19,14 @@ data class LocationChangedEvent(
         mobs.clear()
     }
 }
+
+data class WrongCommandEvent(
+    var playerId: Long = -1,
+    var message: String = ""
+): NotificationEvent() {
+
+    override fun reset() {
+        playerId = -1
+        message = ""
+    }
+}
