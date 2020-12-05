@@ -6,10 +6,16 @@ import ktx.ashley.mapperFor
 
 class PlayerMoveComponent : Component, Pool.Poolable {
 
-    var locationId: Short = -1
+    var toLocationId: Short = -1
+    var fromLocationId: Short = -1
+    var currentLocationId: Short = -1
+    var timeToArrive: Float = 0f
 
     override fun reset() {
-        locationId = -1
+        toLocationId = -1
+        fromLocationId = -1
+        currentLocationId = -1
+        timeToArrive = 0f
     }
 
     companion object{

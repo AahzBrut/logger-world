@@ -2,10 +2,12 @@ package io.github.loggerworld.ecs.system
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.systems.IteratingSystem
+import io.github.loggerworld.domain.enums.LocationTypes
 import io.github.loggerworld.ecs.EngineSystems.MOVE_SYSTEM
 import io.github.loggerworld.ecs.component.LocationComponent
 import io.github.loggerworld.ecs.component.LocationMapComponent
-import io.github.loggerworld.ecs.component.PlayerComponent
+import io.github.loggerworld.ecs.component.MoveStateComponent
+import io.github.loggerworld.ecs.component.MoveStates
 import io.github.loggerworld.ecs.component.PlayerMoveComponent
 import io.github.loggerworld.ecs.component.PositionComponent
 import io.github.loggerworld.util.LogAware
@@ -21,20 +23,22 @@ class MoveSystem : IteratingSystem(allOf(PlayerMoveComponent::class).get(), MOVE
     override fun processEntity(entity: Entity, deltaTime: Float) {
         val moveComponent = entity[PlayerMoveComponent.mapper]!!
         val positionComponent = entity[PositionComponent.mapper]!!
-        val playerComponent = entity[PlayerComponent.mapper]!!
-        val currentLocationId = positionComponent.locationId
-        val futureLocationId = moveComponent.locationId
 
-        locationMap[currentLocationId].updated = true
-        locationMap[futureLocationId].updated = true
-
-        val curLocation = locationMap[currentLocationId].entity[LocationComponent.mapper]!!
-        curLocation.players.remove(playerComponent.playerId)
-
-        val nextLocation = locationMap[futureLocationId].entity[LocationComponent.mapper]!!
-        nextLocation.players.add(playerComponent.playerId)
-        positionComponent.locationId=futureLocationId
-
-        entity.remove(PlayerMoveComponent::class.java)
+        if (moveComponent.currentLocationId == moveComponent.fromLocationId) {
+            locationMap[moveComponent.currentLocationId].updated = true
+            moveComponent.currentLocationId =
+                locationMap[LocationTypes.IN_TRANSIT.ordinal.toShort()].entity[LocationComponent.mapper]!!.locationId
+            positionComponent.locationId = LocationTypes.IN_TRANSIT.ordinal.toShort()
+        } else {
+            moveComponent.timeToArrive -= deltaTime
+            if (moveComponent.timeToArrive <= 0) {
+                locationMap[moveComponent.toLocationId].updated = true
+                val nextLocation = locationMap[moveComponent.toLocationId].entity[LocationComponent.mapper]!!
+                nextLocation.players.add(entity)
+                positionComponent.locationId = moveComponent.toLocationId
+                entity[MoveStateComponent.mapper]!!.state = MoveStates.ARRIVING
+                entity.remove(PlayerMoveComponent::class.java)
+            }
+        }
     }
 }

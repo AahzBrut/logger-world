@@ -6,7 +6,6 @@ import com.badlogic.gdx.utils.Pool
 import io.github.loggerworld.domain.enums.LocationTypes
 import ktx.ashley.mapperFor
 import ktx.collections.gdxArrayOf
-import ktx.collections.gdxSetOf
 
 class LocationComponent : Component, Pool.Poolable {
 
@@ -14,8 +13,9 @@ class LocationComponent : Component, Pool.Poolable {
     var xCoord: Byte = -1
     var yCoord: Byte = -1
     var locationType: LocationTypes = LocationTypes.VOID
-    val players = gdxSetOf<Long>()
-    val monsterSpawners = gdxSetOf<Entity>()
+    val players = gdxArrayOf<Entity>()
+    val monsterSpawners = gdxArrayOf<Entity>()
+    val spawnedMonsters = gdxArrayOf<Entity>()
 
     override fun reset() {
         locationId = -1
@@ -24,6 +24,7 @@ class LocationComponent : Component, Pool.Poolable {
         locationType = LocationTypes.VOID
         players.clear()
         monsterSpawners.clear()
+        spawnedMonsters.clear()
     }
 
     companion object {
