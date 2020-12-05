@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="log_type_message_description-constraint-001" author="Aahz Brut">
+
+        <addForeignKeyConstraint baseColumnNames="log_type_message_id" baseTableName="log_type_message_description"
+                                 constraintName="fk-log_type_message_description-log_type_message"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="log_type_message_id" referencedTableName="log_type_message"/>
+
+    </changeSet>
+
+</databaseChangeLog>

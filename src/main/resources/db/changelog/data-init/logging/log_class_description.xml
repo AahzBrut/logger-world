@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="log_class_description-data-01" author="AahzBrut">
+
+        <!-- EN -->
+
+        <insert tableName="log_class_description">
+            <column name="log_class_id" valueComputed="SELECT log_class_id FROM REPOSITORY.log_class WHERE code='SYSTEM'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="System"/>
+            <column name="description" value="System messages."/>
+        </insert>
+        <insert tableName="log_class_description">
+            <column name="log_class_id" valueComputed="SELECT log_class_id FROM REPOSITORY.log_class WHERE code='MOVEMENT'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="Movement"/>
+            <column name="description" value="Messages about movement between locations."/>
+        </insert>
+
+
+        <!-- RU -->
+
+        <insert tableName="log_class_description">
+            <column name="log_class_id" valueComputed="SELECT log_class_id FROM REPOSITORY.log_class WHERE code='SYSTEM'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Система"/>
+            <column name="description" value="Системные сообщения."/>
+        </insert>
+        <insert tableName="log_class_description">
+            <column name="log_class_id" valueComputed="SELECT log_class_id FROM REPOSITORY.log_class WHERE code='MOVEMENT'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Передвижение"/>
+            <column name="description" value="Сообщения о передвижениях между локациями."/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>

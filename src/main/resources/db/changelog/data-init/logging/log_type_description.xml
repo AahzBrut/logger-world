@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="log_type_description-data-01" author="AahzBrut">
+
+        <!-- EN -->
+
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='LOGIN'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="Login"/>
+            <column name="description" value="User logged in to player."/>
+        </insert>
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='LOGOFF'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="Logoff"/>
+            <column name="description" value="User logged off from player."/>
+        </insert>
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='DEPARTURE'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="Departure"/>
+            <column name="description" value="User left location."/>
+        </insert>
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='ARRIVAL'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="Arrival"/>
+            <column name="description" value="User arrived to location."/>
+        </insert>
+
+
+        <!-- RU -->
+
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='LOGIN'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Вход"/>
+            <column name="description" value="Пользователь вошел в игру."/>
+        </insert>
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='LOGOFF'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Выход"/>
+            <column name="description" value="Пользователь вышел из игры."/>
+        </insert>
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='DEPARTURE'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Ушел из локации"/>
+            <column name="description" value="Игрок покинул локацию."/>
+        </insert>
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='ARRIVAL'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Пришел в локацию"/>
+            <column name="description" value="Игрок прибыл в локацию."/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>

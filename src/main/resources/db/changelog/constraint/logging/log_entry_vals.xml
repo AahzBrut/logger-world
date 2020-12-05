@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="log_entry_vals-constraint-001" author="Aahz Brut">
+
+        <addForeignKeyConstraint baseColumnNames="log_entry_id" baseTableName="log_entry_vals"
+                                 constraintName="fk-log_entry_vals-log_entry"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="log_entry_id" referencedTableName="log_entry"/>
+
+    </changeSet>
+
+</databaseChangeLog>

@@ -10,5 +10,6 @@
     <include file="classpath:/db/changelog/constraint/geography/all.xml"/>
     <include file="classpath:/db/changelog/constraint/character/all.xml"/>
     <includeAll path="classpath:/db/changelog/constraint/monster"/>
+    <includeAll path="classpath:/db/changelog/constraint/logging"/>
 
 </databaseChangeLog>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="log_type-data-01" author="AahzBrut">
+        <insert tableName="log_type">
+            <column name="log_class_id" valueComputed="SELECT log_class_id FROM REPOSITORY.log_class WHERE code='SYSTEM'"/>
+            <column name="code" value="LOGIN"/>
+            <column name="num_vals" valueNumeric="0"/>
+        </insert>
+        <insert tableName="log_type">
+            <column name="log_class_id" valueComputed="SELECT log_class_id FROM REPOSITORY.log_class WHERE code='SYSTEM'"/>
+            <column name="code" value="LOGOFF"/>
+            <column name="num_vals" valueNumeric="0"/>
+        </insert>
+        <insert tableName="log_type">
+            <column name="log_class_id" valueComputed="SELECT log_class_id FROM REPOSITORY.log_class WHERE code='MOVEMENT'"/>
+            <column name="code" value="DEPARTURE"/>
+            <column name="num_vals" valueNumeric="1"/>
+        </insert>
+        <insert tableName="log_type">
+            <column name="log_class_id" valueComputed="SELECT log_class_id FROM REPOSITORY.log_class WHERE code='MOVEMENT'"/>
+            <column name="code" value="ARRIVAL"/>
+            <column name="num_vals" valueNumeric="1"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

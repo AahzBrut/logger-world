@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="log_entry-01" author="AahzBrut">
+        <createSequence sequenceName="log_entry_seq"/>
+    </changeSet>
+
+    <changeSet id="log_entry-02" author="AahzBrut">
+        <createTable tableName="log_entry">
+            <column name="log_entry_id" type="BIGINT" defaultValueSequenceNext="log_entry_seq">
+                <constraints primaryKey="true" primaryKeyName="log_entry_pk"/>
+            </column>
+            <column name="created" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="character_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="log_type_message_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
