@@ -11,10 +11,10 @@ class MonsterClassSpawnerDataMapper(
 ): Mapper<MonsterClassSpawnerData, MonsterClass> {
 
 
-    override fun fromList(source: List<MonsterClass>): MonsterClassSpawnerData {
+    override fun fromList(sources: List<MonsterClass>): MonsterClassSpawnerData {
         val spawnerData = MonsterClassSpawnerData()
 
-        source.forEach { monsterClass ->
+        sources.forEach { monsterClass ->
             spawnerData.classes[monsterClass.code] = mapper.from(monsterClass)
         }
 
