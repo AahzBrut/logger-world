@@ -12,6 +12,11 @@
                                  deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="log_entry_id" referencedTableName="log_entry"/>
 
+        <addForeignKeyConstraint baseColumnNames="character_id" baseTableName="log_entry_vals"
+                                 constraintName="fk-log_entry_vals-character"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="character_id" referencedTableName="character"/>
+
     </changeSet>
 
 </databaseChangeLog>

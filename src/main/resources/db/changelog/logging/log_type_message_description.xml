@@ -14,13 +14,13 @@
             <column name="log_type_message_description_id" type="INTEGER" defaultValueSequenceNext="log_type_message_description_seq">
                 <constraints primaryKey="true" primaryKeyName="log_type_message_description_pk"/>
             </column>
-            <column name="log_type_message_id" type="TINYINT">
+            <column name="log_type_message_id" type="INTEGER">
                 <constraints nullable="false"/>
             </column>
             <column name="language_id" type="TINYINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="description" type="VARCHAR(2048)">
+            <column name="value" type="VARCHAR(2048)">
                 <constraints nullable="false"/>
             </column>
         </createTable>

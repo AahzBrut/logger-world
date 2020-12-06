@@ -9,5 +9,7 @@
     <include file="classpath:/db/changelog/data-init/logging/log_class_description.xml"/>
     <include file="classpath:/db/changelog/data-init/logging/log_type.xml"/>
     <include file="classpath:/db/changelog/data-init/logging/log_type_description.xml"/>
+    <include file="classpath:/db/changelog/data-init/logging/log_type_message.xml"/>
+    <include file="classpath:/db/changelog/data-init/logging/log_type_message_description.xml"/>
 
 </databaseChangeLog>
