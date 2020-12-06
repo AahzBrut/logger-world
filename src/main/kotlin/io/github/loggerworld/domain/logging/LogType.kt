@@ -26,10 +26,13 @@ data class LogType(
     var code: LogTypes = LogTypes.LOGIN,
 
     @Column(name = "num_vals")
-    var numVals: Byte = 0
+    var numVals: Byte = 0,
 
     ) : BaseEntity<Byte>() {
 
     @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "logType")
     var logTypeDescriptions: MutableList<LogTypeDescription> = mutableListOf()
+
+    @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, mappedBy = "logType")
+    var logTypeMessages: MutableList<LogTypeMessage> = mutableListOf()
 }

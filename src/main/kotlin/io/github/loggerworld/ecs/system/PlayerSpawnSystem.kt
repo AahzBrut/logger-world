@@ -10,6 +10,9 @@ import io.github.loggerworld.ecs.component.MoveStates
 import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.PositionComponent
 import io.github.loggerworld.messagebus.CommandEventBus
+import io.github.loggerworld.messagebus.LogEventBus
+import io.github.loggerworld.messagebus.event.LogEvent
+import io.github.loggerworld.messagebus.event.LoginEvent
 import io.github.loggerworld.messagebus.event.PlayerStartCommand
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.logger
@@ -22,6 +25,7 @@ import org.springframework.stereotype.Service
 @Service
 class PlayerSpawnSystem(
     private val startEventBus: CommandEventBus<PlayerStartCommand>,
+    private val logEventBus: LogEventBus<LogEvent>
 ) : EntitySystem(PLAYER_SPAWN_SYSTEM.ordinal), LogAware {
 
     private val locationMap by lazy { engine.getEntitiesFor(allOf(LocationMapComponent::class).get())[0][LocationMapComponent.mapper]!!.locationMap }
@@ -36,8 +40,17 @@ class PlayerSpawnSystem(
             addPlayerToTargetLocation(player, event)
             locationMap[event.locationId].updated = true
 
+            logLoginEvent(event)
+
             startEventBus.destroyEvent(event)
         }
+    }
+
+    private fun logLoginEvent(event: PlayerStartCommand) {
+        val loginEvent = logEventBus.newEvent(LoginEvent::class) as LoginEvent
+        loginEvent.playerId = event.playerId
+        loginEvent.locationId = event.locationId
+        logEventBus.pushEvent(loginEvent)
     }
 
     private fun addPlayerToTargetLocation(player: Entity, command: PlayerStartCommand) {
