@@ -17,15 +17,14 @@ class UserService(
         userDomainService.addNewUser(request)
     }
 
-    fun authenticate(request: UserLoginRequest) : Boolean {
+    fun authenticate(request: UserLoginRequest)  =
+        userDomainService.authenticate(request)
 
-        return userDomainService.authenticate(request)
-    }
+    fun getUserById(userId: Long)  =
+        userDomainService.getUserById(userId)
 
-    fun getUserById(userId: Long) : UserResponse {
-
-        return userDomainService.getUserById(userId)
-    }
+    fun getUserByName(userName: String)=
+        userDomainService.getUserByName(userName)!!
 
     fun getUserLanguage(userName: String) =
         userDomainService.getUserByName(userName)?.language ?: Languages.EN

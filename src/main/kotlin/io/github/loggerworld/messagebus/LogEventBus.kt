@@ -2,13 +2,14 @@ package io.github.loggerworld.messagebus
 
 import com.badlogic.gdx.utils.Pool
 import com.badlogic.gdx.utils.Pools
-import io.github.loggerworld.messagebus.event.NotificationEvent
+import io.github.loggerworld.messagebus.event.LogEvent
 import java.util.concurrent.ConcurrentLinkedDeque
 import kotlin.reflect.KClass
 
-class NotificationEventBus<T : NotificationEvent>(type: KClass<T>) {
+class LogEventBus<T : LogEvent>(private val type: KClass<T>) {
+
     private val eventQueue = ConcurrentLinkedDeque<T>()
-    private val eventPool: Pool<T> = Pools.get(type.java)
+    private val eventPools: MutableMap<KClass<*>, Pool<T>> = mutableMapOf()
 
     fun pushEvent(event: T) {
         eventQueue.push(event)
@@ -23,11 +24,17 @@ class NotificationEventBus<T : NotificationEvent>(type: KClass<T>) {
         return eventQueue.isEmpty()
     }
 
-    fun newEvent(): T {
-        return eventPool.obtain()
+    @Suppress("UNCHECKED_CAST")
+    fun newEvent(clazz: KClass<*>): T {
+
+        if (!eventPools.containsKey(clazz)) {
+            eventPools[clazz] = Pools.get(clazz.java) as Pool<T>
+        }
+
+        return eventPools[clazz]!!.obtain()
     }
 
     fun destroyEvent(event: T) {
-        eventPool.free(event)
+        eventPools[event::class]!!.free(event)
     }
 }

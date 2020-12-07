@@ -17,6 +17,12 @@
             <column name="created" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
+            <column name="log_class_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="log_type_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
             <column name="character_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>

@@ -126,6 +126,11 @@ class PlayerService(
             }.toList())
     }
 
+    fun getActivePlayer(userId: Long) : Long {
+
+        return activePlayers[userId]!!
+    }
+
     @EventListener
     fun onDisconnectEvent(event: SessionDisconnectEvent) {
         logger().debug("Socket closed for user:${(event.user ?: "null")} with status:${event.closeStatus}")

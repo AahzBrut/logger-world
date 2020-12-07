@@ -8,20 +8,20 @@ import kotlin.reflect.KClass
 
 class CommandEventBus<T : CommandEvent>(type: KClass<T>) {
 
-    private val startGameQueue = ConcurrentLinkedDeque<T>()
+    private val eventQueue = ConcurrentLinkedDeque<T>()
     private val eventPool: Pool<T> = Pools.get(type.java)
 
     fun pushEvent(event: T) {
-        startGameQueue.push(event)
+        eventQueue.push(event)
     }
 
     fun popEvent(): T {
 
-        return startGameQueue.pop()
+        return eventQueue.pop()
     }
 
     fun isQueueEmpty(): Boolean {
-        return startGameQueue.isEmpty()
+        return eventQueue.isEmpty()
     }
 
     fun newEvent(): T {
