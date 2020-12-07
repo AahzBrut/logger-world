@@ -5,6 +5,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import io.github.loggerworld.controller.LOCATIONS_URL
 import io.github.loggerworld.controller.LOCATION_TYPES_URL
 import io.github.loggerworld.controller.PLAYERS_CLASSES_URL
+import io.github.loggerworld.controller.PLAYERS_LOGS_URL
 import io.github.loggerworld.controller.PLAYERS_URL
 import io.github.loggerworld.controller.SIGN_UP_URL
 import io.github.loggerworld.domain.enums.Languages
@@ -21,6 +22,7 @@ import io.github.loggerworld.dto.response.character.PlayersResponse
 import io.github.loggerworld.dto.response.chat.ChatMessageResponse
 import io.github.loggerworld.dto.response.geography.LocationTypesResponse
 import io.github.loggerworld.dto.response.geography.LocationsResponse
+import io.github.loggerworld.dto.response.logging.PlayerLogsResponse
 import io.github.loggerworld.messagebus.event.LocationChangedEvent
 import io.github.loggerworld.messagebus.event.WrongCommandEvent
 import io.github.loggerworld.util.LogAware
@@ -376,13 +378,39 @@ class LoggerWorldTestIT : LogAware {
 
     @Test
     @Order(23)
+    fun firstUserGetLogs() {
+        val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
+            it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
+                request.headers.add("Authorization", getJwtToken(firstUserLoginRequest))
+                execution.execute(request, body)
+            })
+        }).build()
+
+        restTemplate1.getForEntity(baseUrl + PLAYERS_LOGS_URL, PlayerLogsResponse::class.java)
+    }
+
+    @Test
+    @Order(24)
+    fun secondUserGetLogs() {
+        val restTemplate2 = RestTemplateBuilder(RestTemplateCustomizer {
+            it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
+                request.headers.add("Authorization", getJwtToken(secondUserLoginRequest))
+                execution.execute(request, body)
+            })
+        }).build()
+
+        restTemplate2.getForEntity(baseUrl + PLAYERS_LOGS_URL, PlayerLogsResponse::class.java)
+    }
+
+    @Test
+    @Order(25)
     fun firstUserDisconnect() {
         stompSession1.disconnect()
         TimeUnit.MILLISECONDS.sleep(300)
     }
 
     @Test
-    @Order(24)
+    @Order(26)
     fun secondUserDisconnect() {
         stompSession2.disconnect()
         TimeUnit.MILLISECONDS.sleep(300)

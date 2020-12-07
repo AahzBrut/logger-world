@@ -21,6 +21,7 @@ import ktx.ashley.entity
 import ktx.ashley.get
 import ktx.ashley.with
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 
 @Service
 class PlayerSpawnSystem(
@@ -50,6 +51,7 @@ class PlayerSpawnSystem(
         val loginEvent = logEventBus.newEvent(LoginEvent::class) as LoginEvent
         loginEvent.playerId = event.playerId
         loginEvent.locationId = event.locationId
+        loginEvent.created = LocalDateTime.now()
         logEventBus.pushEvent(loginEvent)
     }
 

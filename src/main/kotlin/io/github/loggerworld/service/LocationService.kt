@@ -10,6 +10,7 @@ import io.github.loggerworld.dto.response.geography.LocationsResponse
 import io.github.loggerworld.dto.response.monster.MobNestResponse
 import io.github.loggerworld.service.domain.LocationDomainService
 import org.springframework.stereotype.Service
+import javax.annotation.PostConstruct
 
 typealias LocationDescriptionsMap = Map<Short, Map<Languages, Pair<String, String>>>
 typealias LocationTypeDescriptionsMap = Map<LocationTypes, Map<Languages, Pair<String, String>>>
@@ -18,6 +19,18 @@ typealias LocationTypeDescriptionsMap = Map<LocationTypes, Map<Languages, Pair<S
 class LocationService(
     private val locationDomainService: LocationDomainService,
 ) {
+
+    private lateinit var worldMap: WorldMap
+    private lateinit var locationDescriptionsMap: LocationDescriptionsMap
+    private lateinit var locationsTypeDescriptionsMap: LocationTypeDescriptionsMap
+
+    @PostConstruct
+    fun initCache(){
+        locationDescriptionsMap = initAllLocationDescriptions()
+        locationsTypeDescriptionsMap = initAllLocationTypeDescriptions()
+        worldMap = initWorldMap()
+    }
+
 
     fun getLocationTypes(userLanguage: Languages): LocationTypesResponse {
 
@@ -62,8 +75,11 @@ class LocationService(
         )
     }
 
-
     fun getWorldMap(): WorldMap {
+        return worldMap
+    }
+
+    private fun initWorldMap(): WorldMap {
         val allLocations = locationDomainService.getAllLocations()
         val locationDescriptions = getAllLocationDescriptions()
         val locationTypeDescriptions = getAllLocationTypeDescriptions()
@@ -88,8 +104,14 @@ class LocationService(
     }
 
     fun getAllLocationDescriptions() =
+        locationDescriptionsMap
+
+    private fun initAllLocationDescriptions() =
         locationDomainService.getAllLocationDescriptions()
 
     fun getAllLocationTypeDescriptions() =
+        locationsTypeDescriptionsMap
+
+    private fun initAllLocationTypeDescriptions() =
         locationDomainService.getAllLocationTypeDescriptions()
 }

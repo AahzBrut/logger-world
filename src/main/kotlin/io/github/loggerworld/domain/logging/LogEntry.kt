@@ -2,12 +2,16 @@ package io.github.loggerworld.domain.logging
 
 import io.github.loggerworld.domain.BaseEntity
 import io.github.loggerworld.domain.character.Player
+import io.github.loggerworld.domain.enums.LogClasses
+import io.github.loggerworld.domain.enums.LogTypes
 import org.hibernate.annotations.CreationTimestamp
 import java.time.LocalDateTime
 import javax.persistence.AttributeOverride
 import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.EnumType
+import javax.persistence.Enumerated
 import javax.persistence.FetchType
 import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
@@ -24,6 +28,14 @@ data class LogEntry(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "character_id")
     var player: Player = Player(),
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "log_class_id")
+    var logClass: LogClasses = LogClasses.SYSTEM,
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "log_type_id")
+    var logType: LogTypes = LogTypes.LOGIN,
 
     @CreationTimestamp
     @Column(name = "created")
