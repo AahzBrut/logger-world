@@ -16,13 +16,13 @@ import io.github.loggerworld.dto.request.PlayerMoveRequest
 import io.github.loggerworld.dto.request.PlayerStartGameRequest
 import io.github.loggerworld.dto.request.UserAddRequest
 import io.github.loggerworld.dto.request.UserLoginRequest
+import io.github.loggerworld.dto.response.ResponseObject
 import io.github.loggerworld.dto.response.character.PlayerClassesResponse
 import io.github.loggerworld.dto.response.character.PlayerResponse
 import io.github.loggerworld.dto.response.character.PlayersResponse
 import io.github.loggerworld.dto.response.chat.ChatMessageResponse
 import io.github.loggerworld.dto.response.geography.LocationTypesResponse
 import io.github.loggerworld.dto.response.geography.LocationsResponse
-import io.github.loggerworld.dto.response.logging.PlayerLogsResponse
 import io.github.loggerworld.messagebus.event.LocationChangedEvent
 import io.github.loggerworld.messagebus.event.WrongCommandEvent
 import io.github.loggerworld.util.LogAware
@@ -62,6 +62,7 @@ import org.springframework.web.socket.client.standard.StandardWebSocketClient
 import org.springframework.web.socket.messaging.WebSocketStompClient
 import java.lang.reflect.Type
 import java.util.concurrent.TimeUnit
+
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(
@@ -216,8 +217,8 @@ class LoggerWorldTestIT : LogAware {
             })
         }).build()
 
-        val classes = restTemplate1.getForEntity(baseUrl + PLAYERS_CLASSES_URL, PlayerClassesResponse::class.java)
-        logger().info(classes.toString())
+        val classes = restTemplate1.getForEntity(baseUrl + PLAYERS_CLASSES_URL, ResponseObject::class.java)
+        logger().info("\n\nClasses for first user:\n${classes.body}")
     }
 
     @Test
@@ -230,8 +231,8 @@ class LoggerWorldTestIT : LogAware {
             })
         }).build()
 
-        val classes = restTemplate1.getForEntity(baseUrl + PLAYERS_CLASSES_URL, PlayerClassesResponse::class.java)
-        logger().info(classes.toString())
+        val classes = restTemplate1.getForEntity(baseUrl + PLAYERS_CLASSES_URL, ResponseObject::class.java)
+        logger().info("\n\nClasses for second user:\n${classes.body}")
     }
 
     @Test
@@ -272,7 +273,7 @@ class LoggerWorldTestIT : LogAware {
             })
         }).build()
 
-        val classes = restTemplate1.getForEntity(baseUrl + PLAYERS_URL, PlayersResponse::class.java)
+        val classes = restTemplate1.getForEntity(baseUrl + PLAYERS_URL, ResponseObject::class.java)
         logger().info(classes.toString())
     }
 
@@ -386,7 +387,8 @@ class LoggerWorldTestIT : LogAware {
             })
         }).build()
 
-        restTemplate1.getForEntity(baseUrl + PLAYERS_LOGS_URL, PlayerLogsResponse::class.java)
+        val responseEntity = restTemplate1.getForEntity(baseUrl + PLAYERS_LOGS_URL, ResponseObject::class.java)
+        logger().info("\n\nLogs for first user:\n${responseEntity.body}")
     }
 
     @Test
@@ -399,7 +401,8 @@ class LoggerWorldTestIT : LogAware {
             })
         }).build()
 
-        restTemplate2.getForEntity(baseUrl + PLAYERS_LOGS_URL, PlayerLogsResponse::class.java)
+        val responseEntity= restTemplate2.getForEntity(baseUrl + PLAYERS_LOGS_URL, ResponseObject::class.java)
+        logger().info("\n\nLogs for second user:\n${responseEntity.body}")
     }
 
     @Test

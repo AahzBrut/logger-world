@@ -49,9 +49,9 @@ class MoveSystem(
                 nextLocation.players.add(entity)
                 positionComponent.locationId = moveComponent.toLocationId
                 entity[MoveStateComponent.mapper]!!.state = MoveStates.ARRIVING
-                entity.remove(PlayerMoveComponent::class.java)
                 logger().debug("\nPlayer with id:${playerComponent.playerId} is arriving to location with id:${positionComponent.locationId}")
                 logArrivalEvent(playerComponent.playerId, moveComponent)
+                entity.remove(PlayerMoveComponent::class.java)
             }
         }
     }

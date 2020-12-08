@@ -142,4 +142,9 @@ class PlayerService(
             }
         }
     }
+
+    fun decodePlayer(id: String, language: Languages) : String{
+
+        return playerDomainService.getPlayer(id.toLong()).name
+    }
 }
