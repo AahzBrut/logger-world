@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository
 
 interface LogEntryRepository: JpaRepository<LogEntry, Long> {
 
-    fun findAllByPlayerId(playerId: Long): MutableList<LogEntry>
+    fun findAllByPlayerId(playerId: Long): List<LogEntry>
 }

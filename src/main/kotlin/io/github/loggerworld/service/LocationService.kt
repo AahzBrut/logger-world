@@ -25,7 +25,7 @@ class LocationService(
     private lateinit var locationsTypeDescriptionsMap: LocationTypeDescriptionsMap
 
     @PostConstruct
-    fun initCache(){
+    fun initCache() {
         locationDescriptionsMap = initAllLocationDescriptions()
         locationsTypeDescriptionsMap = initAllLocationTypeDescriptions()
         worldMap = initWorldMap()
@@ -114,4 +114,10 @@ class LocationService(
 
     private fun initAllLocationTypeDescriptions() =
         locationDomainService.getAllLocationTypeDescriptions()
+
+    fun decodeLocation(id: String, language: Languages): String {
+
+        return locationDescriptionsMap[id.toShort()]!![language]!!.first
+    }
+
 }

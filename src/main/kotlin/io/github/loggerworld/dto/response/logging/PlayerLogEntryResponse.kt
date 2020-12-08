@@ -8,5 +8,5 @@ data class PlayerLogEntryResponse(
     val dateTime: LocalDateTime = LocalDateTime.now(),
     val logClass: LogClasses = LogClasses.SYSTEM,
     val logType: LogTypes = LogTypes.LOGIN,
-    val message: String = ""
+    var message: String = ""
 )

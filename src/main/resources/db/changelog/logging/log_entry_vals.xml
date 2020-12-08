@@ -20,6 +20,9 @@
             <column name="log_entry_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
+            <column name="log_value_type_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
             <column name="ordinal" type="TINYINT">
                 <constraints nullable="false"/>
             </column>
