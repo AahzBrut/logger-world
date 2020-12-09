@@ -32,12 +32,12 @@ import io.github.loggerworld.util.TOKEN_PREFIX
 import io.github.loggerworld.util.WS_CHAT
 import io.github.loggerworld.util.WS_CONNECTION_POINT
 import io.github.loggerworld.util.WS_DESTINATION_PREFIX
-import io.github.loggerworld.util.WS_DS_GAMEPLAY_EVENTS_WRONG_COMMAND_QUEUE
-import io.github.loggerworld.util.WS_DS_GAMEPLAY_LOCATION_NOTIFICATIO_QUEUE
-import io.github.loggerworld.util.WS_DS_TOPIC_MESSAGES
+import io.github.loggerworld.util.WS_GAMEPLAY_LOCATION_NOTIFICATION_QUEUE
 import io.github.loggerworld.util.WS_GAMEPLAY_LOG_QUEUE
+import io.github.loggerworld.util.WS_GAMEPLAY_WRONG_COMMAND_QUEUE
 import io.github.loggerworld.util.WS_PLAYERS_MOVE
 import io.github.loggerworld.util.WS_PLAYERS_START
+import io.github.loggerworld.util.WS_TOPIC_MESSAGES
 import io.github.loggerworld.util.logger
 import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order
@@ -432,8 +432,8 @@ class LoggerWorldTestIT : LogAware {
         override fun getPayloadType(headers: StompHeaders): Type {
 
             val payloadType = when (headers.destination) {
-                WS_DS_TOPIC_MESSAGES -> ChatMessageResponse::class.java
-                PERSONAL + WS_DS_GAMEPLAY_EVENTS_WRONG_COMMAND_QUEUE -> WrongCommandEvent::class.java
+                WS_TOPIC_MESSAGES -> ChatMessageResponse::class.java
+                PERSONAL + WS_GAMEPLAY_WRONG_COMMAND_QUEUE -> WrongCommandEvent::class.java
                 PERSONAL + WS_GAMEPLAY_LOG_QUEUE -> PlayerLogEntryResponse::class.java
                 else -> LocationChangedEvent::class.java
             }
@@ -462,9 +462,9 @@ class LoggerWorldTestIT : LogAware {
         override fun afterConnected(session: StompSession, connectedHeaders: StompHeaders) {
             logger().info("WebSocket connected")
 
-            session.subscribe(WS_DS_TOPIC_MESSAGES, this)
-            session.subscribe(PERSONAL + WS_DS_GAMEPLAY_LOCATION_NOTIFICATIO_QUEUE, this)
-            session.subscribe(PERSONAL + WS_DS_GAMEPLAY_EVENTS_WRONG_COMMAND_QUEUE, this)
+            session.subscribe(WS_TOPIC_MESSAGES, this)
+            session.subscribe(PERSONAL + WS_GAMEPLAY_LOCATION_NOTIFICATION_QUEUE, this)
+            session.subscribe(PERSONAL + WS_GAMEPLAY_WRONG_COMMAND_QUEUE, this)
             session.subscribe(PERSONAL + WS_GAMEPLAY_LOG_QUEUE, this)
 
             when (connectedHeaders["user-name"][0]) {
