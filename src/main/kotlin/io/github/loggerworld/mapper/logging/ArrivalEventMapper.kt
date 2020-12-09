@@ -23,7 +23,7 @@ class ArrivalEventMapper : LogEntryMapper<ArrivalEvent> {
             source.created
         )
 
-        val logEntryVal1 = LogEntryVals(
+        val logEntryVal = LogEntryVals(
             logEntry,
             Player().also { it.id = source.playerId },
             1,
@@ -31,16 +31,7 @@ class ArrivalEventMapper : LogEntryMapper<ArrivalEvent> {
             source.toLocationId.toString()
         )
 
-        val logEntryVal2 = LogEntryVals(
-            logEntry,
-            Player().also { it.id = source.playerId },
-            2,
-            LogValueTypes.LOCATION_ID,
-            source.toLocationId.toString()
-        )
-
-        logEntry.logEntryVals.add(logEntryVal1)
-        logEntry.logEntryVals.add(logEntryVal2)
+        logEntry.logEntryVals.add(logEntryVal)
 
         return logEntry
     }

@@ -4,7 +4,8 @@ import io.github.loggerworld.service.security.JwtService
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.WS_CONNECTION_POINT
 import io.github.loggerworld.util.WS_DESTINATION_PREFIX
-import io.github.loggerworld.util.WS_GAMEPLAY_LOCATION_NOTIFICATIO_QUEUE
+import io.github.loggerworld.util.WS_GAMEPLAY_LOCATION_NOTIFICATION_QUEUE
+import io.github.loggerworld.util.WS_GAMEPLAY_LOG_QUEUE
 import io.github.loggerworld.util.WS_GAMEPLAY_WRONG_COMMAND_QUEUE
 import io.github.loggerworld.util.WS_TOPIC
 import io.github.loggerworld.util.logger
@@ -43,7 +44,12 @@ class WebSocketConfig(
 
     override fun configureMessageBroker(registry: MessageBrokerRegistry) {
         registry.run {
-            enableSimpleBroker(WS_TOPIC, WS_GAMEPLAY_LOCATION_NOTIFICATIO_QUEUE, WS_GAMEPLAY_WRONG_COMMAND_QUEUE)
+            enableSimpleBroker(
+                WS_TOPIC,
+                WS_GAMEPLAY_LOCATION_NOTIFICATION_QUEUE,
+                WS_GAMEPLAY_WRONG_COMMAND_QUEUE,
+                WS_GAMEPLAY_LOG_QUEUE,
+            )
             setApplicationDestinationPrefixes(WS_DESTINATION_PREFIX)
         }
     }

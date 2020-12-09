@@ -11,6 +11,7 @@ import io.github.loggerworld.dto.response.character.PlayerResponse
 import io.github.loggerworld.dto.response.character.PlayerStatResponse
 import io.github.loggerworld.dto.response.character.PlayerStatsResponse
 import io.github.loggerworld.dto.response.character.PlayersResponse
+import io.github.loggerworld.dto.response.user.UserResponse
 import io.github.loggerworld.messagebus.CommandEventBus
 import io.github.loggerworld.messagebus.event.PlayerMoveCommand
 import io.github.loggerworld.messagebus.event.PlayerStartCommand
@@ -77,10 +78,8 @@ class PlayerService(
         val user = userDomainService.getUserByName(name)!!
         val player: PlayerResponse = playerDomainService.getPlayer(user.id, request.playerId)
 
-        if (activePlayers.containsKey(user.id)) {
-            if (activePlayers[user.id] != request.playerId) {
-                error("User already have active player in the game. To proceed with new player you must logoff other player.")
-            }
+        if (activePlayers.containsKey(user.id) && activePlayers[user.id] != request.playerId) {
+            error("User already have active player in the game. To proceed with new player you must logoff other player.")
         }
 
         activePlayers[user.id] = player.id
@@ -98,6 +97,11 @@ class PlayerService(
     fun getPlayerById(playerId: Long): PlayerResponse {
 
         return playerDomainService.getPlayer(playerId)
+    }
+
+    fun getUserByPlayerId(playerId: Long): UserResponse {
+
+        return userDomainService.getUserById(playerDomainService.getPlayer(playerId).userId)
     }
 
     fun movePlayer(name: String, request: PlayerMoveRequest) {
@@ -123,10 +127,11 @@ class PlayerService(
                     requireNotNull(it.value[userLanguage]).first,
                     requireNotNull(it.value[userLanguage]).second
                 )
-            }.toList())
+            }.toList()
+        )
     }
 
-    fun getActivePlayer(userId: Long) : Long {
+    fun getActivePlayer(userId: Long): Long {
 
         return activePlayers[userId]!!
     }
@@ -143,7 +148,7 @@ class PlayerService(
         }
     }
 
-    fun decodePlayer(id: String, language: Languages) : String{
+    fun decodePlayer(id: String, language: Languages): String {
 
         return playerDomainService.getPlayer(id.toLong()).name
     }

@@ -24,7 +24,7 @@
         <insert tableName="log_type">
             <column name="log_class_id" valueComputed="SELECT log_class_id FROM REPOSITORY.log_class WHERE code='MOVEMENT'"/>
             <column name="code" value="ARRIVAL"/>
-            <column name="num_vals" valueNumeric="3"/>
+            <column name="num_vals" valueNumeric="2"/>
         </insert>
     </changeSet>
 
