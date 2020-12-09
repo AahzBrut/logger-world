@@ -3,9 +3,11 @@ package io.github.loggerworld.ecs.system
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.EntitySystem
 import io.github.loggerworld.dto.response.character.ShortPlayerResponse
+import io.github.loggerworld.dto.response.monster.MobNestResponse
 import io.github.loggerworld.ecs.EngineSystems.LOCATION_INHABITANT_ALERT_SYSTEM
 import io.github.loggerworld.ecs.component.LocationComponent
 import io.github.loggerworld.ecs.component.LocationMapComponent
+import io.github.loggerworld.ecs.component.MonsterSpawnerComponent
 import io.github.loggerworld.ecs.component.MoveStateComponent
 import io.github.loggerworld.ecs.component.MoveStates
 import io.github.loggerworld.ecs.component.PlayerComponent
@@ -16,6 +18,7 @@ import io.github.loggerworld.util.logger
 import ktx.ashley.allOf
 import ktx.ashley.get
 import ktx.collections.GdxArray
+import ktx.collections.GdxSet
 import org.springframework.stereotype.Component
 
 @Component
@@ -31,6 +34,7 @@ class LocationInhabitantAlertSystem(
                 if (it.value.updated) {
 
                     val players = locationMap[it.key].entity[LocationComponent.mapper]!!.players
+                    val mobNests = locationMap[it.key].entity[LocationComponent.mapper]!!.monsterSpawners
 
                     val event = outBus.newEvent().also { event ->
                         event.locationId = it.key
@@ -46,6 +50,18 @@ class LocationInhabitantAlertSystem(
                                     moveComp.state
                                 )
                             }.toMutableList()
+
+                        event.mobNests = mobNests.map {nestEntity ->
+                            val spawnerComponent = nestEntity[MonsterSpawnerComponent.mapper]!!
+                            MobNestResponse(
+                                spawnerComponent.id,
+                                spawnerComponent.monsterClass,
+                                spawnerComponent.level,
+                                spawnerComponent.amount
+                            )
+                        }.toMutableList()
+
+
                         event.mobs = mutableListOf()
                     }
                     outBus.pushEvent(event)
@@ -58,7 +74,7 @@ class LocationInhabitantAlertSystem(
             }
     }
 
-    private fun updateMoveStates(players: GdxArray<Entity>) {
+    private fun updateMoveStates(players: GdxSet<Entity>) {
 
         players.removeAll {player ->
             player[MoveStateComponent.mapper]!!.state == MoveStates.DEPARTING
