@@ -23,6 +23,7 @@ import io.github.loggerworld.dto.response.character.PlayersResponse
 import io.github.loggerworld.dto.response.chat.ChatMessageResponse
 import io.github.loggerworld.dto.response.geography.LocationTypesResponse
 import io.github.loggerworld.dto.response.geography.LocationsResponse
+import io.github.loggerworld.dto.response.logging.PlayerLogEntryResponse
 import io.github.loggerworld.messagebus.event.LocationChangedEvent
 import io.github.loggerworld.messagebus.event.WrongCommandEvent
 import io.github.loggerworld.util.LogAware
@@ -34,6 +35,7 @@ import io.github.loggerworld.util.WS_DESTINATION_PREFIX
 import io.github.loggerworld.util.WS_DS_GAMEPLAY_EVENTS_WRONG_COMMAND_QUEUE
 import io.github.loggerworld.util.WS_DS_GAMEPLAY_LOCATION_NOTIFICATIO_QUEUE
 import io.github.loggerworld.util.WS_DS_TOPIC_MESSAGES
+import io.github.loggerworld.util.WS_GAMEPLAY_LOG_QUEUE
 import io.github.loggerworld.util.WS_PLAYERS_MOVE
 import io.github.loggerworld.util.WS_PLAYERS_START
 import io.github.loggerworld.util.logger
@@ -432,6 +434,7 @@ class LoggerWorldTestIT : LogAware {
             val payloadType = when (headers.destination) {
                 WS_DS_TOPIC_MESSAGES -> ChatMessageResponse::class.java
                 PERSONAL + WS_DS_GAMEPLAY_EVENTS_WRONG_COMMAND_QUEUE -> WrongCommandEvent::class.java
+                PERSONAL + WS_GAMEPLAY_LOG_QUEUE -> PlayerLogEntryResponse::class.java
                 else -> LocationChangedEvent::class.java
             }
 
@@ -462,6 +465,7 @@ class LoggerWorldTestIT : LogAware {
             session.subscribe(WS_DS_TOPIC_MESSAGES, this)
             session.subscribe(PERSONAL + WS_DS_GAMEPLAY_LOCATION_NOTIFICATIO_QUEUE, this)
             session.subscribe(PERSONAL + WS_DS_GAMEPLAY_EVENTS_WRONG_COMMAND_QUEUE, this)
+            session.subscribe(PERSONAL + WS_GAMEPLAY_LOG_QUEUE, this)
 
             when (connectedHeaders["user-name"][0]) {
                 firstUserLoginRequest.userName -> stompSession1 = session

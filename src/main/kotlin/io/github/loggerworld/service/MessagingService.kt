@@ -1,10 +1,12 @@
 package io.github.loggerworld.service
 
+import io.github.loggerworld.dto.response.logging.PlayerLogEntryResponse
 import io.github.loggerworld.messagebus.NotificationEventBus
 import io.github.loggerworld.messagebus.event.LocationChangedEvent
 import io.github.loggerworld.messagebus.event.WrongCommandEvent
 import io.github.loggerworld.util.LogAware
-import io.github.loggerworld.util.WS_GAMEPLAY_LOCATION_NOTIFICATIO_QUEUE
+import io.github.loggerworld.util.WS_GAMEPLAY_LOCATION_NOTIFICATION_QUEUE
+import io.github.loggerworld.util.WS_GAMEPLAY_LOG_QUEUE
 import io.github.loggerworld.util.WS_GAMEPLAY_WRONG_COMMAND_QUEUE
 import io.github.loggerworld.util.logger
 import org.springframework.messaging.simp.SimpMessagingTemplate
@@ -45,13 +47,17 @@ class MessagingService(
         }
     }
 
+    fun sendMessageToPlayer(loginName: String, event: PlayerLogEntryResponse) {
+        simpleMessagingTemplate.convertAndSendToUser(loginName, WS_GAMEPLAY_LOG_QUEUE, event)
+    }
+
     private fun notifyOnArrival(event: LocationChangedEvent) {
         event.players.forEach {
             val player = playerService.getPlayerById(it.id)
 
             val user = userService.getUserById(player.userId)
 
-            simpleMessagingTemplate.convertAndSendToUser(user.loginName, WS_GAMEPLAY_LOCATION_NOTIFICATIO_QUEUE, event)
+            simpleMessagingTemplate.convertAndSendToUser(user.loginName, WS_GAMEPLAY_LOCATION_NOTIFICATION_QUEUE, event)
         }
     }
 

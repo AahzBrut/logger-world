@@ -6,6 +6,9 @@ import io.github.loggerworld.domain.enums.LogValueTypes
 import io.github.loggerworld.dto.inner.logging.LoggingData
 import io.github.loggerworld.dto.response.logging.PlayerLogsResponse
 import io.github.loggerworld.dto.response.user.UserResponse
+import io.github.loggerworld.mapper.logging.LogEntryFromArrivalEventMapper
+import io.github.loggerworld.mapper.logging.LogEntryFromDepartureEventMapper
+import io.github.loggerworld.mapper.logging.LogEntryFromLoginEventMapper
 import io.github.loggerworld.messagebus.LogEventBus
 import io.github.loggerworld.messagebus.event.ArrivalEvent
 import io.github.loggerworld.messagebus.event.DepartureEvent
@@ -26,6 +29,10 @@ class LoggingService(
     private val logEventBus: LogEventBus<LogEvent>,
     private val playerService: PlayerService,
     private val locationService: LocationService,
+    private val messagingService: MessagingService,
+    private val loginEventMapper: LogEntryFromLoginEventMapper,
+    private val arrivalEventMapper: LogEntryFromArrivalEventMapper,
+    private val departureEventMapper: LogEntryFromDepartureEventMapper,
 ) : LogAware {
 
     private lateinit var logMessagesTemplates: LoggingData
@@ -43,30 +50,71 @@ class LoggingService(
         logger().debug("Logging templates loaded.")
     }
 
-    @Scheduled(fixedDelay = 500, initialDelay = 100)
+    @Scheduled(fixedDelay = 10, initialDelay = 100)
     fun logEvents() {
         while (!logEventBus.isQueueEmpty()) {
 
             val event = logEventBus.popEvent()
-
             when (event) {
-                is LoginEvent -> loggingDomainService.addLoginMessageToBatch(
-                    event,
-                    getRandomMessage(LogTypes.LOGIN)
-                )
-                is ArrivalEvent -> loggingDomainService.addArrivalMessageToBatch(
-                    event,
-                    getRandomMessage(LogTypes.ARRIVAL)
-                )
-                is DepartureEvent -> loggingDomainService.addDepartureMessageToBatch(
-                    event,
-                    getRandomMessage(LogTypes.DEPARTURE)
-                )
+                is LoginEvent -> {
+                    val messageId = getRandomMessage(LogTypes.LOGIN)
+                    val user = playerService.getUserByPlayerId(event.playerId)
+                    loggingDomainService.addLoginMessageToBatch(event, messageId)
+                    messagingService.sendMessageToPlayer(
+                        user.loginName, loginEventMapper.from(
+                            event,
+                            getMessageByIdAndLanguage(messageId, user.language),
+                            valueDecoders,
+                            user.language
+                        )
+                    )
+                }
+                is ArrivalEvent -> {
+                    val messageId = getRandomMessage(LogTypes.ARRIVAL)
+                    val user = playerService.getUserByPlayerId(event.playerId)
+                    loggingDomainService.addArrivalMessageToBatch(event,messageId)
+                    messagingService.sendMessageToPlayer(
+                        user.loginName, arrivalEventMapper.from(
+                            event,
+                            getMessageByIdAndLanguage(messageId, user.language),
+                            valueDecoders,
+                            user.language
+                        )
+                    )
+                }
+                is DepartureEvent -> {
+                    val messageId = getRandomMessage(LogTypes.DEPARTURE)
+                    val user = playerService.getUserByPlayerId(event.playerId)
+                    loggingDomainService.addDepartureMessageToBatch(event,messageId)
+                    messagingService.sendMessageToPlayer(
+                        user.loginName, departureEventMapper.from(
+                            event,
+                            getMessageByIdAndLanguage(messageId, user.language),
+                            valueDecoders,
+                            user.language
+                        )
+                    )
+                }
             }
 
             logEventBus.destroyEvent(event)
         }
         loggingDomainService.commitBatch()
+    }
+
+    private fun getMessageByIdAndLanguage(messageId: Int, language: Languages): String {
+
+        return logMessagesTemplates.classes
+            .flatMap {
+                it.value.types.values
+            }
+            .flatMap {
+                it.templates.values
+            }
+            .first{
+               it.messageId == messageId
+            }.messages[language]!!
+
     }
 
     private fun getRandomMessage(type: LogTypes): Int {
