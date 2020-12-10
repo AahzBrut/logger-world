@@ -1,8 +1,10 @@
 package io.github.loggerworld.controller
 
-import io.github.loggerworld.dto.request.PlayerMoveRequest
-import io.github.loggerworld.dto.request.PlayerStartGameRequest
+import io.github.loggerworld.dto.request.commands.PlayerKickMonsterNestRequest
+import io.github.loggerworld.dto.request.commands.PlayerMoveRequest
+import io.github.loggerworld.dto.request.commands.PlayerStartGameRequest
 import io.github.loggerworld.service.PlayerService
+import io.github.loggerworld.util.WS_PLAYERS_KICK_NEST
 import io.github.loggerworld.util.WS_PLAYERS_MOVE
 import io.github.loggerworld.util.WS_PLAYERS_START
 import org.springframework.messaging.handler.annotation.MessageMapping
@@ -22,5 +24,10 @@ class PlayerController(
     @MessageMapping(WS_PLAYERS_MOVE)
     fun movePlayer(principal: Principal, request: PlayerMoveRequest) {
         playerService.movePlayer(principal.name, request)
+    }
+
+    @MessageMapping(WS_PLAYERS_KICK_NEST)
+    fun kickMonsterNest(principal: Principal, request: PlayerKickMonsterNestRequest) {
+        playerService.kickMonsterNest(principal.name, request)
     }
 }

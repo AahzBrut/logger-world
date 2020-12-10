@@ -4,9 +4,11 @@ import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.EntitySystem
 import io.github.loggerworld.dto.response.character.ShortPlayerResponse
 import io.github.loggerworld.dto.response.monster.MobNestResponse
+import io.github.loggerworld.dto.response.monster.MonsterShortResponse
 import io.github.loggerworld.ecs.EngineSystems.LOCATION_INHABITANT_ALERT_SYSTEM
 import io.github.loggerworld.ecs.component.LocationComponent
 import io.github.loggerworld.ecs.component.LocationMapComponent
+import io.github.loggerworld.ecs.component.MonsterComponent
 import io.github.loggerworld.ecs.component.MonsterSpawnerComponent
 import io.github.loggerworld.ecs.component.MoveStateComponent
 import io.github.loggerworld.ecs.component.MoveStates
@@ -17,7 +19,6 @@ import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.logger
 import ktx.ashley.allOf
 import ktx.ashley.get
-import ktx.collections.GdxArray
 import ktx.collections.GdxSet
 import org.springframework.stereotype.Component
 
@@ -33,12 +34,11 @@ class LocationInhabitantAlertSystem(
             .forEach {
                 if (it.value.updated) {
 
-                    val players = locationMap[it.key].entity[LocationComponent.mapper]!!.players
-                    val mobNests = locationMap[it.key].entity[LocationComponent.mapper]!!.monsterSpawners
+                    val locationComp = locationMap[it.key].entity[LocationComponent.mapper]!!
 
                     val event = outBus.newEvent().also { event ->
                         event.locationId = it.key
-                        event.players = players
+                        event.players = locationComp.players
                             .map { playerEntity ->
                                 val playerComp = playerEntity[PlayerComponent.mapper]!!
                                 val moveComp = playerEntity[MoveStateComponent.mapper]!!
@@ -51,7 +51,7 @@ class LocationInhabitantAlertSystem(
                                 )
                             }.toMutableList()
 
-                        event.mobNests = mobNests.map {nestEntity ->
+                        event.mobNests = locationComp.monsterSpawners.map {nestEntity ->
                             val spawnerComponent = nestEntity[MonsterSpawnerComponent.mapper]!!
                             MobNestResponse(
                                 spawnerComponent.id,
@@ -61,12 +61,18 @@ class LocationInhabitantAlertSystem(
                             )
                         }.toMutableList()
 
-
-                        event.mobs = mutableListOf()
+                        event.mobs = locationComp.spawnedMonsters.map {monsterEntity ->
+                            val monsterComp = monsterEntity[MonsterComponent.mapper]!!
+                            MonsterShortResponse(
+                                monsterComp.level,
+                                monsterComp.monsterClass,
+                                monsterComp.monsterType
+                            )
+                        }.toMutableList()
                     }
                     outBus.pushEvent(event)
 
-                    updateMoveStates(players)
+                    updateMoveStates(locationComp.players)
 
                     logger().debug("\nInhabitants changed in location with id: ${it.key}")
                     it.value.updated = false

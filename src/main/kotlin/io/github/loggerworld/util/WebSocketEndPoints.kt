@@ -6,6 +6,7 @@ const val WS_DESTINATION_PREFIX = "/app"
 
 const val WS_PLAYERS_START = "/players/start"
 const val WS_PLAYERS_MOVE = "/players/move"
+const val WS_PLAYERS_KICK_NEST = "/players/kick-nest"
 
 
 const val WS_TOPIC = "/topic"

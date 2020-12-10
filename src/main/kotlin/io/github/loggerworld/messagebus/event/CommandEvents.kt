@@ -33,3 +33,14 @@ data class PlayerMoveCommand(
         locationId = -1
     }
 }
+
+data class PlayerKickMonsterNestCommand(
+    var playerId: Long = -1,
+    var monsterNestId: Short = -1,
+) : CommandEvent() {
+
+    override fun reset() {
+        playerId = -1
+        monsterNestId = -1
+    }
+}

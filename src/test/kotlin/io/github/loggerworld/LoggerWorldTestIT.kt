@@ -12,10 +12,11 @@ import io.github.loggerworld.domain.enums.Languages
 import io.github.loggerworld.domain.enums.PlayerClasses
 import io.github.loggerworld.dto.request.ChatMessageRequest
 import io.github.loggerworld.dto.request.PlayerAddRequest
-import io.github.loggerworld.dto.request.PlayerMoveRequest
-import io.github.loggerworld.dto.request.PlayerStartGameRequest
+import io.github.loggerworld.dto.request.commands.PlayerMoveRequest
+import io.github.loggerworld.dto.request.commands.PlayerStartGameRequest
 import io.github.loggerworld.dto.request.UserAddRequest
 import io.github.loggerworld.dto.request.UserLoginRequest
+import io.github.loggerworld.dto.request.commands.PlayerKickMonsterNestRequest
 import io.github.loggerworld.dto.response.ResponseObject
 import io.github.loggerworld.dto.response.character.PlayerClassesResponse
 import io.github.loggerworld.dto.response.character.PlayerResponse
@@ -35,6 +36,7 @@ import io.github.loggerworld.util.WS_DESTINATION_PREFIX
 import io.github.loggerworld.util.WS_GAMEPLAY_LOCATION_NOTIFICATION_QUEUE
 import io.github.loggerworld.util.WS_GAMEPLAY_LOG_QUEUE
 import io.github.loggerworld.util.WS_GAMEPLAY_WRONG_COMMAND_QUEUE
+import io.github.loggerworld.util.WS_PLAYERS_KICK_NEST
 import io.github.loggerworld.util.WS_PLAYERS_MOVE
 import io.github.loggerworld.util.WS_PLAYERS_START
 import io.github.loggerworld.util.WS_TOPIC_MESSAGES
@@ -381,6 +383,20 @@ class LoggerWorldTestIT : LogAware {
 
     @Test
     @Order(23)
+    fun firstUserKickNest() {
+        stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_KICK_NEST, PlayerKickMonsterNestRequest(1))
+        TimeUnit.MILLISECONDS.sleep(300)
+    }
+
+    @Test
+    @Order(24)
+    fun secondUserKickNest() {
+        stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_KICK_NEST, PlayerKickMonsterNestRequest(3))
+        TimeUnit.MILLISECONDS.sleep(300)
+    }
+
+    @Test
+    @Order(25)
     fun firstUserGetLogs() {
         val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
             it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
@@ -394,7 +410,7 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(24)
+    @Order(26)
     fun secondUserGetLogs() {
         val restTemplate2 = RestTemplateBuilder(RestTemplateCustomizer {
             it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
@@ -408,7 +424,7 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(25)
+    @Order(27)
     fun firstUserDisconnect() {
         stompSession1.disconnect()
         TimeUnit.MILLISECONDS.sleep(300)
