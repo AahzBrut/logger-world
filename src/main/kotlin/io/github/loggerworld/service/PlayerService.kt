@@ -4,8 +4,9 @@ import io.github.loggerworld.domain.enums.Languages
 import io.github.loggerworld.domain.enums.PlayerClasses
 import io.github.loggerworld.domain.enums.PlayerStatEnum
 import io.github.loggerworld.dto.request.PlayerAddRequest
-import io.github.loggerworld.dto.request.PlayerMoveRequest
-import io.github.loggerworld.dto.request.PlayerStartGameRequest
+import io.github.loggerworld.dto.request.commands.PlayerKickMonsterNestRequest
+import io.github.loggerworld.dto.request.commands.PlayerMoveRequest
+import io.github.loggerworld.dto.request.commands.PlayerStartGameRequest
 import io.github.loggerworld.dto.response.character.PlayerClassesResponse
 import io.github.loggerworld.dto.response.character.PlayerResponse
 import io.github.loggerworld.dto.response.character.PlayerStatResponse
@@ -13,6 +14,7 @@ import io.github.loggerworld.dto.response.character.PlayerStatsResponse
 import io.github.loggerworld.dto.response.character.PlayersResponse
 import io.github.loggerworld.dto.response.user.UserResponse
 import io.github.loggerworld.messagebus.CommandEventBus
+import io.github.loggerworld.messagebus.event.PlayerKickMonsterNestCommand
 import io.github.loggerworld.messagebus.event.PlayerMoveCommand
 import io.github.loggerworld.messagebus.event.PlayerStartCommand
 import io.github.loggerworld.service.domain.PlayerClassDomainService
@@ -35,6 +37,7 @@ class PlayerService(
     private val userDomainService: UserDomainService,
     private val startEventBus: CommandEventBus<PlayerStartCommand>,
     private val moveEventBus: CommandEventBus<PlayerMoveCommand>,
+    private val kickNestEventBus: CommandEventBus<PlayerKickMonsterNestCommand>,
 ) : LogAware {
 
     private val activePlayers: MutableMap<Long, Long> = mutableMapOf()
@@ -151,5 +154,15 @@ class PlayerService(
     fun decodePlayer(id: String, language: Languages): String {
 
         return playerDomainService.getPlayer(id.toLong()).name
+    }
+
+    fun kickMonsterNest(userName: String, request: PlayerKickMonsterNestRequest) {
+
+        val playerId = getActivePlayer(userDomainService.getUserByName(userName)!!.id)
+
+        kickNestEventBus.pushEvent(kickNestEventBus.newEvent().also {
+            it.playerId = activePlayers[playerId]!!
+            it.monsterNestId = request.nestId
+        })
     }
 }

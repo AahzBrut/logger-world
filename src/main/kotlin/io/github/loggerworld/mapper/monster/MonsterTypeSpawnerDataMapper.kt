@@ -13,9 +13,12 @@ class MonsterTypeSpawnerDataMapper(
     override fun from(source: MonsterSpawner): MonsterTypeSpawnerData {
         val monsterTypeSpawnerData = MonsterTypeSpawnerData()
 
-        source.stats.forEach {monsterSpawnerType ->
-            monsterTypeSpawnerData.probabilities[monsterSpawnerType.monsterType.code] = monsterSpawnerType.probability
+        var prevValue = .0
+        source.stats.sortedByDescending { it.probability }.forEach { monsterSpawnerType ->
+            val currentValue = (monsterSpawnerType.probability / 100.0)
+            monsterTypeSpawnerData.probabilities[monsterSpawnerType.monsterType.code] = Pair(prevValue, prevValue + currentValue)
             monsterTypeSpawnerData.types[monsterSpawnerType.monsterType.code] = monsterSpawnerDataMapper.from(monsterSpawnerType)
+            prevValue += currentValue
         }
 
         return monsterTypeSpawnerData
