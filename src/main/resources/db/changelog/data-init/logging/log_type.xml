@@ -26,6 +26,11 @@
             <column name="code" value="ARRIVAL"/>
             <column name="num_vals" valueNumeric="2"/>
         </insert>
+        <insert tableName="log_type">
+            <column name="log_class_id" valueComputed="SELECT log_class_id FROM REPOSITORY.log_class WHERE code='COMBAT'"/>
+            <column name="code" value="NEST_KICKED"/>
+            <column name="num_vals" valueNumeric="2"/>
+        </insert>
     </changeSet>
 
 </databaseChangeLog>

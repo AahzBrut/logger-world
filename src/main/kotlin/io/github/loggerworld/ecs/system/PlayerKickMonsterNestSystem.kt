@@ -11,6 +11,10 @@ import io.github.loggerworld.ecs.component.MonsterSpawnerComponent
 import io.github.loggerworld.ecs.component.PlayerMapComponent
 import io.github.loggerworld.ecs.component.PositionComponent
 import io.github.loggerworld.messagebus.EventBus
+import io.github.loggerworld.messagebus.LogEventBus
+import io.github.loggerworld.messagebus.event.LogEvent
+import io.github.loggerworld.messagebus.event.LoginEvent
+import io.github.loggerworld.messagebus.event.NestKickEvent
 import io.github.loggerworld.messagebus.event.PlayerKickMonsterNestCommand
 import io.github.loggerworld.service.MonsterService
 import io.github.loggerworld.util.LogAware
@@ -20,11 +24,13 @@ import ktx.ashley.get
 import ktx.ashley.with
 import ktx.collections.GdxSet
 import org.springframework.stereotype.Component
+import java.time.LocalDateTime
 
 @Component
 class PlayerKickMonsterNestSystem(
     private val kickCommandEventBus: EventBus<PlayerKickMonsterNestCommand>,
     private val monsterService: MonsterService,
+    private val logEventBus: LogEventBus<LogEvent>
 ) :
     EntitySystem(EngineSystems.PLAYER_KICK_MONSTER_NEST_SYSTEM.ordinal), LogAware {
 
@@ -45,10 +51,19 @@ class PlayerKickMonsterNestSystem(
                     val monster = spawnMonster(spawner, playerEntity)
                     locationComp.spawnedMonsters.add(monster)
                     locationMap[locationId].updated = true
+                    logKickNestEvent(kickCommand)
                 }
             }) {
             // Empty body
         }
+    }
+
+    private fun logKickNestEvent(command: PlayerKickMonsterNestCommand) {
+        val kickEvent = logEventBus.newEvent(NestKickEvent::class) as NestKickEvent
+        kickEvent.playerId = command.playerId
+        kickEvent.nestId = command.monsterNestId
+        kickEvent.created = LocalDateTime.now()
+        logEventBus.pushEvent(kickEvent)
     }
 
     private fun getSpawner(spawners: GdxSet<Entity>, spawnerId: Short): MonsterSpawnerComponent {
