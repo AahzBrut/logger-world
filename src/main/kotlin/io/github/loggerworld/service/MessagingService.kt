@@ -1,7 +1,7 @@
 package io.github.loggerworld.service
 
 import io.github.loggerworld.dto.response.logging.PlayerLogEntryResponse
-import io.github.loggerworld.messagebus.NotificationEventBus
+import io.github.loggerworld.messagebus.EventBus
 import io.github.loggerworld.messagebus.event.LocationChangedEvent
 import io.github.loggerworld.messagebus.event.WrongCommandEvent
 import io.github.loggerworld.util.LogAware
@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service
 
 @Service
 class MessagingService(
-    private val locationNotificationBus: NotificationEventBus<LocationChangedEvent>,
-    private val wrongCommandEventBus: NotificationEventBus<WrongCommandEvent>,
+    private val locationNotificationBus: EventBus<LocationChangedEvent>,
+    private val wrongCommandEventBus: EventBus<WrongCommandEvent>,
     private val playerService: PlayerService,
     private val userService: UserService,
     private val simpleMessagingTemplate: SimpMessagingTemplate,
@@ -25,25 +25,20 @@ class MessagingService(
     @Scheduled(fixedDelay = 5, initialDelay = 100)
     fun sendMessages() {
 
-        while (!locationNotificationBus.isQueueEmpty()) {
-
-            val event = locationNotificationBus.popEvent()
-
-            logger().debug("\nEvent of player is arrived to location is ready to send: $event")
-
-            notifyOnArrival(event)
-
-            locationNotificationBus.destroyEvent(event)
+        while (locationNotificationBus.receiveEvent { event ->
+                logger().debug("\nEvent of player is arrived to location is ready to send: $event")
+                notifyOnArrival(event)
+            }) {
+            // Empty body
         }
 
-        while (!wrongCommandEventBus.isQueueEmpty()){
-            val event = wrongCommandEventBus.popEvent()
-            val player = playerService.getPlayerById(event.playerId)
-            val user = userService.getUserById(player.userId)
+        while (wrongCommandEventBus.receiveEvent { event ->
+                val player = playerService.getPlayerById(event.playerId)
+                val user = userService.getUserById(player.userId)
 
-            simpleMessagingTemplate.convertAndSendToUser(user.loginName, WS_GAMEPLAY_WRONG_COMMAND_QUEUE, event)
-
-            wrongCommandEventBus.destroyEvent(event)
+                simpleMessagingTemplate.convertAndSendToUser(user.loginName, WS_GAMEPLAY_WRONG_COMMAND_QUEUE, event)
+            }) {
+            // Empty body
         }
     }
 

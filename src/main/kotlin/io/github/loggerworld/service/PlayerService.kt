@@ -13,7 +13,7 @@ import io.github.loggerworld.dto.response.character.PlayerStatResponse
 import io.github.loggerworld.dto.response.character.PlayerStatsResponse
 import io.github.loggerworld.dto.response.character.PlayersResponse
 import io.github.loggerworld.dto.response.user.UserResponse
-import io.github.loggerworld.messagebus.CommandEventBus
+import io.github.loggerworld.messagebus.EventBus
 import io.github.loggerworld.messagebus.event.PlayerKickMonsterNestCommand
 import io.github.loggerworld.messagebus.event.PlayerMoveCommand
 import io.github.loggerworld.messagebus.event.PlayerStartCommand
@@ -35,9 +35,9 @@ class PlayerService(
     private val playerDomainService: PlayerDomainService,
     private val playerClassDomainService: PlayerClassDomainService,
     private val userDomainService: UserDomainService,
-    private val startEventBus: CommandEventBus<PlayerStartCommand>,
-    private val moveEventBus: CommandEventBus<PlayerMoveCommand>,
-    private val kickNestEventBus: CommandEventBus<PlayerKickMonsterNestCommand>,
+    private val startEventBus: EventBus<PlayerStartCommand>,
+    private val moveEventBus: EventBus<PlayerMoveCommand>,
+    private val kickNestEventBus: EventBus<PlayerKickMonsterNestCommand>,
 ) : LogAware {
 
     private val activePlayers: MutableMap<Long, Long> = mutableMapOf()
@@ -87,14 +87,14 @@ class PlayerService(
 
         activePlayers[user.id] = player.id
 
-        startEventBus.pushEvent(startEventBus.newEvent().also {
+        startEventBus.dispatchEvent {
             it.userId = user.id
             it.playerId = player.id
             it.locationId = player.locationId
             it.name = player.name
             it.classId = player.classId
             it.level = 1
-        })
+        }
     }
 
     fun getPlayerById(playerId: Long): PlayerResponse {
@@ -112,12 +112,10 @@ class PlayerService(
 
         if (!activePlayers.containsKey(user.id)) error("User have no active player.")
 
-        val moveEvent = moveEventBus.newEvent().also {
+        moveEventBus.dispatchEvent {
             it.locationId = request.locationId
             it.playerId = activePlayers[user.id]!!
         }
-
-        moveEventBus.pushEvent(moveEvent)
     }
 
     fun getPlayerStats(userLanguage: Languages): PlayerStatsResponse {
@@ -160,9 +158,9 @@ class PlayerService(
 
         val playerId = getActivePlayer(userDomainService.getUserByName(userName)!!.id)
 
-        kickNestEventBus.pushEvent(kickNestEventBus.newEvent().also {
+        kickNestEventBus.dispatchEvent {
             it.playerId = activePlayers[playerId]!!
             it.monsterNestId = request.nestId
-        })
+        }
     }
 }

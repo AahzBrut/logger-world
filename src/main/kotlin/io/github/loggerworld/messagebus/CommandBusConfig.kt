@@ -10,14 +10,14 @@ import org.springframework.context.annotation.Configuration
 class CommandBusConfig {
 
     @Bean
-    fun moveCommandBus() : CommandEventBus<PlayerMoveCommand> =
-        CommandEventBus(PlayerMoveCommand::class)
+    fun moveCommandBus() : EventBus<PlayerMoveCommand> =
+        EventBus(PlayerMoveCommand::class)
 
     @Bean
-    fun startGameCommandBus() : CommandEventBus<PlayerStartCommand> =
-        CommandEventBus(PlayerStartCommand::class)
+    fun startGameCommandBus() : EventBus<PlayerStartCommand> =
+        EventBus(PlayerStartCommand::class)
 
     @Bean
-    fun playerKickMonsterNestCommandBus() : CommandEventBus<PlayerKickMonsterNestCommand> =
-        CommandEventBus(PlayerKickMonsterNestCommand::class)
+    fun playerKickMonsterNestCommandBus() : EventBus<PlayerKickMonsterNestCommand> =
+        EventBus(PlayerKickMonsterNestCommand::class)
 }

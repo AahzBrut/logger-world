@@ -454,7 +454,7 @@ class LoggerWorldTestIT : LogAware {
                 else -> LocationChangedEvent::class.java
             }
 
-            logger().debug("User received message, payload type for ${headers.destination} is: ${payloadType.simpleName}")
+            logger().debug("\n\nUser received message, payload type for ${headers.destination} is: ${payloadType.simpleName}")
 
             return payloadType
 
@@ -472,11 +472,11 @@ class LoggerWorldTestIT : LogAware {
                     assert(payload.players.isNotEmpty())
                 }
             }
-            logger().info("Got payload over web socket:\n$payload")
+            logger().info("\n\nGot payload over web socket:\n$payload")
         }
 
         override fun afterConnected(session: StompSession, connectedHeaders: StompHeaders) {
-            logger().info("WebSocket connected")
+            logger().info("\n\nWebSocket connected")
 
             session.subscribe(WS_TOPIC_MESSAGES, this)
             session.subscribe(PERSONAL + WS_GAMEPLAY_LOCATION_NOTIFICATION_QUEUE, this)
