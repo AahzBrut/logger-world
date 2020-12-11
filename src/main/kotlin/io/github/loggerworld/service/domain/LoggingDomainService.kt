@@ -11,12 +11,16 @@ import io.github.loggerworld.mapper.logging.ArrivalEventMapper
 import io.github.loggerworld.mapper.logging.DepartureEventMapper
 import io.github.loggerworld.mapper.logging.LoggingDataMapper
 import io.github.loggerworld.mapper.logging.LoginEventMapper
+import io.github.loggerworld.mapper.logging.NestKickedEventMapper
 import io.github.loggerworld.messagebus.event.ArrivalEvent
 import io.github.loggerworld.messagebus.event.DepartureEvent
 import io.github.loggerworld.messagebus.event.LoginEvent
+import io.github.loggerworld.messagebus.event.NestKickEvent
 import io.github.loggerworld.repository.logging.LogClassRepository
 import io.github.loggerworld.repository.logging.LogEntryRepository
 import io.github.loggerworld.repository.logging.LogEntryValsRepository
+import io.github.loggerworld.util.LogAware
+import io.github.loggerworld.util.logger
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
 
@@ -30,7 +34,8 @@ class LoggingDomainService(
     private val loginEventMapper: LoginEventMapper,
     private val departureEventMapper: DepartureEventMapper,
     private val arrivalEventMapper: ArrivalEventMapper,
-) {
+    private val nestKickedEventMapper: NestKickedEventMapper,
+) : LogAware {
 
     private lateinit var logMessagesTemplates: LoggingData
     private val batch: MutableList<LogEntry> = mutableListOf()
@@ -52,6 +57,7 @@ class LoggingDomainService(
 
     @Transactional
     fun commitBatch() {
+        if (batch.isEmpty()) return
         logEntryRepository.saveAll(batch)
         batch.clear()
     }
@@ -61,8 +67,11 @@ class LoggingDomainService(
     }
 
     fun addDepartureMessageToBatch(event: DepartureEvent, messageId: Int) {
-
         batch.add(departureEventMapper.from(event, messageId))
+    }
+
+    fun addNestKickMessageToBatch(event: NestKickEvent, messageId: Int) {
+        batch.add(nestKickedEventMapper.from(event, messageId))
     }
 
     @Transactional
@@ -104,6 +113,18 @@ class LoggingDomainService(
         messageId: Int,
         language: Languages
     ): String {
+
+        if (logMessagesTemplates
+                .classes[logClass]!!
+                .types[logType]!!
+                .templates
+                .values
+                .none {
+                    it.messageId == messageId
+                }) {
+            logger().debug("$messageId not found.")
+        }
+
         return logMessagesTemplates
             .classes[logClass]!!
             .types[logType]!!

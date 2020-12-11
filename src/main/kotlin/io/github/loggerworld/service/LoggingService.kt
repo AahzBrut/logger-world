@@ -9,11 +9,13 @@ import io.github.loggerworld.dto.response.user.UserResponse
 import io.github.loggerworld.mapper.logging.LogEntryFromArrivalEventMapper
 import io.github.loggerworld.mapper.logging.LogEntryFromDepartureEventMapper
 import io.github.loggerworld.mapper.logging.LogEntryFromLoginEventMapper
+import io.github.loggerworld.mapper.logging.LogEntryFromNestKickedEventMapper
 import io.github.loggerworld.messagebus.LogEventBus
 import io.github.loggerworld.messagebus.event.ArrivalEvent
 import io.github.loggerworld.messagebus.event.DepartureEvent
 import io.github.loggerworld.messagebus.event.LogEvent
 import io.github.loggerworld.messagebus.event.LoginEvent
+import io.github.loggerworld.messagebus.event.NestKickEvent
 import io.github.loggerworld.service.domain.LoggingDomainService
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.logger
@@ -33,6 +35,8 @@ class LoggingService(
     private val loginEventMapper: LogEntryFromLoginEventMapper,
     private val arrivalEventMapper: LogEntryFromArrivalEventMapper,
     private val departureEventMapper: LogEntryFromDepartureEventMapper,
+    private val nestKickedEventMapper: LogEntryFromNestKickedEventMapper,
+    private val monsterService: MonsterService,
 ) : LogAware {
 
     private lateinit var logMessagesTemplates: LoggingData
@@ -41,6 +45,7 @@ class LoggingService(
         mapOf(
             LogValueTypes.LOCATION_ID to locationService::decodeLocation,
             LogValueTypes.PLAYER_ID to playerService::decodePlayer,
+            LogValueTypes.MONSTER_NEST_ID to monsterService::decodeMonsterNest,
         )
 
     @PostConstruct
@@ -95,6 +100,19 @@ class LoggingService(
                         )
                     )
                 }
+                is NestKickEvent -> {
+                    val messageId = getRandomMessage(LogTypes.NEST_KICKED)
+                    val user = playerService.getUserByPlayerId(event.playerId)
+                    loggingDomainService.addNestKickMessageToBatch(event,messageId)
+                    messagingService.sendMessageToPlayer(
+                        user.loginName, nestKickedEventMapper.from(
+                            event,
+                            getMessageByIdAndLanguage(messageId, user.language),
+                            valueDecoders,
+                            user.language
+                        )
+                    )
+                }
             }
 
             logEventBus.destroyEvent(event)
@@ -118,7 +136,7 @@ class LoggingService(
     }
 
     private fun getRandomMessage(type: LogTypes): Int {
-        return logMessagesTemplates.classes
+        val messageId = logMessagesTemplates.classes
             .flatMap {
                 it.value.types.entries
             }
@@ -130,6 +148,8 @@ class LoggingService(
                 val variant = Random.nextInt(numVariants).toByte().inc()
                 it.value.templates[variant]!!.messageId
             }.first()
+
+        return messageId
     }
 
     fun getPlayerLogs(userResponse: UserResponse): PlayerLogsResponse {

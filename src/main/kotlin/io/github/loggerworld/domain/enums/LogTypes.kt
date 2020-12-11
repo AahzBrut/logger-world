@@ -6,5 +6,6 @@ enum class LogTypes(
     LOGIN(LogClasses.SYSTEM),
     LOGOFF(LogClasses.SYSTEM),
     DEPARTURE(LogClasses.MOVEMENT),
-    ARRIVAL(LogClasses.MOVEMENT)
+    ARRIVAL(LogClasses.MOVEMENT),
+    NEST_KICKED(LogClasses.COMBAT),
 }

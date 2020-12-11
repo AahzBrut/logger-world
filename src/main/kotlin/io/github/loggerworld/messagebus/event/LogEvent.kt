@@ -44,3 +44,14 @@ data class ArrivalEvent(
         created = LocalDateTime.now()
     }
 }
+
+data class NestKickEvent(
+    var playerId: Long = 0,
+    var nestId: Short = 0,
+    var created: LocalDateTime = LocalDateTime.now()
+) : LogEvent(){
+    override fun reset() {
+        playerId = 0
+        nestId = 0
+    }
+}
