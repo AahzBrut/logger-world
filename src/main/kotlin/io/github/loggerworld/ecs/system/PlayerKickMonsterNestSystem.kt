@@ -10,7 +10,7 @@ import io.github.loggerworld.ecs.component.MonsterComponent
 import io.github.loggerworld.ecs.component.MonsterSpawnerComponent
 import io.github.loggerworld.ecs.component.PlayerMapComponent
 import io.github.loggerworld.ecs.component.PositionComponent
-import io.github.loggerworld.messagebus.CommandEventBus
+import io.github.loggerworld.messagebus.EventBus
 import io.github.loggerworld.messagebus.event.PlayerKickMonsterNestCommand
 import io.github.loggerworld.service.MonsterService
 import io.github.loggerworld.util.LogAware
@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class PlayerKickMonsterNestSystem(
-    private val kickCommandEventBus: CommandEventBus<PlayerKickMonsterNestCommand>,
+    private val kickCommandEventBus: EventBus<PlayerKickMonsterNestCommand>,
     private val monsterService: MonsterService,
 ) :
     EntitySystem(EngineSystems.PLAYER_KICK_MONSTER_NEST_SYSTEM.ordinal), LogAware {
@@ -33,39 +33,36 @@ class PlayerKickMonsterNestSystem(
 
     override fun update(deltaTime: Float) {
 
-        while (!kickCommandEventBus.isQueueEmpty()) {
+        while (kickCommandEventBus.receiveEvent { kickCommand ->
+                val playerEntity = playerMap[kickCommand.playerId]
+                val locationId = playerEntity[PositionComponent.mapper]!!.locationId
+                val locationEntity = locationMap[locationId].entity
+                val locationComp = locationEntity[LocationComponent.mapper]!!
+                val spawners = locationComp.monsterSpawners
+                val spawner = getSpawner(spawners, kickCommand.monsterNestId)
 
-            val kickCommand = kickCommandEventBus.popEvent()
-
-            val playerEntity = playerMap[kickCommand.playerId]
-            val locationId = playerEntity[PositionComponent.mapper]!!.locationId
-            val locationEntity = locationMap[locationId].entity
-            val locationComp = locationEntity[LocationComponent.mapper]!!
-            val spawners = locationComp.monsterSpawners
-            val spawner = getSpawner(spawners, kickCommand.monsterNestId)
-
-            if (spawner.amount-- > 0) {
-                val monster = spawnMonster(spawner, playerEntity)
-                locationComp.spawnedMonsters.add(monster)
-                locationMap[locationId].updated = true
-            }
-
-            kickCommandEventBus.destroyEvent(kickCommand)
+                if (spawner.amount-- > 0) {
+                    val monster = spawnMonster(spawner, playerEntity)
+                    locationComp.spawnedMonsters.add(monster)
+                    locationMap[locationId].updated = true
+                }
+            }) {
+            // Empty body
         }
     }
 
-    private fun getSpawner(spawners: GdxSet<Entity>, spawnerId: Short) : MonsterSpawnerComponent{
+    private fun getSpawner(spawners: GdxSet<Entity>, spawnerId: Short): MonsterSpawnerComponent {
 
         return spawners
             .map {
                 it[MonsterSpawnerComponent.mapper]!!
             }
             .first {
-            it.id == spawnerId
-        }
+                it.id == spawnerId
+            }
     }
 
-    private fun spawnMonster(spawnerComp: MonsterSpawnerComponent, playerEntity: Entity) : Entity {
+    private fun spawnMonster(spawnerComp: MonsterSpawnerComponent, playerEntity: Entity): Entity {
         return engine.entity {
             with<MonsterComponent> {
 
@@ -74,7 +71,7 @@ class PlayerKickMonsterNestSystem(
                     .classes[spawnerComp.monsterClass]!!
                     .levels[spawnerComp.level]!!
                     .getRandomMonsterType()
-                val stats  = monsterSpawnerData
+                val stats = monsterSpawnerData
                     .classes[spawnerComp.monsterClass]!!
                     .levels[spawnerComp.level]!!
                     .types[type]!!

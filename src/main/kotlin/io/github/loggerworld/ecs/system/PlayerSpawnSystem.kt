@@ -9,7 +9,7 @@ import io.github.loggerworld.ecs.component.MoveStateComponent
 import io.github.loggerworld.ecs.component.MoveStates
 import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.PositionComponent
-import io.github.loggerworld.messagebus.CommandEventBus
+import io.github.loggerworld.messagebus.EventBus
 import io.github.loggerworld.messagebus.LogEventBus
 import io.github.loggerworld.messagebus.event.LogEvent
 import io.github.loggerworld.messagebus.event.LoginEvent
@@ -25,25 +25,23 @@ import java.time.LocalDateTime
 
 @Service
 class PlayerSpawnSystem(
-    private val startEventBus: CommandEventBus<PlayerStartCommand>,
+    private val startEventBus: EventBus<PlayerStartCommand>,
     private val logEventBus: LogEventBus<LogEvent>
 ) : EntitySystem(PLAYER_SPAWN_SYSTEM.ordinal), LogAware {
 
     private val locationMap by lazy { engine.getEntitiesFor(allOf(LocationMapComponent::class).get())[0][LocationMapComponent.mapper]!!.locationMap }
 
     override fun update(deltaTime: Float) {
-        while (!startEventBus.isQueueEmpty()) {
 
-            val event = startEventBus.popEvent()
+        while (startEventBus.receiveEvent { event ->
+                logger().debug("\nPlayer with id:${event.playerId} spawned into location with id:${event.locationId}")
+                val player = spawnPlayer(event)
+                addPlayerToTargetLocation(player, event)
+                locationMap[event.locationId].updated = true
 
-            logger().debug("\nPlayer with id:${event.playerId} spawned into location with id:${event.locationId}")
-            val player = spawnPlayer(event)
-            addPlayerToTargetLocation(player, event)
-            locationMap[event.locationId].updated = true
-
-            logLoginEvent(event)
-
-            startEventBus.destroyEvent(event)
+                logLoginEvent(event)
+            }) {
+            // Empty body
         }
     }
 

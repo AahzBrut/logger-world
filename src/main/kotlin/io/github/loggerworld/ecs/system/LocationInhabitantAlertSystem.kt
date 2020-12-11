@@ -13,7 +13,7 @@ import io.github.loggerworld.ecs.component.MonsterSpawnerComponent
 import io.github.loggerworld.ecs.component.MoveStateComponent
 import io.github.loggerworld.ecs.component.MoveStates
 import io.github.loggerworld.ecs.component.PlayerComponent
-import io.github.loggerworld.messagebus.NotificationEventBus
+import io.github.loggerworld.messagebus.EventBus
 import io.github.loggerworld.messagebus.event.LocationChangedEvent
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.logger
@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class LocationInhabitantAlertSystem(
-    private val outBus: NotificationEventBus<LocationChangedEvent>
+    private val outBus: EventBus<LocationChangedEvent>
 ) : EntitySystem(LOCATION_INHABITANT_ALERT_SYSTEM.ordinal), LogAware {
 
     private val locationMap by lazy { engine.getEntitiesFor(allOf(LocationMapComponent::class).get())[0][LocationMapComponent.mapper]!!.locationMap }
@@ -36,7 +36,7 @@ class LocationInhabitantAlertSystem(
 
                     val locationComp = locationMap[it.key].entity[LocationComponent.mapper]!!
 
-                    val event = outBus.newEvent().also { event ->
+                    outBus.dispatchEvent { event ->
                         event.locationId = it.key
                         event.players = locationComp.players
                             .map { playerEntity ->
@@ -51,7 +51,7 @@ class LocationInhabitantAlertSystem(
                                 )
                             }.toMutableList()
 
-                        event.mobNests = locationComp.monsterSpawners.map {nestEntity ->
+                        event.mobNests = locationComp.monsterSpawners.map { nestEntity ->
                             val spawnerComponent = nestEntity[MonsterSpawnerComponent.mapper]!!
                             MobNestResponse(
                                 spawnerComponent.id,
@@ -61,7 +61,7 @@ class LocationInhabitantAlertSystem(
                             )
                         }.toMutableList()
 
-                        event.mobs = locationComp.spawnedMonsters.map {monsterEntity ->
+                        event.mobs = locationComp.spawnedMonsters.map { monsterEntity ->
                             val monsterComp = monsterEntity[MonsterComponent.mapper]!!
                             MonsterShortResponse(
                                 monsterComp.level,
@@ -70,7 +70,6 @@ class LocationInhabitantAlertSystem(
                             )
                         }.toMutableList()
                     }
-                    outBus.pushEvent(event)
 
                     updateMoveStates(locationComp.players)
 
@@ -82,11 +81,11 @@ class LocationInhabitantAlertSystem(
 
     private fun updateMoveStates(players: GdxSet<Entity>) {
 
-        players.removeAll {player ->
+        players.removeAll { player ->
             player[MoveStateComponent.mapper]!!.state == MoveStates.DEPARTING
         }
 
-        players.filter {player ->
+        players.filter { player ->
             player[MoveStateComponent.mapper]!!.state == MoveStates.ARRIVING
         }
             .forEach { player ->

@@ -9,10 +9,10 @@ import org.springframework.context.annotation.Configuration
 class NotificationBusConfig {
 
     @Bean
-    fun locationChangedNotificationBus() : NotificationEventBus<LocationChangedEvent> =
-        NotificationEventBus(LocationChangedEvent::class)
+    fun locationChangedNotificationBus() : EventBus<LocationChangedEvent> =
+        EventBus(LocationChangedEvent::class)
 
     @Bean
-    fun wrongCommandNotificationBus() : NotificationEventBus<WrongCommandEvent> =
-        NotificationEventBus(WrongCommandEvent::class)
+    fun wrongCommandNotificationBus() : EventBus<WrongCommandEvent> =
+        EventBus(WrongCommandEvent::class)
 }
