@@ -9,8 +9,11 @@ import ktx.ashley.mapperFor
 import ktx.collections.GdxSet
 import ktx.collections.gdxSetOf
 
+private val noEntity = Entity()
+
 class MonsterComponent : Component, Pool.Poolable {
 
+    var id: Long = -1
     var level: Byte = -1
     var health: Double = .0
     var attack: Double = .0
@@ -19,8 +22,13 @@ class MonsterComponent : Component, Pool.Poolable {
     var monsterType: MonsterTypes = MonsterTypes.NORMAL
     val enemies: GdxSet<Entity> = gdxSetOf()
     var target: Entity? = null
+    var state: States = States.IDLE
+    var nest: Entity = noEntity
+    var location: Entity = noEntity
 
-    override fun reset() {
+    override
+    fun reset() {
+        id = -1
         level = -1
         health = .0
         attack = .0
@@ -29,9 +37,12 @@ class MonsterComponent : Component, Pool.Poolable {
         monsterType = MonsterTypes.NORMAL
         enemies.clear()
         target = null
+        state = States.IDLE
+        nest = noEntity
+        location = noEntity
     }
 
-    companion object{
+    companion object {
         val mapper = mapperFor<MonsterComponent>()
     }
 }

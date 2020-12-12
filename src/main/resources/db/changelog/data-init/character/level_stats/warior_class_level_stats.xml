@@ -36,7 +36,7 @@
             <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
             <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
             <column name="level" valueNumeric="1"/>
-            <column name="value" valueNumeric="0"/>
+            <column name="value" valueNumeric="5"/>
         </insert>
         <insert tableName="class_level_stats">
             <!-- SPD -->

@@ -10,8 +10,8 @@ import io.github.loggerworld.ecs.component.LocationComponent
 import io.github.loggerworld.ecs.component.LocationMapComponent
 import io.github.loggerworld.ecs.component.MonsterComponent
 import io.github.loggerworld.ecs.component.MonsterSpawnerComponent
-import io.github.loggerworld.ecs.component.MoveStateComponent
-import io.github.loggerworld.ecs.component.MoveStates
+import io.github.loggerworld.ecs.component.StateComponent
+import io.github.loggerworld.ecs.component.States
 import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.messagebus.EventBus
 import io.github.loggerworld.messagebus.event.LocationChangedEvent
@@ -41,7 +41,7 @@ class LocationInhabitantAlertSystem(
                         event.players = locationComp.players
                             .map { playerEntity ->
                                 val playerComp = playerEntity[PlayerComponent.mapper]!!
-                                val moveComp = playerEntity[MoveStateComponent.mapper]!!
+                                val moveComp = playerEntity[StateComponent.mapper]!!
                                 ShortPlayerResponse(
                                     playerComp.playerId,
                                     playerComp.playerName,
@@ -64,6 +64,7 @@ class LocationInhabitantAlertSystem(
                         event.mobs = locationComp.spawnedMonsters.map { monsterEntity ->
                             val monsterComp = monsterEntity[MonsterComponent.mapper]!!
                             MonsterShortResponse(
+                                monsterComp.id,
                                 monsterComp.level,
                                 monsterComp.monsterClass,
                                 monsterComp.monsterType
@@ -82,14 +83,14 @@ class LocationInhabitantAlertSystem(
     private fun updateMoveStates(players: GdxSet<Entity>) {
 
         players.removeAll { player ->
-            player[MoveStateComponent.mapper]!!.state == MoveStates.DEPARTING
+            player[StateComponent.mapper]!!.state == States.DEPARTING
         }
 
         players.filter { player ->
-            player[MoveStateComponent.mapper]!!.state == MoveStates.ARRIVING
+            player[StateComponent.mapper]!!.state == States.ARRIVING
         }
             .forEach { player ->
-                player[MoveStateComponent.mapper]!!.state = MoveStates.STATIONARY
+                player[StateComponent.mapper]!!.state = States.IDLE
             }
     }
 }

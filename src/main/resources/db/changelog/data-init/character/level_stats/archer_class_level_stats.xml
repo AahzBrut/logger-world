@@ -6,7 +6,6 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <changeSet id="archer_class_level_stats-data-01" author="AahzBrut">
-
         <insert tableName="class_level_stats">
             <!-- HP -->
             <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ARCHER'"/>

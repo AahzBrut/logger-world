@@ -4,12 +4,16 @@ import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.EntitySystem
 import io.github.loggerworld.domain.enums.PlayerStatEnum
 import io.github.loggerworld.ecs.EngineSystems
+import io.github.loggerworld.ecs.component.CombatComponent
+import io.github.loggerworld.ecs.component.HealthComponent
 import io.github.loggerworld.ecs.component.LocationComponent
 import io.github.loggerworld.ecs.component.LocationMapComponent
 import io.github.loggerworld.ecs.component.MonsterComponent
 import io.github.loggerworld.ecs.component.MonsterSpawnerComponent
+import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.PlayerMapComponent
 import io.github.loggerworld.ecs.component.PositionComponent
+import io.github.loggerworld.ecs.component.States
 import io.github.loggerworld.messagebus.EventBus
 import io.github.loggerworld.messagebus.LogEventBus
 import io.github.loggerworld.messagebus.event.LogEvent
@@ -18,9 +22,12 @@ import io.github.loggerworld.messagebus.event.NestKickEvent
 import io.github.loggerworld.messagebus.event.PlayerKickMonsterNestCommand
 import io.github.loggerworld.service.MonsterService
 import io.github.loggerworld.util.LogAware
+import io.github.loggerworld.util.logger
+import ktx.ashley.addComponent
 import ktx.ashley.allOf
 import ktx.ashley.entity
 import ktx.ashley.get
+import ktx.ashley.hasNot
 import ktx.ashley.with
 import ktx.collections.GdxSet
 import org.springframework.stereotype.Component
@@ -52,10 +59,25 @@ class PlayerKickMonsterNestSystem(
                     locationComp.spawnedMonsters.add(monster)
                     locationMap[locationId].updated = true
                     logKickNestEvent(kickCommand)
+                    attackMonster(playerEntity, monster)
                 }
             }) {
             // Empty body
         }
+    }
+
+    private fun attackMonster(player: Entity, monster: Entity) {
+        val playerComp = player[PlayerComponent.mapper]!!
+        playerComp.enemies.add(monster)
+        playerComp.target = monster
+        if (player.hasNot(CombatComponent.mapper)) {
+            player.addComponent<CombatComponent>(engine) {
+                this.baseAttackCooldown = 1.0f
+                this.attackCooldown = baseAttackCooldown
+                this.damage = playerComp.stats[PlayerStatEnum.ATK]!!.toFloat()
+            }
+        }
+        logger().debug("Player ${playerComp.playerId} attacks monster ${monster[MonsterComponent.mapper]!!.id}")
     }
 
     private fun logKickNestEvent(command: PlayerKickMonsterNestCommand) {
@@ -78,20 +100,22 @@ class PlayerKickMonsterNestSystem(
     }
 
     private fun spawnMonster(spawnerComp: MonsterSpawnerComponent, playerEntity: Entity): Entity {
+        val monsterSpawnerData = monsterService.getMonsterSpawnerData()
+        val type = monsterSpawnerData
+            .classes[spawnerComp.monsterClass]!!
+            .levels[spawnerComp.level]!!
+            .getRandomMonsterType()
+        val stats = monsterSpawnerData
+            .classes[spawnerComp.monsterClass]!!
+            .levels[spawnerComp.level]!!
+            .types[type]!!
+            .stats
+
+        logger().debug("Monster ${spawnerComp.monsterCounter+1} attacks player ${playerEntity[PlayerComponent.mapper]!!.playerId}")
+
         return engine.entity {
             with<MonsterComponent> {
-
-                val monsterSpawnerData = monsterService.getMonsterSpawnerData()
-                val type = monsterSpawnerData
-                    .classes[spawnerComp.monsterClass]!!
-                    .levels[spawnerComp.level]!!
-                    .getRandomMonsterType()
-                val stats = monsterSpawnerData
-                    .classes[spawnerComp.monsterClass]!!
-                    .levels[spawnerComp.level]!!
-                    .types[type]!!
-                    .stats
-
+                this.id = ++spawnerComp.monsterCounter
                 this.level = spawnerComp.level
                 this.monsterClass = spawnerComp.monsterClass
                 this.monsterType = type
@@ -100,6 +124,17 @@ class PlayerKickMonsterNestSystem(
                 this.defence = stats[PlayerStatEnum.DEF]!!
                 this.enemies.add(playerEntity)
                 this.target = playerEntity
+                this.state = States.IN_COMBAT
+                this.location = spawnerComp.location
+            }
+            with<CombatComponent> {
+                this.baseAttackCooldown = 1.0f
+                this.attackCooldown = this.baseAttackCooldown
+                this.damage = stats[PlayerStatEnum.ATK]!!.toFloat()
+            }
+            with<HealthComponent> {
+                this.health = stats[PlayerStatEnum.HP]!!.toFloat()
+                this.defence = stats[PlayerStatEnum.DEF]!!.toFloat()
             }
         }
     }

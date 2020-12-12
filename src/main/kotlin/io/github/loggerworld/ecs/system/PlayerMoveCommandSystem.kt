@@ -2,8 +2,8 @@ package io.github.loggerworld.ecs.system
 
 import com.badlogic.ashley.core.EntitySystem
 import io.github.loggerworld.ecs.EngineSystems.PLAYER_MOVE_COMMAND_SYSTEM
-import io.github.loggerworld.ecs.component.MoveStateComponent
-import io.github.loggerworld.ecs.component.MoveStates
+import io.github.loggerworld.ecs.component.StateComponent
+import io.github.loggerworld.ecs.component.States
 import io.github.loggerworld.ecs.component.PlayerMapComponent
 import io.github.loggerworld.ecs.component.PlayerMoveComponent
 import io.github.loggerworld.ecs.component.PositionComponent
@@ -41,8 +41,8 @@ class PlayerMoveCommandSystem(
                     wrongCommandEventEventBus.dispatchEvent {
                         it.playerId = moveCommand.playerId
                         it.message =
-                            "\nLocation with id:${moveCommand.locationId} is not reachable from location with id:${positionComponent.locationId}"
-                        logger().debug(it.message)
+                            "Location with id:${moveCommand.locationId} is not reachable from location with id:${positionComponent.locationId}"
+                        logger().debug("\n\n${it.message}")
                     }
                 } else {
 
@@ -53,7 +53,7 @@ class PlayerMoveCommandSystem(
                         timeToArrive = 5f
                     }
                     logger().debug("\nMove command started successfully $moveCommand")
-                    player[MoveStateComponent.mapper]!!.state = MoveStates.DEPARTING
+                    player[StateComponent.mapper]!!.state = States.DEPARTING
                 }
             }) {
             // Empty body
