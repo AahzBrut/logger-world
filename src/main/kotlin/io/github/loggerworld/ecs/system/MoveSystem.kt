@@ -6,8 +6,8 @@ import io.github.loggerworld.domain.enums.LocationTypes
 import io.github.loggerworld.ecs.EngineSystems.MOVE_SYSTEM
 import io.github.loggerworld.ecs.component.LocationComponent
 import io.github.loggerworld.ecs.component.LocationMapComponent
-import io.github.loggerworld.ecs.component.MoveStateComponent
-import io.github.loggerworld.ecs.component.MoveStates
+import io.github.loggerworld.ecs.component.StateComponent
+import io.github.loggerworld.ecs.component.States
 import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.PlayerMoveComponent
 import io.github.loggerworld.ecs.component.PositionComponent
@@ -40,6 +40,7 @@ class MoveSystem(
             moveComponent.currentLocationId =
                 locationMap[LocationTypes.IN_TRANSIT.ordinal.toShort()].entity[LocationComponent.mapper]!!.locationId
             positionComponent.locationId = LocationTypes.IN_TRANSIT.ordinal.toShort()
+            playerComponent.location = locationMap[LocationTypes.IN_TRANSIT.ordinal.toShort()].entity
             logDepartureEvent(playerComponent.playerId, moveComponent)
         } else {
             moveComponent.timeToArrive -= deltaTime
@@ -48,7 +49,8 @@ class MoveSystem(
                 val nextLocation = locationMap[moveComponent.toLocationId].entity[LocationComponent.mapper]!!
                 nextLocation.players.add(entity)
                 positionComponent.locationId = moveComponent.toLocationId
-                entity[MoveStateComponent.mapper]!!.state = MoveStates.ARRIVING
+                playerComponent.location = locationMap[moveComponent.toLocationId].entity
+                entity[StateComponent.mapper]!!.state = States.ARRIVING
                 logger().debug("\nPlayer with id:${playerComponent.playerId} is arriving to location with id:${positionComponent.locationId}")
                 logArrivalEvent(playerComponent.playerId, moveComponent)
                 entity.remove(PlayerMoveComponent::class.java)

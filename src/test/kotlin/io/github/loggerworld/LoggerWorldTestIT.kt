@@ -385,14 +385,14 @@ class LoggerWorldTestIT : LogAware {
     @Order(23)
     fun firstUserKickNest() {
         stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_KICK_NEST, PlayerKickMonsterNestRequest(1))
-        TimeUnit.MILLISECONDS.sleep(300)
+        TimeUnit.MILLISECONDS.sleep(10000)
     }
 
     @Test
     @Order(24)
     fun secondUserKickNest() {
         stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_KICK_NEST, PlayerKickMonsterNestRequest(3))
-        TimeUnit.MILLISECONDS.sleep(300)
+        TimeUnit.MILLISECONDS.sleep(10000)
     }
 
     @Test

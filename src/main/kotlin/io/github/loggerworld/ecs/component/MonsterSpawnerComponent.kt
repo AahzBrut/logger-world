@@ -17,6 +17,7 @@ class MonsterSpawnerComponent : Component, Pool.Poolable {
     var amount: Short = 0
     var minRespawnTimer: Double =.0
     var maxRespawnTimer: Double =.0
+    var monsterCounter: Long = 0
 
     override fun reset() {
         id = 0
@@ -26,6 +27,7 @@ class MonsterSpawnerComponent : Component, Pool.Poolable {
         amount = 0
         minRespawnTimer = .0
         maxRespawnTimer = .0
+        monsterCounter = 0
     }
 
     companion object {
