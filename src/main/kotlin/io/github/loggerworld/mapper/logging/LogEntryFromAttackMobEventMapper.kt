@@ -1,19 +1,18 @@
 package io.github.loggerworld.mapper.logging
 
 import io.github.loggerworld.domain.enums.Languages
-import io.github.loggerworld.domain.enums.LogClasses
-import io.github.loggerworld.domain.enums.LogTypes
 import io.github.loggerworld.domain.enums.LogValueTypes
 import io.github.loggerworld.dto.response.logging.PlayerLogEntryResponse
 import io.github.loggerworld.mapper.PlayerLogEntryMapper
-import io.github.loggerworld.messagebus.event.DepartureEvent
+import io.github.loggerworld.messagebus.event.AttackMobEvent
 import org.springframework.stereotype.Service
 
+
 @Service
-class LogEntryFromDepartureEventMapper: PlayerLogEntryMapper<DepartureEvent> {
+class LogEntryFromAttackMobEventMapper : PlayerLogEntryMapper<AttackMobEvent> {
 
     override fun from(
-        source: DepartureEvent,
+        source: AttackMobEvent,
         message: String,
         valueDecoders: Map<LogValueTypes, (String, Languages) -> String>,
         language: Languages
@@ -25,8 +24,7 @@ class LogEntryFromDepartureEventMapper: PlayerLogEntryMapper<DepartureEvent> {
             source.eventType,
             message.format(
                 valueDecoders[LogValueTypes.PLAYER_ID]!!.invoke(source.playerId.toString(), language),
-                valueDecoders[LogValueTypes.LOCATION_ID]!!.invoke(source.fromLocationId.toString(), language),
-                valueDecoders[LogValueTypes.LOCATION_ID]!!.invoke(source.toLocationId.toString(), language),
+                valueDecoders[LogValueTypes.MONSTER_ID]!!.invoke(source.monsterName, language),
             )
         )
     }

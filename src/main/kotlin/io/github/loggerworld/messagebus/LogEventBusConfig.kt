@@ -11,6 +11,6 @@ class LogEventBusConfig {
     @Bean
     fun getLogEventBus() : LogEventBus<LogEvent>{
 
-        return LogEventBus(LogEvent::class)
+        return LogEventBus()
     }
 }

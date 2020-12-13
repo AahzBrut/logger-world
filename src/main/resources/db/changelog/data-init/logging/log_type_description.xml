@@ -39,6 +39,30 @@
             <column name="name" value="Nest kicked by player"/>
             <column name="description" value="User kicked monster nest."/>
         </insert>
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='ATTACKED_BY_MOB'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="Mob attacked player"/>
+            <column name="description" value="Mob attacked player."/>
+        </insert>
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='ATTACK_MOB'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="User attack mob"/>
+            <column name="description" value="User attack mob."/>
+        </insert>
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='DEAL_DAMAGE_MOB'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="Player hit mob"/>
+            <column name="description" value="Player deal damage to mob."/>
+        </insert>
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='RECEIVE_DAMAGE_MOB'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="Player got hit by mob"/>
+            <column name="description" value="Player received damage from mob."/>
+        </insert>
 
 
         <!-- RU -->
@@ -66,6 +90,36 @@
             <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
             <column name="name" value="Пришел в локацию"/>
             <column name="description" value="Игрок прибыл в локацию."/>
+        </insert>
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='NEST_KICKED'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Игрок пнул гнездо мобов"/>
+            <column name="description" value="Игрок пнул гнездо мобов."/>
+        </insert>
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='ATTACKED_BY_MOB'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Моб атаковал игрока"/>
+            <column name="description" value="Моб атаковал игрока."/>
+        </insert>
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='ATTACK_MOB'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Игрок атаковал моба"/>
+            <column name="description" value="Игрок атаковал моба."/>
+        </insert>
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='DEAL_DAMAGE_MOB'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Игрок нанес урон мобу"/>
+            <column name="description" value="Игрок нанес урон мобу."/>
+        </insert>
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='RECEIVE_DAMAGE_MOB'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Игрок получил урон от моба"/>
+            <column name="description" value="Игрок получил урон от моба."/>
         </insert>
 
     </changeSet>

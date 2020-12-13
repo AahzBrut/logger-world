@@ -18,8 +18,8 @@ class NestKickedEventMapper : LogEntryMapper<NestKickEvent> {
         val logEntry = LogEntry(
             logTypeMessage = LogTypeMessage().also { it.id = messageId },
             player = Player().also { it.id = source.playerId },
-            logClass = LogTypes.NEST_KICKED.logClass,
-            logType = LogTypes.NEST_KICKED,
+            logClass = source.eventType.logClass,
+            logType = source.eventType,
             source.created
         )
 

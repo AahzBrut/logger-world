@@ -22,8 +22,8 @@ class LogEntryFromNestKickedEventMapper : PlayerLogEntryMapper<NestKickEvent> {
 
         return PlayerLogEntryResponse(
             source.created,
-            LogTypes.NEST_KICKED.logClass,
-            LogTypes.NEST_KICKED,
+            source.eventType.logClass,
+            source.eventType,
             message.format(
                 valueDecoders[LogValueTypes.PLAYER_ID]!!.invoke(source.playerId.toString(), language),
                 valueDecoders[LogValueTypes.MONSTER_NEST_ID]!!.invoke(source.nestId.toString(), language),

@@ -37,7 +37,6 @@ data class LogEntry(
     @Column(name = "log_type_id")
     var logType: LogTypes = LogTypes.LOGIN,
 
-    @CreationTimestamp
     @Column(name = "created")
     var createdAt: LocalDateTime? = null,
 

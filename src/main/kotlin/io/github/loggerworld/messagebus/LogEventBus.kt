@@ -6,7 +6,7 @@ import io.github.loggerworld.messagebus.event.LogEvent
 import java.util.concurrent.ConcurrentLinkedDeque
 import kotlin.reflect.KClass
 
-class LogEventBus<T : LogEvent>(private val type: KClass<T>) {
+class LogEventBus<T : LogEvent> {
 
     private val eventQueue = ConcurrentLinkedDeque<T>()
     private val eventPools: MutableMap<KClass<*>, Pool<T>> = mutableMapOf()
@@ -17,7 +17,7 @@ class LogEventBus<T : LogEvent>(private val type: KClass<T>) {
 
     fun popEvent(): T {
 
-        return eventQueue.pop()
+        return eventQueue.pollLast()
     }
 
     fun isQueueEmpty(): Boolean {
