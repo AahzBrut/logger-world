@@ -45,6 +45,7 @@ class WebSecurityConfig(
         val configuration = CorsConfiguration()
         configuration.allowedOrigins = listOf("*")
         configuration.allowedMethods = listOf("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH")
+        configuration.allowedOriginPatterns = listOf("*")
         configuration.allowCredentials = true
         //the below three lines will add the relevant CORS response headers
         configuration.addAllowedOrigin("*")
