@@ -8,14 +8,23 @@ import io.github.loggerworld.dto.inner.logging.LogValueData
 import io.github.loggerworld.dto.inner.logging.LoggingData
 import io.github.loggerworld.dto.response.logging.PlayerLogEntryResponse
 import io.github.loggerworld.mapper.logging.ArrivalEventMapper
+import io.github.loggerworld.mapper.logging.AttackMobEventMapper
+import io.github.loggerworld.mapper.logging.AttackedByMobEventMapper
+import io.github.loggerworld.mapper.logging.DealDamageToMobEventMapper
 import io.github.loggerworld.mapper.logging.DepartureEventMapper
+import io.github.loggerworld.mapper.logging.LogEntryFromDealDamageToMobEventMapper
 import io.github.loggerworld.mapper.logging.LoggingDataMapper
 import io.github.loggerworld.mapper.logging.LoginEventMapper
 import io.github.loggerworld.mapper.logging.NestKickedEventMapper
+import io.github.loggerworld.mapper.logging.ReceiveDamageFromMobEventMapper
 import io.github.loggerworld.messagebus.event.ArrivalEvent
+import io.github.loggerworld.messagebus.event.AttackMobEvent
+import io.github.loggerworld.messagebus.event.AttackedByMobEvent
+import io.github.loggerworld.messagebus.event.DealDamageToMobEvent
 import io.github.loggerworld.messagebus.event.DepartureEvent
 import io.github.loggerworld.messagebus.event.LoginEvent
 import io.github.loggerworld.messagebus.event.NestKickEvent
+import io.github.loggerworld.messagebus.event.ReceiveDamageFromMobEvent
 import io.github.loggerworld.repository.logging.LogClassRepository
 import io.github.loggerworld.repository.logging.LogEntryRepository
 import io.github.loggerworld.repository.logging.LogEntryValsRepository
@@ -35,6 +44,10 @@ class LoggingDomainService(
     private val departureEventMapper: DepartureEventMapper,
     private val arrivalEventMapper: ArrivalEventMapper,
     private val nestKickedEventMapper: NestKickedEventMapper,
+    private val attackedByMobEventMapper: AttackedByMobEventMapper,
+    private val attackMobEventMapper: AttackMobEventMapper,
+    private val dealDamageToMobEventMapper: DealDamageToMobEventMapper,
+    private val receiveDamageFromMobEventMapper: ReceiveDamageFromMobEventMapper,
 ) : LogAware {
 
     private lateinit var logMessagesTemplates: LoggingData
@@ -72,6 +85,22 @@ class LoggingDomainService(
 
     fun addNestKickMessageToBatch(event: NestKickEvent, messageId: Int) {
         batch.add(nestKickedEventMapper.from(event, messageId))
+    }
+
+    fun addAttackedByMobMessageToBatch(event: AttackedByMobEvent, messageId: Int) {
+        batch.add(attackedByMobEventMapper.from(event, messageId))
+    }
+
+    fun addAttackMobMessageToBatch(event: AttackMobEvent, messageId: Int) {
+        batch.add(attackMobEventMapper.from(event, messageId))
+    }
+
+    fun addDealDamageToMobMessageToBatch(event: DealDamageToMobEvent, messageId: Int) {
+        batch.add(dealDamageToMobEventMapper.from(event, messageId))
+    }
+
+    fun addReceiveDamageFromMobMessageToBatch(event: ReceiveDamageFromMobEvent, messageId: Int) {
+        batch.add(receiveDamageFromMobEventMapper.from(event, messageId))
     }
 
     @Transactional

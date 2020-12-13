@@ -19,7 +19,7 @@ class EventBus<T : Any>(type: KClass<T>){
     fun receiveEvent(consumeEvent: (T) -> Unit) : Boolean {
         if (eventQueue.isEmpty()) return false
 
-        val event = eventQueue.poll()
+        val event = eventQueue.pollLast()
         consumeEvent(event)
         eventPool.free(event)
         return true

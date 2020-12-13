@@ -1,11 +1,13 @@
 package io.github.loggerworld.messagebus.event
 
 import com.badlogic.gdx.utils.Pool
+import io.github.loggerworld.domain.enums.LogTypes
 import java.time.LocalDateTime
 
 sealed class LogEvent : Pool.Poolable
 
 data class LoginEvent(
+    var eventType: LogTypes = LogTypes.LOGIN,
     var playerId: Long = 0,
     var locationId: Short = 0,
     var created: LocalDateTime = LocalDateTime.now()
@@ -18,6 +20,7 @@ data class LoginEvent(
 }
 
 data class DepartureEvent(
+    var eventType: LogTypes = LogTypes.DEPARTURE,
     var playerId: Long = 0,
     var fromLocationId: Short = 0,
     var toLocationId: Short = 0,
@@ -32,6 +35,7 @@ data class DepartureEvent(
 }
 
 data class ArrivalEvent(
+    var eventType: LogTypes = LogTypes.ARRIVAL,
     var playerId: Long = 0,
     var fromLocationId: Short = 0,
     var toLocationId: Short = 0,
@@ -46,6 +50,7 @@ data class ArrivalEvent(
 }
 
 data class NestKickEvent(
+    var eventType: LogTypes = LogTypes.NEST_KICKED,
     var playerId: Long = 0,
     var nestId: Short = 0,
     var created: LocalDateTime = LocalDateTime.now()
@@ -53,5 +58,61 @@ data class NestKickEvent(
     override fun reset() {
         playerId = 0
         nestId = 0
+    }
+}
+
+data class AttackedByMobEvent(
+    var eventType: LogTypes = LogTypes.ATTACKED_BY_MOB,
+    var playerId: Long = 0,
+    var monsterId: Long = 0,
+    var monsterName: String = "",
+    var created: LocalDateTime = LocalDateTime.now()
+) : LogEvent(){
+    override fun reset() {
+        playerId = 0
+        monsterId = 0
+    }
+}
+
+data class AttackMobEvent(
+    var eventType: LogTypes = LogTypes.ATTACK_MOB,
+    var playerId: Long = 0,
+    var monsterId: Long = 0,
+    var monsterName: String = "",
+    var created: LocalDateTime = LocalDateTime.now()
+) : LogEvent(){
+    override fun reset() {
+        playerId = 0
+        monsterId = 0
+    }
+}
+
+data class DealDamageToMobEvent(
+    var eventType: LogTypes = LogTypes.DEAL_DAMAGE_MOB,
+    var playerId: Long = 0,
+    var monsterId: Long = 0,
+    var monsterName: String = "",
+    var damage: Int = 0,
+    var created: LocalDateTime = LocalDateTime.now()
+) : LogEvent(){
+    override fun reset() {
+        playerId = 0
+        monsterId = 0
+        damage = 0
+    }
+}
+
+data class ReceiveDamageFromMobEvent(
+    var eventType: LogTypes = LogTypes.RECEIVE_DAMAGE_MOB,
+    var playerId: Long = 0,
+    var monsterId: Long = 0,
+    var monsterName: String = "",
+    var damage: Int = 0,
+    var created: LocalDateTime = LocalDateTime.now()
+) : LogEvent(){
+    override fun reset() {
+        playerId = 0
+        monsterId = 0
+        damage = 0
     }
 }

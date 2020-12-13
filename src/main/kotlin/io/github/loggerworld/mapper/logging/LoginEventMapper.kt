@@ -18,8 +18,8 @@ class LoginEventMapper : LogEntryMapper<LoginEvent> {
         val logEntry = LogEntry(
             logTypeMessage = LogTypeMessage().also { it.id = messageId },
             player = Player().also { it.id = source.playerId },
-            logClass = LogTypes.LOGIN.logClass,
-            logType = LogTypes.LOGIN,
+            logClass = source.eventType.logClass,
+            logType = source.eventType,
             source.created
         )
 

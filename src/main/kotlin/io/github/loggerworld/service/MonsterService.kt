@@ -2,7 +2,6 @@ package io.github.loggerworld.service
 
 import io.github.loggerworld.domain.enums.Languages
 import io.github.loggerworld.dto.inner.monster.MonsterClassSpawnerData
-import io.github.loggerworld.dto.inner.monster.MonsterSpawnerData
 import io.github.loggerworld.service.domain.LocationDomainService
 import io.github.loggerworld.service.domain.MonsterDomainService
 import org.springframework.stereotype.Service
@@ -35,5 +34,9 @@ class MonsterService(
             }
 
         return "${spawner.monsterClass} (${spawner.level} Lvl)"
+    }
+
+    fun decodeMonster(monsterName: String, language: Languages): String {
+        return monsterName
     }
 }

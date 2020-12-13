@@ -21,8 +21,8 @@ class LogEntryFromLoginEventMapper : PlayerLogEntryMapper<LoginEvent> {
 
         return PlayerLogEntryResponse(
             source.created,
-            LogClasses.SYSTEM,
-            LogTypes.LOGIN,
+            source.eventType.logClass,
+            source.eventType,
             message.format(
                 valueDecoders[LogValueTypes.PLAYER_ID]!!.invoke(source.playerId.toString(), language),
                 valueDecoders[LogValueTypes.LOCATION_ID]!!.invoke(source.locationId.toString(), language),

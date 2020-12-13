@@ -31,6 +31,26 @@
             <column name="code" value="NEST_KICKED"/>
             <column name="num_vals" valueNumeric="2"/>
         </insert>
+        <insert tableName="log_type">
+            <column name="log_class_id" valueComputed="SELECT log_class_id FROM REPOSITORY.log_class WHERE code='COMBAT'"/>
+            <column name="code" value="ATTACKED_BY_MOB"/>
+            <column name="num_vals" valueNumeric="2"/>
+        </insert>
+        <insert tableName="log_type">
+            <column name="log_class_id" valueComputed="SELECT log_class_id FROM REPOSITORY.log_class WHERE code='COMBAT'"/>
+            <column name="code" value="ATTACK_MOB"/>
+            <column name="num_vals" valueNumeric="2"/>
+        </insert>
+        <insert tableName="log_type">
+            <column name="log_class_id" valueComputed="SELECT log_class_id FROM REPOSITORY.log_class WHERE code='COMBAT'"/>
+            <column name="code" value="DEAL_DAMAGE_MOB"/>
+            <column name="num_vals" valueNumeric="3"/>
+        </insert>
+        <insert tableName="log_type">
+            <column name="log_class_id" valueComputed="SELECT log_class_id FROM REPOSITORY.log_class WHERE code='COMBAT'"/>
+            <column name="code" value="RECEIVE_DAMAGE_MOB"/>
+            <column name="num_vals" valueNumeric="3"/>
+        </insert>
     </changeSet>
 
 </databaseChangeLog>
