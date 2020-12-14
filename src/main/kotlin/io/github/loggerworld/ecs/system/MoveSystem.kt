@@ -6,11 +6,11 @@ import io.github.loggerworld.domain.enums.LocationTypes
 import io.github.loggerworld.ecs.EngineSystems.MOVE_SYSTEM
 import io.github.loggerworld.ecs.component.LocationComponent
 import io.github.loggerworld.ecs.component.LocationMapComponent
-import io.github.loggerworld.ecs.component.StateComponent
-import io.github.loggerworld.ecs.component.States
 import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.PlayerMoveComponent
 import io.github.loggerworld.ecs.component.PositionComponent
+import io.github.loggerworld.ecs.component.StateComponent
+import io.github.loggerworld.ecs.component.States
 import io.github.loggerworld.messagebus.LogEventBus
 import io.github.loggerworld.messagebus.event.ArrivalEvent
 import io.github.loggerworld.messagebus.event.DepartureEvent
@@ -20,7 +20,7 @@ import io.github.loggerworld.util.logger
 import ktx.ashley.allOf
 import ktx.ashley.get
 import org.springframework.stereotype.Service
-import java.time.LocalDateTime
+import java.time.OffsetDateTime
 
 @Service
 class MoveSystem(
@@ -63,7 +63,7 @@ class MoveSystem(
         event.playerId = playerId
         event.fromLocationId = moveComponent.fromLocationId
         event.toLocationId = moveComponent.toLocationId
-        event.created = LocalDateTime.now()
+        event.created = OffsetDateTime.now()
         logEventBus.pushEvent(event)
     }
 
@@ -72,7 +72,7 @@ class MoveSystem(
         event.playerId = playerId
         event.fromLocationId = moveComponent.fromLocationId
         event.toLocationId = moveComponent.toLocationId
-        event.created = LocalDateTime.now()
+        event.created = OffsetDateTime.now()
         logEventBus.pushEvent(event)
     }
 }

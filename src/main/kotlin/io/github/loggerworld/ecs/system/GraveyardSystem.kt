@@ -3,7 +3,6 @@ package io.github.loggerworld.ecs.system
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.systems.IteratingSystem
 import io.github.loggerworld.ecs.EngineSystems
-import io.github.loggerworld.ecs.component.CombatComponent
 import io.github.loggerworld.ecs.component.KilledComponent
 import io.github.loggerworld.ecs.component.LocationComponent
 import io.github.loggerworld.ecs.component.LocationMapComponent
@@ -21,7 +20,7 @@ import ktx.ashley.get
 import ktx.ashley.has
 import ktx.ashley.remove
 import org.springframework.stereotype.Service
-import java.time.LocalDateTime
+import java.time.OffsetDateTime
 
 @Service
 class GraveyardSystem(
@@ -55,7 +54,7 @@ class GraveyardSystem(
         val event = logEventBus.newEvent(PlayerKilledByMobEvent::class) as PlayerKilledByMobEvent
         event.playerId = playerComp.playerId
         event.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
-        event.created = LocalDateTime.now()
+        event.created = OffsetDateTime.now()
         logEventBus.pushEvent(event)
     }
 
@@ -63,7 +62,7 @@ class GraveyardSystem(
         val event = logEventBus.newEvent(PlayerKillMobEvent::class) as PlayerKillMobEvent
         event.playerId = playerComp.playerId
         event.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
-        event.created = LocalDateTime.now()
+        event.created = OffsetDateTime.now()
         logEventBus.pushEvent(event)
     }
 }

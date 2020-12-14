@@ -29,10 +29,10 @@
             <column name="language_id" type="TINYINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="created_at" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP">
+            <column name="created_at" type="TIMESTAMP WITH TIMEZONE" defaultValue="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
-            <column name="last_login_at" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP">
+            <column name="last_login_at" type="TIMESTAMP WITH TIMEZONE" defaultValue="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
         </createTable>

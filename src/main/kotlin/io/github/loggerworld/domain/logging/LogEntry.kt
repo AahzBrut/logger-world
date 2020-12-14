@@ -4,8 +4,7 @@ import io.github.loggerworld.domain.BaseEntity
 import io.github.loggerworld.domain.character.Player
 import io.github.loggerworld.domain.enums.LogClasses
 import io.github.loggerworld.domain.enums.LogTypes
-import org.hibernate.annotations.CreationTimestamp
-import java.time.LocalDateTime
+import java.time.OffsetDateTime
 import javax.persistence.AttributeOverride
 import javax.persistence.CascadeType
 import javax.persistence.Column
@@ -38,7 +37,7 @@ data class LogEntry(
     var logType: LogTypes = LogTypes.LOGIN,
 
     @Column(name = "created")
-    var createdAt: LocalDateTime? = null,
+    var createdAt: OffsetDateTime? = null,
 
     ) : BaseEntity<Long>() {
 

@@ -32,7 +32,7 @@ import ktx.ashley.hasNot
 import ktx.ashley.with
 import ktx.collections.GdxSet
 import org.springframework.stereotype.Component
-import java.time.LocalDateTime
+import java.time.OffsetDateTime
 
 @Component
 class PlayerKickMonsterNestSystem(
@@ -89,7 +89,7 @@ class PlayerKickMonsterNestSystem(
         val attackEvent = logEventBus.newEvent(AttackMobEvent::class) as AttackMobEvent
         attackEvent.playerId = playerComp.playerId
         attackEvent.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
-        attackEvent.created = LocalDateTime.now()
+        attackEvent.created = OffsetDateTime.now()
         logEventBus.pushEvent(attackEvent)
     }
 
@@ -97,7 +97,7 @@ class PlayerKickMonsterNestSystem(
         val kickEvent = logEventBus.newEvent(NestKickEvent::class) as NestKickEvent
         kickEvent.playerId = command.playerId
         kickEvent.nestId = command.monsterNestId
-        kickEvent.created = LocalDateTime.now()
+        kickEvent.created = OffsetDateTime.now()
         logEventBus.pushEvent(kickEvent)
     }
 
@@ -160,7 +160,7 @@ class PlayerKickMonsterNestSystem(
         val attackEvent = logEventBus.newEvent(AttackedByMobEvent::class) as AttackedByMobEvent
         attackEvent.playerId = playerComp.playerId
         attackEvent.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
-        attackEvent.created = LocalDateTime.now()
+        attackEvent.created = OffsetDateTime.now()
         logEventBus.pushEvent(attackEvent)
     }
 }

@@ -2,16 +2,15 @@ package io.github.loggerworld.ecs.system
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.EntitySystem
-import io.github.loggerworld.domain.character.PlayerStats
 import io.github.loggerworld.domain.enums.PlayerStatEnum
 import io.github.loggerworld.ecs.EngineSystems.PLAYER_SPAWN_SYSTEM
 import io.github.loggerworld.ecs.component.HealthComponent
 import io.github.loggerworld.ecs.component.LocationComponent
 import io.github.loggerworld.ecs.component.LocationMapComponent
-import io.github.loggerworld.ecs.component.StateComponent
-import io.github.loggerworld.ecs.component.States
 import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.PositionComponent
+import io.github.loggerworld.ecs.component.StateComponent
+import io.github.loggerworld.ecs.component.States
 import io.github.loggerworld.messagebus.EventBus
 import io.github.loggerworld.messagebus.LogEventBus
 import io.github.loggerworld.messagebus.event.LogEvent
@@ -25,7 +24,7 @@ import ktx.ashley.entity
 import ktx.ashley.get
 import ktx.ashley.with
 import org.springframework.stereotype.Service
-import java.time.LocalDateTime
+import java.time.OffsetDateTime
 
 @Service
 class PlayerSpawnSystem(
@@ -54,7 +53,7 @@ class PlayerSpawnSystem(
         val loginEvent = logEventBus.newEvent(LoginEvent::class) as LoginEvent
         loginEvent.playerId = event.playerId
         loginEvent.locationId = event.locationId
-        loginEvent.created = LocalDateTime.now()
+        loginEvent.created = OffsetDateTime.now()
         logEventBus.pushEvent(loginEvent)
     }
 

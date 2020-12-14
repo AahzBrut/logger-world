@@ -12,15 +12,12 @@ import io.github.loggerworld.ecs.component.MonsterComponent
 import io.github.loggerworld.ecs.component.MonsterSpawnerComponent
 import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.RemoveComponent
-import io.github.loggerworld.ecs.component.ResurrectComponent
 import io.github.loggerworld.ecs.component.StateComponent
 import io.github.loggerworld.ecs.component.States
 import io.github.loggerworld.messagebus.LogEventBus
 import io.github.loggerworld.messagebus.event.AttackedByMobEvent
 import io.github.loggerworld.messagebus.event.DealDamageToMobEvent
 import io.github.loggerworld.messagebus.event.LogEvent
-import io.github.loggerworld.messagebus.event.PlayerKillMobEvent
-import io.github.loggerworld.messagebus.event.PlayerKilledByMobEvent
 import io.github.loggerworld.messagebus.event.ReceiveDamageFromMobEvent
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.logger
@@ -31,7 +28,7 @@ import ktx.ashley.has
 import ktx.ashley.remove
 import ktx.collections.isEmpty
 import org.springframework.stereotype.Service
-import java.time.LocalDateTime
+import java.time.OffsetDateTime
 import kotlin.math.max
 
 @Service
@@ -133,7 +130,7 @@ class CombatSystem(
         event.playerId = playerComp.playerId
         event.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
         event.damage = damage.toInt()
-        event.created = LocalDateTime.now()
+        event.created = OffsetDateTime.now()
         logEventBus.pushEvent(event)
     }
 
@@ -143,7 +140,7 @@ class CombatSystem(
         val attackEvent = logEventBus.newEvent(AttackedByMobEvent::class) as AttackedByMobEvent
         attackEvent.playerId = playerComp.playerId
         attackEvent.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
-        attackEvent.created = LocalDateTime.now()
+        attackEvent.created = OffsetDateTime.now()
         logEventBus.pushEvent(attackEvent)
     }
 
@@ -153,7 +150,7 @@ class CombatSystem(
         event.playerId = playerComp.playerId
         event.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
         event.damage = damage.toInt()
-        event.created = LocalDateTime.now()
+        event.created = OffsetDateTime.now()
         logEventBus.pushEvent(event)
     }
 }
