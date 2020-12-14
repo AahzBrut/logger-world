@@ -2,7 +2,7 @@ package io.github.loggerworld.domain.user_account
 
 import io.github.loggerworld.domain.BaseEntity
 import org.hibernate.annotations.CreationTimestamp
-import java.time.LocalDateTime
+import java.time.OffsetDateTime
 import javax.persistence.AttributeOverride
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -31,5 +31,5 @@ data class UserProperty(
 
     @CreationTimestamp
     @Column(name = "created_at")
-    var createdAt: LocalDateTime? = null
+    var createdAt: OffsetDateTime? = null
 }

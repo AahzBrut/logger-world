@@ -14,7 +14,7 @@
             <column name="log_entry_id" type="BIGINT" defaultValueSequenceNext="log_entry_seq">
                 <constraints primaryKey="true" primaryKeyName="log_entry_pk"/>
             </column>
-            <column name="created" type="TIMESTAMP" defaultValue="CURRENT_TIMESTAMP">
+            <column name="created" type="TIMESTAMP WITH TIMEZONE" defaultValue="CURRENT_TIMESTAMP">
                 <constraints nullable="false"/>
             </column>
             <column name="log_class_id" type="INTEGER">

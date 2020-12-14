@@ -5,7 +5,7 @@ import io.github.loggerworld.domain.character.Player
 import io.github.loggerworld.domain.main.Language
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
-import java.time.LocalDateTime
+import java.time.OffsetDateTime
 import javax.persistence.AttributeOverride
 import javax.persistence.CascadeType
 import javax.persistence.Column
@@ -38,11 +38,11 @@ data class UserAccount(
 
     @CreationTimestamp
     @Column(name = "created_at")
-    var createdAt: LocalDateTime? = null,
+    var createdAt: OffsetDateTime? = null,
 
     @UpdateTimestamp
     @Column(name = "last_login_at")
-    var lastLoginAt: LocalDateTime? = null,
+    var lastLoginAt: OffsetDateTime? = null,
 
     ) : BaseEntity<Long>() {
 
