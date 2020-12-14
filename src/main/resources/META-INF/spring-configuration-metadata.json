@@ -39,5 +39,10 @@
       "name": "worldRefreshRate",
       "type": "java.lang.String",
       "description": "Description for worldRefreshRate."
+    },
+    {
+      "name": "logger-world.perf-counters.max-count",
+      "type": "java.lang.String",
+      "description": "Description for max-count."
     }
   ] }

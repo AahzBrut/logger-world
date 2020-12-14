@@ -155,6 +155,34 @@
 			"protocolProfileBehavior": {}
 		},
 		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Get Performance Counters",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://logger-world.herokuapp.com/api/admin/performance-counters",
+							"protocol": "https",
+							"host": [
+								"logger-world",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"admin",
+								"performance-counters"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "Register new user",
 			"request": {
 				"method": "POST",
