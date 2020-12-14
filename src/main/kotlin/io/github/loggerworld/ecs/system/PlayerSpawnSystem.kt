@@ -8,6 +8,7 @@ import io.github.loggerworld.ecs.component.HealthComponent
 import io.github.loggerworld.ecs.component.LocationComponent
 import io.github.loggerworld.ecs.component.LocationMapComponent
 import io.github.loggerworld.ecs.component.PlayerComponent
+import io.github.loggerworld.ecs.component.PlayerMapComponent
 import io.github.loggerworld.ecs.component.PositionComponent
 import io.github.loggerworld.ecs.component.StateComponent
 import io.github.loggerworld.ecs.component.States
@@ -34,11 +35,15 @@ class PlayerSpawnSystem(
 ) : EntitySystem(PLAYER_SPAWN_SYSTEM.ordinal), LogAware {
 
     private val locationMap by lazy { engine.getEntitiesFor(allOf(LocationMapComponent::class).get())[0][LocationMapComponent.mapper]!!.locationMap }
+    private val playerMap by lazy { engine.getEntitiesFor(allOf(PlayerMapComponent::class).get())[0][PlayerMapComponent.mapper]!!.playerMap }
 
     override fun update(deltaTime: Float) {
 
         while (startEventBus.receiveEvent { event ->
+
+                if (playerMap.containsKey(event.playerId)) return@receiveEvent
                 logger().debug("\nPlayer with id:${event.playerId} spawned into location with id:${event.locationId}")
+
                 val player = spawnPlayer(event)
                 addPlayerToTargetLocation(player, event)
                 locationMap[event.locationId].updated = true
