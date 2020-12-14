@@ -1,5 +1,6 @@
 package io.github.loggerworld.util
 
+import com.badlogic.ashley.core.Entity
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory.getLogger
 
@@ -12,3 +13,5 @@ inline fun <reified T : LogAware> T.logger(): Logger =
 
 
 const val TOKEN_PREFIX = "Bearer "
+
+val emptyEntity = Entity()

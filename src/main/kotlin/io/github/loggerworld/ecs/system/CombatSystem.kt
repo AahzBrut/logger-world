@@ -5,18 +5,22 @@ import com.badlogic.ashley.systems.IteratingSystem
 import io.github.loggerworld.ecs.EngineSystems
 import io.github.loggerworld.ecs.component.CombatComponent
 import io.github.loggerworld.ecs.component.HealthComponent
+import io.github.loggerworld.ecs.component.KilledComponent
 import io.github.loggerworld.ecs.component.LocationComponent
 import io.github.loggerworld.ecs.component.LocationMapComponent
 import io.github.loggerworld.ecs.component.MonsterComponent
 import io.github.loggerworld.ecs.component.MonsterSpawnerComponent
 import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.RemoveComponent
+import io.github.loggerworld.ecs.component.ResurrectComponent
 import io.github.loggerworld.ecs.component.StateComponent
 import io.github.loggerworld.ecs.component.States
 import io.github.loggerworld.messagebus.LogEventBus
 import io.github.loggerworld.messagebus.event.AttackedByMobEvent
 import io.github.loggerworld.messagebus.event.DealDamageToMobEvent
 import io.github.loggerworld.messagebus.event.LogEvent
+import io.github.loggerworld.messagebus.event.PlayerKillMobEvent
+import io.github.loggerworld.messagebus.event.PlayerKilledByMobEvent
 import io.github.loggerworld.messagebus.event.ReceiveDamageFromMobEvent
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.logger
@@ -28,6 +32,7 @@ import ktx.ashley.remove
 import ktx.collections.isEmpty
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
+import kotlin.math.max
 
 @Service
 class CombatSystem(
@@ -43,10 +48,10 @@ class CombatSystem(
         if (combatComp.attackCooldown > 0f) return
         combatComp.attackCooldown += combatComp.baseAttackCooldown
 
-        if (entity.has(PlayerComponent.mapper)) {
-            playerAttack(entity)
-        } else {
+        if (entity.has(MonsterComponent.mapper)) {
             monsterAttack(entity)
+        } else {
+            playerAttack(entity)
         }
     }
 
@@ -73,28 +78,20 @@ class CombatSystem(
         }
 
         val tgtHealthComp = monsterComp.target!![HealthComponent.mapper]!!
-        val damage = combatComp.damage - tgtHealthComp.defence
+        val damage = max(0f, combatComp.damage - tgtHealthComp.defence)
         tgtHealthComp.health -= damage
         logger().debug("Mob ${monsterComp.monsterType} ${monsterComp.monsterClass} ${monsterComp.level}lvl in location ${locationComp.locationId} hit his target for $damage damage (${tgtHealthComp.health} health left).")
         logReceiveDamageFromMobEvent(monsterComp, damage)
 
         if (tgtHealthComp.health <= 0f) {
             monsterComp.enemies.remove(monsterComp.target)
-            monsterComp.target!!.addComponent<RemoveComponent>(engine)
+            monsterComp.target!!.addComponent<KilledComponent>(engine){
+                this.killer = monster
+                this.locationId = locationComp.locationId
+            }
             monsterComp.target = null
             logger().debug("Mob ${monsterComp.monsterType} ${monsterComp.monsterClass} ${monsterComp.level}lvl in location ${locationComp.locationId} killed his target.")
         }
-    }
-
-    private fun logReceiveDamageFromMobEvent(monsterComp: MonsterComponent, damage: Float) {
-        val playerComp = monsterComp.target!![PlayerComponent.mapper]!!
-        val event = logEventBus.newEvent(ReceiveDamageFromMobEvent::class) as ReceiveDamageFromMobEvent
-        event.playerId = playerComp.playerId
-        event.monsterId = monsterComp.id
-        event.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
-        event.damage = damage.toInt()
-        event.created = LocalDateTime.now()
-        logEventBus.pushEvent(event)
     }
 
     private fun playerAttack(player: Entity) {
@@ -114,21 +111,30 @@ class CombatSystem(
         }
 
         val tgtHealthComp = playerComp.target!![HealthComponent.mapper]!!
-        val damage = combatComp.damage - tgtHealthComp.defence
+        val damage = max(0f, combatComp.damage - tgtHealthComp.defence)
         tgtHealthComp.health -= damage
         logger().debug("Player ${playerComp.playerId} in location ${locationComp.locationId} hit his target for $damage damage (${tgtHealthComp.health} health left).")
         logDealDamageToMobEvent(playerComp, damage)
 
         if (tgtHealthComp.health <= 0f) {
-            val target = playerComp.target!!
             playerComp.enemies.remove(playerComp.target)
-            playerComp.target!!.addComponent<RemoveComponent>(engine)
+            playerComp.target!!.addComponent<KilledComponent>(engine){
+                this.killer = player
+                this.locationId = locationComp.locationId
+            }
             playerComp.target = null
             logger().debug("Player ${playerComp.playerId} in location ${locationComp.locationId} killed his target.")
-
-            val monsterComp = target[MonsterComponent.mapper]!!
-            logger().debug("Mob ${monsterComp.monsterType} ${monsterComp.monsterClass} ${monsterComp.level}lvl in location ${locationComp.locationId} was killed.")
         }
+    }
+
+    private fun logReceiveDamageFromMobEvent(monsterComp: MonsterComponent, damage: Float) {
+        val playerComp = monsterComp.target!![PlayerComponent.mapper]!!
+        val event = logEventBus.newEvent(ReceiveDamageFromMobEvent::class) as ReceiveDamageFromMobEvent
+        event.playerId = playerComp.playerId
+        event.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
+        event.damage = damage.toInt()
+        event.created = LocalDateTime.now()
+        logEventBus.pushEvent(event)
     }
 
     private fun logMobAttackPlayer(mob: Entity, player: Entity) {
@@ -136,7 +142,6 @@ class CombatSystem(
         val playerComp = player[PlayerComponent.mapper]!!
         val attackEvent = logEventBus.newEvent(AttackedByMobEvent::class) as AttackedByMobEvent
         attackEvent.playerId = playerComp.playerId
-        attackEvent.monsterId = monsterComp.id
         attackEvent.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
         attackEvent.created = LocalDateTime.now()
         logEventBus.pushEvent(attackEvent)
@@ -146,11 +151,9 @@ class CombatSystem(
         val monsterComp = playerComp.target!![MonsterComponent.mapper]!!
         val event = logEventBus.newEvent(DealDamageToMobEvent::class) as DealDamageToMobEvent
         event.playerId = playerComp.playerId
-        event.monsterId = monsterComp.id
         event.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
         event.damage = damage.toInt()
         event.created = LocalDateTime.now()
         logEventBus.pushEvent(event)
     }
-
 }
