@@ -6,6 +6,7 @@ import io.github.loggerworld.service.security.JwtAuthenticationFilter
 import io.github.loggerworld.service.security.JwtAuthorizationFilter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpHeaders
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
@@ -25,9 +26,7 @@ class WebSecurityConfig(
     override fun configure(http: HttpSecurity) {
         http
             .headers().frameOptions().disable()
-            .and().cors()
-            .configurationSource(corsConfigurationSource())
-            .and().csrf().disable()
+            .and().cors().and().csrf().disable()
             .authorizeRequests()
             .antMatchers(SIGN_UP_URL).permitAll()
             .antMatchers(TEST_URL).authenticated()
@@ -42,8 +41,11 @@ class WebSecurityConfig(
 
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
+        val configuration = CorsConfiguration()
+        configuration.applyPermitDefaultValues()
+        configuration.addExposedHeader(HttpHeaders.AUTHORIZATION)
         val source = UrlBasedCorsConfigurationSource()
-        source.registerCorsConfiguration("/**", CorsConfiguration().applyPermitDefaultValues())
+        source.registerCorsConfiguration("/**", configuration)
         return source
     }
 }
