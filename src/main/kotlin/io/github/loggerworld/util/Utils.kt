@@ -15,3 +15,5 @@ inline fun <reified T : LogAware> T.logger(): Logger =
 const val TOKEN_PREFIX = "Bearer "
 
 val emptyEntity = Entity()
+
+const val nanoSecond = 1 / 1_000_000_000f

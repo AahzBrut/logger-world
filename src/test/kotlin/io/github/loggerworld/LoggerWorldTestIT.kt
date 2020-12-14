@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import io.github.loggerworld.controller.LOCATIONS_URL
 import io.github.loggerworld.controller.LOCATION_TYPES_URL
+import io.github.loggerworld.controller.PERFORMANCE_COUNTERS_URL
 import io.github.loggerworld.controller.PLAYERS_CLASSES_URL
 import io.github.loggerworld.controller.PLAYERS_LOGS_URL
 import io.github.loggerworld.controller.PLAYERS_URL
@@ -425,13 +426,27 @@ class LoggerWorldTestIT : LogAware {
 
     @Test
     @Order(27)
+    fun getPerformanceCounters() {
+        val restTemplate2 = RestTemplateBuilder(RestTemplateCustomizer {
+            it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
+                request.headers.add("Authorization", getJwtToken(secondUserLoginRequest))
+                execution.execute(request, body)
+            })
+        }).build()
+
+        val responseEntity= restTemplate2.getForEntity(baseUrl + PERFORMANCE_COUNTERS_URL, ResponseObject::class.java)
+        logger().info("\n\nPerformance counters:\n${responseEntity.body}")
+    }
+
+    @Test
+    @Order(28)
     fun firstUserDisconnect() {
         stompSession1.disconnect()
         TimeUnit.MILLISECONDS.sleep(300)
     }
 
     @Test
-    @Order(26)
+    @Order(29)
     fun secondUserDisconnect() {
         stompSession2.disconnect()
         TimeUnit.MILLISECONDS.sleep(300)

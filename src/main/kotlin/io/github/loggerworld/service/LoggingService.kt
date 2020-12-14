@@ -29,6 +29,8 @@ import io.github.loggerworld.messagebus.event.PlayerKillMobEvent
 import io.github.loggerworld.messagebus.event.PlayerKilledByMobEvent
 import io.github.loggerworld.messagebus.event.ReceiveDamageFromMobEvent
 import io.github.loggerworld.service.domain.LoggingDomainService
+import io.github.loggerworld.service.perfcount.PerfCounters
+import io.github.loggerworld.service.perfcount.PerformanceCounter
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.logger
 import org.springframework.scheduling.annotation.Scheduled
@@ -56,6 +58,7 @@ class LoggingService(
     private val playerKilledByMobMapper: LogEntryFromPlayerKilledByMobEventMapper,
     private val playerKillMobMapper: LogEntryFromPlayerKillMobEventMapper,
     private val monsterService: MonsterService,
+    private val performanceCounter: PerformanceCounter
 ) : LogAware {
 
     private lateinit var logMessagesTemplates: LoggingData
@@ -96,6 +99,9 @@ class LoggingService(
 
     @Scheduled(fixedDelay = 10, initialDelay = 100)
     fun logEvents() {
+
+        performanceCounter.start(PerfCounters.LOGGING_SERVICE)
+
         while (!logEventBus.isQueueEmpty()) {
 
             val event = logEventBus.popEvent()
@@ -104,6 +110,8 @@ class LoggingService(
             logEventBus.destroyEvent(event)
         }
         loggingDomainService.commitBatch()
+
+        performanceCounter.stop(PerfCounters.LOGGING_SERVICE)
     }
 
     private fun processPlayerKilledByMobEvent(event: LogEvent) {

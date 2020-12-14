@@ -149,6 +149,33 @@
 			"protocolProfileBehavior": {}
 		},
 		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Get Performance Counters",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/admin/performance-counters",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"admin",
+								"performance-counters"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
 			"name": "Register new user",
 			"request": {
 				"method": "POST",
