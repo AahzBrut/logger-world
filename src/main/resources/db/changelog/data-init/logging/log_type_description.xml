@@ -63,6 +63,18 @@
             <column name="name" value="Player got hit by mob"/>
             <column name="description" value="Player received damage from mob."/>
         </insert>
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='PLAYER_KILLED_BY_MOB'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="Player killed by mob"/>
+            <column name="description" value="Player killed by mob."/>
+        </insert>
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='MOB_KILLED'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="Mob killed by player"/>
+            <column name="description" value="Mob killed by player."/>
+        </insert>
 
 
         <!-- RU -->
@@ -120,6 +132,18 @@
             <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
             <column name="name" value="Игрок получил урон от моба"/>
             <column name="description" value="Игрок получил урон от моба."/>
+        </insert>
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='PLAYER_KILLED_BY_MOB'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Игрок убит мобом"/>
+            <column name="description" value="Игрок убит мобом."/>
+        </insert>
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='MOB_KILLED'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Моб убит игроком"/>
+            <column name="description" value="Моб убит игроком."/>
         </insert>
 
     </changeSet>

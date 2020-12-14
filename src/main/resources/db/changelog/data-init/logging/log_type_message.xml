@@ -43,6 +43,15 @@
             <column name="ordinal" valueNumeric="1"/>
         </insert>
         <insert tableName="log_type_message">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='PLAYER_KILLED_BY_MOB'"/>
+            <column name="ordinal" valueNumeric="1"/>
+        </insert>
+        <insert tableName="log_type_message">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='MOB_KILLED'"/>
+            <column name="ordinal" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="log_type_message">
             <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='LOGIN'"/>
             <column name="ordinal" valueNumeric="2"/>
         </insert>

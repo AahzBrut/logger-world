@@ -4,9 +4,8 @@ import com.badlogic.ashley.core.Component
 import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.utils.Pool
 import io.github.loggerworld.domain.enums.MonsterClasses
+import io.github.loggerworld.util.emptyEntity
 import ktx.ashley.mapperFor
-
-private val emptyEntity = Entity()
 
 class MonsterSpawnerComponent : Component, Pool.Poolable {
 

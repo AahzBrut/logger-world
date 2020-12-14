@@ -5,11 +5,10 @@ import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.utils.Pool
 import io.github.loggerworld.domain.enums.MonsterClasses
 import io.github.loggerworld.domain.enums.MonsterTypes
+import io.github.loggerworld.util.emptyEntity
 import ktx.ashley.mapperFor
 import ktx.collections.GdxSet
 import ktx.collections.gdxSetOf
-
-private val noEntity = Entity()
 
 class MonsterComponent : Component, Pool.Poolable {
 
@@ -23,8 +22,8 @@ class MonsterComponent : Component, Pool.Poolable {
     val enemies: GdxSet<Entity> = gdxSetOf()
     var target: Entity? = null
     var state: States = States.IDLE
-    var nest: Entity = noEntity
-    var location: Entity = noEntity
+    var nest: Entity = emptyEntity
+    var location: Entity = emptyEntity
 
     override
     fun reset() {
@@ -38,8 +37,8 @@ class MonsterComponent : Component, Pool.Poolable {
         enemies.clear()
         target = null
         state = States.IDLE
-        nest = noEntity
-        location = noEntity
+        nest = emptyEntity
+        location = emptyEntity
     }
 
     companion object {

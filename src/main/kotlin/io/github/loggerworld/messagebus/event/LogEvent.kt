@@ -64,40 +64,34 @@ data class NestKickEvent(
 data class AttackedByMobEvent(
     var eventType: LogTypes = LogTypes.ATTACKED_BY_MOB,
     var playerId: Long = 0,
-    var monsterId: Long = 0,
     var monsterName: String = "",
     var created: LocalDateTime = LocalDateTime.now()
 ) : LogEvent(){
     override fun reset() {
         playerId = 0
-        monsterId = 0
     }
 }
 
 data class AttackMobEvent(
     var eventType: LogTypes = LogTypes.ATTACK_MOB,
     var playerId: Long = 0,
-    var monsterId: Long = 0,
     var monsterName: String = "",
     var created: LocalDateTime = LocalDateTime.now()
 ) : LogEvent(){
     override fun reset() {
         playerId = 0
-        monsterId = 0
     }
 }
 
 data class DealDamageToMobEvent(
     var eventType: LogTypes = LogTypes.DEAL_DAMAGE_MOB,
     var playerId: Long = 0,
-    var monsterId: Long = 0,
     var monsterName: String = "",
     var damage: Int = 0,
     var created: LocalDateTime = LocalDateTime.now()
 ) : LogEvent(){
     override fun reset() {
         playerId = 0
-        monsterId = 0
         damage = 0
     }
 }
@@ -105,14 +99,34 @@ data class DealDamageToMobEvent(
 data class ReceiveDamageFromMobEvent(
     var eventType: LogTypes = LogTypes.RECEIVE_DAMAGE_MOB,
     var playerId: Long = 0,
-    var monsterId: Long = 0,
     var monsterName: String = "",
     var damage: Int = 0,
     var created: LocalDateTime = LocalDateTime.now()
 ) : LogEvent(){
     override fun reset() {
         playerId = 0
-        monsterId = 0
         damage = 0
+    }
+}
+
+data class PlayerKilledByMobEvent(
+    var eventType: LogTypes = LogTypes.PLAYER_KILLED_BY_MOB,
+    var playerId: Long = 0,
+    var monsterName: String = "",
+    var created: LocalDateTime = LocalDateTime.now()
+) : LogEvent(){
+    override fun reset() {
+        playerId = 0
+    }
+}
+
+data class PlayerKillMobEvent(
+    var eventType: LogTypes = LogTypes.MOB_KILLED,
+    var playerId: Long = 0,
+    var monsterName: String = "",
+    var created: LocalDateTime = LocalDateTime.now()
+) : LogEvent(){
+    override fun reset() {
+        playerId = 0
     }
 }

@@ -5,11 +5,10 @@ import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.utils.Pool
 import io.github.loggerworld.domain.enums.PlayerClasses
 import io.github.loggerworld.domain.enums.PlayerStatEnum
+import io.github.loggerworld.util.emptyEntity
 import ktx.ashley.mapperFor
 import ktx.collections.GdxSet
 import ktx.collections.gdxSetOf
-
-private val noEntity: Entity = Entity()
 
 class PlayerComponent : Component, Pool.Poolable{
 
@@ -21,7 +20,7 @@ class PlayerComponent : Component, Pool.Poolable{
     val enemies: GdxSet<Entity> = gdxSetOf()
     var target: Entity? = null
     var stats: Map<PlayerStatEnum, Double> = mutableMapOf()
-    var location: Entity = noEntity
+    var location: Entity = emptyEntity
 
     override fun reset() {
         playerId = -1
@@ -32,7 +31,7 @@ class PlayerComponent : Component, Pool.Poolable{
         target = null
         enemies.clear()
         stats = mutableMapOf()
-        location = noEntity
+        location = emptyEntity
     }
 
     companion object {

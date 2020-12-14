@@ -13,6 +13,8 @@ import io.github.loggerworld.mapper.logging.LogEntryFromDealDamageToMobEventMapp
 import io.github.loggerworld.mapper.logging.LogEntryFromDepartureEventMapper
 import io.github.loggerworld.mapper.logging.LogEntryFromLoginEventMapper
 import io.github.loggerworld.mapper.logging.LogEntryFromNestKickedEventMapper
+import io.github.loggerworld.mapper.logging.LogEntryFromPlayerKillMobEventMapper
+import io.github.loggerworld.mapper.logging.LogEntryFromPlayerKilledByMobEventMapper
 import io.github.loggerworld.mapper.logging.LogEntryFromReceiveDamageFromMobEventMapper
 import io.github.loggerworld.messagebus.LogEventBus
 import io.github.loggerworld.messagebus.event.ArrivalEvent
@@ -23,6 +25,8 @@ import io.github.loggerworld.messagebus.event.DepartureEvent
 import io.github.loggerworld.messagebus.event.LogEvent
 import io.github.loggerworld.messagebus.event.LoginEvent
 import io.github.loggerworld.messagebus.event.NestKickEvent
+import io.github.loggerworld.messagebus.event.PlayerKillMobEvent
+import io.github.loggerworld.messagebus.event.PlayerKilledByMobEvent
 import io.github.loggerworld.messagebus.event.ReceiveDamageFromMobEvent
 import io.github.loggerworld.service.domain.LoggingDomainService
 import io.github.loggerworld.util.LogAware
@@ -49,6 +53,8 @@ class LoggingService(
     private val attackMobEventMapper: LogEntryFromAttackMobEventMapper,
     private val dealDamageToMobMapper: LogEntryFromDealDamageToMobEventMapper,
     private val receiveDamageFromMobEventMapper: LogEntryFromReceiveDamageFromMobEventMapper,
+    private val playerKilledByMobMapper: LogEntryFromPlayerKilledByMobEventMapper,
+    private val playerKillMobMapper: LogEntryFromPlayerKillMobEventMapper,
     private val monsterService: MonsterService,
 ) : LogAware {
 
@@ -73,10 +79,12 @@ class LoggingService(
             AttackMobEvent::class to ::processAttackMobEvent,
             DealDamageToMobEvent::class to ::processDealDamageToMobEvent,
             ReceiveDamageFromMobEvent::class to ::processReceiveDamageFromMobEvent,
+            PlayerKilledByMobEvent::class to ::processPlayerKilledByMobEvent,
+            PlayerKillMobEvent::class to ::processPlayerKillMobEvent,
         )
 
-    private fun shortCircuit(value: String, language: Languages) : String {
-        return  value
+    private fun shortCircuit(value: String, language: Languages): String {
+        return value
     }
 
     @PostConstruct
@@ -96,6 +104,36 @@ class LoggingService(
             logEventBus.destroyEvent(event)
         }
         loggingDomainService.commitBatch()
+    }
+
+    private fun processPlayerKilledByMobEvent(event: LogEvent) {
+        if (event !is PlayerKilledByMobEvent) return
+        val messageId = getRandomMessage(event.eventType)
+        val user = playerService.getUserByPlayerId(event.playerId)
+        loggingDomainService.addPlayerKilledByMobEvent(event, messageId)
+        messagingService.sendMessageToPlayer(
+            user.loginName, playerKilledByMobMapper.from(
+                event,
+                getMessageByIdAndLanguage(messageId, user.language),
+                valueDecoders,
+                user.language
+            )
+        )
+    }
+
+    private fun processPlayerKillMobEvent(event: LogEvent) {
+        if (event !is PlayerKillMobEvent) return
+        val messageId = getRandomMessage(event.eventType)
+        val user = playerService.getUserByPlayerId(event.playerId)
+        loggingDomainService.addPlayerKillMobMessageToBatch(event, messageId)
+        messagingService.sendMessageToPlayer(
+            user.loginName, playerKillMobMapper.from(
+                event,
+                getMessageByIdAndLanguage(messageId, user.language),
+                valueDecoders,
+                user.language
+            )
+        )
     }
 
     private fun processDealDamageToMobEvent(event: LogEvent) {
@@ -227,8 +265,8 @@ class LoggingService(
             .flatMap {
                 it.templates.values
             }
-            .first{
-               it.messageId == messageId
+            .first {
+                it.messageId == messageId
             }.messages[language]!!
 
     }

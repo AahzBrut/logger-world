@@ -88,7 +88,6 @@ class PlayerKickMonsterNestSystem(
         val playerComp = player[PlayerComponent.mapper]!!
         val attackEvent = logEventBus.newEvent(AttackMobEvent::class) as AttackMobEvent
         attackEvent.playerId = playerComp.playerId
-        attackEvent.monsterId = monsterComp.id
         attackEvent.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
         attackEvent.created = LocalDateTime.now()
         logEventBus.pushEvent(attackEvent)
@@ -160,7 +159,6 @@ class PlayerKickMonsterNestSystem(
         val playerComp = player[PlayerComponent.mapper]!!
         val attackEvent = logEventBus.newEvent(AttackedByMobEvent::class) as AttackedByMobEvent
         attackEvent.playerId = playerComp.playerId
-        attackEvent.monsterId = monsterComp.id
         attackEvent.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
         attackEvent.created = LocalDateTime.now()
         logEventBus.pushEvent(attackEvent)

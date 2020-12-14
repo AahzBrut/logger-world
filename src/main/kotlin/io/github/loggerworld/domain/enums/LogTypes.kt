@@ -12,4 +12,6 @@ enum class LogTypes(
     ATTACK_MOB(LogClasses.COMBAT),
     DEAL_DAMAGE_MOB(LogClasses.COMBAT),
     RECEIVE_DAMAGE_MOB(LogClasses.COMBAT),
+    PLAYER_KILLED_BY_MOB(LogClasses.COMBAT),
+    MOB_KILLED(LogClasses.COMBAT),
 }

@@ -16,6 +16,8 @@ import io.github.loggerworld.mapper.logging.LogEntryFromDealDamageToMobEventMapp
 import io.github.loggerworld.mapper.logging.LoggingDataMapper
 import io.github.loggerworld.mapper.logging.LoginEventMapper
 import io.github.loggerworld.mapper.logging.NestKickedEventMapper
+import io.github.loggerworld.mapper.logging.PlayerKillMobEventMapper
+import io.github.loggerworld.mapper.logging.PlayerKilledByMobEventMapper
 import io.github.loggerworld.mapper.logging.ReceiveDamageFromMobEventMapper
 import io.github.loggerworld.messagebus.event.ArrivalEvent
 import io.github.loggerworld.messagebus.event.AttackMobEvent
@@ -24,6 +26,8 @@ import io.github.loggerworld.messagebus.event.DealDamageToMobEvent
 import io.github.loggerworld.messagebus.event.DepartureEvent
 import io.github.loggerworld.messagebus.event.LoginEvent
 import io.github.loggerworld.messagebus.event.NestKickEvent
+import io.github.loggerworld.messagebus.event.PlayerKillMobEvent
+import io.github.loggerworld.messagebus.event.PlayerKilledByMobEvent
 import io.github.loggerworld.messagebus.event.ReceiveDamageFromMobEvent
 import io.github.loggerworld.repository.logging.LogClassRepository
 import io.github.loggerworld.repository.logging.LogEntryRepository
@@ -48,6 +52,8 @@ class LoggingDomainService(
     private val attackMobEventMapper: AttackMobEventMapper,
     private val dealDamageToMobEventMapper: DealDamageToMobEventMapper,
     private val receiveDamageFromMobEventMapper: ReceiveDamageFromMobEventMapper,
+    private val playerKilledByMobEventMapper: PlayerKilledByMobEventMapper,
+    private val playerKillMobEventMapper: PlayerKillMobEventMapper,
 ) : LogAware {
 
     private lateinit var logMessagesTemplates: LoggingData
@@ -101,6 +107,14 @@ class LoggingDomainService(
 
     fun addReceiveDamageFromMobMessageToBatch(event: ReceiveDamageFromMobEvent, messageId: Int) {
         batch.add(receiveDamageFromMobEventMapper.from(event, messageId))
+    }
+
+    fun addPlayerKilledByMobEvent(event: PlayerKilledByMobEvent, messageId: Int) {
+        batch.add(playerKilledByMobEventMapper.from(event, messageId))
+    }
+
+    fun addPlayerKillMobMessageToBatch(event: PlayerKillMobEvent, messageId: Int) {
+        batch.add(playerKillMobEventMapper.from(event, messageId))
     }
 
     @Transactional
