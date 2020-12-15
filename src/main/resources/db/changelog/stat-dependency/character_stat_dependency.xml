@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="character_stat_dependency-01" author="AahzBrut">
+        <createSequence sequenceName="character_stat_dependency_seq"/>
+    </changeSet>
+
+    <changeSet id="character_stat_dependency-02" author="AahzBrut">
+        <createTable tableName="character_stat_dependency">
+            <column name="character_stat_dependency_id" type="SMALLINT" defaultValueSequenceNext="character_stat_dependency_seq">
+                <constraints primaryKey="true" primaryKeyName="character_stat_dependency_pk"/>
+            </column>
+            <column name="primary_character_stat_id" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dependency_character_stat_id" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="calc_type_id" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="coeff" type="FLOAT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
