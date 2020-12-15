@@ -2,11 +2,12 @@ package io.github.loggerworld.ecs.system
 
 import com.badlogic.ashley.core.EntitySystem
 import io.github.loggerworld.ecs.EngineSystems.PLAYER_MOVE_COMMAND_SYSTEM
-import io.github.loggerworld.ecs.component.StateComponent
-import io.github.loggerworld.ecs.component.States
+import io.github.loggerworld.ecs.component.LocationComponent
+import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.PlayerMapComponent
 import io.github.loggerworld.ecs.component.PlayerMoveComponent
-import io.github.loggerworld.ecs.component.PositionComponent
+import io.github.loggerworld.ecs.component.StateComponent
+import io.github.loggerworld.ecs.component.States
 import io.github.loggerworld.messagebus.EventBus
 import io.github.loggerworld.messagebus.event.PlayerMoveCommand
 import io.github.loggerworld.messagebus.event.WrongCommandEvent
@@ -32,23 +33,24 @@ class PlayerMoveCommandSystem(
                 logger().debug("\n\nPlayer with id: ${moveCommand.playerId} received command to move to location with id:${moveCommand.locationId}")
 
                 val player = playerMap[moveCommand.playerId]
-                val positionComponent = player[PositionComponent.mapper]!!
+                val playerComponent = player[PlayerComponent.mapper]!!
+                val locationId = playerComponent.location[LocationComponent.mapper]!!.locationId
 
                 if (!locationService
                         .getWorldMap()
-                        .locations[positionComponent.locationId]!!.neighborLocations.containsKey(moveCommand.locationId)
+                        .locations[locationId]!!.neighborLocations.containsKey(moveCommand.locationId)
                 ) {
                     wrongCommandEventEventBus.dispatchEvent {
                         it.playerId = moveCommand.playerId
                         it.message =
-                            "Location with id:${moveCommand.locationId} is not reachable from location with id:${positionComponent.locationId}"
+                            "Location with id:${moveCommand.locationId} is not reachable from location with id:${locationId}"
                         logger().debug("\n\n${it.message}")
                     }
                 } else {
 
                     player.addComponent<PlayerMoveComponent>(engine) {
-                        fromLocationId = positionComponent.locationId
-                        currentLocationId = positionComponent.locationId
+                        fromLocationId = locationId
+                        currentLocationId = locationId
                         toLocationId = moveCommand.locationId
                         timeToArrive = 5f
                     }

@@ -9,7 +9,6 @@ import io.github.loggerworld.ecs.component.LocationComponent
 import io.github.loggerworld.ecs.component.LocationMapComponent
 import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.PlayerMapComponent
-import io.github.loggerworld.ecs.component.PositionComponent
 import io.github.loggerworld.ecs.component.StateComponent
 import io.github.loggerworld.ecs.component.States
 import io.github.loggerworld.messagebus.EventBus
@@ -80,9 +79,6 @@ class PlayerSpawnSystem(
         val def = playerData.stats[PlayerStatEnum.DEF.ordinal.toByte()]!!
 
         return engine.entity {
-            with<PositionComponent> {
-                locationId = command.locationId
-            }
             with<PlayerComponent> {
                 playerId = command.playerId
                 userId = command.userId
