@@ -7,6 +7,7 @@ import io.github.loggerworld.ecs.EngineSystems.PLAYER_SPAWN_SYSTEM
 import io.github.loggerworld.ecs.component.HealthComponent
 import io.github.loggerworld.ecs.component.LocationComponent
 import io.github.loggerworld.ecs.component.LocationMapComponent
+import io.github.loggerworld.ecs.component.LocationUpdatedComponent
 import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.PlayerMapComponent
 import io.github.loggerworld.ecs.component.StateComponent
@@ -19,9 +20,11 @@ import io.github.loggerworld.messagebus.event.PlayerStartCommand
 import io.github.loggerworld.service.PlayerService
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.logger
+import ktx.ashley.addComponent
 import ktx.ashley.allOf
 import ktx.ashley.entity
 import ktx.ashley.get
+import ktx.ashley.hasNot
 import ktx.ashley.with
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
@@ -38,20 +41,15 @@ class PlayerSpawnSystem(
 
     override fun update(deltaTime: Float) {
         while (startEventBus.receiveEvent { event ->
-                if (playerMap.containsKey(event.playerId)) {
-                    val playerEntity = playerMap[event.playerId]
-                    val playerComp = playerEntity[PlayerComponent.mapper]!!
-                    val locationComp = playerComp.location[LocationComponent.mapper]!!
-                    locationMap[locationComp.locationId].updated = true
-                    logLoginEvent(event)
-                    return@receiveEvent
+                if (!playerMap.containsKey(event.playerId)) {
+                    val player = spawnPlayer(event)
+
+                    logger().debug("\nPlayer with id:${event.playerId} spawned into location with id:${event.locationId}")
+
+                    addPlayerToTargetLocation(player, event)
+                    if (locationMap[event.locationId].entity.hasNot(LocationUpdatedComponent.mapper))
+                        locationMap[event.locationId].entity.addComponent<LocationUpdatedComponent>(engine)
                 }
-                logger().debug("\nPlayer with id:${event.playerId} spawned into location with id:${event.locationId}")
-
-                val player = spawnPlayer(event)
-                addPlayerToTargetLocation(player, event)
-                locationMap[event.locationId].updated = true
-
                 logLoginEvent(event)
             }) {
             // Empty body
