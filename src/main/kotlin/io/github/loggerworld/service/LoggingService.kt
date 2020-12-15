@@ -37,7 +37,6 @@ import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import javax.annotation.PostConstruct
 import kotlin.random.Random
-import kotlin.reflect.KClass
 
 
 @Service
@@ -72,20 +71,7 @@ class LoggingService(
             LogValueTypes.DAMAGE_AMOUNT to ::shortCircuit,
         )
 
-    private val eventProcessors: Map<KClass<*>, (LogEvent) -> Unit> =
-        mapOf(
-            LoginEvent::class to ::processLoginEvent,
-            ArrivalEvent::class to ::processArrivalEvent,
-            DepartureEvent::class to ::processDepartureEvent,
-            NestKickEvent::class to ::processNestKickEvent,
-            AttackedByMobEvent::class to ::processAttackedByMobEvent,
-            AttackMobEvent::class to ::processAttackMobEvent,
-            DealDamageToMobEvent::class to ::processDealDamageToMobEvent,
-            ReceiveDamageFromMobEvent::class to ::processReceiveDamageFromMobEvent,
-            PlayerKilledByMobEvent::class to ::processPlayerKilledByMobEvent,
-            PlayerKillMobEvent::class to ::processPlayerKillMobEvent,
-        )
-
+    @Suppress("UNUSED_PARAMETER")
     private fun shortCircuit(value: String, language: Languages): String {
         return value
     }
@@ -99,14 +85,12 @@ class LoggingService(
 
     @Scheduled(fixedDelay = 10, initialDelay = 100)
     fun logEvents() {
-
         performanceCounter.start(PerfCounters.LOGGING_SERVICE)
 
         while (!logEventBus.isQueueEmpty()) {
 
             val event = logEventBus.popEvent()
-            eventProcessors[event::class]?.invoke(event) ?: error("There is no processor for event ${event::class}")
-
+            routeEvent(event)
             logEventBus.destroyEvent(event)
         }
         loggingDomainService.commitBatch()
@@ -114,8 +98,22 @@ class LoggingService(
         performanceCounter.stop(PerfCounters.LOGGING_SERVICE)
     }
 
-    private fun processPlayerKilledByMobEvent(event: LogEvent) {
-        if (event !is PlayerKilledByMobEvent) return
+    private fun routeEvent(event: LogEvent) {
+        when (event) {
+            is LoginEvent -> processLoginEvent(event)
+            is ArrivalEvent -> processArrivalEvent(event)
+            is DepartureEvent -> processDepartureEvent(event)
+            is NestKickEvent -> processNestKickEvent(event)
+            is AttackedByMobEvent -> processAttackedByMobEvent(event)
+            is AttackMobEvent -> processAttackMobEvent(event)
+            is DealDamageToMobEvent -> processDealDamageToMobEvent(event)
+            is ReceiveDamageFromMobEvent -> processReceiveDamageFromMobEvent(event)
+            is PlayerKilledByMobEvent -> processPlayerKilledByMobEvent(event)
+            is PlayerKillMobEvent -> processPlayerKillMobEvent(event)
+        }
+    }
+
+    private fun processPlayerKilledByMobEvent(event: PlayerKilledByMobEvent) {
         val messageId = getRandomMessage(event.eventType)
         val user = playerService.getUserByPlayerId(event.playerId)
         loggingDomainService.addPlayerKilledByMobEvent(event, messageId)
@@ -129,8 +127,7 @@ class LoggingService(
         )
     }
 
-    private fun processPlayerKillMobEvent(event: LogEvent) {
-        if (event !is PlayerKillMobEvent) return
+    private fun processPlayerKillMobEvent(event: PlayerKillMobEvent) {
         val messageId = getRandomMessage(event.eventType)
         val user = playerService.getUserByPlayerId(event.playerId)
         loggingDomainService.addPlayerKillMobMessageToBatch(event, messageId)
@@ -144,8 +141,7 @@ class LoggingService(
         )
     }
 
-    private fun processDealDamageToMobEvent(event: LogEvent) {
-        if (event !is DealDamageToMobEvent) return
+    private fun processDealDamageToMobEvent(event: DealDamageToMobEvent) {
         val messageId = getRandomMessage(event.eventType)
         val user = playerService.getUserByPlayerId(event.playerId)
         loggingDomainService.addDealDamageToMobMessageToBatch(event, messageId)
@@ -159,8 +155,7 @@ class LoggingService(
         )
     }
 
-    private fun processReceiveDamageFromMobEvent(event: LogEvent) {
-        if (event !is ReceiveDamageFromMobEvent) return
+    private fun processReceiveDamageFromMobEvent(event: ReceiveDamageFromMobEvent) {
         val messageId = getRandomMessage(event.eventType)
         val user = playerService.getUserByPlayerId(event.playerId)
         loggingDomainService.addReceiveDamageFromMobMessageToBatch(event, messageId)
@@ -174,8 +169,7 @@ class LoggingService(
         )
     }
 
-    private fun processAttackMobEvent(event: LogEvent) {
-        if (event !is AttackMobEvent) return
+    private fun processAttackMobEvent(event: AttackMobEvent) {
         val messageId = getRandomMessage(event.eventType)
         val user = playerService.getUserByPlayerId(event.playerId)
         loggingDomainService.addAttackMobMessageToBatch(event, messageId)
@@ -189,8 +183,7 @@ class LoggingService(
         )
     }
 
-    private fun processAttackedByMobEvent(event: LogEvent) {
-        if (event !is AttackedByMobEvent) return
+    private fun processAttackedByMobEvent(event: AttackedByMobEvent) {
         val messageId = getRandomMessage(event.eventType)
         val user = playerService.getUserByPlayerId(event.playerId)
         loggingDomainService.addAttackedByMobMessageToBatch(event, messageId)
@@ -204,8 +197,7 @@ class LoggingService(
         )
     }
 
-    private fun processNestKickEvent(event: LogEvent) {
-        if (event !is NestKickEvent) return
+    private fun processNestKickEvent(event: NestKickEvent) {
         val messageId = getRandomMessage(event.eventType)
         val user = playerService.getUserByPlayerId(event.playerId)
         loggingDomainService.addNestKickMessageToBatch(event, messageId)
@@ -219,8 +211,7 @@ class LoggingService(
         )
     }
 
-    private fun processDepartureEvent(event: LogEvent) {
-        if (event !is DepartureEvent) return
+    private fun processDepartureEvent(event: DepartureEvent) {
         val messageId = getRandomMessage(event.eventType)
         val user = playerService.getUserByPlayerId(event.playerId)
         loggingDomainService.addDepartureMessageToBatch(event, messageId)
@@ -234,8 +225,7 @@ class LoggingService(
         )
     }
 
-    private fun processArrivalEvent(event: LogEvent) {
-        if (event !is ArrivalEvent) return
+    private fun processArrivalEvent(event: ArrivalEvent) {
         val messageId = getRandomMessage(event.eventType)
         val user = playerService.getUserByPlayerId(event.playerId)
         loggingDomainService.addArrivalMessageToBatch(event, messageId)
@@ -249,8 +239,7 @@ class LoggingService(
         )
     }
 
-    private fun processLoginEvent(event: LogEvent) {
-        if (event !is LoginEvent) return
+    private fun processLoginEvent(event: LoginEvent) {
         val messageId = getRandomMessage(event.eventType)
         val user = playerService.getUserByPlayerId(event.playerId)
         loggingDomainService.addLoginMessageToBatch(event, messageId)

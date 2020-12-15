@@ -38,10 +38,15 @@ class PlayerSpawnSystem(
     private val playerMap by lazy { engine.getEntitiesFor(allOf(PlayerMapComponent::class).get())[0][PlayerMapComponent.mapper]!!.playerMap }
 
     override fun update(deltaTime: Float) {
-
         while (startEventBus.receiveEvent { event ->
-
-                if (playerMap.containsKey(event.playerId)) return@receiveEvent
+                if (playerMap.containsKey(event.playerId)) {
+                    val playerEntity = playerMap[event.playerId]
+                    val playerComp = playerEntity[PlayerComponent.mapper]!!
+                    val locationComp = playerComp.location[LocationComponent.mapper]!!
+                    locationMap[locationComp.locationId].updated = true
+                    logLoginEvent(event)
+                    return@receiveEvent
+                }
                 logger().debug("\nPlayer with id:${event.playerId} spawned into location with id:${event.locationId}")
 
                 val player = spawnPlayer(event)
