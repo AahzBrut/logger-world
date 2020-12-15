@@ -7,7 +7,7 @@ import io.github.loggerworld.ecs.component.CombatComponent
 import io.github.loggerworld.ecs.component.HealthComponent
 import io.github.loggerworld.ecs.component.KilledComponent
 import io.github.loggerworld.ecs.component.LocationComponent
-import io.github.loggerworld.ecs.component.LocationMapComponent
+import io.github.loggerworld.ecs.component.LocationUpdatedComponent
 import io.github.loggerworld.ecs.component.MonsterComponent
 import io.github.loggerworld.ecs.component.MonsterSpawnerComponent
 import io.github.loggerworld.ecs.component.PlayerComponent
@@ -25,6 +25,7 @@ import ktx.ashley.addComponent
 import ktx.ashley.allOf
 import ktx.ashley.get
 import ktx.ashley.has
+import ktx.ashley.hasNot
 import ktx.ashley.remove
 import ktx.collections.isEmpty
 import org.springframework.stereotype.Service
@@ -36,8 +37,6 @@ class CombatSystem(
     private val logEventBus: LogEventBus<LogEvent>
 ) : IteratingSystem(allOf(CombatComponent::class).get(), EngineSystems.COMBAT_SYSTEM.ordinal),
     LogAware {
-
-    private val locationMap by lazy { engine.getEntitiesFor(allOf(LocationMapComponent::class).get())[0][LocationMapComponent.mapper]!!.locationMap }
 
     override fun processEntity(entity: Entity, deltaTime: Float) {
         val combatComp = entity[CombatComponent.mapper]!!
@@ -61,7 +60,7 @@ class CombatSystem(
             if (monsterComp.enemies.isEmpty()) {
                 monsterComp.nest[MonsterSpawnerComponent.mapper]!!.monsterCounter++
                 locationComp.spawnedMonsters.remove(monster)
-                locationMap[locationComp.locationId]!!.updated = true
+                if (monsterComp.location.hasNot(LocationUpdatedComponent.mapper)) monsterComp.location.addComponent<LocationUpdatedComponent>(engine)
                 monster.addComponent<RemoveComponent>(engine)
                 logger().debug("Mob ${monsterComp.monsterType} ${monsterComp.monsterClass} ${monsterComp.level}lvl in location ${locationComp.locationId} have no more targets and returns to nest.")
                 return

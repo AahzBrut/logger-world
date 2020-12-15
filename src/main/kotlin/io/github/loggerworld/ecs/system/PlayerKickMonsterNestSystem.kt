@@ -7,12 +7,11 @@ import io.github.loggerworld.ecs.EngineSystems
 import io.github.loggerworld.ecs.component.CombatComponent
 import io.github.loggerworld.ecs.component.HealthComponent
 import io.github.loggerworld.ecs.component.LocationComponent
-import io.github.loggerworld.ecs.component.LocationMapComponent
+import io.github.loggerworld.ecs.component.LocationUpdatedComponent
 import io.github.loggerworld.ecs.component.MonsterComponent
 import io.github.loggerworld.ecs.component.MonsterSpawnerComponent
 import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.PlayerMapComponent
-import io.github.loggerworld.ecs.component.PositionComponent
 import io.github.loggerworld.ecs.component.States
 import io.github.loggerworld.messagebus.EventBus
 import io.github.loggerworld.messagebus.LogEventBus
@@ -43,22 +42,21 @@ class PlayerKickMonsterNestSystem(
     EntitySystem(EngineSystems.PLAYER_KICK_MONSTER_NEST_SYSTEM.ordinal), LogAware {
 
     private val playerMap by lazy { engine.getEntitiesFor(allOf(PlayerMapComponent::class).get())[0][PlayerMapComponent.mapper]!!.playerMap }
-    private val locationMap by lazy { engine.getEntitiesFor(allOf(LocationMapComponent::class).get())[0][LocationMapComponent.mapper]!!.locationMap }
 
     override fun update(deltaTime: Float) {
 
         while (kickCommandEventBus.receiveEvent { kickCommand ->
                 val playerEntity = playerMap[kickCommand.playerId]
-                val locationId = playerEntity[PositionComponent.mapper]!!.locationId
-                val locationEntity = locationMap[locationId].entity
-                val locationComp = locationEntity[LocationComponent.mapper]!!
+                val location = playerEntity[PlayerComponent.mapper]!!.location
+                val locationComp = location[LocationComponent.mapper]!!
                 val spawners = locationComp.monsterSpawners
                 val spawner = getSpawner(spawners, kickCommand.monsterNestId)
 
                 if (spawner.amount-- > 0) {
                     val monster = spawnMonster(spawner, playerEntity)
                     locationComp.spawnedMonsters.add(monster)
-                    locationMap[locationId].updated = true
+                    if (location.hasNot(LocationUpdatedComponent.mapper))
+                        location.addComponent<LocationUpdatedComponent>(engine)
                     logKickNestEvent(kickCommand)
                     logMobAttackPlayer(monster, playerEntity)
                     attackMonster(playerEntity, monster)
