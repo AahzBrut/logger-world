@@ -170,7 +170,7 @@ class LoggerWorldTestIT : LogAware {
         stompHeader.putAll(mutableMapOf(HttpHeaders.AUTHORIZATION to mutableListOf(token)))
 
         stompClient1.connect("ws://localhost:$port$WS_CONNECTION_POINT", webSocketHttpHeaders, stompHeader, sessionHandler)
-        TimeUnit.MILLISECONDS.sleep(300)
+        TimeUnit.MILLISECONDS.sleep(500)
         assert(stompSession1.isConnected)
     }
 
@@ -193,7 +193,7 @@ class LoggerWorldTestIT : LogAware {
         stompHeader.putAll(mutableMapOf(HttpHeaders.AUTHORIZATION to mutableListOf(token)))
 
         stompClient2.connect("ws://localhost:$port$WS_CONNECTION_POINT", webSocketHttpHeaders, stompHeader, sessionHandler)
-        TimeUnit.MILLISECONDS.sleep(300)
+        TimeUnit.MILLISECONDS.sleep(500)
         assert(stompSession2.isConnected)
     }
 

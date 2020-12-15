@@ -20,7 +20,6 @@ enum class PlayerStatEnum(
     POINTS_ON_LEVELUP(false),
     UNALLOCATED_POINTS(false);
 
-
     companion object {
         fun getById(id: Byte): PlayerStatEnum =
             values()[id.toInt()]

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="character_stat_dependency-data-01" author="AahzBrut">
+        <insert tableName="character_stat_dependency">
+            <column name="primary_character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="dependency_character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='STR'"/>
+            <column name="calc_type_id" valueComputed="SELECT calc_type_id FROM REPOSITORY.calc_type WHERE code='ADD_MUL_COEFF'"/>
+            <column name="coeff" valueNumeric="1"/>
+        </insert>
+        <insert tableName="character_stat_dependency">
+            <column name="primary_character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='DEF'"/>
+            <column name="dependency_character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='STR'"/>
+            <column name="calc_type_id" valueComputed="SELECT calc_type_id FROM REPOSITORY.calc_type WHERE code='ADD_MUL_COEFF'"/>
+            <column name="coeff" valueNumeric="1"/>
+        </insert>
+        <insert tableName="character_stat_dependency">
+            <column name="primary_character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='MP'"/>
+            <column name="dependency_character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='INT'"/>
+            <column name="calc_type_id" valueComputed="SELECT calc_type_id FROM REPOSITORY.calc_type WHERE code='ADD_MUL_COEFF'"/>
+            <column name="coeff" valueNumeric="5"/>
+        </insert>
+        <insert tableName="character_stat_dependency">
+            <column name="primary_character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="dependency_character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='CON'"/>
+            <column name="calc_type_id" valueComputed="SELECT calc_type_id FROM REPOSITORY.calc_type WHERE code='ADD_MUL_COEFF'"/>
+            <column name="coeff" valueNumeric="5"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

@@ -5,7 +5,10 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <include file="classpath:/db/changelog/main/language.xml"/>
-    <include file="classpath:/db/changelog/main/change_type.xml"/>
+    <changeSet id="calc_type-data-01" author="AahzBrut">
+        <insert tableName="calc_type">
+            <column name="code" value="ADD_MUL_COEFF"/>
+        </insert>
+    </changeSet>
 
 </databaseChangeLog>
