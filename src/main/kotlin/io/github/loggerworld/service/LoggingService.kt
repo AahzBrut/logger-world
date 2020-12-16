@@ -24,6 +24,7 @@ import io.github.loggerworld.messagebus.event.DealDamageToMobEvent
 import io.github.loggerworld.messagebus.event.DepartureEvent
 import io.github.loggerworld.messagebus.event.LogEvent
 import io.github.loggerworld.messagebus.event.LoginEvent
+import io.github.loggerworld.messagebus.event.LogoffEvent
 import io.github.loggerworld.messagebus.event.NestKickEvent
 import io.github.loggerworld.messagebus.event.PlayerKillMobEvent
 import io.github.loggerworld.messagebus.event.PlayerKilledByMobEvent
@@ -110,7 +111,13 @@ class LoggingService(
             is ReceiveDamageFromMobEvent -> processReceiveDamageFromMobEvent(event)
             is PlayerKilledByMobEvent -> processPlayerKilledByMobEvent(event)
             is PlayerKillMobEvent -> processPlayerKillMobEvent(event)
+            is LogoffEvent -> processLogoffEvent(event)
         }
+    }
+
+    private fun processLogoffEvent(event: LogoffEvent) {
+        val messageId = getRandomMessage(event.eventType)
+        loggingDomainService.addLogoffEventToBatch(event, messageId)
     }
 
     private fun processPlayerKilledByMobEvent(event: PlayerKilledByMobEvent) {

@@ -2,13 +2,15 @@ package io.github.loggerworld.service.perfcount
 
 import io.github.loggerworld.dto.response.perfcounter.PerformanceCounterResponse
 import io.github.loggerworld.dto.response.perfcounter.PerformanceCountersResponse
+import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.RingBuffer
+import io.github.loggerworld.util.logger
 import io.github.loggerworld.util.nanoSecond
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 
 @Service
-class PerformanceCounter {
+class PerformanceCounter : LogAware {
 
     @Value("\${logger-world.perf-counters.max-count}")
     private lateinit var maxCount: String
@@ -26,14 +28,20 @@ class PerformanceCounter {
     }
 
     fun start(counter: PerfCounters) {
-        if (timeStamps[counter] != Long.MIN_VALUE) error("Subsequent call to start")
-        timeStamps[counter] = System.nanoTime()
+        if (timeStamps[counter] != Long.MIN_VALUE) {
+            logger().debug("\nPerformanceCounter: Call to Start without call to Stop")
+        } else {
+            timeStamps[counter] = System.nanoTime()
+        }
     }
 
     fun stop(counter: PerfCounters) {
-        if (timeStamps[counter] == Long.MIN_VALUE) error("Call to Stop without call to Start")
-        counters[counter]!!.addValue(System.nanoTime() - timeStamps[counter]!!, timeStamps[counter]!!)
-        timeStamps[counter] = Long.MIN_VALUE
+        if (timeStamps[counter] == Long.MIN_VALUE) {
+            logger().debug("\nPerformanceCounter: Call to Stop without call to Start")
+        } else {
+            counters[counter]!!.addValue(System.nanoTime() - timeStamps[counter]!!, timeStamps[counter]!!)
+            timeStamps[counter] = Long.MIN_VALUE
+        }
     }
 
     fun getTps(counter: PerfCounters): Float {

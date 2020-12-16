@@ -40,28 +40,28 @@
             WHERE log_type_id IN(SELECT log_type_id FROM REPOSITORY.log_type WHERE code='LOGOFF')
             AND ordinal=1"/>
             <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
-            <column name="value" value="Player %s logged off in %s"/>
+            <column name="value" value="Player %s logged off"/>
         </insert>
         <insert tableName="log_type_message_description">
             <column name="log_type_message_id" valueComputed="SELECT log_type_message_id FROM REPOSITORY.log_type_message
             WHERE log_type_id IN(SELECT log_type_id FROM REPOSITORY.log_type WHERE code='LOGOFF')
             AND ordinal=2"/>
             <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
-            <column name="value" value="Player %s left the game in %s"/>
+            <column name="value" value="Player %s left the game"/>
         </insert>
         <insert tableName="log_type_message_description">
             <column name="log_type_message_id" valueComputed="SELECT log_type_message_id FROM REPOSITORY.log_type_message
             WHERE log_type_id IN(SELECT log_type_id FROM REPOSITORY.log_type WHERE code='LOGOFF')
             AND ordinal=1"/>
             <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
-            <column name="value" value="Игрок %s вышел из игры в %s"/>
+            <column name="value" value="Игрок %s вышел из игры"/>
         </insert>
         <insert tableName="log_type_message_description">
             <column name="log_type_message_id" valueComputed="SELECT log_type_message_id FROM REPOSITORY.log_type_message
             WHERE log_type_id IN(SELECT log_type_id FROM REPOSITORY.log_type WHERE code='LOGOFF')
             AND ordinal=2"/>
             <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
-            <column name="value" value="Игрок %s покинул игру в %s"/>
+            <column name="value" value="Игрок %s покинул игру"/>
         </insert>
 
         <insert tableName="log_type_message_description">

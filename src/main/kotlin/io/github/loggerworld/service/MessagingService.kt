@@ -55,11 +55,17 @@ class MessagingService(
 
     private fun notifyOnArrival(event: LocationChangedEvent) {
         event.players.forEach {
-            val player = playerService.getPlayerById(it.id)
+            if (playerService.isPlayerUserOnline(it.id)) {
+                val player = playerService.getPlayerById(it.id)
 
-            val user = userService.getUserById(player.userId)
+                val user = userService.getUserById(player.userId)
 
-            simpleMessagingTemplate.convertAndSendToUser(user.loginName, WS_GAMEPLAY_LOCATION_NOTIFICATION_QUEUE, event)
+                simpleMessagingTemplate.convertAndSendToUser(
+                    user.loginName,
+                    WS_GAMEPLAY_LOCATION_NOTIFICATION_QUEUE,
+                    event
+                )
+            }
         }
     }
 
