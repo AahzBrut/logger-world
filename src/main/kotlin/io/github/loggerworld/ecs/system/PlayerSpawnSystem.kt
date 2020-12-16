@@ -47,9 +47,9 @@ class PlayerSpawnSystem(
                     logger().debug("\nPlayer with id:${event.playerId} spawned into location with id:${event.locationId}")
 
                     addPlayerToTargetLocation(player, event)
-                    if (locationMap[event.locationId].entity.hasNot(LocationUpdatedComponent.mapper))
-                        locationMap[event.locationId].entity.addComponent<LocationUpdatedComponent>(engine)
                 }
+                if (locationMap[event.locationId].entity.hasNot(LocationUpdatedComponent.mapper))
+                    locationMap[event.locationId].entity.addComponent<LocationUpdatedComponent>(engine)
                 logLoginEvent(event)
             }) {
             // Empty body

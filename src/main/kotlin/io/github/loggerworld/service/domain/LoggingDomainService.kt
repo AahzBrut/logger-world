@@ -15,6 +15,7 @@ import io.github.loggerworld.mapper.logging.DepartureEventMapper
 import io.github.loggerworld.mapper.logging.LogEntryFromDealDamageToMobEventMapper
 import io.github.loggerworld.mapper.logging.LoggingDataMapper
 import io.github.loggerworld.mapper.logging.LoginEventMapper
+import io.github.loggerworld.mapper.logging.LogoffEventMapper
 import io.github.loggerworld.mapper.logging.NestKickedEventMapper
 import io.github.loggerworld.mapper.logging.PlayerKillMobEventMapper
 import io.github.loggerworld.mapper.logging.PlayerKilledByMobEventMapper
@@ -25,6 +26,7 @@ import io.github.loggerworld.messagebus.event.AttackedByMobEvent
 import io.github.loggerworld.messagebus.event.DealDamageToMobEvent
 import io.github.loggerworld.messagebus.event.DepartureEvent
 import io.github.loggerworld.messagebus.event.LoginEvent
+import io.github.loggerworld.messagebus.event.LogoffEvent
 import io.github.loggerworld.messagebus.event.NestKickEvent
 import io.github.loggerworld.messagebus.event.PlayerKillMobEvent
 import io.github.loggerworld.messagebus.event.PlayerKilledByMobEvent
@@ -54,6 +56,7 @@ class LoggingDomainService(
     private val receiveDamageFromMobEventMapper: ReceiveDamageFromMobEventMapper,
     private val playerKilledByMobEventMapper: PlayerKilledByMobEventMapper,
     private val playerKillMobEventMapper: PlayerKillMobEventMapper,
+    private val logoffEventMapper: LogoffEventMapper,
 ) : LogAware {
 
     private lateinit var logMessagesTemplates: LoggingData
@@ -69,16 +72,19 @@ class LoggingDomainService(
         return loggingDataMapper.fromList(logClassRepository.findAll())
     }
 
-    fun addLoginMessageToBatch(event: LoginEvent, messageId: Int) {
-
-        batch.add(loginEventMapper.from(event, messageId))
-    }
-
     @Transactional
     fun commitBatch() {
         if (batch.isEmpty()) return
         logEntryRepository.saveAll(batch)
         batch.clear()
+    }
+
+    fun addLoginMessageToBatch(event: LoginEvent, messageId: Int) {
+        batch.add(loginEventMapper.from(event, messageId))
+    }
+
+    fun addLogoffEventToBatch(event: LogoffEvent, messageId: Int) {
+        batch.add(logoffEventMapper.from(event, messageId))
     }
 
     fun addArrivalMessageToBatch(event: ArrivalEvent, messageId: Int) {

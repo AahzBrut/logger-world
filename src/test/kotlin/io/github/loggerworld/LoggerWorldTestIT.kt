@@ -10,6 +10,7 @@ import io.github.loggerworld.controller.PLAYERS_LOGS_URL
 import io.github.loggerworld.controller.PLAYERS_URL
 import io.github.loggerworld.controller.SIGN_UP_URL
 import io.github.loggerworld.domain.enums.Languages
+import io.github.loggerworld.domain.enums.MonsterClasses
 import io.github.loggerworld.domain.enums.PlayerClasses
 import io.github.loggerworld.dto.request.ChatMessageRequest
 import io.github.loggerworld.dto.request.PlayerAddRequest
@@ -28,6 +29,7 @@ import io.github.loggerworld.dto.response.geography.LocationsResponse
 import io.github.loggerworld.dto.response.logging.PlayerLogEntryResponse
 import io.github.loggerworld.messagebus.event.LocationChangedEvent
 import io.github.loggerworld.messagebus.event.WrongCommandEvent
+import io.github.loggerworld.service.MonsterService
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.PERSONAL
 import io.github.loggerworld.util.TOKEN_PREFIX
@@ -46,6 +48,7 @@ import org.junit.jupiter.api.MethodOrderer
 import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestMethodOrder
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.client.RestTemplateBuilder
 import org.springframework.boot.web.client.RestTemplateCustomizer
@@ -74,6 +77,10 @@ import java.util.concurrent.TimeUnit
     locations = ["classpath:application-integrationtest.properties"])
 @TestMethodOrder(value = MethodOrderer.OrderAnnotation::class)
 class LoggerWorldTestIT : LogAware {
+
+    @Autowired
+    private var monsterService: MonsterService? = null
+
 
     @LocalServerPort
     private var port = -1
@@ -299,19 +306,60 @@ class LoggerWorldTestIT : LogAware {
     @Test
     @Order(15)
     fun firstUserStartGame() {
+        logger().info("\n\n First user starting the game")
+        stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_START, PlayerStartGameRequest(playerId = 1))
+        TimeUnit.MILLISECONDS.sleep(1000)
+        logger().info("\n\n First user started the game")
+    }
+
+    @Test
+    @Order(16)
+    fun firstUserDisconnect1() {
+        logger().info("\n\n First user disconnecting")
+        stompSession1.disconnect()
+        TimeUnit.MILLISECONDS.sleep(1000)
+        logger().info("\n\n First user disconnected")
+    }
+
+    @Test
+    @Order(17)
+    fun connectToWsFirstUser1() {
+        val objectMapper = ObjectMapper()
+        objectMapper.registerModule(JavaTimeModule())
+        val jacksonMapper = MappingJackson2MessageConverter()
+        jacksonMapper.objectMapper = objectMapper
+        stompClient1.messageConverter = jacksonMapper
+
+        val sessionHandler: StompSessionHandler = MyStompSessionHandler()
+
+        val token = getJwtToken(firstUserLoginRequest)!!
+
+        val webSocketHttpHeaders = WebSocketHttpHeaders()
+        webSocketHttpHeaders.putAll(mutableMapOf(HttpHeaders.AUTHORIZATION to mutableListOf(token)))
+        val stompHeader = StompHeaders()
+        stompHeader.putAll(mutableMapOf(HttpHeaders.AUTHORIZATION to mutableListOf(token)))
+
+        stompClient1.connect("ws://localhost:$port$WS_CONNECTION_POINT", webSocketHttpHeaders, stompHeader, sessionHandler)
+        TimeUnit.MILLISECONDS.sleep(500)
+        assert(stompSession1.isConnected)
+    }
+
+    @Test
+    @Order(18)
+    fun firstUserStartGame1() {
         stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_START, PlayerStartGameRequest(playerId = 1))
         TimeUnit.MILLISECONDS.sleep(300)
     }
 
     @Test
-    @Order(16)
+    @Order(19)
     fun secondUserStartGame() {
         stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_START, PlayerStartGameRequest(playerId = 2))
         TimeUnit.MILLISECONDS.sleep(300)
     }
 
     @Test
-    @Order(17)
+    @Order(20)
     fun firstUserMove() {
         stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_MOVE, PlayerMoveRequest(8))
         TimeUnit.MILLISECONDS.sleep(300)
@@ -320,14 +368,14 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(18)
+    @Order(21)
     fun secondUserMove() {
         stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_MOVE, PlayerMoveRequest(7))
         TimeUnit.MILLISECONDS.sleep(7000)
     }
 
     @Test
-    @Order(19)
+    @Order(22)
     fun firstUserGetLocationTypesDictionary() {
         val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
             it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
@@ -341,7 +389,7 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(20)
+    @Order(23)
     fun secondUserGetLocationTypesDictionary() {
         val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
             it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
@@ -355,7 +403,7 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(21)
+    @Order(24)
     fun firstUserGetLocationsDictionary() {
         val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
             it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
@@ -369,7 +417,7 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(22)
+    @Order(25)
     fun secondUserGetLocationsDictionary() {
         val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
             it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
@@ -383,14 +431,14 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(23)
+    @Order(26)
     fun firstUserKickNest() {
         stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_KICK_NEST, PlayerKickMonsterNestRequest(1))
         TimeUnit.MILLISECONDS.sleep(10000)
     }
 
     @Test
-    @Order(24)
+    @Order(27)
     fun secondUserKickNest() {
         stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_KICK_NEST, PlayerKickMonsterNestRequest(3))
         stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_KICK_NEST, PlayerKickMonsterNestRequest(3))
@@ -398,7 +446,7 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(25)
+    @Order(28)
     fun firstUserGetLogs() {
         val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
             it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
@@ -412,7 +460,7 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(26)
+    @Order(29)
     fun secondUserGetLogs() {
         val restTemplate2 = RestTemplateBuilder(RestTemplateCustomizer {
             it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
@@ -426,7 +474,7 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(27)
+    @Order(30)
     fun getPerformanceCounters() {
         val restTemplate2 = RestTemplateBuilder(RestTemplateCustomizer {
             it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
@@ -440,17 +488,36 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(28)
+    @Order(31)
     fun firstUserDisconnect() {
         stompSession1.disconnect()
         TimeUnit.MILLISECONDS.sleep(300)
     }
 
     @Test
-    @Order(29)
+    @Order(32)
     fun secondUserDisconnect() {
         stompSession2.disconnect()
         TimeUnit.MILLISECONDS.sleep(300)
+    }
+
+    @Test
+    @Order(33)
+    fun testMonsterSpawner() {
+        val monsterSpawnerData = monsterService?.getMonsterSpawnerData()!!
+
+        val monsterTypes = (1..10000).map {
+            monsterSpawnerData
+                .classes[MonsterClasses.GREY_RAT]!!
+                .levels[1]!!
+                .getRandomMonsterType()
+        }.toList().groupBy {
+            it
+        }.entries.associate {
+            it.key to it.value.size
+        }
+
+        logger().info("\n\n$monsterTypes")
     }
 
     private fun getJwtToken(userLoginRequest: UserLoginRequest): String? {
@@ -458,7 +525,7 @@ class LoggerWorldTestIT : LogAware {
         return responseEntity.headers[HttpHeaders.AUTHORIZATION]?.get(0)
     }
 
-    //region Stomp client handler
+        //region Stomp client handler
     inner class MyStompSessionHandler : StompSessionHandler, LogAware {
 
         override fun getPayloadType(headers: StompHeaders): Type {
@@ -488,6 +555,7 @@ class LoggerWorldTestIT : LogAware {
                     assert(payload.players.isNotEmpty())
                 }
             }
+            logger().info(headers.toSingleValueMap().toString())
             logger().info("\n\nGot payload over web socket:\n$payload")
         }
 

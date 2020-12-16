@@ -19,6 +19,17 @@ data class LoginEvent(
     }
 }
 
+data class LogoffEvent(
+    var eventType: LogTypes = LogTypes.LOGOFF,
+    var playerId: Long = 0,
+    var created: OffsetDateTime = OffsetDateTime.now()
+) : LogEvent() {
+    override fun reset() {
+        playerId = 0
+        created = OffsetDateTime.now()
+    }
+}
+
 data class DepartureEvent(
     var eventType: LogTypes = LogTypes.DEPARTURE,
     var playerId: Long = 0,
