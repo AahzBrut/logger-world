@@ -5,19 +5,19 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="character_stats-01" author="AahzBrut">
-        <createSequence sequenceName="character_stats_seq"/>
+    <changeSet id="character_attributes-01" author="AahzBrut">
+        <createSequence sequenceName="character_attributes_seq"/>
     </changeSet>
 
-    <changeSet id="character_stats-02" author="AahzBrut">
-        <createTable tableName="character_stats">
-            <column name="character_stats_id" type="BIGINT" defaultValueSequenceNext="character_stats_seq">
-                <constraints primaryKey="true" primaryKeyName="character_stats_pk"/>
+    <changeSet id="character_attributes-02" author="AahzBrut">
+        <createTable tableName="character_attributes">
+            <column name="character_attributes_id" type="BIGINT" defaultValueSequenceNext="character_attributes_seq">
+                <constraints primaryKey="true" primaryKeyName="character_attributes_pk"/>
             </column>
             <column name="character_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="character_stat_id" type="TINYINT">
+            <column name="character_attribute_id" type="TINYINT">
                 <constraints nullable="false"/>
             </column>
             <column name="value" type="FLOAT">

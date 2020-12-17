@@ -14,10 +14,10 @@
             <column name="character_stat_dependency_id" type="SMALLINT" defaultValueSequenceNext="character_stat_dependency_seq">
                 <constraints primaryKey="true" primaryKeyName="character_stat_dependency_pk"/>
             </column>
-            <column name="primary_character_stat_id" type="TINYINT">
+            <column name="character_stat_id" type="TINYINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="dependency_character_stat_id" type="TINYINT">
+            <column name="character_attribute_id" type="TINYINT">
                 <constraints nullable="false"/>
             </column>
             <column name="calc_type_id" type="TINYINT">

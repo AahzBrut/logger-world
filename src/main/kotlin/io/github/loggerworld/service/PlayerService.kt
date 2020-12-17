@@ -16,7 +16,6 @@ import io.github.loggerworld.dto.response.user.UserResponse
 import io.github.loggerworld.messagebus.EventBus
 import io.github.loggerworld.messagebus.LogEventBus
 import io.github.loggerworld.messagebus.event.LogEvent
-import io.github.loggerworld.messagebus.event.LoginEvent
 import io.github.loggerworld.messagebus.event.LogoffEvent
 import io.github.loggerworld.messagebus.event.PlayerKickMonsterNestCommand
 import io.github.loggerworld.messagebus.event.PlayerMoveCommand
@@ -67,9 +66,9 @@ class PlayerService(
         val user = userDomainService.getUserByName(userName)!!
 
         val classStats = playerClassDomainService.getInitialStatsForPlayerClass(request.playerClass.ordinal.toByte())
+        val classAttributes = playerClassDomainService.getInitialAttributesForPlayerClass(request.playerClass.ordinal.toByte())
 
-        val playerId = playerDomainService.addNewPlayer(user.id, request, classStats)
-
+        val playerId = playerDomainService.addNewPlayer(user.id, request, classStats, classAttributes)
 
         return playerDomainService.getPlayer(playerId)
     }

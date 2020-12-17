@@ -41,4 +41,7 @@ data class Player(
 
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "player")
     var playerStats: MutableList<PlayerStats> = mutableListOf()
+
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "player")
+    var playerAttributes: MutableList<PlayerAttributes> = mutableListOf()
 }

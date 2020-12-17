@@ -1,9 +1,12 @@
 package io.github.loggerworld.service.domain
 
 import io.github.loggerworld.domain.character.Player
+import io.github.loggerworld.domain.character.PlayerAttribute
+import io.github.loggerworld.domain.character.PlayerAttributes
 import io.github.loggerworld.domain.character.PlayerStat
 import io.github.loggerworld.domain.character.PlayerStats
 import io.github.loggerworld.domain.enums.Languages
+import io.github.loggerworld.domain.enums.PlayerAttributeEnum
 import io.github.loggerworld.domain.enums.PlayerStatEnum
 import io.github.loggerworld.dto.request.PlayerAddRequest
 import io.github.loggerworld.dto.response.character.PlayerClassResponse
@@ -47,7 +50,12 @@ class PlayerDomainService(
     }
 
     @Transactional
-    fun addNewPlayer(userId: Long, request: PlayerAddRequest, classStats: Map<Byte, Double>): Long {
+    fun addNewPlayer(
+        userId: Long,
+        request: PlayerAddRequest,
+        classStats: Map<Byte, Float>,
+        classAttributes: Map<Byte, Float>
+    ): Long {
 
         checkRequestStats(request, classStats)
 
@@ -61,11 +69,21 @@ class PlayerDomainService(
                     PlayerStats(
                         newPlayer,
                         PlayerStat(PlayerStatEnum.getById(it.key)),
-                        if (PlayerStatEnum.getById(it.key) == PlayerStatEnum.UNALLOCATED_POINTS)
-                            getPointsLeft(request.statPoints, classStats)
+                        it.value
+                    )
+                }
+            )
+            newPlayer.playerAttributes.addAll(
+                classAttributes.entries.map {
+                    PlayerAttributes(
+                        newPlayer,
+                        PlayerAttribute(PlayerAttributeEnum.getById(it.key)),
+                        if (PlayerAttributeEnum.getById(it.key) == PlayerAttributeEnum.UNALLOCATED_POINTS)
+                            getPointsLeft(request.attributePoints, classStats)
                         else
-                            (request.statPoints[it.key]
-                                ?: 0.0) + it.value)
+                            (request.attributePoints[it.key]
+                                ?: 0f) + it.value
+                    )
                 }
             )
         }
@@ -73,27 +91,24 @@ class PlayerDomainService(
         return requireNotNull(playerRepository.save(player).id)
     }
 
-    private fun getPointsLeft(points: Map<Byte, Double>, classStats: Map<Byte, Double>): Double {
-        val maxPoints: Double = requireNotNull(classStats[PlayerStatEnum.POINTS_ON_LEVELUP.ordinal.toByte()])
-        return maxPoints - points.entries
-            .sumOf {
-                it.value
-            }
+    private fun getPointsLeft(points: Map<Byte, Float>, classStats: Map<Byte, Float>): Float {
+        val maxPoints: Float = requireNotNull(classStats[PlayerAttributeEnum.POINTS_ON_LEVELUP.ordinal.toByte()])
+        return maxPoints - points.values.sum()
     }
 
-    private fun checkRequestStats(request: PlayerAddRequest, classStats: Map<Byte, Double>) {
-        val maxPoints: Double = requireNotNull(classStats[PlayerStatEnum.POINTS_ON_LEVELUP.ordinal.toByte()])
-        val anyNegativeStats = request.statPoints.entries.filter { PlayerStatEnum.getById(it.key).isEditable }.any { it.value < 0 }
-        val anyWrongStats = request.statPoints.entries.any { !PlayerStatEnum.getById(it.key).isEditable }
-        val sumOfPoints = request.statPoints.entries
-            .sumOf {
-                it.value
-            }
+    private fun checkRequestStats(request: PlayerAddRequest, classStats: Map<Byte, Float>) {
+        val maxPoints: Float = requireNotNull(classStats[PlayerAttributeEnum.POINTS_ON_LEVELUP.ordinal.toByte()])
+        val anyNegativeStats =
+            request.attributePoints.entries.filter { PlayerAttributeEnum.getById(it.key).isEditable }
+                .any { it.value < 0 }
+        val anyWrongStats = request.attributePoints.entries.any { !PlayerAttributeEnum.getById(it.key).isEditable }
+        val sumOfPoints = request.attributePoints.values.sum()
 
         if (sumOfPoints > maxPoints ||
             sumOfPoints < 0 ||
             anyNegativeStats ||
-            anyWrongStats) throw PlayerCreateException("Invalid parameters of character creation!")
+            anyWrongStats
+        ) throw PlayerCreateException("Invalid parameters of character creation!")
 
     }
 

@@ -47,6 +47,13 @@ class PlayerSpawnSystem(
                     logger().debug("\nPlayer with id:${event.playerId} spawned into location with id:${event.locationId}")
 
                     addPlayerToTargetLocation(player, event)
+                } else {
+
+                    val playerComp = playerMap[event.playerId][PlayerComponent.mapper]!!
+                    val locationComp = playerComp.location[LocationComponent.mapper]!!
+                    event.locationId = locationComp.locationId
+                    logger().debug("\nPlayer with id:${event.playerId} connected back into location with id:${event.locationId}")
+
                 }
                 if (locationMap[event.locationId].entity.hasNot(LocationUpdatedComponent.mapper))
                     locationMap[event.locationId].entity.addComponent<LocationUpdatedComponent>(engine)
@@ -73,8 +80,8 @@ class PlayerSpawnSystem(
     private fun spawnPlayer(command: PlayerStartCommand): Entity {
 
         val playerData = playerService.getPlayerById(command.playerId)
-        val hp = playerData.stats[PlayerStatEnum.HP.ordinal.toByte()]!!
-        val def = playerData.stats[PlayerStatEnum.DEF.ordinal.toByte()]!!
+        val hp = playerData.baseStats[PlayerStatEnum.HP.ordinal.toByte()]!!
+        val def = playerData.baseStats[PlayerStatEnum.DEF.ordinal.toByte()]!!
 
         return engine.entity {
             with<PlayerComponent> {
@@ -83,15 +90,15 @@ class PlayerSpawnSystem(
                 playerName = command.name
                 classId = command.classId
                 level = command.level
-                stats = playerData.stats.map {
+                stats = playerData.baseStats.map {
                     PlayerStatEnum.getById(it.key) to it.value
                 }.toMap()
                 location = locationMap[command.locationId].entity
             }
             with<StateComponent> { state = States.ARRIVING }
             with<HealthComponent> {
-                health = hp.toFloat()
-                defence = def.toFloat()
+                health = hp
+                defence = def
             }
         }
     }

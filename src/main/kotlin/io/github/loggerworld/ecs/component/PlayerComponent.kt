@@ -7,7 +7,9 @@ import io.github.loggerworld.domain.enums.PlayerClasses
 import io.github.loggerworld.domain.enums.PlayerStatEnum
 import io.github.loggerworld.util.emptyEntity
 import ktx.ashley.mapperFor
+import ktx.collections.GdxMap
 import ktx.collections.GdxSet
+import ktx.collections.gdxMapOf
 import ktx.collections.gdxSetOf
 
 class PlayerComponent : Component, Pool.Poolable{
@@ -19,7 +21,7 @@ class PlayerComponent : Component, Pool.Poolable{
     var level: Byte = -1
     val enemies: GdxSet<Entity> = gdxSetOf()
     var target: Entity? = null
-    var stats: Map<PlayerStatEnum, Double> = mutableMapOf()
+    var stats: Map<PlayerStatEnum, Float> = mapOf()
     var location: Entity = emptyEntity
 
     override fun reset() {
@@ -30,7 +32,7 @@ class PlayerComponent : Component, Pool.Poolable{
         level = -1
         target = null
         enemies.clear()
-        stats = mutableMapOf()
+        stats = mapOf()
         location = emptyEntity
     }
 

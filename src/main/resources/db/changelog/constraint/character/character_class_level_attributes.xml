@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="character_class_initial_attributes-constraint-001" author="Aahz Brut">
+        <addForeignKeyConstraint baseColumnNames="character_class_id" baseTableName="class_level_attributes"
+                                 constraintName="fk-class_level_attributes-character_class"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="character_class_id" referencedTableName="character_class"/>
+
+        <addForeignKeyConstraint baseColumnNames="character_attribute_id" baseTableName="class_level_attributes"
+                                 constraintName="fk-class_level_attributes-character_attribute"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="character_attribute_id" referencedTableName="character_attribute"/>
+
+        <addForeignKeyConstraint baseColumnNames="change_type_id" baseTableName="class_level_attributes"
+                                 constraintName="fk-class_level_attributes-change_type"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="change_type_id" referencedTableName="change_type"/>
+    </changeSet>
+
+</databaseChangeLog>

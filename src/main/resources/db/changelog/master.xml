@@ -8,7 +8,7 @@
     <includeAll path="classpath:/db/changelog/main/"/>
     <include file="classpath:/db/changelog/user-account/all.xml"/>
     <include file="classpath:/db/changelog/geography/all.xml"/>
-    <include file="classpath:/db/changelog/character/all.xml"/>
+    <includeAll path="classpath:/db/changelog/character"/>
     <includeAll path="classpath:/db/changelog/monster/"/>
     <includeAll path="classpath:/db/changelog/logging/"/>
     <includeAll path="classpath:/db/changelog/stat-dependency/"/>
