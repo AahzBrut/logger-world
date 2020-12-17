@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="character_class_level_attributes-01" author="AahzBrut">
+        <createSequence sequenceName="class_level_attributes_seq" startValue="0"/>
+    </changeSet>
+
+    <changeSet id="character_class_level_attributes-02" author="AahzBrut">
+        <createTable tableName="class_level_attributes">
+            <column name="class_level_attributes_id" type="SMALLINT" defaultValueSequenceNext="class_level_attributes_seq">
+                <constraints primaryKey="true" primaryKeyName="class_level_attributes_pk"/>
+            </column>
+            <column name="level" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="character_attribute_id" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="character_class_id" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="change_type_id" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="DOUBLE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

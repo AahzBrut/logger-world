@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="archer_class_level_attributes-data-01" author="AahzBrut">
+        <insert tableName="class_level_attributes">
+            <!-- STR -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='WIZARD'"/>
+            <column name="character_attribute_id" valueComputed="SELECT character_attribute_id FROM REPOSITORY.character_attribute WHERE code='STR'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="1"/>
+            <column name="value" valueNumeric="0"/>
+        </insert>
+        <insert tableName="class_level_attributes">
+            <!-- INT -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='WIZARD'"/>
+            <column name="character_attribute_id" valueComputed="SELECT character_attribute_id FROM REPOSITORY.character_attribute WHERE code='INT'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="1"/>
+            <column name="value" valueNumeric="0"/>
+        </insert>
+        <insert tableName="class_level_attributes">
+            <!-- CON -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='WIZARD'"/>
+            <column name="character_attribute_id" valueComputed="SELECT character_attribute_id FROM REPOSITORY.character_attribute WHERE code='CON'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="1"/>
+            <column name="value" valueNumeric="0"/>
+        </insert>
+        <insert tableName="class_level_attributes">
+            <!-- AGI -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='WIZARD'"/>
+            <column name="character_attribute_id" valueComputed="SELECT character_attribute_id FROM REPOSITORY.character_attribute WHERE code='AGI'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="1"/>
+            <column name="value" valueNumeric="0"/>
+        </insert>
+        <insert tableName="class_level_attributes">
+            <!-- POINTS_ON_LEVELUP -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='WIZARD'"/>
+            <column name="character_attribute_id" valueComputed="SELECT character_attribute_id FROM REPOSITORY.character_attribute WHERE code='POINTS_ON_LEVELUP'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="1"/>
+            <column name="value" valueNumeric="5"/>
+        </insert>
+        <insert tableName="class_level_attributes">
+            <!-- UNALLOCATED_POINTS -->
+            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='WIZARD'"/>
+            <column name="character_attribute_id" valueComputed="SELECT character_attribute_id FROM REPOSITORY.character_attribute WHERE code='UNALLOCATED_POINTS'"/>
+            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
+            <column name="level" valueNumeric="1"/>
+            <column name="value" valueNumeric="5"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

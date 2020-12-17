@@ -63,60 +63,12 @@
             <column name="value" valueNumeric="0"/>
         </insert>
         <insert tableName="class_level_stats">
-            <!-- STR -->
-            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
-            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='STR'"/>
-            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
-            <column name="level" valueNumeric="1"/>
-            <column name="value" valueNumeric="0"/>
-        </insert>
-        <insert tableName="class_level_stats">
-            <!-- INT -->
-            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
-            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='INT'"/>
-            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
-            <column name="level" valueNumeric="1"/>
-            <column name="value" valueNumeric="0"/>
-        </insert>
-        <insert tableName="class_level_stats">
-            <!-- CON -->
-            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
-            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='CON'"/>
-            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
-            <column name="level" valueNumeric="1"/>
-            <column name="value" valueNumeric="0"/>
-        </insert>
-        <insert tableName="class_level_stats">
-            <!-- AGI -->
-            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
-            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='AGI'"/>
-            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
-            <column name="level" valueNumeric="1"/>
-            <column name="value" valueNumeric="0"/>
-        </insert>
-        <insert tableName="class_level_stats">
             <!-- LEVEL -->
             <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
             <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='LEVEL'"/>
             <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
             <column name="level" valueNumeric="1"/>
             <column name="value" valueNumeric="1"/>
-        </insert>
-        <insert tableName="class_level_stats">
-            <!-- POINTS_ON_LEVELUP -->
-            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
-            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='POINTS_ON_LEVELUP'"/>
-            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
-            <column name="level" valueNumeric="1"/>
-            <column name="value" valueNumeric="5"/>
-        </insert>
-        <insert tableName="class_level_stats">
-            <!-- UNALLOCATED_POINTS -->
-            <column name="character_class_id" valueComputed="SELECT character_class_id FROM REPOSITORY.character_class WHERE code='ASSASSIN'"/>
-            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='UNALLOCATED_POINTS'"/>
-            <column name="change_type_id" valueComputed="SELECT change_type_id FROM REPOSITORY.change_type WHERE code='SET'"/>
-            <column name="level" valueNumeric="1"/>
-            <column name="value" valueNumeric="0"/>
         </insert>
     </changeSet>
     <changeSet id="assassin_class_level_stats-data-02" author="AahzBrut">

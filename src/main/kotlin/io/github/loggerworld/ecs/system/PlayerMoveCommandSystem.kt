@@ -3,6 +3,8 @@ package io.github.loggerworld.ecs.system
 import com.badlogic.ashley.core.EntitySystem
 import io.github.loggerworld.ecs.EngineSystems.PLAYER_MOVE_COMMAND_SYSTEM
 import io.github.loggerworld.ecs.component.LocationComponent
+import io.github.loggerworld.ecs.component.LocationMapComponent
+import io.github.loggerworld.ecs.component.LocationUpdatedComponent
 import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.PlayerMapComponent
 import io.github.loggerworld.ecs.component.PlayerMoveComponent
@@ -17,6 +19,7 @@ import io.github.loggerworld.util.logger
 import ktx.ashley.addComponent
 import ktx.ashley.allOf
 import ktx.ashley.get
+import ktx.ashley.hasNot
 import org.springframework.stereotype.Service
 
 @Service
@@ -33,8 +36,8 @@ class PlayerMoveCommandSystem(
                 logger().debug("\n\nPlayer with id: ${moveCommand.playerId} received command to move to location with id:${moveCommand.locationId}")
 
                 val player = playerMap[moveCommand.playerId]
-                val playerComponent = player[PlayerComponent.mapper]!!
-                val locationId = playerComponent.location[LocationComponent.mapper]!!.locationId
+                val playerComp = player[PlayerComponent.mapper]!!
+                val locationId = playerComp.location[LocationComponent.mapper]!!.locationId
 
                 if (!locationService
                         .getWorldMap()

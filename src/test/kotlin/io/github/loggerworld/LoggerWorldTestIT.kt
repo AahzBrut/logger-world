@@ -81,7 +81,6 @@ class LoggerWorldTestIT : LogAware {
     @Autowired
     private var monsterService: MonsterService? = null
 
-
     @LocalServerPort
     private var port = -1
     private final val restTemplate = RestTemplate()
@@ -369,13 +368,52 @@ class LoggerWorldTestIT : LogAware {
 
     @Test
     @Order(21)
+    fun firstUserDisconnect2() {
+        logger().info("\n\n First user disconnecting")
+        stompSession1.disconnect()
+        TimeUnit.MILLISECONDS.sleep(1000)
+        logger().info("\n\n First user disconnected")
+    }
+
+    @Test
+    @Order(22)
+    fun connectToWsFirstUser2() {
+        val objectMapper = ObjectMapper()
+        objectMapper.registerModule(JavaTimeModule())
+        val jacksonMapper = MappingJackson2MessageConverter()
+        jacksonMapper.objectMapper = objectMapper
+        stompClient1.messageConverter = jacksonMapper
+
+        val sessionHandler: StompSessionHandler = MyStompSessionHandler()
+
+        val token = getJwtToken(firstUserLoginRequest)!!
+
+        val webSocketHttpHeaders = WebSocketHttpHeaders()
+        webSocketHttpHeaders.putAll(mutableMapOf(HttpHeaders.AUTHORIZATION to mutableListOf(token)))
+        val stompHeader = StompHeaders()
+        stompHeader.putAll(mutableMapOf(HttpHeaders.AUTHORIZATION to mutableListOf(token)))
+
+        stompClient1.connect("ws://localhost:$port$WS_CONNECTION_POINT", webSocketHttpHeaders, stompHeader, sessionHandler)
+        TimeUnit.MILLISECONDS.sleep(500)
+        assert(stompSession1.isConnected)
+    }
+
+    @Test
+    @Order(23)
+    fun firstUserStartGame2() {
+        stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_START, PlayerStartGameRequest(playerId = 1))
+        TimeUnit.MILLISECONDS.sleep(300)
+    }
+
+    @Test
+    @Order(24)
     fun secondUserMove() {
         stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_MOVE, PlayerMoveRequest(7))
         TimeUnit.MILLISECONDS.sleep(7000)
     }
 
     @Test
-    @Order(22)
+    @Order(25)
     fun firstUserGetLocationTypesDictionary() {
         val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
             it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
@@ -389,7 +427,7 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(23)
+    @Order(26)
     fun secondUserGetLocationTypesDictionary() {
         val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
             it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
@@ -403,7 +441,7 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(24)
+    @Order(27)
     fun firstUserGetLocationsDictionary() {
         val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
             it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
@@ -417,7 +455,7 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(25)
+    @Order(28)
     fun secondUserGetLocationsDictionary() {
         val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
             it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
@@ -431,14 +469,14 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(26)
+    @Order(29)
     fun firstUserKickNest() {
         stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_KICK_NEST, PlayerKickMonsterNestRequest(1))
         TimeUnit.MILLISECONDS.sleep(10000)
     }
 
     @Test
-    @Order(27)
+    @Order(30)
     fun secondUserKickNest() {
         stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_KICK_NEST, PlayerKickMonsterNestRequest(3))
         stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_KICK_NEST, PlayerKickMonsterNestRequest(3))
@@ -446,7 +484,7 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(28)
+    @Order(31)
     fun firstUserGetLogs() {
         val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
             it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
@@ -460,7 +498,7 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(29)
+    @Order(32)
     fun secondUserGetLogs() {
         val restTemplate2 = RestTemplateBuilder(RestTemplateCustomizer {
             it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
@@ -474,7 +512,7 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(30)
+    @Order(33)
     fun getPerformanceCounters() {
         val restTemplate2 = RestTemplateBuilder(RestTemplateCustomizer {
             it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
@@ -488,21 +526,21 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(31)
+    @Order(34)
     fun firstUserDisconnect() {
         stompSession1.disconnect()
         TimeUnit.MILLISECONDS.sleep(300)
     }
 
     @Test
-    @Order(32)
+    @Order(35)
     fun secondUserDisconnect() {
         stompSession2.disconnect()
         TimeUnit.MILLISECONDS.sleep(300)
     }
 
     @Test
-    @Order(33)
+    @Order(36)
     fun testMonsterSpawner() {
         val monsterSpawnerData = monsterService?.getMonsterSpawnerData()!!
 

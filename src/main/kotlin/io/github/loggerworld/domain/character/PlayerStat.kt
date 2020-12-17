@@ -18,7 +18,6 @@ data class PlayerStat(
     @Column(name = "code")
     var code: PlayerStatEnum = PlayerStatEnum.NOTHING
 
-
 ) : BaseEntity<Byte>(){
 
     init {
@@ -33,4 +32,7 @@ data class PlayerStat(
 
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "playerStat")
     var levelStats: MutableList<PlayerClassLevelStats> = mutableListOf()
+
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "playerStat")
+    var formulas: MutableList<PlayerStatDependency> = mutableListOf()
 }

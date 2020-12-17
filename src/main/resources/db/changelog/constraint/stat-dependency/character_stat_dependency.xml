@@ -7,15 +7,15 @@
 
     <changeSet id="user_account-constraint-001" author="Aahz Brut">
 
-        <addForeignKeyConstraint baseColumnNames="primary_character_stat_id" baseTableName="character_stat_dependency"
-                                 constraintName="fk-character_stat_dependency-primary_character_stat"
+        <addForeignKeyConstraint baseColumnNames="character_stat_id" baseTableName="character_stat_dependency"
+                                 constraintName="fk-character_stat_dependency-character_stat"
                                  deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="character_stat_id" referencedTableName="character_stat"/>
 
-        <addForeignKeyConstraint baseColumnNames="dependency_character_stat_id" baseTableName="character_stat_dependency"
-                                 constraintName="fk-character_stat_dependency-dependency_character_stat"
+        <addForeignKeyConstraint baseColumnNames="character_attribute_id" baseTableName="character_stat_dependency"
+                                 constraintName="fk-character_stat_dependency-character_attribute"
                                  deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
-                                 referencedColumnNames="character_stat_id" referencedTableName="character_stat"/>
+                                 referencedColumnNames="character_attribute_id" referencedTableName="character_attribute"/>
 
         <addForeignKeyConstraint baseColumnNames="calc_type_id" baseTableName="character_stat_dependency"
                                  constraintName="fk-character_stat_dependency-calc_type"
