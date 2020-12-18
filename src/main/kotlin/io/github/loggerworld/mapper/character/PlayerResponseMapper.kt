@@ -19,6 +19,9 @@ class PlayerResponseMapper : Mapper<PlayerResponse, Player> {
             source.location.id!!,
             source.playerStats.associate {
                 it.playerStat.id!! to it.value
+            },
+            baseAttributes = source.playerAttributes.associate {
+                it.playerStat.id!! to it.value
             }
         )
     }

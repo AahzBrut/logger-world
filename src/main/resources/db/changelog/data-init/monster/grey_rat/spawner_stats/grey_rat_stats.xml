@@ -33,6 +33,52 @@
             <column name="value" valueNumeric="2"/>
         </insert>
 
+        <!-- VETERAN -->
+        <!-- HP -->
+        <insert tableName="spawner_stats">
+            <column name="spawner_type_id" valueComputed="SELECT spawner_type_id FROM REPOSITORY.V_MONSTER_SPAWNERS WHERE
+                                                            level=1 AND monster_class='GREY_RAT' AND MONSTER_TYPE='VETERAN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="value" valueNumeric="25"/>
+        </insert>
+        <!-- ATK -->
+        <insert tableName="spawner_stats">
+            <column name="spawner_type_id" valueComputed="SELECT spawner_type_id FROM REPOSITORY.V_MONSTER_SPAWNERS WHERE
+                                                            level=1 AND monster_class='GREY_RAT' AND MONSTER_TYPE='VETERAN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="value" valueNumeric="3"/>
+        </insert>
+        <!-- DEF -->
+        <insert tableName="spawner_stats">
+            <column name="spawner_type_id" valueComputed="SELECT spawner_type_id FROM REPOSITORY.V_MONSTER_SPAWNERS WHERE
+                                                            level=1 AND monster_class='GREY_RAT' AND MONSTER_TYPE='VETERAN'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='DEF'"/>
+            <column name="value" valueNumeric="3"/>
+        </insert>
+
+        <!-- ELITE -->
+        <!-- HP -->
+        <insert tableName="spawner_stats">
+            <column name="spawner_type_id" valueComputed="SELECT spawner_type_id FROM REPOSITORY.V_MONSTER_SPAWNERS WHERE
+                                                            level=1 AND monster_class='GREY_RAT' AND MONSTER_TYPE='ELITE'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='HP'"/>
+            <column name="value" valueNumeric="30"/>
+        </insert>
+        <!-- ATK -->
+        <insert tableName="spawner_stats">
+            <column name="spawner_type_id" valueComputed="SELECT spawner_type_id FROM REPOSITORY.V_MONSTER_SPAWNERS WHERE
+                                                            level=1 AND monster_class='GREY_RAT' AND MONSTER_TYPE='ELITE'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='ATK'"/>
+            <column name="value" valueNumeric="5"/>
+        </insert>
+        <!-- DEF -->
+        <insert tableName="spawner_stats">
+            <column name="spawner_type_id" valueComputed="SELECT spawner_type_id FROM REPOSITORY.V_MONSTER_SPAWNERS WHERE
+                                                            level=1 AND monster_class='GREY_RAT' AND MONSTER_TYPE='ELITE'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='DEF'"/>
+            <column name="value" valueNumeric="5"/>
+        </insert>
+
     </changeSet>
 
 </databaseChangeLog>

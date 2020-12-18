@@ -30,6 +30,24 @@
             <column name="calc_type_id" valueComputed="SELECT calc_type_id FROM REPOSITORY.calc_type WHERE code='ADD_MUL_COEFF'"/>
             <column name="coeff" valueNumeric="5"/>
         </insert>
+        <insert tableName="character_stat_dependency">
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='SPD'"/>
+            <column name="character_attribute_id" valueComputed="SELECT character_attribute_id FROM REPOSITORY.character_attribute WHERE code='AGI'"/>
+            <column name="calc_type_id" valueComputed="SELECT calc_type_id FROM REPOSITORY.calc_type WHERE code='ADD_MUL_COEFF'"/>
+            <column name="coeff" valueNumeric="1"/>
+        </insert>
+        <insert tableName="character_stat_dependency">
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='EVS'"/>
+            <column name="character_attribute_id" valueComputed="SELECT character_attribute_id FROM REPOSITORY.character_attribute WHERE code='AGI'"/>
+            <column name="calc_type_id" valueComputed="SELECT calc_type_id FROM REPOSITORY.calc_type WHERE code='ADD_MUL_COEFF'"/>
+            <column name="coeff" valueNumeric="1"/>
+        </insert>
+        <insert tableName="character_stat_dependency">
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat WHERE code='CRT'"/>
+            <column name="character_attribute_id" valueComputed="SELECT character_attribute_id FROM REPOSITORY.character_attribute WHERE code='AGI'"/>
+            <column name="calc_type_id" valueComputed="SELECT calc_type_id FROM REPOSITORY.calc_type WHERE code='ADD_MUL_COEFF'"/>
+            <column name="coeff" valueNumeric="1"/>
+        </insert>
     </changeSet>
 
 </databaseChangeLog>

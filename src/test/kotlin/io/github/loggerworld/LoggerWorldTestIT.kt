@@ -11,6 +11,7 @@ import io.github.loggerworld.controller.PLAYERS_URL
 import io.github.loggerworld.controller.SIGN_UP_URL
 import io.github.loggerworld.domain.enums.Languages
 import io.github.loggerworld.domain.enums.MonsterClasses
+import io.github.loggerworld.domain.enums.PlayerAttributeEnum
 import io.github.loggerworld.domain.enums.PlayerClasses
 import io.github.loggerworld.dto.request.ChatMessageRequest
 import io.github.loggerworld.dto.request.PlayerAddRequest
@@ -256,7 +257,7 @@ class LoggerWorldTestIT : LogAware {
             })
         }).build()
 
-        val newPlayer = restTemplate1.postForEntity<PlayerResponse>(baseUrl + PLAYERS_URL, PlayerAddRequest("Superman", PlayerClasses.WARRIOR))
+        val newPlayer = restTemplate1.postForEntity<PlayerResponse>(baseUrl + PLAYERS_URL, PlayerAddRequest("Superman", PlayerClasses.WARRIOR, mapOf(PlayerAttributeEnum.STR.ordinal.toByte() to 2f, PlayerAttributeEnum.AGI.ordinal.toByte() to 1f, PlayerAttributeEnum.CON.ordinal.toByte() to 2f)))
         logger().info(newPlayer.toString())
     }
 
@@ -270,7 +271,7 @@ class LoggerWorldTestIT : LogAware {
             })
         }).build()
 
-        val newPlayer = restTemplate1.postForEntity<PlayerResponse>(baseUrl + PLAYERS_URL, PlayerAddRequest("Spiderman", PlayerClasses.ASSASSIN))
+        val newPlayer = restTemplate1.postForEntity<PlayerResponse>(baseUrl + PLAYERS_URL, PlayerAddRequest("Spiderman", PlayerClasses.ASSASSIN, mapOf(PlayerAttributeEnum.STR.ordinal.toByte() to 1f, PlayerAttributeEnum.AGI.ordinal.toByte() to 3f, PlayerAttributeEnum.CON.ordinal.toByte() to 1f)))
         logger().info(newPlayer.toString())
     }
 
