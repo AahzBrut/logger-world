@@ -72,9 +72,9 @@ class PlayerKickMonsterNestSystem(
         playerComp.target = monster
         if (player.hasNot(CombatComponent.mapper)) {
             player.addComponent<CombatComponent>(engine) {
-                this.baseAttackCooldown = 1.0f
+                this.baseAttackCooldown = 1f / (1f + .01f * playerComp.stats[PlayerStatEnum.SPD]!!)
                 this.attackCooldown = baseAttackCooldown
-                this.damage = playerComp.stats[PlayerStatEnum.ATK]!!.toFloat()
+                this.damage = playerComp.stats[PlayerStatEnum.ATK]!!
                 logPlayerAttackMob(player, monster)
             }
         }

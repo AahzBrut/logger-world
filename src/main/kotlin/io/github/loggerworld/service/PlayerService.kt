@@ -20,6 +20,7 @@ import io.github.loggerworld.messagebus.event.LogoffEvent
 import io.github.loggerworld.messagebus.event.PlayerKickMonsterNestCommand
 import io.github.loggerworld.messagebus.event.PlayerMoveCommand
 import io.github.loggerworld.messagebus.event.PlayerStartCommand
+import io.github.loggerworld.service.domain.PlayerAttributeDomainService
 import io.github.loggerworld.service.domain.PlayerClassDomainService
 import io.github.loggerworld.service.domain.PlayerDomainService
 import io.github.loggerworld.service.domain.UserDomainService
@@ -43,7 +44,8 @@ class PlayerService(
     private val startEventBus: EventBus<PlayerStartCommand>,
     private val moveEventBus: EventBus<PlayerMoveCommand>,
     private val kickNestEventBus: EventBus<PlayerKickMonsterNestCommand>,
-    private var logEventBus: LogEventBus<LogEvent>,
+    private val logEventBus: LogEventBus<LogEvent>,
+    private val playerAttributeDomainService: PlayerAttributeDomainService,
 ) : LogAware {
 
     private val activePlayers: MutableMap<Long, Long> = ConcurrentHashMap()
@@ -70,7 +72,7 @@ class PlayerService(
 
         val playerId = playerDomainService.addNewPlayer(user.id, request, classStats, classAttributes)
 
-        return playerDomainService.getPlayer(playerId)
+        return getPlayerById(playerId)
     }
 
     fun getAllPlayerClassDescriptions(): PlayerClassDescriptionsMap {
@@ -105,7 +107,11 @@ class PlayerService(
 
     fun getPlayerById(playerId: Long): PlayerResponse {
 
-        return playerDomainService.getPlayer(playerId)
+        val player = playerDomainService.getPlayer(playerId)
+        player.effectiveAttributes = player.baseAttributes
+        player.effectiveStats = playerAttributeDomainService.getEffectiveStats(player.baseStats, player.effectiveAttributes)
+
+        return player
     }
 
     fun getUserByPlayerId(playerId: Long): UserResponse {

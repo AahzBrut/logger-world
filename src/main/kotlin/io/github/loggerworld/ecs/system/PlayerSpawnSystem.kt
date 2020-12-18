@@ -80,8 +80,8 @@ class PlayerSpawnSystem(
     private fun spawnPlayer(command: PlayerStartCommand): Entity {
 
         val playerData = playerService.getPlayerById(command.playerId)
-        val hp = playerData.baseStats[PlayerStatEnum.HP.ordinal.toByte()]!!
-        val def = playerData.baseStats[PlayerStatEnum.DEF.ordinal.toByte()]!!
+        val hp = playerData.effectiveStats[PlayerStatEnum.HP.ordinal.toByte()]!!
+        val def = playerData.effectiveStats[PlayerStatEnum.DEF.ordinal.toByte()]!!
 
         return engine.entity {
             with<PlayerComponent> {
@@ -90,7 +90,7 @@ class PlayerSpawnSystem(
                 playerName = command.name
                 classId = command.classId
                 level = command.level
-                stats = playerData.baseStats.map {
+                stats = playerData.effectiveStats.map {
                     PlayerStatEnum.getById(it.key) to it.value
                 }.toMap()
                 location = locationMap[command.locationId].entity

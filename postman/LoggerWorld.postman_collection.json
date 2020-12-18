@@ -77,7 +77,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Superman\",\r\n    \"playerClass\": \"WARRIOR\",\r\n    \"statPoints\": {\r\n        \"8\": 1,\r\n        \"9\": 1,\r\n        \"10\": 1,\r\n        \"11\": 1\r\n    }\r\n}",
+							"raw": "{\r\n    \"name\": \"Superman\",\r\n    \"playerClass\": \"WARRIOR\",\r\n    \"attributePoints\": {\r\n        \"3\": 2,\r\n        \"4\": 1,\r\n        \"5\": 1,\r\n        \"6\": 1\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -99,8 +99,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Map",
@@ -145,8 +144,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Admin",
@@ -172,8 +170,7 @@
 					},
 					"response": []
 				}
-			],
-			"protocolProfileBehavior": {}
+			]
 		},
 		{
 			"name": "Register new user",
@@ -270,7 +267,6 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "0031e6e4-03e9-46f9-87df-ae8e714acdc4",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -280,13 +276,11 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "ef9707ba-a5bf-4019-b97a-a9fc0be4919f",
 				"type": "text/javascript",
 				"exec": [
 					""
 				]
 			}
 		}
-	],
-	"protocolProfileBehavior": {}
+	]
 }

@@ -79,7 +79,7 @@ class PlayerDomainService(
                         newPlayer,
                         PlayerAttribute(PlayerAttributeEnum.getById(it.key)),
                         if (PlayerAttributeEnum.getById(it.key) == PlayerAttributeEnum.UNALLOCATED_POINTS)
-                            getPointsLeft(request.attributePoints, classStats)
+                            getPointsLeft(request.attributePoints, classAttributes)
                         else
                             (request.attributePoints[it.key]
                                 ?: 0f) + it.value
@@ -91,8 +91,8 @@ class PlayerDomainService(
         return requireNotNull(playerRepository.save(player).id)
     }
 
-    private fun getPointsLeft(points: Map<Byte, Float>, classStats: Map<Byte, Float>): Float {
-        val maxPoints: Float = requireNotNull(classStats[PlayerAttributeEnum.POINTS_ON_LEVELUP.ordinal.toByte()])
+    private fun getPointsLeft(points: Map<Byte, Float>, classAttributes: Map<Byte, Float>): Float {
+        val maxPoints: Float = requireNotNull(classAttributes[PlayerAttributeEnum.POINTS_ON_LEVELUP.ordinal.toByte()])
         return maxPoints - points.values.sum()
     }
 

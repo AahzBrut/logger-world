@@ -15,7 +15,7 @@ class MonsterRespawnSystem
     LogAware {
 
     override fun processEntity(entity: Entity, deltaTime: Float) {
-
+        @Suppress("unused_variable")
         val monsterSpawnerComponent = entity[MonsterSpawnerComponent.mapper]!!
 
     }

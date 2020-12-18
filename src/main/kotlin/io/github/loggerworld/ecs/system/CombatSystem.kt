@@ -103,6 +103,8 @@ class CombatSystem(
             } else {
                 playerComp.target = playerComp.enemies.first()
                 logger().debug("Player ${playerComp.playerId} in location ${locationComp.locationId} lost his target and chose another.")
+                combatComp.attackCooldown = combatComp.baseAttackCooldown
+                return
             }
         }
 
