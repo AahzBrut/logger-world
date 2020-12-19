@@ -3,23 +3,25 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
 
     <includeAll path="classpath:/db/changelog/main/"/>
-    <include file="classpath:/db/changelog/user-account/all.xml"/>
-    <include file="classpath:/db/changelog/geography/all.xml"/>
+    <includeAll path="classpath:/db/changelog/user-account/"/>
+    <includeAll path="classpath:/db/changelog/geography/"/>
     <includeAll path="classpath:/db/changelog/character"/>
     <includeAll path="classpath:/db/changelog/monster/"/>
     <includeAll path="classpath:/db/changelog/logging/"/>
+    <includeAll path="classpath:/db/changelog/item/"/>
     <includeAll path="classpath:/db/changelog/stat-dependency/"/>
+    <include file="classpath:/db/changelog/utility/all.xml"/>
     <include file="classpath:/db/changelog/data-init/main/all.xml"/>
     <include file="classpath:/db/changelog/data-init/user-account/all.xml"/>
     <include file="classpath:/db/changelog/data-init/geography/all.xml"/>
     <include file="classpath:/db/changelog/data-init/character/all.xml"/>
     <include file="classpath:/db/changelog/data-init/monster/all.xml"/>
     <include file="classpath:/db/changelog/data-init/logging/all.xml"/>
+    <include file="classpath:/db/changelog/data-init/item/all.xml"/>
     <includeAll path="classpath:/db/changelog/data-init/stat-dependency"/>
     <include file="classpath:/db/changelog/constraint/all.xml"/>
-    <include file="classpath:/db/changelog/utility/all.xml"/>
 
 </databaseChangeLog>

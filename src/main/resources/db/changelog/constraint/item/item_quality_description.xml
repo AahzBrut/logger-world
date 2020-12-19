@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="item_quality_description-constraint-001" author="Aahz Brut">
+
+        <addForeignKeyConstraint baseColumnNames="item_quality_id" baseTableName="item_quality_description"
+                                 constraintName="fk-item_quality_description-item_quality"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="item_quality_id" referencedTableName="item_quality"/>
+
+        <addForeignKeyConstraint baseColumnNames="language_id" baseTableName="item_quality_description"
+                                 constraintName="fk-item_quality_description-language"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="language_id" referencedTableName="language"/>
+
+    </changeSet>
+
+</databaseChangeLog>

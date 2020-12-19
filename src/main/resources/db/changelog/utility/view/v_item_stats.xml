@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="item_stats_view-01" author="AahzBrut">
+        <createView viewName="V_ITEM_STATS">
+            SELECT
+            ICQS.ITEM_CATEGORY_QUALITY_STAT_ID,
+            ICQS.ITEM_CATEGORY_QUALITY_ID,
+            IC.ITEM_CATEGORY_ID,
+            IC.CODE as CATEGORY_CODE,
+            IQ.ITEM_QUALITY_ID,
+            IQ.CODE as QUALITY_CODE,
+            ITS.ITEM_STAT_ID,
+            ITS.CODE as STAT_CODE,
+            ICQS.MIN_VALUE,
+            ICQS.MAX_VALUE
+            FROM REPOSITORY.ITEM_CATEGORY_QUALITY_STAT ICQS
+            INNER JOIN REPOSITORY.ITEM_STAT ITS ON ITS.ITEM_STAT_ID = ICQS.ITEM_STAT_ID
+            INNER JOIN REPOSITORY.ITEM_CATEGORY_QUALITY ICQ ON ICQ.ITEM_CATEGORY_QUALITY_ID = ICQS.ITEM_CATEGORY_QUALITY_ID
+            INNER JOIN REPOSITORY.ITEM_CATEGORY IC ON IC.ITEM_CATEGORY_ID = ICQ.ITEM_CATEGORY_ID
+            INNER JOIN REPOSITORY.ITEM_QUALITY IQ ON IQ.ITEM_QUALITY_ID = ICQ.ITEM_QUALITY_ID         </createView>
+    </changeSet>
+
+</databaseChangeLog>

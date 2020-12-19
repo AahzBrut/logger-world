@@ -8,7 +8,6 @@ import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 
 @Service
-@EnableScheduling
 class EngineRunner(
     private val engine: Engine,
     private val performanceCounter: PerformanceCounter

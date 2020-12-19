@@ -3,9 +3,9 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
 
-    <changeSet author="class_level_stats_view-01" id="AahzBrut">
+    <changeSet id="class_level_stats_view-01" author="AahzBrut">
         <createView viewName="V_CLASS_LEVEL_STATS">
             SELECT
             CC.CODE AS CHARACTER_CLASS_CODE,

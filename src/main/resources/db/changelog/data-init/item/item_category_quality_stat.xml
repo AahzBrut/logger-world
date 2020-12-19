@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="item_category_quality_stat-data-01" author="AahzBrut">
+        <insert tableName="item_category_quality_stat">
+            <column name="item_category_quality_id" valueComputed="SELECT item_category_quality_id FROM REPOSITORY.V_ITEM_CATEGORY_QUALITY
+             WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='CRUDE'"/>
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+             WHERE CODE='DURABILITY'"/>
+            <column name="min_value" valueNumeric="10"/>
+            <column name="max_value" valueNumeric="20"/>
+        </insert>
+        <insert tableName="item_category_quality_stat">
+            <column name="item_category_quality_id" valueComputed="SELECT item_category_quality_id FROM REPOSITORY.V_ITEM_CATEGORY_QUALITY
+             WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='CRUDE'"/>
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+             WHERE CODE='WEIGHT'"/>
+            <column name="min_value" valueNumeric="1"/>
+            <column name="max_value" valueNumeric="2"/>
+        </insert>
+        <insert tableName="item_category_quality_stat">
+            <column name="item_category_quality_id" valueComputed="SELECT item_category_quality_id FROM REPOSITORY.V_ITEM_CATEGORY_QUALITY
+             WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='CRUDE'"/>
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+             WHERE CODE='USES_PER_DURABILITY'"/>
+            <column name="min_value" valueNumeric="100"/>
+            <column name="max_value" valueNumeric="200"/>
+        </insert>
+        <insert tableName="item_category_quality_stat">
+            <column name="item_category_quality_id" valueComputed="SELECT item_category_quality_id FROM REPOSITORY.V_ITEM_CATEGORY_QUALITY
+             WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='CRUDE'"/>
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+             WHERE CODE='MIN_DAMAGE'"/>
+            <column name="min_value" valueNumeric="1"/>
+            <column name="max_value" valueNumeric="1"/>
+        </insert>
+        <insert tableName="item_category_quality_stat">
+            <column name="item_category_quality_id" valueComputed="SELECT item_category_quality_id FROM REPOSITORY.V_ITEM_CATEGORY_QUALITY
+             WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='CRUDE'"/>
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+             WHERE CODE='MAX_DAMAGE'"/>
+            <column name="min_value" valueNumeric="2"/>
+            <column name="max_value" valueNumeric="3"/>
+        </insert>
+        <insert tableName="item_category_quality_stat">
+            <column name="item_category_quality_id" valueComputed="SELECT item_category_quality_id FROM REPOSITORY.V_ITEM_CATEGORY_QUALITY
+             WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='CRUDE'"/>
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+             WHERE CODE='STACK_SIZE'"/>
+            <column name="min_value" valueNumeric="1"/>
+            <column name="max_value" valueNumeric="1"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
