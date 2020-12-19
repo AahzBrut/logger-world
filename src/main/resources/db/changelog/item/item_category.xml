@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="item_category-01" author="AahzBrut">
+        <createSequence sequenceName="item_category_seq" startValue="0"/>
+    </changeSet>
+
+    <changeSet id="item_category-02" author="AahzBrut">
+        <createTable tableName="item_category">
+            <column name="item_category_id" type="SMALLINT" defaultValueSequenceNext="item_category_seq">
+                <constraints primaryKey="true" primaryKeyName="item_category_pk"/>
+            </column>
+            <column name="parent_category_id" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

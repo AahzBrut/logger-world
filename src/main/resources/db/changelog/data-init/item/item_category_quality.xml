@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="item_category_quality-data-01" author="AahzBrut">
+        <insert tableName="item_category_quality">
+            <column name="item_category_id" valueComputed="SELECT item_category_id FROM REPOSITORY.item_category WHERE CODE='SHORT_SWORD'"/>
+            <column name="item_quality_id" valueComputed="SELECT item_quality_id FROM REPOSITORY.item_quality WHERE CODE='CRUDE'"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

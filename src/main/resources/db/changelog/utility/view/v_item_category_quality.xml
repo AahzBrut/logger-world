@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="item_category_quality_view-01" author="AahzBrut">
+        <createView viewName="V_ITEM_CATEGORY_QUALITY">
+            SELECT
+            ICQ.ITEM_CATEGORY_QUALITY_ID,
+            ICQ.ITEM_CATEGORY_ID,
+            IC.CODE  AS CATEGORY_CODE,
+            ICQ.ITEM_QUALITY_ID,
+            IQ.CODE AS QUALITY_CODE
+            FROM REPOSITORY.ITEM_CATEGORY_QUALITY ICQ
+            INNER JOIN REPOSITORY.ITEM_CATEGORY IC ON IC.ITEM_CATEGORY_ID = ICQ.ITEM_CATEGORY_ID
+            INNER JOIN REPOSITORY.ITEM_QUALITY IQ ON IQ.ITEM_QUALITY_ID = ICQ.ITEM_QUALITY_ID          </createView>
+    </changeSet>
+
+</databaseChangeLog>

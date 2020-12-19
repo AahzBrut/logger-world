@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="item_quality-data-01" author="AahzBrut">
+        <insert tableName="item_quality">
+            <column name="code" value="NONE"/>
+        </insert>
+        <insert tableName="item_quality">
+            <column name="code" value="CRUDE"/>
+        </insert>
+        <insert tableName="item_quality">
+            <column name="code" value="CHEAP"/>
+        </insert>
+        <insert tableName="item_quality">
+            <column name="code" value="COMMON"/>
+        </insert>
+        <insert tableName="item_quality">
+            <column name="code" value="GOOD"/>
+        </insert>
+        <insert tableName="item_quality">
+            <column name="code" value="RARE"/>
+        </insert>
+        <insert tableName="item_quality">
+            <column name="code" value="LEGENDARY"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

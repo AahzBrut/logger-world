@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="item_quality_description-01" author="AahzBrut">
+        <createSequence sequenceName="item_quality_description_seq"/>
+    </changeSet>
+
+    <changeSet id="item_quality_description-02" author="AahzBrut">
+        <createTable tableName="item_quality_description">
+            <column name="item_quality_description_id" type="SMALLINT" defaultValueSequenceNext="item_quality_description_seq">
+                <constraints primaryKey="true" primaryKeyName="item_quality_description_pk"/>
+            </column>
+            <column name="item_quality_id" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="language_id" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="CLOB">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="item_stat-data-01" author="AahzBrut">
+        <insert tableName="item_stat">
+            <column name="code" value="NONE"/>
+        </insert>
+        <insert tableName="item_stat">
+            <column name="code" value="DURABILITY"/>
+        </insert>
+        <insert tableName="item_stat">
+            <column name="code" value="USES_PER_DURABILITY"/>
+        </insert>
+        <insert tableName="item_stat">
+            <column name="code" value="WEIGHT"/>
+        </insert>
+        <insert tableName="item_stat">
+            <column name="code" value="MIN_DAMAGE"/>
+        </insert>
+        <insert tableName="item_stat">
+            <column name="code" value="MAX_DAMAGE"/>
+        </insert>
+        <insert tableName="item_stat">
+            <column name="code" value="ARMOR"/>
+        </insert>
+        <insert tableName="item_stat">
+            <column name="code" value="STACK_SIZE"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
