@@ -30,6 +30,9 @@
         <insert tableName="item_stat">
             <column name="code" value="STACK_SIZE"/>
         </insert>
+        <insert tableName="item_stat">
+            <column name="code" value="TWO_HANDED"/>
+        </insert>
     </changeSet>
 
 </databaseChangeLog>

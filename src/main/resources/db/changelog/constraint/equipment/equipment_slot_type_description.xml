@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="equipment_slot_type_description-constraint-001" author="Aahz Brut">
+
+        <addForeignKeyConstraint baseColumnNames="equipment_slot_type_id" baseTableName="equipment_slot_type_description"
+                                 constraintName="fk-equipment_slot_type_description-equipment_slot_type"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="equipment_slot_type_id" referencedTableName="equipment_slot_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="language_id" baseTableName="equipment_slot_type_description"
+                                 constraintName="fk-equipment_slot_type_description-language"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="language_id" referencedTableName="language"/>
+
+    </changeSet>
+
+</databaseChangeLog>

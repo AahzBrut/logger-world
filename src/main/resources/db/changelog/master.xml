@@ -13,6 +13,7 @@
     <includeAll path="classpath:/db/changelog/logging/"/>
     <includeAll path="classpath:/db/changelog/item/"/>
     <includeAll path="classpath:/db/changelog/stat-dependency/"/>
+    <includeAll path="classpath:/db/changelog/equipment/"/>
     <include file="classpath:/db/changelog/utility/all.xml"/>
     <include file="classpath:/db/changelog/data-init/main/all.xml"/>
     <include file="classpath:/db/changelog/data-init/user-account/all.xml"/>
@@ -20,6 +21,7 @@
     <include file="classpath:/db/changelog/data-init/character/all.xml"/>
     <include file="classpath:/db/changelog/data-init/monster/all.xml"/>
     <include file="classpath:/db/changelog/data-init/logging/all.xml"/>
+    <include file="classpath:/db/changelog/data-init/equipment/all.xml"/>
     <include file="classpath:/db/changelog/data-init/item/all.xml"/>
     <includeAll path="classpath:/db/changelog/data-init/stat-dependency"/>
     <include file="classpath:/db/changelog/constraint/all.xml"/>

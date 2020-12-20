@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="equipment_slot_type_description-01" author="AahzBrut">
+        <createSequence sequenceName="equipment_slot_type_description_seq"/>
+    </changeSet>
+
+    <changeSet id="equipment_slot_type_description-02" author="AahzBrut">
+        <createTable tableName="equipment_slot_type_description">
+            <column name="equipment_slot_type_description_id" type="SMALLINT" defaultValueSequenceNext="equipment_slot_type_description_seq">
+                <constraints primaryKey="true" primaryKeyName="equipment_slot_type_description_pk"/>
+            </column>
+            <column name="equipment_slot_type_id" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="language_id" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(256)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="CLOB">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
