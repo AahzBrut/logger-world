@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="equipment_slot_type-data-01" author="AahzBrut">
+        <insert tableName="equipment_slot_type">
+            <column name="code" value="NOTHING"/>
+        </insert>
+        <insert tableName="equipment_slot_type">
+            <column name="code" value="HEAD"/>
+        </insert>
+        <insert tableName="equipment_slot_type">
+            <column name="code" value="AMULET"/>
+        </insert>
+        <insert tableName="equipment_slot_type">
+            <column name="code" value="LEFT_EARRING"/>
+        </insert>
+        <insert tableName="equipment_slot_type">
+            <column name="code" value="RIGHT_EARRING"/>
+        </insert>
+        <insert tableName="equipment_slot_type">
+            <column name="code" value="AMULET"/>
+        </insert>
+        <insert tableName="equipment_slot_type">
+            <column name="code" value="BODY"/>
+        </insert>
+        <insert tableName="equipment_slot_type">
+            <column name="code" value="LEFT_ARM"/>
+        </insert>
+        <insert tableName="equipment_slot_type">
+            <column name="code" value="RIGHT_ARM"/>
+        </insert>
+        <insert tableName="equipment_slot_type">
+            <column name="code" value="GLOVES"/>
+        </insert>
+        <insert tableName="equipment_slot_type">
+            <column name="code" value="LEFT_RING"/>
+        </insert>
+        <insert tableName="equipment_slot_type">
+            <column name="code" value="RIGHT_RING"/>
+        </insert>
+        <insert tableName="equipment_slot_type">
+            <column name="code" value="QUIVER"/>
+        </insert>
+        <insert tableName="equipment_slot_type">
+            <column name="code" value="BELT"/>
+        </insert>
+        <insert tableName="equipment_slot_type">
+            <column name="code" value="PANTS"/>
+        </insert>
+        <insert tableName="equipment_slot_type">
+            <column name="code" value="BOOTS"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

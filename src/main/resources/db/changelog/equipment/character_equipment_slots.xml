@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="character_equipment_slots-01" author="AahzBrut">
+        <createSequence sequenceName="character_equipment_slots_seq"/>
+    </changeSet>
+
+    <changeSet id="character_equipment_slots-02" author="AahzBrut">
+        <createTable tableName="character_equipment_slots">
+            <column name="character_equipment_slots_id" type="SMALLINT" defaultValueSequenceNext="character_equipment_slots_seq">
+                <constraints primaryKey="true" primaryKeyName="character_equipment_slots_pk"/>
+            </column>
+            <column name="character_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="equipment_slot_type_id" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="item_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="item-01" author="AahzBrut">
+        <createSequence sequenceName="item_seq"/>
+    </changeSet>
+
+    <changeSet id="item-02" author="AahzBrut">
+        <createTable tableName="item">
+            <column name="item_id" type="BIGINT" defaultValueSequenceNext="item_seq">
+                <constraints primaryKey="true" primaryKeyName="item_pk"/>
+            </column>
+            <column name="item_category_id" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="item_quality_id" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP WITH TIMEZONE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

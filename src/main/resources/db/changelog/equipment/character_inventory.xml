@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="character_inventory-01" author="AahzBrut">
+        <createSequence sequenceName="character_inventory_seq"/>
+    </changeSet>
+
+    <changeSet id="character_inventory-02" author="AahzBrut">
+        <createTable tableName="character_inventory">
+            <column name="character_inventory_id" type="BIGINT" defaultValueSequenceNext="character_inventory_seq">
+                <constraints primaryKey="true" primaryKeyName="character_inventory_pk"/>
+            </column>
+            <column name="character_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="item_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
