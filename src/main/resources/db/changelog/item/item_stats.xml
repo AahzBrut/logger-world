@@ -11,7 +11,7 @@
 
     <changeSet id="item_stats-02" author="AahzBrut">
         <createTable tableName="item_stats">
-            <column name="item_stats_id" type="SMALLINT" defaultValueSequenceNext="item_stats_seq">
+            <column name="item_stats_id" type="BIGINT" defaultValueSequenceNext="item_stats_seq">
                 <constraints primaryKey="true" primaryKeyName="item_stats_pk"/>
             </column>
             <column name="item_id" type="BIGINT">
