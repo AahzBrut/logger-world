@@ -10,12 +10,6 @@
             <column name="code" value="NONE"/>
         </insert>
         <insert tableName="item_quality">
-            <column name="code" value="CRUDE"/>
-        </insert>
-        <insert tableName="item_quality">
-            <column name="code" value="CHEAP"/>
-        </insert>
-        <insert tableName="item_quality">
             <column name="code" value="COMMON"/>
         </insert>
         <insert tableName="item_quality">
@@ -23,6 +17,9 @@
         </insert>
         <insert tableName="item_quality">
             <column name="code" value="RARE"/>
+        </insert>
+        <insert tableName="item_quality">
+            <column name="code" value="EPIC"/>
         </insert>
         <insert tableName="item_quality">
             <column name="code" value="LEGENDARY"/>

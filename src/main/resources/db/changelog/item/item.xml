@@ -17,7 +17,7 @@
             <column name="item_category_id" type="SMALLINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="item_quality_id" type="SMALLINT">
+            <column name="item_quality_id" type="TINYINT">
                 <constraints nullable="false"/>
             </column>
             <column name="quantity" type="BIGINT">

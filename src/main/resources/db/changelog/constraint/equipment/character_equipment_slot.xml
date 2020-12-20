@@ -5,20 +5,20 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
 
-    <changeSet id="character_equipment_slots-constraint-001" author="Aahz Brut">
+    <changeSet id="character_equipment_slot-constraint-001" author="Aahz Brut">
 
-        <addForeignKeyConstraint baseColumnNames="character_id" baseTableName="character_equipment_slots"
-                                 constraintName="fk-character_equipment_slots-character"
+        <addForeignKeyConstraint baseColumnNames="character_id" baseTableName="character_equipment_slot"
+                                 constraintName="fk-character_equipment_slot-character"
                                  deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="character_id" referencedTableName="character"/>
 
-        <addForeignKeyConstraint baseColumnNames="equipment_slot_type_id" baseTableName="character_equipment_slots"
-                                 constraintName="fk-character_equipment_slots-equipment_slot_type"
+        <addForeignKeyConstraint baseColumnNames="equipment_slot_type_id" baseTableName="character_equipment_slot"
+                                 constraintName="fk-character_equipment_slot-equipment_slot_type"
                                  deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="equipment_slot_type_id" referencedTableName="equipment_slot_type"/>
 
-        <addForeignKeyConstraint baseColumnNames="item_id" baseTableName="character_equipment_slots"
-                                 constraintName="fk-character_equipment_slots-item"
+        <addForeignKeyConstraint baseColumnNames="item_id" baseTableName="character_equipment_slot"
+                                 constraintName="fk-character_equipment_slot-item"
                                  deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
                                  referencedColumnNames="item_id" referencedTableName="item"/>
 

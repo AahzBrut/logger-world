@@ -8,7 +8,7 @@
     <changeSet id="item_category_quality_stat-data-01" author="AahzBrut">
         <insert tableName="item_category_quality_stat">
             <column name="item_category_quality_id" valueComputed="SELECT item_category_quality_id FROM REPOSITORY.V_ITEM_CATEGORY_QUALITY
-             WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='CRUDE'"/>
+             WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='COMMON'"/>
             <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
              WHERE CODE='DURABILITY'"/>
             <column name="min_value" valueNumeric="10"/>
@@ -16,7 +16,7 @@
         </insert>
         <insert tableName="item_category_quality_stat">
             <column name="item_category_quality_id" valueComputed="SELECT item_category_quality_id FROM REPOSITORY.V_ITEM_CATEGORY_QUALITY
-             WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='CRUDE'"/>
+             WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='COMMON'"/>
             <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
              WHERE CODE='WEIGHT'"/>
             <column name="min_value" valueNumeric="1"/>
@@ -24,7 +24,7 @@
         </insert>
         <insert tableName="item_category_quality_stat">
             <column name="item_category_quality_id" valueComputed="SELECT item_category_quality_id FROM REPOSITORY.V_ITEM_CATEGORY_QUALITY
-             WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='CRUDE'"/>
+             WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='COMMON'"/>
             <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
              WHERE CODE='USES_PER_DURABILITY'"/>
             <column name="min_value" valueNumeric="100"/>
@@ -32,7 +32,7 @@
         </insert>
         <insert tableName="item_category_quality_stat">
             <column name="item_category_quality_id" valueComputed="SELECT item_category_quality_id FROM REPOSITORY.V_ITEM_CATEGORY_QUALITY
-             WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='CRUDE'"/>
+             WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='COMMON'"/>
             <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
              WHERE CODE='MIN_DAMAGE'"/>
             <column name="min_value" valueNumeric="1"/>
@@ -40,7 +40,7 @@
         </insert>
         <insert tableName="item_category_quality_stat">
             <column name="item_category_quality_id" valueComputed="SELECT item_category_quality_id FROM REPOSITORY.V_ITEM_CATEGORY_QUALITY
-             WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='CRUDE'"/>
+             WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='COMMON'"/>
             <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
              WHERE CODE='MAX_DAMAGE'"/>
             <column name="min_value" valueNumeric="2"/>
@@ -48,7 +48,7 @@
         </insert>
         <insert tableName="item_category_quality_stat">
             <column name="item_category_quality_id" valueComputed="SELECT item_category_quality_id FROM REPOSITORY.V_ITEM_CATEGORY_QUALITY
-             WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='CRUDE'"/>
+             WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='COMMON'"/>
             <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
              WHERE CODE='STACK_SIZE'"/>
             <column name="min_value" valueNumeric="1"/>

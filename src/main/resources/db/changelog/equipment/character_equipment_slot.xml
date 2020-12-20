@@ -5,14 +5,14 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
 
-    <changeSet id="character_equipment_slots-01" author="AahzBrut">
-        <createSequence sequenceName="character_equipment_slots_seq"/>
+    <changeSet id="character_equipment_slot-01" author="AahzBrut">
+        <createSequence sequenceName="character_equipment_slot_seq"/>
     </changeSet>
 
-    <changeSet id="character_equipment_slots-02" author="AahzBrut">
-        <createTable tableName="character_equipment_slots">
-            <column name="character_equipment_slots_id" type="SMALLINT" defaultValueSequenceNext="character_equipment_slots_seq">
-                <constraints primaryKey="true" primaryKeyName="character_equipment_slots_pk"/>
+    <changeSet id="character_equipment_slot-02" author="AahzBrut">
+        <createTable tableName="character_equipment_slot">
+            <column name="character_equipment_slot_id" type="BIGINT" defaultValueSequenceNext="character_equipment_slot_seq">
+                <constraints primaryKey="true" primaryKeyName="character_equipment_slot_pk"/>
             </column>
             <column name="character_id" type="BIGINT">
                 <constraints nullable="false"/>

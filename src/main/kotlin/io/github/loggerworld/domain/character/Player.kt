@@ -1,6 +1,8 @@
 package io.github.loggerworld.domain.character
 
 import io.github.loggerworld.domain.BaseEntity
+import io.github.loggerworld.domain.equipment.PlayerEquipmentSlot
+import io.github.loggerworld.domain.equipment.PlayerInventory
 import io.github.loggerworld.domain.geography.Location
 import io.github.loggerworld.domain.user_account.UserAccount
 import org.hibernate.annotations.CreationTimestamp
@@ -44,4 +46,10 @@ data class Player(
 
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "player")
     var playerAttributes: MutableList<PlayerAttributes> = mutableListOf()
+
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "player")
+    var playerInventories: MutableList<PlayerInventory> = mutableListOf()
+
+    @OneToMany(cascade = [CascadeType.ALL], mappedBy = "player")
+    var playerEquipments: MutableList<PlayerEquipmentSlot> = mutableListOf()
 }

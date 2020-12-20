@@ -22,9 +22,6 @@
             <column name="code" value="RIGHT_EARRING"/>
         </insert>
         <insert tableName="equipment_slot_type">
-            <column name="code" value="AMULET"/>
-        </insert>
-        <insert tableName="equipment_slot_type">
             <column name="code" value="BODY"/>
         </insert>
         <insert tableName="equipment_slot_type">
