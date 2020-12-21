@@ -15,6 +15,7 @@ import io.github.loggerworld.ecs.component.RemoveComponent
 import io.github.loggerworld.ecs.component.StateComponent
 import io.github.loggerworld.ecs.component.States
 import io.github.loggerworld.messagebus.LogEventBus
+import io.github.loggerworld.messagebus.event.AttackMobEvent
 import io.github.loggerworld.messagebus.event.AttackedByMobEvent
 import io.github.loggerworld.messagebus.event.DealDamageToMobEvent
 import io.github.loggerworld.messagebus.event.LogEvent
@@ -43,115 +44,86 @@ class CombatSystem(
         combatComp.attackCooldown -= deltaTime
         if (combatComp.attackCooldown > 0f) return
         combatComp.attackCooldown += combatComp.baseAttackCooldown
+        attack(entity, combatComp)
+    }
 
+    private fun attack(entity: Entity, combatComp: CombatComponent) {
+        if (combatComp.target == null) {
+            if (combatComp.enemies.isEmpty()) {
+                despawnMobWithoutEnemies(entity)
+                return
+            } else {
+                combatComp.target = combatComp.enemies.first()
+                combatComp.attackCooldown = combatComp.baseAttackCooldown
+                logAttackEvent(entity, combatComp.target!!)
+                return
+            }
+        }
+        val tgtHealthComp = combatComp.target!![HealthComponent.mapper]!!
+        val damage = max(0f, combatComp.damage - tgtHealthComp.defence)
+        tgtHealthComp.health -= damage
+        logDamageEvent(entity, combatComp.target!!, damage)
+
+        if (tgtHealthComp.health <= 0f) {
+            combatComp.target!!.addComponent<KilledComponent>(engine){
+                this.killer = entity
+                this.locationId = combatComp.locationId
+            }
+            combatComp.enemies.remove(combatComp.target)
+            combatComp.target = null
+        }
+    }
+
+    private fun logDamageEvent(entity: Entity, target: Entity, damage: Float) {
         if (entity.has(MonsterComponent.mapper)) {
-            monsterAttack(entity)
+            val monsterComp = entity[MonsterComponent.mapper]!!
+            val playerComp = target[PlayerComponent.mapper]!!
+            val event = logEventBus.newEvent(ReceiveDamageFromMobEvent::class) as ReceiveDamageFromMobEvent
+            event.playerId = playerComp.playerId
+            event.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
+            event.damage = damage.toInt()
+            event.created = OffsetDateTime.now()
+            logEventBus.pushEvent(event)
         } else {
-            playerAttack(entity)
+            val playerComp = entity[PlayerComponent.mapper]!!
+            val monsterComp = target[MonsterComponent.mapper]!!
+            val event = logEventBus.newEvent(DealDamageToMobEvent::class) as DealDamageToMobEvent
+            event.playerId = playerComp.playerId
+            event.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
+            event.damage = damage.toInt()
+            event.created = OffsetDateTime.now()
+            logEventBus.pushEvent(event)
         }
     }
 
-    private fun monsterAttack(monster: Entity) {
-        val monsterComp = monster[MonsterComponent.mapper]!!
+    private fun logAttackEvent(entity: Entity, target: Entity) {
+        if (entity.has(MonsterComponent.mapper)) {
+            val monsterComp = entity[MonsterComponent.mapper]!!
+            val playerComp = target[PlayerComponent.mapper]!!
+            val attackEvent = logEventBus.newEvent(AttackedByMobEvent::class) as AttackedByMobEvent
+            attackEvent.playerId = playerComp.playerId
+            attackEvent.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
+            attackEvent.created = OffsetDateTime.now()
+            logEventBus.pushEvent(attackEvent)
+        } else {
+            val monsterComp = target[MonsterComponent.mapper]!!
+            val playerComp = entity[PlayerComponent.mapper]!!
+            val attackEvent = logEventBus.newEvent(AttackMobEvent::class) as AttackMobEvent
+            attackEvent.playerId = playerComp.playerId
+            attackEvent.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
+            attackEvent.created = OffsetDateTime.now()
+            logEventBus.pushEvent(attackEvent)
+        }
+    }
+
+    private fun despawnMobWithoutEnemies(entity: Entity) {
+        val monsterComp = entity[MonsterComponent.mapper] ?: return
         val locationComp = monsterComp.location[LocationComponent.mapper]!!
-        val combatComp = monster[CombatComponent.mapper]!!
-
-        if (monsterComp.target == null) {
-            if (monsterComp.enemies.isEmpty()) {
-                monsterComp.nest[MonsterSpawnerComponent.mapper]!!.monsterCounter++
-                locationComp.spawnedMonsters.remove(monster)
-                if (monsterComp.location.hasNot(LocationUpdatedComponent.mapper)) monsterComp.location.addComponent<LocationUpdatedComponent>(engine)
-                monster.addComponent<RemoveComponent>(engine)
-                logger().debug("Mob ${monsterComp.monsterType} ${monsterComp.monsterClass} ${monsterComp.level}lvl in location ${locationComp.locationId} have no more targets and returns to nest.")
-                return
-            } else {
-                monsterComp.target = monsterComp.enemies.first()
-                logger().debug("Mob ${monsterComp.monsterType} ${monsterComp.monsterClass} ${monsterComp.level}lvl in location ${locationComp.locationId} lost his target and chose another.")
-                combatComp.attackCooldown = combatComp.baseAttackCooldown
-                logMobAttackPlayer(monster, monsterComp.target!!)
-                return
-            }
-        }
-
-        val tgtHealthComp = monsterComp.target!![HealthComponent.mapper]!!
-        val damage = max(0f, combatComp.damage - tgtHealthComp.defence)
-        tgtHealthComp.health -= damage
-        logger().debug("Mob ${monsterComp.monsterType} ${monsterComp.monsterClass} ${monsterComp.level}lvl in location ${locationComp.locationId} hit his target for $damage damage (${tgtHealthComp.health} health left).")
-        logReceiveDamageFromMobEvent(monsterComp, damage)
-
-        if (tgtHealthComp.health <= 0f) {
-            monsterComp.enemies.remove(monsterComp.target)
-            monsterComp.target!!.addComponent<KilledComponent>(engine){
-                this.killer = monster
-                this.locationId = locationComp.locationId
-            }
-            monsterComp.target = null
-            logger().debug("Mob ${monsterComp.monsterType} ${monsterComp.monsterClass} ${monsterComp.level}lvl in location ${locationComp.locationId} killed his target.")
-        }
-    }
-
-    private fun playerAttack(player: Entity) {
-        val playerComp = player[PlayerComponent.mapper]!!
-        val locationComp = playerComp.location[LocationComponent.mapper]!!
-        val combatComp = player[CombatComponent.mapper]!!
-
-        if (playerComp.target == null) {
-            if (playerComp.enemies.isEmpty()) {
-                player[StateComponent.mapper]!!.state = States.IDLE
-                player.remove<CombatComponent>()
-                return
-            } else {
-                playerComp.target = playerComp.enemies.first()
-                logger().debug("Player ${playerComp.playerId} in location ${locationComp.locationId} lost his target and chose another.")
-                combatComp.attackCooldown = combatComp.baseAttackCooldown
-                return
-            }
-        }
-
-        val tgtHealthComp = playerComp.target!![HealthComponent.mapper]!!
-        val damage = max(0f, combatComp.damage - tgtHealthComp.defence)
-        tgtHealthComp.health -= damage
-        logger().debug("Player ${playerComp.playerId} in location ${locationComp.locationId} hit his target for $damage damage (${tgtHealthComp.health} health left).")
-        logDealDamageToMobEvent(playerComp, damage)
-
-        if (tgtHealthComp.health <= 0f) {
-            playerComp.enemies.remove(playerComp.target)
-            playerComp.target!!.addComponent<KilledComponent>(engine){
-                this.killer = player
-                this.locationId = locationComp.locationId
-            }
-            playerComp.target = null
-            logger().debug("Player ${playerComp.playerId} in location ${locationComp.locationId} killed his target.")
-        }
-    }
-
-    private fun logReceiveDamageFromMobEvent(monsterComp: MonsterComponent, damage: Float) {
-        val playerComp = monsterComp.target!![PlayerComponent.mapper]!!
-        val event = logEventBus.newEvent(ReceiveDamageFromMobEvent::class) as ReceiveDamageFromMobEvent
-        event.playerId = playerComp.playerId
-        event.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
-        event.damage = damage.toInt()
-        event.created = OffsetDateTime.now()
-        logEventBus.pushEvent(event)
-    }
-
-    private fun logMobAttackPlayer(mob: Entity, player: Entity) {
-        val monsterComp = mob[MonsterComponent.mapper]!!
-        val playerComp = player[PlayerComponent.mapper]!!
-        val attackEvent = logEventBus.newEvent(AttackedByMobEvent::class) as AttackedByMobEvent
-        attackEvent.playerId = playerComp.playerId
-        attackEvent.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
-        attackEvent.created = OffsetDateTime.now()
-        logEventBus.pushEvent(attackEvent)
-    }
-
-    private fun logDealDamageToMobEvent(playerComp: PlayerComponent, damage: Float) {
-        val monsterComp = playerComp.target!![MonsterComponent.mapper]!!
-        val event = logEventBus.newEvent(DealDamageToMobEvent::class) as DealDamageToMobEvent
-        event.playerId = playerComp.playerId
-        event.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
-        event.damage = damage.toInt()
-        event.created = OffsetDateTime.now()
-        logEventBus.pushEvent(event)
+        monsterComp.nest[MonsterSpawnerComponent.mapper]!!.monsterCounter++
+        locationComp.spawnedMonsters.remove(entity)
+        if (monsterComp.location.hasNot(LocationUpdatedComponent.mapper)) monsterComp.location.addComponent<LocationUpdatedComponent>(engine)
+        entity.addComponent<RemoveComponent>(engine)
+        logger().debug("Mob ${monsterComp.monsterType} ${monsterComp.monsterClass} ${monsterComp.level}lvl in location ${locationComp.locationId} have no more targets and returns to nest.")
+        return
     }
 }

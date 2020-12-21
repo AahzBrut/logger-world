@@ -19,8 +19,6 @@ class MonsterComponent : Component, Pool.Poolable {
     var defence: Double = .0
     var monsterClass: MonsterClasses = MonsterClasses.GREY_RAT
     var monsterType: MonsterTypes = MonsterTypes.NORMAL
-    val enemies: GdxSet<Entity> = gdxSetOf()
-    var target: Entity? = null
     var state: States = States.IDLE
     var nest: Entity = emptyEntity
     var location: Entity = emptyEntity
@@ -34,8 +32,6 @@ class MonsterComponent : Component, Pool.Poolable {
         defence = .0
         monsterClass = MonsterClasses.GREY_RAT
         monsterType = MonsterTypes.NORMAL
-        enemies.clear()
-        target = null
         state = States.IDLE
         nest = emptyEntity
         location = emptyEntity
