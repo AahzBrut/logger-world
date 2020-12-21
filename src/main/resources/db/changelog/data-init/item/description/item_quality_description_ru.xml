@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="item_quality_description-ru-data-01" author="AahzBrut">
+        <insert tableName="item_quality_description">
+            <column name="item_quality_id" valueComputed="SELECT item_quality_id FROM REPOSITORY.item_quality
+            WHERE CODE='NONE'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Стаб"/>
+            <column name="description" value="Стаб"/>
+        </insert>
+        <insert tableName="item_quality_description">
+            <column name="item_quality_id" valueComputed="SELECT item_quality_id FROM REPOSITORY.item_quality
+            WHERE CODE='COMMON'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Обычное"/>
+            <column name="description" value="Обычное качество"/>
+        </insert>
+        <insert tableName="item_quality_description">
+            <column name="item_quality_id" valueComputed="SELECT item_quality_id FROM REPOSITORY.item_quality
+            WHERE CODE='GOOD'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Хорошее"/>
+            <column name="description" value="Хорошее качество"/>
+        </insert>
+        <insert tableName="item_quality_description">
+            <column name="item_quality_id" valueComputed="SELECT item_quality_id FROM REPOSITORY.item_quality
+            WHERE CODE='RARE'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Редкое"/>
+            <column name="description" value="Редкое качество"/>
+        </insert>
+        <insert tableName="item_quality_description">
+            <column name="item_quality_id" valueComputed="SELECT item_quality_id FROM REPOSITORY.item_quality
+            WHERE CODE='EPIC'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Эпическое"/>
+            <column name="description" value="Эпическое качество"/>
+        </insert>
+        <insert tableName="item_quality_description">
+            <column name="item_quality_id" valueComputed="SELECT item_quality_id FROM REPOSITORY.item_quality
+            WHERE CODE='LEGENDARY'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Легендарное"/>
+            <column name="description" value="Легендарное качество"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

@@ -16,4 +16,9 @@ data class ItemStat(
     @Column(name = "code")
     var code: ItemStatEnum = ItemStatEnum.NONE,
 
-    ) : BaseEntity<Byte>()
+    ) : BaseEntity<Byte>() {
+
+        init {
+            this.id = code.ordinal.toByte()
+        }
+    }

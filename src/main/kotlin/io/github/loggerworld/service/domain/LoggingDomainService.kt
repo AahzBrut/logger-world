@@ -12,7 +12,6 @@ import io.github.loggerworld.mapper.logging.AttackMobEventMapper
 import io.github.loggerworld.mapper.logging.AttackedByMobEventMapper
 import io.github.loggerworld.mapper.logging.DealDamageToMobEventMapper
 import io.github.loggerworld.mapper.logging.DepartureEventMapper
-import io.github.loggerworld.mapper.logging.LogEntryFromDealDamageToMobEventMapper
 import io.github.loggerworld.mapper.logging.LoggingDataMapper
 import io.github.loggerworld.mapper.logging.LoginEventMapper
 import io.github.loggerworld.mapper.logging.LogoffEventMapper

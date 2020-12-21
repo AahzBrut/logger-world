@@ -16,4 +16,9 @@ data class ItemCategory(
     @Column(name = "code")
     var code: ItemCategories = ItemCategories.NOTHING,
 
-    ) : BaseEntity<Short>()
+    ) : BaseEntity<Short>() {
+
+        init {
+            this.id = code.ordinal.toShort()
+        }
+    }

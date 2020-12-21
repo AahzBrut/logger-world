@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="item_category_description-ru-data-01" author="AahzBrut">
+        <insert tableName="item_category_description">
+            <column name="item_category_id" valueComputed="SELECT item_category_id FROM REPOSITORY.item_category
+            WHERE CODE='NOTHING'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Пустая категория"/>
+            <column name="description" value="Стаб"/>
+        </insert>
+        <insert tableName="item_category_description">
+            <column name="item_category_id" valueComputed="SELECT item_category_id FROM REPOSITORY.item_category
+            WHERE CODE='WEAPON'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Оружие"/>
+            <column name="description" value="Оружие"/>
+        </insert>
+        <insert tableName="item_category_description">
+            <column name="item_category_id" valueComputed="SELECT item_category_id FROM REPOSITORY.item_category
+            WHERE CODE='ARMOR'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Доспехи и щиты"/>
+            <column name="description" value="Доспехи и щиты"/>
+        </insert>
+        <insert tableName="item_category_description">
+            <column name="item_category_id" valueComputed="SELECT item_category_id FROM REPOSITORY.item_category
+            WHERE CODE='CONSUMABLE'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Еда и напитки"/>
+            <column name="description" value="Еда и напитки"/>
+        </insert>
+        <insert tableName="item_category_description">
+            <column name="item_category_id" valueComputed="SELECT item_category_id FROM REPOSITORY.item_category
+            WHERE CODE='MELEE'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Оружие ближнего боя"/>
+            <column name="description" value="Оружие ближнего боя"/>
+        </insert>
+        <insert tableName="item_category_description">
+            <column name="item_category_id" valueComputed="SELECT item_category_id FROM REPOSITORY.item_category
+            WHERE CODE='ONE_HANDED'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Одноручное"/>
+            <column name="description" value="Одноручное оружие"/>
+        </insert>
+        <insert tableName="item_category_description">
+            <column name="item_category_id" valueComputed="SELECT item_category_id FROM REPOSITORY.item_category
+            WHERE CODE='SWORD'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Мечи"/>
+            <column name="description" value="Мечи"/>
+        </insert>
+        <insert tableName="item_category_description">
+            <column name="item_category_id" valueComputed="SELECT item_category_id FROM REPOSITORY.item_category
+            WHERE CODE='SHORT_SWORD'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Короткий меч"/>
+            <column name="description" value="Короткий меч"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

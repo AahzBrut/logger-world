@@ -16,4 +16,9 @@ data class ItemQuality(
     @Column(name = "code")
     var code: ItemQualities = ItemQualities.NONE,
 
-    ): BaseEntity<Byte>()
+    ): BaseEntity<Byte>() {
+
+        init {
+            this.id = code.ordinal.toByte()
+        }
+    }
