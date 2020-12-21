@@ -19,8 +19,6 @@ class PlayerComponent : Component, Pool.Poolable{
     var playerName: String = ""
     var classId: Byte = -1
     var level: Byte = -1
-    val enemies: GdxSet<Entity> = gdxSetOf()
-    var target: Entity? = null
     var stats: Map<PlayerStatEnum, Float> = mapOf()
     var location: Entity = emptyEntity
 
@@ -30,8 +28,6 @@ class PlayerComponent : Component, Pool.Poolable{
         playerName = ""
         classId = -1
         level = -1
-        target = null
-        enemies.clear()
         stats = mapOf()
         location = emptyEntity
     }

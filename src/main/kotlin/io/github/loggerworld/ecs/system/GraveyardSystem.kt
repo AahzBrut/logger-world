@@ -5,7 +5,6 @@ import com.badlogic.ashley.systems.IteratingSystem
 import io.github.loggerworld.ecs.EngineSystems
 import io.github.loggerworld.ecs.component.KilledComponent
 import io.github.loggerworld.ecs.component.LocationComponent
-import io.github.loggerworld.ecs.component.LocationMapComponent
 import io.github.loggerworld.ecs.component.LocationUpdatedComponent
 import io.github.loggerworld.ecs.component.MonsterComponent
 import io.github.loggerworld.ecs.component.PlayerComponent
@@ -15,7 +14,6 @@ import io.github.loggerworld.messagebus.event.LogEvent
 import io.github.loggerworld.messagebus.event.PlayerKillMobEvent
 import io.github.loggerworld.messagebus.event.PlayerKilledByMobEvent
 import io.github.loggerworld.util.LogAware
-import io.github.loggerworld.util.emptyEntity
 import ktx.ashley.addComponent
 import ktx.ashley.allOf
 import ktx.ashley.get

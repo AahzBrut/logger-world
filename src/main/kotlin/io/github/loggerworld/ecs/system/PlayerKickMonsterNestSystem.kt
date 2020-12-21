@@ -68,15 +68,18 @@ class PlayerKickMonsterNestSystem(
 
     private fun attackMonster(player: Entity, monster: Entity) {
         val playerComp = player[PlayerComponent.mapper]!!
-        playerComp.enemies.add(monster)
-        playerComp.target = monster
         if (player.hasNot(CombatComponent.mapper)) {
             player.addComponent<CombatComponent>(engine) {
                 this.baseAttackCooldown = 1f / (1f + .01f * playerComp.stats[PlayerStatEnum.SPD]!!)
                 this.attackCooldown = baseAttackCooldown
                 this.damage = playerComp.stats[PlayerStatEnum.ATK]!!
+                this.enemies.add(monster)
+                this.target = monster
+                this.locationId = playerComp.location[LocationComponent.mapper]!!.locationId
                 logPlayerAttackMob(player, monster)
             }
+        } else {
+            player[CombatComponent.mapper]!!.enemies.add(monster)
         }
         logger().debug("Player ${playerComp.playerId} attacks monster ${monster[MonsterComponent.mapper]!!.id}")
     }
@@ -135,8 +138,6 @@ class PlayerKickMonsterNestSystem(
                 health = stats[PlayerStatEnum.HP]!!
                 attack = stats[PlayerStatEnum.ATK]!!
                 defence = stats[PlayerStatEnum.DEF]!!
-                enemies.add(playerEntity)
-                target = playerEntity
                 state = States.IN_COMBAT
                 location = spawnerComp.location
             }
@@ -144,6 +145,9 @@ class PlayerKickMonsterNestSystem(
                 baseAttackCooldown = 1.0f
                 attackCooldown = baseAttackCooldown
                 damage = stats[PlayerStatEnum.ATK]!!.toFloat()
+                enemies.add(playerEntity)
+                target = playerEntity
+                locationId = spawnerComp.location[LocationComponent.mapper]!!.locationId
             }
             with<HealthComponent> {
                 health = stats[PlayerStatEnum.HP]!!.toFloat()
