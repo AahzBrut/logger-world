@@ -4,6 +4,7 @@ import io.github.loggerworld.domain.enums.ItemStatEnum.DURABILITY
 import io.github.loggerworld.domain.enums.ItemStatEnum.MAX_DAMAGE
 import io.github.loggerworld.domain.enums.ItemStatEnum.MAX_DURABILITY
 import io.github.loggerworld.domain.enums.ItemStatEnum.MIN_DAMAGE
+import io.github.loggerworld.domain.enums.ItemStatEnum.STACK_SIZE
 import io.github.loggerworld.domain.enums.ItemStatEnum.USES_PER_DURABILITY
 import io.github.loggerworld.domain.enums.ItemStatEnum.WEIGHT
 
@@ -17,6 +18,8 @@ val weaponStats = setOf(
     MAX_DAMAGE
 )
 
+val goldStats = setOf(WEIGHT, STACK_SIZE)
+
 val emptyStats = emptySet<ItemStatEnum>()
 
 enum class ItemCategories(
@@ -25,9 +28,11 @@ enum class ItemCategories(
     val applicableStats: Set<ItemStatEnum>
 ) {
     NOTHING(NOTHING, false, emptyStats),
+    VALUABLES(VALUABLES, false, emptyStats),
     WEAPON(WEAPON, false, emptyStats),
     ARMOR(ARMOR, false, emptyStats),
     CONSUMABLE(CONSUMABLE, false, emptyStats),
+    GOLD(VALUABLES, true, goldStats),
     MELEE(WEAPON, false, emptyStats),
     ONE_HANDED(MELEE, false, emptyStats),
     SWORD(ONE_HANDED, false, emptyStats),

@@ -11,16 +11,24 @@
             <column name="parent_category_id" valueNumeric="0"/>
         </insert>
         <insert tableName="item_category">
-            <column name="code" value="WEAPON"/>
+            <column name="code" value="VALUABLES"/>
             <column name="parent_category_id" valueNumeric="1"/>
         </insert>
         <insert tableName="item_category">
-            <column name="code" value="ARMOR"/>
+            <column name="code" value="WEAPON"/>
             <column name="parent_category_id" valueNumeric="2"/>
         </insert>
         <insert tableName="item_category">
-            <column name="code" value="CONSUMABLE"/>
+            <column name="code" value="ARMOR"/>
             <column name="parent_category_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="item_category">
+            <column name="code" value="CONSUMABLE"/>
+            <column name="parent_category_id" valueNumeric="4"/>
+        </insert>
+        <insert tableName="item_category">
+            <column name="code" value="GOLD"/>
+            <column name="parent_category_id" valueComputed="SELECT item_category_id FROM REPOSITORY.item_category WHERE code='VALUABLES'"/>
         </insert>
         <insert tableName="item_category">
             <column name="code" value="MELEE"/>
