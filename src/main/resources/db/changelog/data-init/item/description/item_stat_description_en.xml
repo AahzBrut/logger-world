@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="item_stat_description-en-data-01" author="AahzBrut">
+        <insert tableName="item_stat_description">
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+            WHERE CODE='NONE'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='EN'"/>
+            <column name="name" value="None"/>
+            <column name="description" value="Stub stat"/>
+        </insert>
+        <insert tableName="item_stat_description">
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+            WHERE CODE='DURABILITY'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='EN'"/>
+            <column name="name" value="Durability"/>
+            <column name="description" value="Durability"/>
+        </insert>
+        <insert tableName="item_stat_description">
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+            WHERE CODE='MAX_DURABILITY'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='EN'"/>
+            <column name="name" value="Maximal durability"/>
+            <column name="description" value="Maximal durability"/>
+        </insert>
+        <insert tableName="item_stat_description">
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+            WHERE CODE='USES_PER_DURABILITY'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='EN'"/>
+            <column name="name" value="Uses per durability"/>
+            <column name="description" value="How many uses per 1 point of durability"/>
+        </insert>
+        <insert tableName="item_stat_description">
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+            WHERE CODE='WEIGHT'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='EN'"/>
+            <column name="name" value="Weight"/>
+            <column name="description" value="Weight in kilograms"/>
+        </insert>
+        <insert tableName="item_stat_description">
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+            WHERE CODE='MIN_DAMAGE'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='EN'"/>
+            <column name="name" value="Minimal damage"/>
+            <column name="description" value="Minimal damage"/>
+        </insert>
+        <insert tableName="item_stat_description">
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+            WHERE CODE='MAX_DAMAGE'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='EN'"/>
+            <column name="name" value="Maximal damage"/>
+            <column name="description" value="Maximal damage"/>
+        </insert>
+        <insert tableName="item_stat_description">
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+            WHERE CODE='ARMOR'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='EN'"/>
+            <column name="name" value="Armor"/>
+            <column name="description" value="Number of damage points blocked"/>
+        </insert>
+        <insert tableName="item_stat_description">
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+            WHERE CODE='STACK_SIZE'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='EN'"/>
+            <column name="name" value="Stack size"/>
+            <column name="description" value="Maximum number of items per stack"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

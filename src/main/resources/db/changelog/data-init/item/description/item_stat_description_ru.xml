@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="item_stat_description-ru-data-01" author="AahzBrut">
+        <insert tableName="item_stat_description">
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+            WHERE CODE='NONE'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Стаб"/>
+            <column name="description" value="Стаб"/>
+        </insert>
+        <insert tableName="item_stat_description">
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+            WHERE CODE='DURABILITY'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Прочность"/>
+            <column name="description" value="Прочность"/>
+        </insert>
+        <insert tableName="item_stat_description">
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+            WHERE CODE='MAX_DURABILITY'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Максимальная прочность"/>
+            <column name="description" value="Максимальная прочность"/>
+        </insert>
+        <insert tableName="item_stat_description">
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+            WHERE CODE='USES_PER_DURABILITY'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Количество использований на 1 единицу прочности"/>
+            <column name="description" value="Количество использований на 1 единицу прочности"/>
+        </insert>
+        <insert tableName="item_stat_description">
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+            WHERE CODE='WEIGHT'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Вес"/>
+            <column name="description" value="Вес в килограммах"/>
+        </insert>
+        <insert tableName="item_stat_description">
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+            WHERE CODE='MIN_DAMAGE'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Минимальный урон"/>
+            <column name="description" value="Минимальный урон"/>
+        </insert>
+        <insert tableName="item_stat_description">
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+            WHERE CODE='MAX_DAMAGE'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Максимальный урон"/>
+            <column name="description" value="Максимальный урон"/>
+        </insert>
+        <insert tableName="item_stat_description">
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+            WHERE CODE='ARMOR'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Защита"/>
+            <column name="description" value="Количество блокируемых единиц повреждений"/>
+        </insert>
+        <insert tableName="item_stat_description">
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+            WHERE CODE='STACK_SIZE'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Размер стэка"/>
+            <column name="description" value="Максимальное количество предметов в стеке"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

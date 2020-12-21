@@ -11,5 +11,6 @@
     <include file="classpath:/db/changelog/data-init/item/item_category_quality.xml"/>
     <include file="classpath:/db/changelog/data-init/item/item_category_quality_stat.xml"/>
     <include file="classpath:/db/changelog/data-init/item/item_category_equipment_slot.xml"/>
+    <includeAll path="classpath:/db/changelog/data-init/item/description/"/>
 
 </databaseChangeLog>

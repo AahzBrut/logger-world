@@ -13,6 +13,9 @@
             <column name="code" value="DURABILITY"/>
         </insert>
         <insert tableName="item_stat">
+            <column name="code" value="MAX_DURABILITY"/>
+        </insert>
+        <insert tableName="item_stat">
             <column name="code" value="USES_PER_DURABILITY"/>
         </insert>
         <insert tableName="item_stat">
@@ -29,9 +32,6 @@
         </insert>
         <insert tableName="item_stat">
             <column name="code" value="STACK_SIZE"/>
-        </insert>
-        <insert tableName="item_stat">
-            <column name="code" value="TWO_HANDED"/>
         </insert>
     </changeSet>
 

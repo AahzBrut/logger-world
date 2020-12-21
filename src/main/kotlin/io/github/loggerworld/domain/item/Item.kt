@@ -32,6 +32,10 @@ data class Item(
 
     ) : BaseEntity<Long>() {
 
+    constructor(id: Long) : this() {
+        this.id = id
+    }
+
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "item")
     var itemStats: MutableList<ItemStats> = mutableListOf()
 }

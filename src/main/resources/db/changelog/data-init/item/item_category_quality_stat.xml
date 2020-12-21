@@ -10,7 +10,8 @@
             <column name="item_category_quality_id" valueComputed="SELECT item_category_quality_id FROM REPOSITORY.V_ITEM_CATEGORY_QUALITY
              WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='COMMON'"/>
             <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
-             WHERE CODE='DURABILITY'"/>
+             WHERE CODE='MAX_DURABILITY'"/>
+            <column name="level" valueNumeric="1"/>
             <column name="min_value" valueNumeric="10"/>
             <column name="max_value" valueNumeric="20"/>
         </insert>
@@ -19,14 +20,16 @@
              WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='COMMON'"/>
             <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
              WHERE CODE='WEIGHT'"/>
+            <column name="level" valueNumeric="1"/>
             <column name="min_value" valueNumeric="1"/>
-            <column name="max_value" valueNumeric="2"/>
+            <column name="max_value" valueNumeric="1"/>
         </insert>
         <insert tableName="item_category_quality_stat">
             <column name="item_category_quality_id" valueComputed="SELECT item_category_quality_id FROM REPOSITORY.V_ITEM_CATEGORY_QUALITY
              WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='COMMON'"/>
             <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
              WHERE CODE='USES_PER_DURABILITY'"/>
+            <column name="level" valueNumeric="1"/>
             <column name="min_value" valueNumeric="100"/>
             <column name="max_value" valueNumeric="200"/>
         </insert>
@@ -35,6 +38,7 @@
              WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='COMMON'"/>
             <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
              WHERE CODE='MIN_DAMAGE'"/>
+            <column name="level" valueNumeric="1"/>
             <column name="min_value" valueNumeric="1"/>
             <column name="max_value" valueNumeric="1"/>
         </insert>
@@ -43,6 +47,7 @@
              WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='COMMON'"/>
             <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
              WHERE CODE='MAX_DAMAGE'"/>
+            <column name="level" valueNumeric="1"/>
             <column name="min_value" valueNumeric="2"/>
             <column name="max_value" valueNumeric="3"/>
         </insert>
@@ -51,6 +56,7 @@
              WHERE CATEGORY_CODE='SHORT_SWORD' AND QUALITY_CODE='COMMON'"/>
             <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
              WHERE CODE='STACK_SIZE'"/>
+            <column name="level" valueNumeric="1"/>
             <column name="min_value" valueNumeric="1"/>
             <column name="max_value" valueNumeric="1"/>
         </insert>

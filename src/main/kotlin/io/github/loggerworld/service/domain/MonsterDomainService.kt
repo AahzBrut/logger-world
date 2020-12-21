@@ -4,7 +4,6 @@ import io.github.loggerworld.dto.inner.monster.MonsterClassSpawnerData
 import io.github.loggerworld.mapper.monster.MonsterClassSpawnerDataMapper
 import io.github.loggerworld.repository.monster.MonsterClassRepository
 import org.springframework.stereotype.Service
-import javax.annotation.PostConstruct
 import javax.transaction.Transactional
 
 @Service
