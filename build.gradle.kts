@@ -3,9 +3,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "2.4.0"
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
-    kotlin("jvm") version "1.4.20"
-    kotlin("plugin.spring") version "1.4.20"
-    kotlin("plugin.jpa") version "1.4.20"
+    kotlin("jvm") version "1.4.21"
+    kotlin("plugin.spring") version "1.4.21"
+    kotlin("plugin.jpa") version "1.4.21"
 }
 
 group = "io.github"
@@ -13,7 +13,7 @@ version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 val jwtVersion = "0.11.2"
-val libKtxVersion = "1.9.11-b2"
+val libKtxVersion = "1.9.12-b1"
 val ashleyVersion = "1.7.3"
 
 configurations {
