@@ -10,6 +10,10 @@
             <column name="item_category_id" valueComputed="SELECT item_category_id FROM REPOSITORY.item_category WHERE CODE='SHORT_SWORD'"/>
             <column name="item_quality_id" valueComputed="SELECT item_quality_id FROM REPOSITORY.item_quality WHERE CODE='COMMON'"/>
         </insert>
+        <insert tableName="item_category_quality">
+            <column name="item_category_id" valueComputed="SELECT item_category_id FROM REPOSITORY.item_category WHERE CODE='GOLD'"/>
+            <column name="item_quality_id" valueComputed="SELECT item_quality_id FROM REPOSITORY.item_quality WHERE CODE='COMMON'"/>
+        </insert>
     </changeSet>
 
 </databaseChangeLog>

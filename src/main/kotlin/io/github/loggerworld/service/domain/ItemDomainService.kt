@@ -9,6 +9,7 @@ import io.github.loggerworld.domain.item.ItemCategory
 import io.github.loggerworld.domain.item.ItemQuality
 import io.github.loggerworld.domain.item.ItemStat
 import io.github.loggerworld.domain.item.ItemStats
+import io.github.loggerworld.dto.inner.item.ItemData
 import io.github.loggerworld.dto.response.Description
 import io.github.loggerworld.repository.item.ItemCategoryDescriptionRepository
 import io.github.loggerworld.repository.item.ItemCategoryQualityStatRepository
@@ -96,16 +97,16 @@ class ItemDomainService(
     }
 
     @Transactional
-    fun createItem(category: ItemCategories, quality: ItemQualities, quantity: Long): Long {
-        val item = Item(ItemCategory(category), ItemQuality(quality), quantity)
+    fun createItem(itemData: ItemData) {
+        val item = Item(ItemCategory(itemData.category), ItemQuality(itemData.quality), itemData.quantity)
         itemRepository.save(item)
-        return item.id!!
+        itemData.id = item.id!!
     }
 
     @Transactional
-    fun createItemStats(itemId: Long, itemStats: MutableMap<ItemStatEnum, Float>) {
-        val stats = itemStats.entries.map {
-            ItemStats(Item(itemId), ItemStat(it.key), it.value)
+    fun createItemStats(itemData: ItemData) {
+        val stats = itemData.stats.entries.map {
+            ItemStats(Item(itemData.id), ItemStat(it.key), it.value)
         }.toList()
 
         itemStatsRepository.saveAll(stats)

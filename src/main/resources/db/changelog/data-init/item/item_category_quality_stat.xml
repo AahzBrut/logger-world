@@ -60,6 +60,24 @@
             <column name="min_value" valueNumeric="1"/>
             <column name="max_value" valueNumeric="1"/>
         </insert>
+        <insert tableName="item_category_quality_stat">
+            <column name="item_category_quality_id" valueComputed="SELECT item_category_quality_id FROM REPOSITORY.V_ITEM_CATEGORY_QUALITY
+             WHERE CATEGORY_CODE='GOLD' AND QUALITY_CODE='COMMON'"/>
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+             WHERE CODE='WEIGHT'"/>
+            <column name="level" valueNumeric="1"/>
+            <column name="min_value" valueNumeric="1"/>
+            <column name="max_value" valueNumeric="1"/>
+        </insert>
+        <insert tableName="item_category_quality_stat">
+            <column name="item_category_quality_id" valueComputed="SELECT item_category_quality_id FROM REPOSITORY.V_ITEM_CATEGORY_QUALITY
+             WHERE CATEGORY_CODE='GOLD' AND QUALITY_CODE='COMMON'"/>
+            <column name="item_stat_id" valueComputed="SELECT item_stat_id FROM REPOSITORY.item_stat
+             WHERE CODE='STACK_SIZE'"/>
+            <column name="level" valueNumeric="1"/>
+            <column name="min_value" valueNumeric="-1"/>
+            <column name="max_value" valueNumeric="-1"/>
+        </insert>
     </changeSet>
 
 </databaseChangeLog>

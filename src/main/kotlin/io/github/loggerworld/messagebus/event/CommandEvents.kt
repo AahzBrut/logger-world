@@ -1,6 +1,9 @@
 package io.github.loggerworld.messagebus.event
 
 import com.badlogic.gdx.utils.Pool
+import io.github.loggerworld.domain.enums.MonsterClasses
+import io.github.loggerworld.domain.enums.MonsterTypes
+import io.github.loggerworld.dto.inner.item.ItemData
 
 sealed class CommandEvent : Pool.Poolable
 
@@ -42,5 +45,23 @@ data class PlayerKickMonsterNestCommand(
     override fun reset() {
         playerId = -1
         monsterNestId = -1
+    }
+}
+
+data class SerializeItemsDropFromMobCommand(
+    var playerId: Long = -1,
+    var monsterClass: MonsterClasses = MonsterClasses.NOTHING,
+    var monsterType: MonsterTypes = MonsterTypes.NOTHING,
+    var monsterLevel: Byte = 0,
+    var items: List<ItemData> = emptyList()
+
+) : CommandEvent() {
+
+    override fun reset() {
+        playerId = -1
+        monsterClass = MonsterClasses.NOTHING
+        monsterType = MonsterTypes.NOTHING
+        monsterLevel = 0
+        items = emptyList()
     }
 }
