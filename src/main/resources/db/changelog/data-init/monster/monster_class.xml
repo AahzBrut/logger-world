@@ -7,6 +7,9 @@
 
     <changeSet id="monster_class-data-01" author="AahzBrut">
         <insert tableName="monster_class">
+            <column name="code" value="NOTHING"/>
+        </insert>
+        <insert tableName="monster_class">
             <column name="code" value="GREY_RAT"/>
         </insert>
         <insert tableName="monster_class">
