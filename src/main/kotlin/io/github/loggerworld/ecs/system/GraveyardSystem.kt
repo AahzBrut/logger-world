@@ -28,9 +28,7 @@ import ktx.ashley.addComponent
 import ktx.ashley.allOf
 import ktx.ashley.get
 import ktx.ashley.has
-import ktx.ashley.hasNot
 import ktx.ashley.remove
-import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 
@@ -38,7 +36,7 @@ import java.time.OffsetDateTime
 class GraveyardSystem(
     private val logEventBus: LogEventBus<LogEvent>,
     private val itemService: ItemService,
-    private val dropSerializerBus: EventBus<SerializeItemsDropFromMobCommand>
+    private val dropSerializerBus: EventBus<SerializeItemsDropFromMobCommand>,
 ) : IteratingSystem(allOf(KilledComponent::class).get(), EngineSystems.GRAVEYARD_SYSTEM.ordinal),
     LogAware {
 
@@ -50,18 +48,14 @@ class GraveyardSystem(
             val monsterComp = killedComp.killer[MonsterComponent.mapper]!!
             logPlayerKilledEvent(playerComp, monsterComp)
             playerComp.location[LocationComponent.mapper]!!.players.remove(deceased)
-            if (playerComp.location.hasNot(LocationUpdatedComponent.mapper)) playerComp.location.addComponent<LocationUpdatedComponent>(
-                engine
-            )
+            playerComp.location.addComponent<LocationUpdatedComponent>(engine)
         } else {
             val playerComp = killedComp.killer[PlayerComponent.mapper]!!
             val monsterComp = deceased[MonsterComponent.mapper]!!
             logMonsterKilledEvent(playerComp, monsterComp)
             dropLoot(killedComp.killer, monsterComp, playerComp)
             playerComp.location[LocationComponent.mapper]!!.spawnedMonsters.remove(deceased)
-            if (playerComp.location.hasNot(LocationUpdatedComponent.mapper)) playerComp.location.addComponent<LocationUpdatedComponent>(
-                engine
-            )
+            playerComp.location.addComponent<LocationUpdatedComponent>(engine)
         }
         deceased.remove<KilledComponent>()
         deceased.addComponent<RemoveComponent>(engine)
@@ -85,13 +79,15 @@ class GraveyardSystem(
 
     private fun dropLoot(player: Entity, monsterComp: MonsterComponent, playerComp: PlayerComponent) {
         val inventoryComp = player[InventoryComponent.mapper]!!
-        val loot = addLootToExistingStacks(getTempLoot(), inventoryComp)
+        val loot = getTempLoot()
+        if (loot.isEmpty()) return
+        val unstackedLoot = addLootToExistingStacks(loot, inventoryComp)
         dropSerializerBus.dispatchEvent {
             it.playerId = playerComp.playerId
             it.monsterClass = monsterComp.monsterClass
             it.monsterType = monsterComp.monsterType
             it.monsterLevel = monsterComp.level
-            it.items = loot
+            it.items = unstackedLoot
         }
     }
 

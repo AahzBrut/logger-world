@@ -55,3 +55,13 @@ data class SerializeItemsDropFromMobCommand(
         items = emptyList()
     }
 }
+
+data class InventoryChangedEvent(
+    var playerId: Long = -1,
+    var maxSize: Short = -1,
+    var currentSize: Short = -1,
+    var slots: List<ItemData> = emptyList()
+) : NotificationEvent() {
+
+    override fun reset() = Unit
+}

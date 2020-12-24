@@ -20,7 +20,6 @@ import io.github.loggerworld.util.logger
 import ktx.ashley.addComponent
 import ktx.ashley.allOf
 import ktx.ashley.get
-import ktx.ashley.hasNot
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
 
@@ -37,11 +36,9 @@ class MoveSystem(
 
         if (moveComponent.currentLocationId == moveComponent.fromLocationId) {
 
-
-            if (playerComponent.location.hasNot(LocationUpdatedComponent.mapper))
-                playerComponent.location.addComponent<LocationUpdatedComponent>(engine)
-
+            playerComponent.location.addComponent<LocationUpdatedComponent>(engine)
             logger().debug("\nPlayer with id:${playerComponent.playerId} is departing from location with id:${moveComponent.fromLocationId}")
+
             moveComponent.currentLocationId =
                 locationMap[LocationTypes.IN_TRANSIT.ordinal.toShort()].entity[LocationComponent.mapper]!!.locationId
             playerComponent.location = locationMap[LocationTypes.IN_TRANSIT.ordinal.toShort()].entity
@@ -56,8 +53,7 @@ class MoveSystem(
                 logger().debug("\nPlayer with id:${playerComponent.playerId} is arriving to location with id:${moveComponent.toLocationId}")
                 logArrivalEvent(playerComponent.playerId, moveComponent)
                 entity.remove(PlayerMoveComponent::class.java)
-                if (playerComponent.location.hasNot(LocationUpdatedComponent.mapper))
-                    playerComponent.location.addComponent<LocationUpdatedComponent>(engine)
+                playerComponent.location.addComponent<LocationUpdatedComponent>(engine)
             }
         }
     }

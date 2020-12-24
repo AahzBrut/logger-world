@@ -55,8 +55,7 @@ class PlayerKickMonsterNestSystem(
                 if (spawner.amount-- > 0) {
                     val monster = spawnMonster(spawner, playerEntity)
                     locationComp.spawnedMonsters.add(monster)
-                    if (location.hasNot(LocationUpdatedComponent.mapper))
-                        location.addComponent<LocationUpdatedComponent>(engine)
+                    location.addComponent<LocationUpdatedComponent>(engine)
                     logKickNestEvent(kickCommand)
                     logMobAttackPlayer(monster, playerEntity)
                     attackMonster(playerEntity, monster)

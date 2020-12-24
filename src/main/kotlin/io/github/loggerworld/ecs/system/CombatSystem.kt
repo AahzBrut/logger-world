@@ -12,8 +12,6 @@ import io.github.loggerworld.ecs.component.MonsterComponent
 import io.github.loggerworld.ecs.component.MonsterSpawnerComponent
 import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.RemoveComponent
-import io.github.loggerworld.ecs.component.StateComponent
-import io.github.loggerworld.ecs.component.States
 import io.github.loggerworld.messagebus.LogEventBus
 import io.github.loggerworld.messagebus.event.AttackMobEvent
 import io.github.loggerworld.messagebus.event.AttackedByMobEvent
@@ -26,8 +24,6 @@ import ktx.ashley.addComponent
 import ktx.ashley.allOf
 import ktx.ashley.get
 import ktx.ashley.has
-import ktx.ashley.hasNot
-import ktx.ashley.remove
 import ktx.collections.isEmpty
 import org.springframework.stereotype.Service
 import java.time.OffsetDateTime
@@ -121,7 +117,7 @@ class CombatSystem(
         val locationComp = monsterComp.location[LocationComponent.mapper]!!
         monsterComp.nest[MonsterSpawnerComponent.mapper]!!.monsterCounter++
         locationComp.spawnedMonsters.remove(entity)
-        if (monsterComp.location.hasNot(LocationUpdatedComponent.mapper)) monsterComp.location.addComponent<LocationUpdatedComponent>(engine)
+        monsterComp.location.addComponent<LocationUpdatedComponent>(engine)
         entity.addComponent<RemoveComponent>(engine)
         logger().debug("Mob ${monsterComp.monsterType} ${monsterComp.monsterClass} ${monsterComp.level}lvl in location ${locationComp.locationId} have no more targets and returns to nest.")
         return
