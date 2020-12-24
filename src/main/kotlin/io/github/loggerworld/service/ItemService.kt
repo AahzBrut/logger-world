@@ -8,13 +8,15 @@ import io.github.loggerworld.domain.enums.ItemStatEnum.STACK_SIZE
 import io.github.loggerworld.dto.inner.item.ItemData
 import io.github.loggerworld.messagebus.EventBus
 import io.github.loggerworld.messagebus.event.DeserializeItemsDropFromMobCommand
+import io.github.loggerworld.messagebus.event.InventoryChangedEvent
 import io.github.loggerworld.messagebus.event.SerializeItemsDropFromMobCommand
 import io.github.loggerworld.service.domain.ItemDomainService
 import io.github.loggerworld.service.perfcount.PerfCounters
 import io.github.loggerworld.service.perfcount.PerformanceCounter
 import io.github.loggerworld.util.LogAware
+import io.github.loggerworld.util.WS_GAMEPLAY_INVENTORY_CHANGE_QUEUE
 import io.github.loggerworld.util.logger
-import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.messaging.simp.SimpMessagingTemplate
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import java.util.concurrent.atomic.AtomicLong
@@ -28,7 +30,11 @@ class ItemService(
     private val serializeCommandBus: EventBus<SerializeItemsDropFromMobCommand>,
     private val deserializeCommandBus: EventBus<DeserializeItemsDropFromMobCommand>,
     private val performanceCounter: PerformanceCounter,
-) : LogAware {
+    private val inventoryChangedEventBus: EventBus<InventoryChangedEvent>,
+    private val simpleMessagingTemplate: SimpMessagingTemplate,
+    private val playerService: PlayerService,
+    private val userService: UserService,
+    ) : LogAware {
 
     private val itemIdCounter: AtomicLong = AtomicLong(-1L)
 
@@ -90,5 +96,22 @@ class ItemService(
         }
 
         performanceCounter.stop(PerfCounters.ITEM_SERIALIZER_SERVICE)
+    }
+
+    @Suppress("kotlin:S1144")
+    @Scheduled(fixedDelay = 10, initialDelay = 100)
+    private fun notifyInventoryChanged() {
+        performanceCounter.start(PerfCounters.INVENTORY_CHANGE_NOTIFICATION_SERVICE)
+
+        while (inventoryChangedEventBus.receiveEvent {
+                val player = playerService.getPlayerById(it.playerId)
+                val user = userService.getUserById(player.userId)
+
+                simpleMessagingTemplate.convertAndSendToUser(user.loginName, WS_GAMEPLAY_INVENTORY_CHANGE_QUEUE, it)
+            }) {
+            // Empty body
+        }
+
+        performanceCounter.stop(PerfCounters.INVENTORY_CHANGE_NOTIFICATION_SERVICE)
     }
 }
