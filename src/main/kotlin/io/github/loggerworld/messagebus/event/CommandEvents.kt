@@ -48,7 +48,7 @@ data class PlayerKickMonsterNestCommand(
     }
 }
 
-data class SerializeItemsDropFromMobCommand(
+data class DeserializeItemsDropFromMobCommand(
     var playerId: Long = -1,
     var monsterClass: MonsterClasses = MonsterClasses.NOTHING,
     var monsterType: MonsterTypes = MonsterTypes.NOTHING,

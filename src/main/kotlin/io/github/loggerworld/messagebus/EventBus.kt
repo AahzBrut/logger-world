@@ -11,15 +11,20 @@ class EventBus<T : Any>(type: KClass<T>){
     private val eventPool: Pool<T> = Pools.get(type.java)
 
     fun dispatchEvent(setEventParams: (T) -> Unit){
-        val event = eventPool.obtain()
+        var event: T
+        synchronized(eventPool){
+            event = eventPool.obtain()
+        }
         setEventParams(event)
         eventQueue.push(event)
     }
 
     fun receiveEvent(consumeEvent: (T) -> Unit) : Boolean {
         if (eventQueue.isEmpty()) return false
-
-        val event = eventQueue.pollLast()
+        var event: T
+        synchronized(eventPool){
+            event = eventQueue.pollLast()
+        }
         consumeEvent(event)
         eventPool.free(event)
         return true

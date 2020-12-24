@@ -9,6 +9,7 @@ import io.github.loggerworld.ecs.component.ItemComponent
 import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.PlayerMapComponent
 import io.github.loggerworld.messagebus.EventBus
+import io.github.loggerworld.messagebus.event.DeserializeItemsDropFromMobCommand
 import io.github.loggerworld.messagebus.event.SerializeItemsDropFromMobCommand
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.logger
@@ -21,8 +22,7 @@ import org.springframework.stereotype.Service
 
 @Service
 class LootAcquireSystem(
-    @Qualifier("Deserializer")
-    private val deserializeCommandBus: EventBus<SerializeItemsDropFromMobCommand>,
+    private val deserializeCommandBus: EventBus<DeserializeItemsDropFromMobCommand>,
 ) : EntitySystem(EngineSystems.LOOT_ACQUIRE_SYSTEM.ordinal), LogAware {
 
     private val playerMap by lazy { engine.getEntitiesFor(allOf(PlayerMapComponent::class).get())[0][PlayerMapComponent.mapper]!!.playerMap }

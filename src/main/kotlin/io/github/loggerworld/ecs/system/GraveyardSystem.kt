@@ -23,6 +23,7 @@ import io.github.loggerworld.messagebus.event.PlayerKilledByMobEvent
 import io.github.loggerworld.messagebus.event.SerializeItemsDropFromMobCommand
 import io.github.loggerworld.service.ItemService
 import io.github.loggerworld.util.LogAware
+import io.github.loggerworld.util.logger
 import ktx.ashley.addComponent
 import ktx.ashley.allOf
 import ktx.ashley.get
@@ -37,7 +38,6 @@ import java.time.OffsetDateTime
 class GraveyardSystem(
     private val logEventBus: LogEventBus<LogEvent>,
     private val itemService: ItemService,
-    @Qualifier("Serializer")
     private val dropSerializerBus: EventBus<SerializeItemsDropFromMobCommand>
 ) : IteratingSystem(allOf(KilledComponent::class).get(), EngineSystems.GRAVEYARD_SYSTEM.ordinal),
     LogAware {
@@ -109,6 +109,7 @@ class GraveyardSystem(
                     if (stackSize < 0) {
                         it.quantity += itemData.quantity
                         itemData.quantity = 0
+                        logger().debug("\n\nItem ${itemData.category} was added to existing stack")
                     } else {
                         val delta = stackSize - it.quantity
                         if (delta >= itemData.quantity) {

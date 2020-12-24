@@ -7,6 +7,7 @@ import io.github.loggerworld.domain.enums.ItemStatEnum.MAX_DURABILITY
 import io.github.loggerworld.domain.enums.ItemStatEnum.STACK_SIZE
 import io.github.loggerworld.dto.inner.item.ItemData
 import io.github.loggerworld.messagebus.EventBus
+import io.github.loggerworld.messagebus.event.DeserializeItemsDropFromMobCommand
 import io.github.loggerworld.messagebus.event.SerializeItemsDropFromMobCommand
 import io.github.loggerworld.service.domain.ItemDomainService
 import io.github.loggerworld.service.perfcount.PerfCounters
@@ -24,10 +25,8 @@ import kotlin.random.Random
 @Service
 class ItemService(
     private val itemDomainService: ItemDomainService,
-    @Qualifier("Serializer")
     private val serializeCommandBus: EventBus<SerializeItemsDropFromMobCommand>,
-    @Qualifier("Deserializer")
-    private val deserializeCommandBus: EventBus<SerializeItemsDropFromMobCommand>,
+    private val deserializeCommandBus: EventBus<DeserializeItemsDropFromMobCommand>,
     private val performanceCounter: PerformanceCounter,
 ) : LogAware {
 

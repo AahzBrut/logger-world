@@ -1,7 +1,9 @@
 package io.github.loggerworld.messagebus
 
 import io.github.loggerworld.messagebus.event.LocationChangedEvent
+import io.github.loggerworld.messagebus.event.SerializeItemsDropFromMobCommand
 import io.github.loggerworld.messagebus.event.WrongCommandEvent
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -15,4 +17,8 @@ class NotificationBusConfig {
     @Bean
     fun wrongCommandNotificationBus() : EventBus<WrongCommandEvent> =
         EventBus(WrongCommandEvent::class)
+
+    @Bean
+    fun serializeItemsDropFromMobCommandBus() : EventBus<SerializeItemsDropFromMobCommand> =
+        EventBus(SerializeItemsDropFromMobCommand::class)
 }

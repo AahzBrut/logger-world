@@ -1,5 +1,6 @@
 package io.github.loggerworld.messagebus
 
+import io.github.loggerworld.messagebus.event.DeserializeItemsDropFromMobCommand
 import io.github.loggerworld.messagebus.event.PlayerKickMonsterNestCommand
 import io.github.loggerworld.messagebus.event.PlayerMoveCommand
 import io.github.loggerworld.messagebus.event.PlayerStartCommand
@@ -24,12 +25,6 @@ class CommandBusConfig {
         EventBus(PlayerKickMonsterNestCommand::class)
 
     @Bean
-    @Qualifier("Serializer")
-    fun serializeItemsDropFromMobCommandBus() : EventBus<SerializeItemsDropFromMobCommand> =
-        EventBus(SerializeItemsDropFromMobCommand::class)
-
-    @Bean
-    @Qualifier("Deserializer")
-    fun deserializeItemsDropFromMobCommandBus() : EventBus<SerializeItemsDropFromMobCommand> =
-        EventBus(SerializeItemsDropFromMobCommand::class)
+    fun deserializeItemsDropFromMobCommandBus() : EventBus<DeserializeItemsDropFromMobCommand> =
+        EventBus(DeserializeItemsDropFromMobCommand::class)
 }
