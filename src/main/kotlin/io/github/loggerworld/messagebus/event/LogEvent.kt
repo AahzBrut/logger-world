@@ -2,6 +2,7 @@ package io.github.loggerworld.messagebus.event
 
 import com.badlogic.gdx.utils.Pool
 import io.github.loggerworld.domain.enums.LogTypes
+import io.github.loggerworld.dto.inner.item.ItemData
 import java.time.OffsetDateTime
 
 sealed class LogEvent : Pool.Poolable
@@ -135,6 +136,17 @@ data class PlayerKillMobEvent(
     var eventType: LogTypes = LogTypes.MOB_KILLED,
     var playerId: Long = 0,
     var monsterName: String = "",
+    var created: OffsetDateTime = OffsetDateTime.now()
+) : LogEvent(){
+    override fun reset() {
+        playerId = 0
+    }
+}
+
+data class PlayerGotItemEvent(
+    var eventType: LogTypes = LogTypes.PLAYER_GOT_ITEM,
+    var playerId: Long = 0,
+    var itemData: ItemData = ItemData(),
     var created: OffsetDateTime = OffsetDateTime.now()
 ) : LogEvent(){
     override fun reset() {

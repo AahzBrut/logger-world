@@ -15,6 +15,9 @@
         <insert tableName="log_class">
             <column name="code" value="COMBAT"/>
         </insert>
+        <insert tableName="log_class">
+            <column name="code" value="LOOT"/>
+        </insert>
      </changeSet>
 
 </databaseChangeLog>

@@ -10,7 +10,10 @@ import io.github.loggerworld.ecs.component.ItemComponent
 import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.PlayerMapComponent
 import io.github.loggerworld.messagebus.EventBus
+import io.github.loggerworld.messagebus.LogEventBus
 import io.github.loggerworld.messagebus.event.DeserializeItemsDropFromMobCommand
+import io.github.loggerworld.messagebus.event.LogEvent
+import io.github.loggerworld.messagebus.event.PlayerGotItemEvent
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.logger
 import ktx.ashley.addComponent
@@ -19,10 +22,12 @@ import ktx.ashley.entity
 import ktx.ashley.get
 import ktx.ashley.with
 import org.springframework.stereotype.Service
+import java.time.OffsetDateTime
 
 @Service
 class LootAcquireSystem(
     private val deserializeCommandBus: EventBus<DeserializeItemsDropFromMobCommand>,
+    private val logEventBus: LogEventBus<LogEvent>,
 ) : EntitySystem(EngineSystems.LOOT_ACQUIRE_SYSTEM.ordinal), LogAware {
 
     private val playerMap by lazy { engine.getEntitiesFor(allOf(PlayerMapComponent::class).get())[0][PlayerMapComponent.mapper]!!.playerMap }
@@ -40,12 +45,21 @@ class LootAcquireSystem(
                     } else {
                         inventoryComp.currentSize++
                         inventoryComp.slots.add(spawnItem(item))
+                        logGotItem(playerComp, item)
                         logger().debug("\n\nItem: $item\n was added to inventory of ${playerComp.playerName}")
                     }
                 }
             }) {
             // Empty block
         }
+    }
+
+    private fun logGotItem(playerComp: PlayerComponent, item: ItemData) {
+        val event = logEventBus.newEvent(PlayerGotItemEvent::class) as PlayerGotItemEvent
+        event.playerId = playerComp.playerId
+        event.itemData = item
+        event.created = OffsetDateTime.now()
+        logEventBus.pushEvent(event)
     }
 
     private fun spawnItem(item: ItemData): Entity {

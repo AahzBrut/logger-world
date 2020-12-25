@@ -75,6 +75,12 @@
             <column name="name" value="Mob killed by player"/>
             <column name="description" value="Mob killed by player."/>
         </insert>
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='PLAYER_GOT_ITEM'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="Player got item"/>
+            <column name="description" value="Player got item."/>
+        </insert>
 
 
         <!-- RU -->
@@ -144,6 +150,12 @@
             <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
             <column name="name" value="Моб убит игроком"/>
             <column name="description" value="Моб убит игроком."/>
+        </insert>
+        <insert tableName="log_type_description">
+            <column name="log_type_id" valueComputed="SELECT log_type_id FROM REPOSITORY.log_type WHERE code='PLAYER_GOT_ITEM'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Игрок получил предмет"/>
+            <column name="description" value="Игрок получил предмет."/>
         </insert>
 
     </changeSet>
