@@ -5,5 +5,6 @@ enum class LogValueTypes {
     LOCATION_ID,
     MONSTER_NEST_ID,
     MONSTER_ID,
-    DAMAGE_AMOUNT
+    DAMAGE_AMOUNT,
+    ITEM_ID,
 }

@@ -13,6 +13,7 @@ import io.github.loggerworld.mapper.logging.LogEntryFromDealDamageToMobEventMapp
 import io.github.loggerworld.mapper.logging.LogEntryFromDepartureEventMapper
 import io.github.loggerworld.mapper.logging.LogEntryFromLoginEventMapper
 import io.github.loggerworld.mapper.logging.LogEntryFromNestKickedEventMapper
+import io.github.loggerworld.mapper.logging.LogEntryFromPlayerGotItemEventMapper
 import io.github.loggerworld.mapper.logging.LogEntryFromPlayerKillMobEventMapper
 import io.github.loggerworld.mapper.logging.LogEntryFromPlayerKilledByMobEventMapper
 import io.github.loggerworld.mapper.logging.LogEntryFromReceiveDamageFromMobEventMapper
@@ -26,6 +27,7 @@ import io.github.loggerworld.messagebus.event.LogEvent
 import io.github.loggerworld.messagebus.event.LoginEvent
 import io.github.loggerworld.messagebus.event.LogoffEvent
 import io.github.loggerworld.messagebus.event.NestKickEvent
+import io.github.loggerworld.messagebus.event.PlayerGotItemEvent
 import io.github.loggerworld.messagebus.event.PlayerKillMobEvent
 import io.github.loggerworld.messagebus.event.PlayerKilledByMobEvent
 import io.github.loggerworld.messagebus.event.ReceiveDamageFromMobEvent
@@ -57,8 +59,10 @@ class LoggingService(
     private val receiveDamageFromMobEventMapper: LogEntryFromReceiveDamageFromMobEventMapper,
     private val playerKilledByMobMapper: LogEntryFromPlayerKilledByMobEventMapper,
     private val playerKillMobMapper: LogEntryFromPlayerKillMobEventMapper,
+    private val playerGotItemMapper: LogEntryFromPlayerGotItemEventMapper,
     private val monsterService: MonsterService,
-    private val performanceCounter: PerformanceCounter
+    private val performanceCounter: PerformanceCounter,
+    private val itemService: ItemService,
 ) : LogAware {
 
     private lateinit var logMessagesTemplates: LoggingData
@@ -70,6 +74,7 @@ class LoggingService(
             LogValueTypes.MONSTER_NEST_ID to monsterService::decodeMonsterNest,
             LogValueTypes.MONSTER_ID to monsterService::decodeMonster,
             LogValueTypes.DAMAGE_AMOUNT to ::shortCircuit,
+            LogValueTypes.ITEM_ID to itemService::decodeItem,
         )
 
     @Suppress("UNUSED_PARAMETER")
@@ -112,7 +117,22 @@ class LoggingService(
             is PlayerKilledByMobEvent -> processPlayerKilledByMobEvent(event)
             is PlayerKillMobEvent -> processPlayerKillMobEvent(event)
             is LogoffEvent -> processLogoffEvent(event)
+            is PlayerGotItemEvent -> processPlayerGotItemEvent(event)
         }
+    }
+
+    private fun processPlayerGotItemEvent(event: PlayerGotItemEvent) {
+        val messageId = getRandomMessage(event.eventType)
+        val user = playerService.getUserByPlayerId(event.playerId)
+        loggingDomainService.addPlayerGotItemEventToBatch(event, messageId)
+        messagingService.sendMessageToPlayer(
+            user.loginName, playerGotItemMapper.from(
+                event,
+                getMessageByIdAndLanguage(messageId, user.language),
+                valueDecoders,
+                user.language
+            )
+        )
     }
 
     private fun processLogoffEvent(event: LogoffEvent) {

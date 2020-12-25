@@ -5,6 +5,7 @@ import io.github.loggerworld.domain.enums.ItemQualities
 import io.github.loggerworld.domain.enums.ItemStatEnum.DURABILITY
 import io.github.loggerworld.domain.enums.ItemStatEnum.MAX_DURABILITY
 import io.github.loggerworld.domain.enums.ItemStatEnum.STACK_SIZE
+import io.github.loggerworld.domain.enums.Languages
 import io.github.loggerworld.dto.inner.item.ItemData
 import io.github.loggerworld.messagebus.EventBus
 import io.github.loggerworld.messagebus.event.DeserializeItemsDropFromMobCommand
@@ -34,7 +35,7 @@ class ItemService(
     private val simpleMessagingTemplate: SimpMessagingTemplate,
     private val playerService: PlayerService,
     private val userService: UserService,
-    ) : LogAware {
+) : LogAware {
 
     private val itemIdCounter: AtomicLong = AtomicLong(-1L)
 
@@ -64,6 +65,18 @@ class ItemService(
             category.applicableStats.contains(STACK_SIZE)
         )
     }
+
+    fun decodeItem(item: String, language: Languages): String {
+        val ids = item.split(",").map(String::toInt)
+        val category = ItemCategories.values()[ids[0]]
+        val quality = ItemQualities.values()[ids[1]]
+
+        return if (category.getAllParents().contains(ItemCategories.VALUABLES))
+            "${ids[2]} ${itemDomainService.categoryDescriptions[category]!![language]!!.short}"
+        else
+            "${ids[2]} ${itemDomainService.categoryDescriptions[category]!![language]!!.short} (${itemDomainService.qualityDescriptions[quality]!![language]!!.short})"
+    }
+
 
     private fun getRandomValue(first: Float, second: Float): Float {
         return if (first.toInt() != second.toInt())

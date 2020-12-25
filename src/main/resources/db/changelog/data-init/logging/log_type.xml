@@ -61,6 +61,11 @@
             <column name="code" value="MOB_KILLED"/>
             <column name="num_vals" valueNumeric="2"/>
         </insert>
+        <insert tableName="log_type">
+            <column name="log_class_id" valueComputed="SELECT log_class_id FROM REPOSITORY.log_class WHERE code='LOOT'"/>
+            <column name="code" value="PLAYER_GOT_ITEM"/>
+            <column name="num_vals" valueNumeric="2"/>
+        </insert>
     </changeSet>
 
 </databaseChangeLog>

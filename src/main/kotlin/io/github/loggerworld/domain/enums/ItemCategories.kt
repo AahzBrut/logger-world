@@ -27,27 +27,26 @@ enum class ItemCategories(
     val isItem: Boolean,
     val applicableStats: Set<ItemStatEnum>
 ) {
-    NOTHING(NOTHING, false, emptyStats),
-    VALUABLES(VALUABLES, false, emptyStats),
-    WEAPON(WEAPON, false, emptyStats),
-    ARMOR(ARMOR, false, emptyStats),
-    CONSUMABLE(CONSUMABLE, false, emptyStats),
+    NOTHING(null, false, emptyStats),
+    VALUABLES(null, false, emptyStats),
+    WEAPON(null, false, emptyStats),
+    ARMOR(null, false, emptyStats),
+    CONSUMABLE(null, false, emptyStats),
     GOLD(VALUABLES, true, goldStats),
     MELEE(WEAPON, false, emptyStats),
     ONE_HANDED(MELEE, false, emptyStats),
     SWORD(ONE_HANDED, false, emptyStats),
-    SHORT_SWORD(
-        SWORD, true, weaponStats
+    SHORT_SWORD(SWORD, true, weaponStats
     );
 
     fun getAllParents(): Set<ItemCategories> {
         if (this == this.parent) return emptySet()
         val result = mutableSetOf<ItemCategories>()
-        var currentNode = this.parent!!
+        var currentNode = this.parent
 
-        while (currentNode != currentNode.parent) {
+        while (currentNode != null) {
             result.add(currentNode)
-            currentNode = currentNode.parent!!
+            currentNode = currentNode.parent
         }
 
         return result

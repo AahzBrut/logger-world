@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "2.4.0"
+    id("org.springframework.boot") version "2.4.1"
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
     kotlin("jvm") version "1.4.21"
     kotlin("plugin.spring") version "1.4.21"
@@ -41,12 +41,6 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-api:${jwtVersion}")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:${jwtVersion}")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:${jwtVersion}")
-
-    implementation ("org.webjars:webjars-locator-core")
-    implementation ("org.webjars:sockjs-client:1.0.2")
-    implementation ("org.webjars:stomp-websocket:2.3.3")
-    implementation ("org.webjars:bootstrap:3.3.7")
-    implementation ("org.webjars:jquery:3.1.1-1")
 
     implementation( "io.springfox:springfox-boot-starter:3.0.0")
     implementation( "io.springfox:springfox-swagger-ui:3.0.0")

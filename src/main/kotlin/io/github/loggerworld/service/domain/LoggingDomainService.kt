@@ -16,6 +16,7 @@ import io.github.loggerworld.mapper.logging.LoggingDataMapper
 import io.github.loggerworld.mapper.logging.LoginEventMapper
 import io.github.loggerworld.mapper.logging.LogoffEventMapper
 import io.github.loggerworld.mapper.logging.NestKickedEventMapper
+import io.github.loggerworld.mapper.logging.PlayerGotItemEventMapper
 import io.github.loggerworld.mapper.logging.PlayerKillMobEventMapper
 import io.github.loggerworld.mapper.logging.PlayerKilledByMobEventMapper
 import io.github.loggerworld.mapper.logging.ReceiveDamageFromMobEventMapper
@@ -27,6 +28,7 @@ import io.github.loggerworld.messagebus.event.DepartureEvent
 import io.github.loggerworld.messagebus.event.LoginEvent
 import io.github.loggerworld.messagebus.event.LogoffEvent
 import io.github.loggerworld.messagebus.event.NestKickEvent
+import io.github.loggerworld.messagebus.event.PlayerGotItemEvent
 import io.github.loggerworld.messagebus.event.PlayerKillMobEvent
 import io.github.loggerworld.messagebus.event.PlayerKilledByMobEvent
 import io.github.loggerworld.messagebus.event.ReceiveDamageFromMobEvent
@@ -55,6 +57,7 @@ class LoggingDomainService(
     private val receiveDamageFromMobEventMapper: ReceiveDamageFromMobEventMapper,
     private val playerKilledByMobEventMapper: PlayerKilledByMobEventMapper,
     private val playerKillMobEventMapper: PlayerKillMobEventMapper,
+    private val playerGotItemEventMapper: PlayerGotItemEventMapper,
     private val logoffEventMapper: LogoffEventMapper,
 ) : LogAware {
 
@@ -120,6 +123,10 @@ class LoggingDomainService(
 
     fun addPlayerKillMobMessageToBatch(event: PlayerKillMobEvent, messageId: Int) {
         batch.add(playerKillMobEventMapper.from(event, messageId))
+    }
+
+    fun addPlayerGotItemEventToBatch(event: PlayerGotItemEvent, messageId: Int) {
+        batch.add(playerGotItemEventMapper.from(event, messageId))
     }
 
     @Transactional

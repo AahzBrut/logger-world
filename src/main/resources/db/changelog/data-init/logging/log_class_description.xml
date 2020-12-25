@@ -27,6 +27,12 @@
             <column name="name" value="Combat"/>
             <column name="description" value="Combat messages."/>
         </insert>
+        <insert tableName="log_class_description">
+            <column name="log_class_id" valueComputed="SELECT log_class_id FROM REPOSITORY.log_class WHERE code='LOOT'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="name" value="Loot"/>
+            <column name="description" value="Loot messages."/>
+        </insert>
 
 
         <!-- RU -->
@@ -48,6 +54,12 @@
             <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
             <column name="name" value="Бой"/>
             <column name="description" value="Боевые сообщения."/>
+        </insert>
+        <insert tableName="log_class_description">
+            <column name="log_class_id" valueComputed="SELECT log_class_id FROM REPOSITORY.log_class WHERE code='LOOT'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='RU'"/>
+            <column name="name" value="Лут"/>
+            <column name="description" value="Лутовые сообщения."/>
         </insert>
 
     </changeSet>
