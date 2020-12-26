@@ -1,9 +1,11 @@
 package io.github.loggerworld.controller
 
+import io.github.loggerworld.dto.request.commands.PlayerEquipItemRequest
 import io.github.loggerworld.dto.request.commands.PlayerKickMonsterNestRequest
 import io.github.loggerworld.dto.request.commands.PlayerMoveRequest
 import io.github.loggerworld.dto.request.commands.PlayerStartGameRequest
 import io.github.loggerworld.service.PlayerService
+import io.github.loggerworld.util.WS_PLAYERS_EQUIP_ITEM
 import io.github.loggerworld.util.WS_PLAYERS_KICK_NEST
 import io.github.loggerworld.util.WS_PLAYERS_MOVE
 import io.github.loggerworld.util.WS_PLAYERS_START
@@ -29,5 +31,10 @@ class PlayerController(
     @MessageMapping(WS_PLAYERS_KICK_NEST)
     fun kickMonsterNest(principal: Principal, request: PlayerKickMonsterNestRequest) {
         playerService.kickMonsterNest(principal.name, request)
+    }
+
+    @MessageMapping(WS_PLAYERS_EQUIP_ITEM)
+    fun equipItem(principal: Principal, request: PlayerEquipItemRequest) {
+        playerService.equipItem(principal.name, request)
     }
 }

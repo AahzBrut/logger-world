@@ -4,6 +4,7 @@ import io.github.loggerworld.domain.enums.Languages
 import io.github.loggerworld.domain.enums.PlayerClasses
 import io.github.loggerworld.domain.enums.PlayerStatEnum
 import io.github.loggerworld.dto.request.PlayerAddRequest
+import io.github.loggerworld.dto.request.commands.PlayerEquipItemRequest
 import io.github.loggerworld.dto.request.commands.PlayerKickMonsterNestRequest
 import io.github.loggerworld.dto.request.commands.PlayerMoveRequest
 import io.github.loggerworld.dto.request.commands.PlayerStartGameRequest
@@ -17,6 +18,7 @@ import io.github.loggerworld.messagebus.EventBus
 import io.github.loggerworld.messagebus.LogEventBus
 import io.github.loggerworld.messagebus.event.LogEvent
 import io.github.loggerworld.messagebus.event.LogoffEvent
+import io.github.loggerworld.messagebus.event.PlayerEquipItemCommand
 import io.github.loggerworld.messagebus.event.PlayerKickMonsterNestCommand
 import io.github.loggerworld.messagebus.event.PlayerMoveCommand
 import io.github.loggerworld.messagebus.event.PlayerStartCommand
@@ -46,6 +48,7 @@ class PlayerService(
     private val kickNestEventBus: EventBus<PlayerKickMonsterNestCommand>,
     private val logEventBus: LogEventBus<LogEvent>,
     private val playerAttributeDomainService: PlayerAttributeDomainService,
+    private val equipItemCommandBus: EventBus<PlayerEquipItemCommand>,
 ) : LogAware {
 
     private val activePlayers: MutableMap<Long, Long> = ConcurrentHashMap()
@@ -183,6 +186,16 @@ class PlayerService(
         kickNestEventBus.dispatchEvent {
             it.playerId = activePlayers[playerId]!!
             it.monsterNestId = request.nestId
+        }
+    }
+
+    fun equipItem(userName: String, request: PlayerEquipItemRequest) {
+        val playerId = getActivePlayer(userDomainService.getUserByName(userName)!!.id)
+
+        equipItemCommandBus.dispatchEvent {
+            it.playerId = playerId
+            it.itemId = request.itemId
+            it.slotType = request.slotType
         }
     }
 }

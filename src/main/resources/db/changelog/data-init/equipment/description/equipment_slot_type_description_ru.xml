@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="equipment_slot_type_description-ru-data-01" author="AahzBrut">
+        <insert tableName="equipment_slot_type_description">
+            <column name="equipment_slot_type_id" valueComputed="SELECT equipment_slot_type_id FROM REPOSITORY.equipment_slot_type
+            WHERE code='NOTHING'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Ничего"/>
+            <column name="description" value="Стаб."/>
+        </insert>
+        <insert tableName="equipment_slot_type_description">
+            <column name="equipment_slot_type_id" valueComputed="SELECT equipment_slot_type_id FROM REPOSITORY.equipment_slot_type
+            WHERE code='HEAD'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Голова"/>
+            <column name="description" value="Голова."/>
+        </insert>
+        <insert tableName="equipment_slot_type_description">
+            <column name="equipment_slot_type_id" valueComputed="SELECT equipment_slot_type_id FROM REPOSITORY.equipment_slot_type
+            WHERE code='AMULET'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Амулет"/>
+            <column name="description" value="Амулет."/>
+        </insert>
+        <insert tableName="equipment_slot_type_description">
+            <column name="equipment_slot_type_id" valueComputed="SELECT equipment_slot_type_id FROM REPOSITORY.equipment_slot_type
+            WHERE code='LEFT_EARRING'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Левая серьга"/>
+            <column name="description" value="Левая серьга."/>
+        </insert>
+        <insert tableName="equipment_slot_type_description">
+            <column name="equipment_slot_type_id" valueComputed="SELECT equipment_slot_type_id FROM REPOSITORY.equipment_slot_type
+            WHERE code='RIGHT_EARRING'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Правая серьга"/>
+            <column name="description" value="Правая серьга."/>
+        </insert>
+        <insert tableName="equipment_slot_type_description">
+            <column name="equipment_slot_type_id" valueComputed="SELECT equipment_slot_type_id FROM REPOSITORY.equipment_slot_type
+            WHERE code='BODY'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Туловище"/>
+            <column name="description" value="Туловище."/>
+        </insert>
+        <insert tableName="equipment_slot_type_description">
+            <column name="equipment_slot_type_id" valueComputed="SELECT equipment_slot_type_id FROM REPOSITORY.equipment_slot_type
+            WHERE code='LEFT_ARM'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Левая рука"/>
+            <column name="description" value="Левая рука."/>
+        </insert>
+        <insert tableName="equipment_slot_type_description">
+            <column name="equipment_slot_type_id" valueComputed="SELECT equipment_slot_type_id FROM REPOSITORY.equipment_slot_type
+            WHERE code='RIGHT_ARM'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Правая рука"/>
+            <column name="description" value="Правая рука."/>
+        </insert>
+        <insert tableName="equipment_slot_type_description">
+            <column name="equipment_slot_type_id" valueComputed="SELECT equipment_slot_type_id FROM REPOSITORY.equipment_slot_type
+            WHERE code='GLOVES'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Перчатки"/>
+            <column name="description" value="Перчатки."/>
+        </insert>
+        <insert tableName="equipment_slot_type_description">
+            <column name="equipment_slot_type_id" valueComputed="SELECT equipment_slot_type_id FROM REPOSITORY.equipment_slot_type
+            WHERE code='LEFT_RING'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Левое кольцо"/>
+            <column name="description" value="Левое кольцо."/>
+        </insert>
+        <insert tableName="equipment_slot_type_description">
+            <column name="equipment_slot_type_id" valueComputed="SELECT equipment_slot_type_id FROM REPOSITORY.equipment_slot_type
+            WHERE code='RIGHT_RING'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Правое кольцо"/>
+            <column name="description" value="Правое кольцо."/>
+        </insert>
+        <insert tableName="equipment_slot_type_description">
+            <column name="equipment_slot_type_id" valueComputed="SELECT equipment_slot_type_id FROM REPOSITORY.equipment_slot_type
+            WHERE code='QUIVER'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Колчан"/>
+            <column name="description" value="Колчан."/>
+        </insert>
+        <insert tableName="equipment_slot_type_description">
+            <column name="equipment_slot_type_id" valueComputed="SELECT equipment_slot_type_id FROM REPOSITORY.equipment_slot_type
+            WHERE code='BELT'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Пояс"/>
+            <column name="description" value="Пояс."/>
+        </insert>
+        <insert tableName="equipment_slot_type_description">
+            <column name="equipment_slot_type_id" valueComputed="SELECT equipment_slot_type_id FROM REPOSITORY.equipment_slot_type
+            WHERE code='PANTS'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Штаны"/>
+            <column name="description" value="Штаны."/>
+        </insert>
+        <insert tableName="equipment_slot_type_description">
+            <column name="equipment_slot_type_id" valueComputed="SELECT equipment_slot_type_id FROM REPOSITORY.equipment_slot_type
+            WHERE code='BOOTS'"/>
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language
+            WHERE language_code='RU'"/>
+            <column name="name" value="Ботинки"/>
+            <column name="description" value="Ботинки."/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

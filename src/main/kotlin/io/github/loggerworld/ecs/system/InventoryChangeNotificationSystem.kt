@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service
 @Service
 class InventoryChangeNotificationSystem(
     private val inventoryChangedEventBus: EventBus<InventoryChangedEvent>,
-) : IteratingSystem(allOf(InventoryChangedComponent::class).get(),EngineSystems.LOOT_ACQUIRE_SYSTEM.ordinal), LogAware {
+) : IteratingSystem(allOf(InventoryChangedComponent::class).get(),EngineSystems.INVENTORY_CHANGE_NOTIFICATION_SYSTEM.ordinal), LogAware {
 
     override fun processEntity(player: Entity, deltaTime: Float) {
         val inventoryComp = player[InventoryComponent.mapper]!!
@@ -26,7 +26,6 @@ class InventoryChangeNotificationSystem(
         inventoryChangedEventBus.dispatchEvent {
             it.playerId = playerComp.playerId
             it.maxSize = inventoryComp.maxSize
-            it.currentSize = inventoryComp.currentSize
             it.slots = inventoryComp.slots.map { item ->
                 val itemComp = item[ItemComponent.mapper]!!
                 ItemData(
