@@ -3,16 +3,16 @@ package io.github.loggerworld.ecs.component
 import com.badlogic.ashley.core.Component
 import com.badlogic.ashley.core.Entity
 import com.badlogic.gdx.utils.Pool
+import io.github.loggerworld.domain.enums.EquipmentSlotTypes
 import ktx.ashley.mapperFor
 
-class InventoryComponent : Component, Pool.Poolable {
+class EquipmentComponent : Component, Pool.Poolable {
 
-    var maxSize: Int = 30
-    val slots: MutableList<Entity> = mutableListOf()
+    var equipmentSlots: MutableMap<EquipmentSlotTypes, Entity> = mutableMapOf()
 
     override fun reset() = Unit
 
     companion object {
-        val mapper = mapperFor<InventoryComponent>()
+        val mapper = mapperFor<EquipmentComponent>()
     }
 }

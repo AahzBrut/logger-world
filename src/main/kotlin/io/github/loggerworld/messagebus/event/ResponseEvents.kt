@@ -61,10 +61,8 @@ data class InventoryChangedEvent(
     @JsonProperty( "1")
     var playerId: Long = -1,
     @JsonProperty( "2")
-    var maxSize: Short = -1,
+    var maxSize: Int = -1,
     @JsonProperty( "3")
-    var currentSize: Short = -1,
-    @JsonProperty( "4")
     var slots: List<ItemData> = emptyList()
 ) : NotificationEvent() {
 

@@ -9,6 +9,7 @@ import io.github.loggerworld.controller.PLAYERS_CLASSES_URL
 import io.github.loggerworld.controller.PLAYERS_LOGS_URL
 import io.github.loggerworld.controller.PLAYERS_URL
 import io.github.loggerworld.controller.SIGN_UP_URL
+import io.github.loggerworld.domain.enums.EquipmentSlotTypes
 import io.github.loggerworld.domain.enums.Languages
 import io.github.loggerworld.domain.enums.MonsterClasses
 import io.github.loggerworld.domain.enums.PlayerAttributeEnum
@@ -17,6 +18,7 @@ import io.github.loggerworld.dto.request.ChatMessageRequest
 import io.github.loggerworld.dto.request.PlayerAddRequest
 import io.github.loggerworld.dto.request.UserAddRequest
 import io.github.loggerworld.dto.request.UserLoginRequest
+import io.github.loggerworld.dto.request.commands.PlayerEquipItemRequest
 import io.github.loggerworld.dto.request.commands.PlayerKickMonsterNestRequest
 import io.github.loggerworld.dto.request.commands.PlayerMoveRequest
 import io.github.loggerworld.dto.request.commands.PlayerStartGameRequest
@@ -41,6 +43,7 @@ import io.github.loggerworld.util.WS_GAMEPLAY_INVENTORY_CHANGE_QUEUE
 import io.github.loggerworld.util.WS_GAMEPLAY_LOCATION_NOTIFICATION_QUEUE
 import io.github.loggerworld.util.WS_GAMEPLAY_LOG_QUEUE
 import io.github.loggerworld.util.WS_GAMEPLAY_WRONG_COMMAND_QUEUE
+import io.github.loggerworld.util.WS_PLAYERS_EQUIP_ITEM
 import io.github.loggerworld.util.WS_PLAYERS_KICK_NEST
 import io.github.loggerworld.util.WS_PLAYERS_MOVE
 import io.github.loggerworld.util.WS_PLAYERS_START
@@ -479,6 +482,13 @@ class LoggerWorldTestIT : LogAware {
 
     @Test
     @Order(30)
+    fun firstUserEquipSword() {
+        stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_EQUIP_ITEM, PlayerEquipItemRequest(1, EquipmentSlotTypes.RIGHT_ARM))
+        TimeUnit.MILLISECONDS.sleep(300)
+    }
+
+    @Test
+    @Order(31)
     fun secondUserKickNest() {
         stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_KICK_NEST, PlayerKickMonsterNestRequest(3))
         stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_KICK_NEST, PlayerKickMonsterNestRequest(3))
@@ -486,7 +496,14 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(31)
+    @Order(32)
+    fun secondUserEquipSword() {
+        stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_EQUIP_ITEM, PlayerEquipItemRequest(3, EquipmentSlotTypes.RIGHT_ARM))
+        TimeUnit.MILLISECONDS.sleep(300)
+    }
+
+    @Test
+    @Order(33)
     fun firstUserGetLogs() {
         val restTemplate1 = RestTemplateBuilder(RestTemplateCustomizer {
             it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
@@ -500,7 +517,7 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(32)
+    @Order(34)
     fun secondUserGetLogs() {
         val restTemplate2 = RestTemplateBuilder(RestTemplateCustomizer {
             it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
@@ -514,7 +531,7 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(33)
+    @Order(35)
     fun getPerformanceCounters() {
         val restTemplate2 = RestTemplateBuilder(RestTemplateCustomizer {
             it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
@@ -528,21 +545,21 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(34)
+    @Order(36)
     fun firstUserDisconnect() {
         stompSession1.disconnect()
         TimeUnit.MILLISECONDS.sleep(300)
     }
 
     @Test
-    @Order(35)
+    @Order(37)
     fun secondUserDisconnect() {
         stompSession2.disconnect()
         TimeUnit.MILLISECONDS.sleep(300)
     }
 
     @Test
-    @Order(36)
+    @Order(38)
     fun testMonsterSpawner() {
         val monsterSpawnerData = monsterService?.getMonsterSpawnerData()!!
 

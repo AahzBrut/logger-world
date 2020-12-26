@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.EntitySystem
 import io.github.loggerworld.domain.enums.PlayerStatEnum
 import io.github.loggerworld.ecs.EngineSystems.PLAYER_SPAWN_SYSTEM
+import io.github.loggerworld.ecs.component.EquipmentComponent
 import io.github.loggerworld.ecs.component.HealthComponent
 import io.github.loggerworld.ecs.component.InventoryComponent
 import io.github.loggerworld.ecs.component.LocationComponent
@@ -102,6 +103,7 @@ class PlayerSpawnSystem(
                 defence = def
             }
             with<InventoryComponent> {}
+            with<EquipmentComponent> {}
         }
     }
 }

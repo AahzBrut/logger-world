@@ -40,10 +40,9 @@ class LootAcquireSystem(
                 val inventoryComp = player[InventoryComponent.mapper]!!
                 player.addComponent<InventoryChangedComponent>(engine)
                 event.items.forEach { item ->
-                    if (inventoryComp.currentSize == inventoryComp.maxSize) {
+                    if (inventoryComp.slots.size == inventoryComp.maxSize) {
                         dropItemOnTheGround(item)
                     } else {
-                        inventoryComp.currentSize++
                         inventoryComp.slots.add(spawnItem(item))
                         logGotItem(playerComp, item)
                         logger().debug("\n\nItem: $item\n was added to inventory of ${playerComp.playerName}")

@@ -1,6 +1,7 @@
 package io.github.loggerworld.messagebus.event
 
 import com.badlogic.gdx.utils.Pool
+import io.github.loggerworld.domain.enums.EquipmentSlotTypes
 import io.github.loggerworld.domain.enums.MonsterClasses
 import io.github.loggerworld.domain.enums.MonsterTypes
 import io.github.loggerworld.dto.inner.item.ItemData
@@ -64,4 +65,13 @@ data class DeserializeItemsDropFromMobCommand(
         monsterLevel = 0
         items = emptyList()
     }
+}
+
+data class PlayerEquipItemCommand(
+    var playerId: Long = -1,
+    var itemId: Long = -1,
+    var slotType: EquipmentSlotTypes = EquipmentSlotTypes.NOTHING
+) : CommandEvent() {
+
+    override fun reset() = Unit
 }

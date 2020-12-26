@@ -1,11 +1,10 @@
 package io.github.loggerworld.messagebus
 
 import io.github.loggerworld.messagebus.event.DeserializeItemsDropFromMobCommand
+import io.github.loggerworld.messagebus.event.PlayerEquipItemCommand
 import io.github.loggerworld.messagebus.event.PlayerKickMonsterNestCommand
 import io.github.loggerworld.messagebus.event.PlayerMoveCommand
 import io.github.loggerworld.messagebus.event.PlayerStartCommand
-import io.github.loggerworld.messagebus.event.SerializeItemsDropFromMobCommand
-import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -27,4 +26,8 @@ class CommandBusConfig {
     @Bean
     fun deserializeItemsDropFromMobCommandBus() : EventBus<DeserializeItemsDropFromMobCommand> =
         EventBus(DeserializeItemsDropFromMobCommand::class)
+
+    @Bean
+    fun equipItemCommandBus() : EventBus<PlayerEquipItemCommand> =
+        EventBus(PlayerEquipItemCommand::class)
 }
