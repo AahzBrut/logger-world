@@ -1,5 +1,7 @@
 package io.github.loggerworld.domain.enums
 
+import com.fasterxml.jackson.annotation.JsonValue
+
 enum class ItemStatEnum {
     NONE,
     DURABILITY,
@@ -9,5 +11,8 @@ enum class ItemStatEnum {
     MIN_DAMAGE,
     MAX_DAMAGE,
     ARMOR,
-    STACK_SIZE
+    STACK_SIZE;
+
+    @JsonValue
+    fun jsonValue() = ordinal
 }

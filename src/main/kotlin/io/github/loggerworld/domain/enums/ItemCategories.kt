@@ -1,5 +1,6 @@
 package io.github.loggerworld.domain.enums
 
+import com.fasterxml.jackson.annotation.JsonValue
 import io.github.loggerworld.domain.enums.ItemStatEnum.DURABILITY
 import io.github.loggerworld.domain.enums.ItemStatEnum.MAX_DAMAGE
 import io.github.loggerworld.domain.enums.ItemStatEnum.MAX_DURABILITY
@@ -51,4 +52,7 @@ enum class ItemCategories(
 
         return result
     }
+
+    @JsonValue
+    fun jsonValue() = ordinal
 }

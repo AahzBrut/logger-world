@@ -21,7 +21,6 @@ import io.github.loggerworld.dto.request.commands.PlayerKickMonsterNestRequest
 import io.github.loggerworld.dto.request.commands.PlayerMoveRequest
 import io.github.loggerworld.dto.request.commands.PlayerStartGameRequest
 import io.github.loggerworld.dto.response.ResponseObject
-import io.github.loggerworld.dto.response.character.PlayerClassesResponse
 import io.github.loggerworld.dto.response.character.PlayerResponse
 import io.github.loggerworld.dto.response.character.PlayersResponse
 import io.github.loggerworld.dto.response.chat.ChatMessageResponse
@@ -587,16 +586,6 @@ class LoggerWorldTestIT : LogAware {
 
         override fun handleFrame(headers: StompHeaders, payload: Any?) {
 
-            when (payload) {
-                is ChatMessageResponse -> {
-                }
-                is PlayerClassesResponse -> {
-                    assert(payload.playerClasses.isNotEmpty())
-                }
-                is PlayersResponse -> {
-                    assert(payload.players.isNotEmpty())
-                }
-            }
             logger().info(headers.toSingleValueMap().toString())
             logger().info("\n\nGot payload over web socket:\n$payload")
         }
