@@ -1,5 +1,6 @@
 package io.github.loggerworld.messagebus
 
+import io.github.loggerworld.messagebus.event.EquipmentChangedEvent
 import io.github.loggerworld.messagebus.event.InventoryChangedEvent
 import io.github.loggerworld.messagebus.event.LocationChangedEvent
 import io.github.loggerworld.messagebus.event.SerializeItemsDropFromMobCommand
@@ -25,4 +26,8 @@ class NotificationBusConfig {
     @Bean
     fun inventoryChangeNotificationBus() : EventBus<InventoryChangedEvent> =
         EventBus(InventoryChangedEvent::class)
+
+    @Bean
+    fun equipmentChangeNotificationBus() : EventBus<EquipmentChangedEvent> =
+        EventBus(EquipmentChangedEvent::class)
 }

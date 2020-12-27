@@ -5,10 +5,12 @@ import io.github.loggerworld.dto.request.commands.PlayerKickMonsterNestRequest
 import io.github.loggerworld.dto.request.commands.PlayerMoveRequest
 import io.github.loggerworld.dto.request.commands.PlayerStartGameRequest
 import io.github.loggerworld.service.PlayerService
+import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.WS_PLAYERS_EQUIP_ITEM
 import io.github.loggerworld.util.WS_PLAYERS_KICK_NEST
 import io.github.loggerworld.util.WS_PLAYERS_MOVE
 import io.github.loggerworld.util.WS_PLAYERS_START
+import io.github.loggerworld.util.logger
 import org.springframework.messaging.handler.annotation.MessageMapping
 import org.springframework.stereotype.Controller
 import java.security.Principal
@@ -16,11 +18,13 @@ import java.security.Principal
 @Controller
 class PlayerController(
     private val playerService: PlayerService,
-) {
+) : LogAware {
 
     @MessageMapping(WS_PLAYERS_START)
     fun startGameForPlayer(principal: Principal, request: PlayerStartGameRequest) {
+        logger().debug("User: ${principal.name} IN: startGameForPlayer()")
         playerService.startGameForPlayer(principal.name, request)
+        logger().debug("User: ${principal.name} OUT: startGameForPlayer()")
     }
 
     @MessageMapping(WS_PLAYERS_MOVE)

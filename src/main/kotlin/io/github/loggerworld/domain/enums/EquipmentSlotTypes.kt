@@ -1,5 +1,7 @@
 package io.github.loggerworld.domain.enums
 
+import com.fasterxml.jackson.annotation.JsonValue
+
 enum class EquipmentSlotTypes {
     NOTHING,
     HEAD,
@@ -15,5 +17,8 @@ enum class EquipmentSlotTypes {
     QUIVER,
     BELT,
     PANTS,
-    BOOTS,
+    BOOTS;
+
+    @JsonValue
+    fun jsonValue() = ordinal
 }

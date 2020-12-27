@@ -1,5 +1,6 @@
 package io.github.loggerworld.service.domain
 
+import io.github.loggerworld.domain.enums.EquipmentSlotTypes
 import io.github.loggerworld.domain.enums.ItemCategories
 import io.github.loggerworld.domain.enums.ItemQualities
 import io.github.loggerworld.domain.enums.ItemStatEnum
@@ -12,6 +13,7 @@ import io.github.loggerworld.domain.item.ItemStats
 import io.github.loggerworld.dto.inner.item.ItemData
 import io.github.loggerworld.dto.response.Description
 import io.github.loggerworld.repository.item.ItemCategoryDescriptionRepository
+import io.github.loggerworld.repository.item.ItemCategoryEquipmentSlotRepository
 import io.github.loggerworld.repository.item.ItemCategoryQualityStatRepository
 import io.github.loggerworld.repository.item.ItemQualityDescriptionRepository
 import io.github.loggerworld.repository.item.ItemRepository
@@ -29,6 +31,7 @@ typealias ItemCategoryStats = MutableMap<ItemCategories, ItemQualityStats>
 typealias ItemQualityStats = MutableMap<ItemQualities, ItemLevelStats>
 typealias ItemStatValues = MutableMap<ItemStatEnum, Pair<Float, Float>>
 typealias ItemLevelStats = MutableMap<Byte, ItemStatValues>
+typealias ItemCategoryEquipmentSlots = MutableMap<ItemCategories, MutableSet<EquipmentSlotTypes>>
 
 @Service
 class ItemDomainService(
@@ -38,61 +41,66 @@ class ItemDomainService(
     private val itemStatDescriptionRepository: ItemStatDescriptionRepository,
     private val itemRepository: ItemRepository,
     private val itemStatsRepository: ItemStatsRepository,
+    private val itemCategoryEquipmentSlotRepository: ItemCategoryEquipmentSlotRepository,
 ) {
 
     val categoryDescriptions: CategoryDescriptions = mutableMapOf()
     val qualityDescriptions: QualityDescriptions = mutableMapOf()
     val statDescriptions: ItemStatDescriptions = mutableMapOf()
     val itemCategoryStats: ItemCategoryStats = mutableMapOf()
+    val itemCategoryEquipmentSlots: ItemCategoryEquipmentSlots = mutableMapOf()
 
     @Transactional
-    fun initCategoryDescriptions(){
+    fun initCategoryDescriptions() {
         categoryDescriptions.clear()
         itemCategoryDescriptionRepository.findAll()
             .forEach {
-                if (!categoryDescriptions.containsKey(it.itemCategory.code)) {
-                    categoryDescriptions[it.itemCategory.code] = mutableMapOf()
-                }
-                categoryDescriptions[it.itemCategory.code]!![it.language.code] = Description(it.name, it.description)
+                val languageDescriptions = categoryDescriptions
+                    .computeIfAbsent(it.itemCategory.code)
+                    { mutableMapOf() }
+                languageDescriptions[it.language.code] = Description(it.name, it.description)
             }
     }
 
     @Transactional
-    fun initQualityDescriptions(){
+    fun initQualityDescriptions() {
         qualityDescriptions.clear()
         itemQualityDescriptionRepository.findAll()
             .forEach {
-                if (!qualityDescriptions.containsKey(it.itemQuality.code)) {
-                    qualityDescriptions[it.itemQuality.code] = mutableMapOf()
-                }
-                qualityDescriptions[it.itemQuality.code]!![it.language.code] = Description(it.name, it.description)
+                val languageDescriptions = qualityDescriptions
+                    .computeIfAbsent(it.itemQuality.code)
+                    { mutableMapOf() }
+                languageDescriptions[it.language.code] = Description(it.name, it.description)
             }
     }
 
     @Transactional
-    fun initItemStatDescriptions(){
+    fun initItemStatDescriptions() {
         statDescriptions.clear()
         itemStatDescriptionRepository.findAll()
             .forEach {
-                if (!statDescriptions.containsKey(it.itemStat.code)) {
-                    statDescriptions[it.itemStat.code] = mutableMapOf()
-                }
-                statDescriptions[it.itemStat.code]!![it.language.code] = Description(it.name, it.description)
+                val languageDescriptions = statDescriptions
+                    .computeIfAbsent(it.itemStat.code)
+                    { mutableMapOf() }
+                languageDescriptions[it.language.code] = Description(it.name, it.description)
             }
     }
 
     @Transactional
-    fun initCategoryStats(){
+    fun initCategoryStats() {
         itemCategoryStats.clear()
         itemCategoryQualityStatRepository.findAll()
             .forEach {
-                if (!itemCategoryStats.containsKey(it.itemCategoryQuality.itemCategory.code))
-                    itemCategoryStats[it.itemCategoryQuality.itemCategory.code] = mutableMapOf()
-                if (!itemCategoryStats[it.itemCategoryQuality.itemCategory.code]!!.containsKey(it.itemCategoryQuality.itemQuality.code))
-                    itemCategoryStats[it.itemCategoryQuality.itemCategory.code]!![it.itemCategoryQuality.itemQuality.code] = mutableMapOf()
-                if (!itemCategoryStats[it.itemCategoryQuality.itemCategory.code]!![it.itemCategoryQuality.itemQuality.code]!!.containsKey(it.level))
-                    itemCategoryStats[it.itemCategoryQuality.itemCategory.code]!![it.itemCategoryQuality.itemQuality.code]!![it.level] = mutableMapOf()
-                itemCategoryStats[it.itemCategoryQuality.itemCategory.code]!![it.itemCategoryQuality.itemQuality.code]!![it.level]!![it.itemStat.code] = Pair(it.minValue, it.maxValue)
+                val itemQualityStats = itemCategoryStats
+                    .computeIfAbsent(it.itemCategoryQuality.itemCategory.code)
+                    { mutableMapOf() }
+                val itemLevelStats = itemQualityStats
+                    .computeIfAbsent(it.itemCategoryQuality.itemQuality.code)
+                    { mutableMapOf() }
+                val itemStatValues = itemLevelStats
+                    .computeIfAbsent(it.level)
+                    { mutableMapOf() }
+                itemStatValues[it.itemStat.code] = Pair(it.minValue, it.maxValue)
             }
     }
 
@@ -110,5 +118,17 @@ class ItemDomainService(
         }.toList()
 
         itemStatsRepository.saveAll(stats)
+    }
+
+    @Transactional
+    fun initCategoryEquipmentSlots() {
+        itemCategoryEquipmentSlots.clear()
+        itemCategoryEquipmentSlotRepository.findAll()
+            .forEach {
+                val equipmentSlotTypes = itemCategoryEquipmentSlots
+                    .computeIfAbsent(it.itemCategory.code)
+                    { mutableSetOf() }
+                equipmentSlotTypes.add(it.equipmentSlotType.code)
+            }
     }
 }

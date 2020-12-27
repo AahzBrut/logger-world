@@ -38,6 +38,7 @@ class ItemService(
 ) : LogAware {
 
     private val itemIdCounter: AtomicLong = AtomicLong(-1L)
+    val itemCategoryEquipmentSlots by lazy { itemDomainService.itemCategoryEquipmentSlots }
 
     @Suppress("kotlin:S1144")
     @PostConstruct
@@ -46,6 +47,7 @@ class ItemService(
         itemDomainService.initQualityDescriptions()
         itemDomainService.initItemStatDescriptions()
         itemDomainService.initCategoryStats()
+        itemDomainService.initCategoryEquipmentSlots()
         logger().debug("Item definitions cache populated")
     }
 
