@@ -4,6 +4,7 @@ import io.github.loggerworld.service.security.JwtService
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.WS_CONNECTION_POINT
 import io.github.loggerworld.util.WS_DESTINATION_PREFIX
+import io.github.loggerworld.util.WS_GAMEPLAY_EQUIPMENT_CHANGE_QUEUE
 import io.github.loggerworld.util.WS_GAMEPLAY_INVENTORY_CHANGE_QUEUE
 import io.github.loggerworld.util.WS_GAMEPLAY_LOCATION_NOTIFICATION_QUEUE
 import io.github.loggerworld.util.WS_GAMEPLAY_LOG_QUEUE
@@ -51,6 +52,7 @@ class WebSocketConfig(
                 WS_GAMEPLAY_WRONG_COMMAND_QUEUE,
                 WS_GAMEPLAY_LOG_QUEUE,
                 WS_GAMEPLAY_INVENTORY_CHANGE_QUEUE,
+                WS_GAMEPLAY_EQUIPMENT_CHANGE_QUEUE,
             )
             setApplicationDestinationPrefixes(WS_DESTINATION_PREFIX)
         }

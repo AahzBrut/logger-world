@@ -8,7 +8,7 @@ import ktx.ashley.mapperFor
 
 class EquipmentComponent : Component, Pool.Poolable {
 
-    var equipmentSlots: MutableMap<EquipmentSlotTypes, Entity> = mutableMapOf()
+    var slots: MutableMap<EquipmentSlotTypes, Entity> = mutableMapOf()
 
     override fun reset() = Unit
 

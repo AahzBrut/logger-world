@@ -63,12 +63,13 @@ class PlayerRestController(
     @GetMapping(PLAYERS_LOGS_URL)
     fun getLogs(principal: Principal): ResponseObject<PlayerLogsResponse> {
 
+        logger().debug("User: ${principal.name} IN: getLogs()")
         val responseObject = ResponseObject(
             success = true,
             data = loggingService.getPlayerLogs(userService.getUserByName(principal.name))
         )
         logger().debug("\n\nResponseObject:\n$responseObject")
-
+        logger().debug("User: ${principal.name} OUT: getLogs()")
         return responseObject
     }
 }

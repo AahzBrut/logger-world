@@ -2,6 +2,7 @@ package io.github.loggerworld.messagebus.event
 
 import com.badlogic.gdx.utils.Pool
 import com.fasterxml.jackson.annotation.JsonProperty
+import io.github.loggerworld.domain.enums.EquipmentSlotTypes
 import io.github.loggerworld.domain.enums.MonsterClasses
 import io.github.loggerworld.domain.enums.MonsterTypes
 import io.github.loggerworld.dto.inner.item.ItemData
@@ -64,6 +65,16 @@ data class InventoryChangedEvent(
     var maxSize: Int = -1,
     @JsonProperty( "3")
     var slots: List<ItemData> = emptyList()
+) : NotificationEvent() {
+
+    override fun reset() = Unit
+}
+
+data class EquipmentChangedEvent(
+    @JsonProperty( "1")
+    var playerId: Long = -1,
+    @JsonProperty( "2")
+    var slots: Map<EquipmentSlotTypes, ItemData> = emptyMap()
 ) : NotificationEvent() {
 
     override fun reset() = Unit
