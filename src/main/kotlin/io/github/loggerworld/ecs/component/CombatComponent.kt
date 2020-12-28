@@ -15,6 +15,7 @@ class CombatComponent : Component, Pool.Poolable {
     val enemies: GdxSet<Entity> = gdxSetOf()
     var target: Entity? = null
     var locationId: Short = -1
+    var damageCounters: MutableMap<Entity, Float> = mutableMapOf()
 
     override fun reset() {
         baseAttackCooldown = .0f
@@ -23,6 +24,7 @@ class CombatComponent : Component, Pool.Poolable {
         enemies.clear()
         target = null
         locationId = -1
+        damageCounters.clear()
     }
 
     companion object {

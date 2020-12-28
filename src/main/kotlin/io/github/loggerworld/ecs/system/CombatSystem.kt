@@ -15,9 +15,7 @@ import io.github.loggerworld.ecs.component.RemoveComponent
 import io.github.loggerworld.messagebus.LogEventBus
 import io.github.loggerworld.messagebus.event.AttackMobEvent
 import io.github.loggerworld.messagebus.event.AttackedByMobEvent
-import io.github.loggerworld.messagebus.event.DealDamageToMobEvent
 import io.github.loggerworld.messagebus.event.LogEvent
-import io.github.loggerworld.messagebus.event.ReceiveDamageFromMobEvent
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.logger
 import ktx.ashley.addComponent
@@ -56,39 +54,19 @@ class CombatSystem(
             }
         }
         val tgtHealthComp = combatComp.target!![HealthComponent.mapper]!!
+        val targetCombatComp = combatComp.target!![CombatComponent.mapper]!!
         val damage = max(0f, combatComp.damage - tgtHealthComp.defence)
         tgtHealthComp.health -= damage
-        logDamageEvent(entity, combatComp.target!!, damage)
+        targetCombatComp.damageCounters.computeIfAbsent(entity) { 0f }
+        targetCombatComp.damageCounters[entity] = targetCombatComp.damageCounters[entity]!! + damage
 
         if (tgtHealthComp.health <= 0f) {
-            combatComp.target!!.addComponent<KilledComponent>(engine){
+            combatComp.target!!.addComponent<KilledComponent>(engine) {
                 this.killer = entity
                 this.locationId = combatComp.locationId
             }
             combatComp.enemies.remove(combatComp.target)
             combatComp.target = null
-        }
-    }
-
-    private fun logDamageEvent(entity: Entity, target: Entity, damage: Float) {
-        if (entity.has(MonsterComponent.mapper)) {
-            val monsterComp = entity[MonsterComponent.mapper]!!
-            val playerComp = target[PlayerComponent.mapper]!!
-            val event = logEventBus.newEvent(ReceiveDamageFromMobEvent::class) as ReceiveDamageFromMobEvent
-            event.playerId = playerComp.playerId
-            event.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
-            event.damage = damage.toInt()
-            event.created = OffsetDateTime.now()
-            logEventBus.pushEvent(event)
-        } else {
-            val playerComp = entity[PlayerComponent.mapper]!!
-            val monsterComp = target[MonsterComponent.mapper]!!
-            val event = logEventBus.newEvent(DealDamageToMobEvent::class) as DealDamageToMobEvent
-            event.playerId = playerComp.playerId
-            event.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
-            event.damage = damage.toInt()
-            event.created = OffsetDateTime.now()
-            logEventBus.pushEvent(event)
         }
     }
 

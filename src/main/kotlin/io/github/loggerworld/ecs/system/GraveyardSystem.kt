@@ -7,6 +7,7 @@ import io.github.loggerworld.domain.enums.ItemQualities
 import io.github.loggerworld.domain.enums.ItemStatEnum.STACK_SIZE
 import io.github.loggerworld.dto.inner.item.ItemData
 import io.github.loggerworld.ecs.EngineSystems
+import io.github.loggerworld.ecs.component.CombatComponent
 import io.github.loggerworld.ecs.component.InventoryComponent
 import io.github.loggerworld.ecs.component.ItemComponent
 import io.github.loggerworld.ecs.component.KilledComponent
@@ -42,17 +43,22 @@ class GraveyardSystem(
 
     override fun processEntity(deceased: Entity, deltaTime: Float) {
         val killedComp = deceased[KilledComponent.mapper]!!
+        val damageReceived = deceased[CombatComponent.mapper]!!.damageCounters[killedComp.killer]!!
+        val damageDealt = killedComp.killer[CombatComponent.mapper]!!.damageCounters[deceased]!!
+        deceased[CombatComponent.mapper]!!.damageCounters.remove(killedComp.killer)
+        killedComp.killer[CombatComponent.mapper]!!.damageCounters.remove(deceased)
+
 
         if (deceased.has(PlayerComponent.mapper)) {
             val playerComp = deceased[PlayerComponent.mapper]!!
             val monsterComp = killedComp.killer[MonsterComponent.mapper]!!
-            logPlayerKilledEvent(playerComp, monsterComp)
+            logPlayerKilledEvent(playerComp, monsterComp, damageReceived, damageDealt)
             playerComp.location[LocationComponent.mapper]!!.players.remove(deceased)
             playerComp.location.addComponent<LocationUpdatedComponent>(engine)
         } else {
             val playerComp = killedComp.killer[PlayerComponent.mapper]!!
             val monsterComp = deceased[MonsterComponent.mapper]!!
-            logMonsterKilledEvent(playerComp, monsterComp)
+            logMonsterKilledEvent(playerComp, monsterComp, damageDealt, damageReceived)
             dropLoot(killedComp.killer, monsterComp, playerComp)
             playerComp.location[LocationComponent.mapper]!!.spawnedMonsters.remove(deceased)
             playerComp.location.addComponent<LocationUpdatedComponent>(engine)
@@ -61,18 +67,32 @@ class GraveyardSystem(
         deceased.addComponent<RemoveComponent>(engine)
     }
 
-    private fun logPlayerKilledEvent(playerComp: PlayerComponent, monsterComp: MonsterComponent) {
+    private fun logPlayerKilledEvent(
+        playerComp: PlayerComponent,
+        monsterComp: MonsterComponent,
+        damageReceived: Float,
+        damageDealt: Float,
+    ) {
         val event = logEventBus.newEvent(PlayerKilledByMobEvent::class) as PlayerKilledByMobEvent
         event.playerId = playerComp.playerId
         event.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
+        event.damageReceived = damageReceived
+        event.damageDealt = damageDealt
         event.created = OffsetDateTime.now()
         logEventBus.pushEvent(event)
     }
 
-    private fun logMonsterKilledEvent(playerComp: PlayerComponent, monsterComp: MonsterComponent) {
+    private fun logMonsterKilledEvent(
+        playerComp: PlayerComponent,
+        monsterComp: MonsterComponent,
+        damageReceived: Float,
+        damageDealt: Float,
+    ) {
         val event = logEventBus.newEvent(PlayerKillMobEvent::class) as PlayerKillMobEvent
         event.playerId = playerComp.playerId
         event.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
+        event.damageReceived = damageReceived
+        event.damageDealt = damageDealt
         event.created = OffsetDateTime.now()
         logEventBus.pushEvent(event)
     }

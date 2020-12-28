@@ -54,12 +54,12 @@
         <insert tableName="log_type">
             <column name="log_class_id" valueComputed="SELECT log_class_id FROM REPOSITORY.log_class WHERE code='COMBAT'"/>
             <column name="code" value="PLAYER_KILLED_BY_MOB"/>
-            <column name="num_vals" valueNumeric="2"/>
+            <column name="num_vals" valueNumeric="4"/>
         </insert>
         <insert tableName="log_type">
             <column name="log_class_id" valueComputed="SELECT log_class_id FROM REPOSITORY.log_class WHERE code='COMBAT'"/>
             <column name="code" value="MOB_KILLED"/>
-            <column name="num_vals" valueNumeric="2"/>
+            <column name="num_vals" valueNumeric="4"/>
         </insert>
         <insert tableName="log_type">
             <column name="log_class_id" valueComputed="SELECT log_class_id FROM REPOSITORY.log_class WHERE code='LOOT'"/>
