@@ -6,10 +6,10 @@ import io.github.loggerworld.domain.enums.MonsterClasses
 data class MobNestResponse(
     @JsonProperty("1")
     var id: Short = 0,
-    @JsonProperty("1")
+    @JsonProperty("2")
     var mobClass: MonsterClasses = MonsterClasses.GREY_RAT,
-    @JsonProperty("1")
+    @JsonProperty("3")
     var level: Byte = 0,
-    @JsonProperty("1")
+    @JsonProperty("4")
     var amount: Short = 0
 )
