@@ -2,6 +2,9 @@ package io.github.loggerworld.ecs.system
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.systems.IteratingSystem
+import io.github.loggerworld.domain.enums.CombatEventTypes.DEATH_FROM_MOB
+import io.github.loggerworld.domain.enums.CombatEventTypes.MOB_DEAD
+import io.github.loggerworld.domain.enums.CombatEventTypes.PLAYER_DEAD
 import io.github.loggerworld.domain.enums.ItemCategories
 import io.github.loggerworld.domain.enums.ItemQualities
 import io.github.loggerworld.domain.enums.ItemStatEnum.STACK_SIZE
@@ -18,6 +21,7 @@ import io.github.loggerworld.ecs.component.PlayerComponent
 import io.github.loggerworld.ecs.component.RemoveComponent
 import io.github.loggerworld.messagebus.EventBus
 import io.github.loggerworld.messagebus.LogEventBus
+import io.github.loggerworld.messagebus.event.CombatEvent
 import io.github.loggerworld.messagebus.event.LogEvent
 import io.github.loggerworld.messagebus.event.PlayerKillMobEvent
 import io.github.loggerworld.messagebus.event.PlayerKilledByMobEvent
@@ -38,6 +42,7 @@ class GraveyardSystem(
     private val logEventBus: LogEventBus<LogEvent>,
     private val itemService: ItemService,
     private val dropSerializerBus: EventBus<SerializeItemsDropFromMobCommand>,
+    private val combatEventBus: EventBus<CombatEvent>,
 ) : IteratingSystem(allOf(KilledComponent::class).get(), EngineSystems.GRAVEYARD_SYSTEM.ordinal),
     LogAware {
 
@@ -65,6 +70,26 @@ class GraveyardSystem(
         }
         deceased.remove<KilledComponent>()
         deceased.addComponent<RemoveComponent>(engine)
+        syncCombatComponents(deceased, killedComp.killer)
+    }
+
+    private fun syncCombatComponents(deceased: Entity, killer: Entity) {
+        val deceasedCombatComp = deceased[CombatComponent.mapper]!!
+        deceasedCombatComp.enemies.remove(killer)
+        deceasedCombatComp.enemies.forEach { enemy ->
+            val combatComp = enemy[CombatComponent.mapper]!!
+            if (enemy.has(PlayerComponent.mapper)) {
+                combatEventBus.dispatchEvent { event ->
+                    event.playerId = enemy[PlayerComponent.mapper]!!.playerId
+                    event.eventType = if (deceased.has(PlayerComponent.mapper)) PLAYER_DEAD else MOB_DEAD
+                    event.enemyId = if (deceased.has(PlayerComponent.mapper)) deceased[PlayerComponent.mapper]!!.playerId else deceased[MonsterComponent.mapper]!!.id
+                    event.damage = 0f
+                }
+            }
+            combatComp.enemies.remove(deceased)
+            combatComp.damageCounters.remove(deceased)
+            if (combatComp.target == deceased) combatComp.target = null
+        }
     }
 
     private fun logPlayerKilledEvent(
@@ -73,6 +98,13 @@ class GraveyardSystem(
         damageReceived: Float,
         damageDealt: Float,
     ) {
+        combatEventBus.dispatchEvent { combatEvent ->
+            combatEvent.playerId = playerComp.playerId
+            combatEvent.eventType = DEATH_FROM_MOB
+            combatEvent.enemyId = monsterComp.id
+            combatEvent.damage = 0f
+        }
+
         val event = logEventBus.newEvent(PlayerKilledByMobEvent::class) as PlayerKilledByMobEvent
         event.playerId = playerComp.playerId
         event.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
@@ -88,6 +120,13 @@ class GraveyardSystem(
         damageReceived: Float,
         damageDealt: Float,
     ) {
+        combatEventBus.dispatchEvent { combatEvent ->
+            combatEvent.playerId = playerComp.playerId
+            combatEvent.eventType = MOB_DEAD
+            combatEvent.enemyId = monsterComp.id
+            combatEvent.damage = 0f
+        }
+
         val event = logEventBus.newEvent(PlayerKillMobEvent::class) as PlayerKillMobEvent
         event.playerId = playerComp.playerId
         event.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"

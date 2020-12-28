@@ -18,6 +18,7 @@ const val WS_GAMEPLAY_WRONG_COMMAND_QUEUE = "/queue/wrong-command"
 const val WS_GAMEPLAY_LOG_QUEUE = "/queue/log"
 const val WS_GAMEPLAY_INVENTORY_CHANGE_QUEUE = "/queue/inventory"
 const val WS_GAMEPLAY_EQUIPMENT_CHANGE_QUEUE = "/queue/equipment"
+const val WS_GAMEPLAY_COMBAT_EVENT_QUEUE = "/queue/combat"
 
 const val WS_TOPIC_MESSAGES = "/topic/messages"
 

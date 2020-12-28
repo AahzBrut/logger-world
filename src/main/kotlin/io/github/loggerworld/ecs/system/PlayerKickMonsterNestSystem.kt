@@ -2,6 +2,7 @@ package io.github.loggerworld.ecs.system
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.core.EntitySystem
+import io.github.loggerworld.domain.enums.CombatEventTypes
 import io.github.loggerworld.domain.enums.PlayerStatEnum
 import io.github.loggerworld.ecs.EngineSystems
 import io.github.loggerworld.ecs.component.CombatComponent
@@ -17,6 +18,7 @@ import io.github.loggerworld.messagebus.EventBus
 import io.github.loggerworld.messagebus.LogEventBus
 import io.github.loggerworld.messagebus.event.AttackMobEvent
 import io.github.loggerworld.messagebus.event.AttackedByMobEvent
+import io.github.loggerworld.messagebus.event.CombatEvent
 import io.github.loggerworld.messagebus.event.LogEvent
 import io.github.loggerworld.messagebus.event.NestKickEvent
 import io.github.loggerworld.messagebus.event.PlayerKickMonsterNestCommand
@@ -37,7 +39,8 @@ import java.time.OffsetDateTime
 class PlayerKickMonsterNestSystem(
     private val kickCommandEventBus: EventBus<PlayerKickMonsterNestCommand>,
     private val monsterService: MonsterService,
-    private val logEventBus: LogEventBus<LogEvent>
+    private val logEventBus: LogEventBus<LogEvent>,
+    private val combatEventBus: EventBus<CombatEvent>,
 ) :
     EntitySystem(EngineSystems.PLAYER_KICK_MONSTER_NEST_SYSTEM.ordinal), LogAware {
 
@@ -86,6 +89,12 @@ class PlayerKickMonsterNestSystem(
     private fun logPlayerAttackMob(player: Entity, monster: Entity) {
         val monsterComp = monster[MonsterComponent.mapper]!!
         val playerComp = player[PlayerComponent.mapper]!!
+        combatEventBus.dispatchEvent { combatEvent ->
+            combatEvent.playerId = playerComp.playerId
+            combatEvent.eventType = CombatEventTypes.ATTACK_MOB
+            combatEvent.enemyId = monsterComp.id
+            combatEvent.damage = 0f
+        }
         val attackEvent = logEventBus.newEvent(AttackMobEvent::class) as AttackMobEvent
         attackEvent.playerId = playerComp.playerId
         attackEvent.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
@@ -158,6 +167,12 @@ class PlayerKickMonsterNestSystem(
     private fun logMobAttackPlayer(mob: Entity, player: Entity) {
         val monsterComp = mob[MonsterComponent.mapper]!!
         val playerComp = player[PlayerComponent.mapper]!!
+        combatEventBus.dispatchEvent { combatEvent ->
+            combatEvent.playerId = playerComp.playerId
+            combatEvent.eventType = CombatEventTypes.ATTACKED_BY_MOB
+            combatEvent.enemyId = monsterComp.id
+            combatEvent.damage = 0f
+        }
         val attackEvent = logEventBus.newEvent(AttackedByMobEvent::class) as AttackedByMobEvent
         attackEvent.playerId = playerComp.playerId
         attackEvent.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"

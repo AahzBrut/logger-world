@@ -2,11 +2,13 @@ package io.github.loggerworld.service
 
 import io.github.loggerworld.dto.response.logging.PlayerLogEntryResponse
 import io.github.loggerworld.messagebus.EventBus
+import io.github.loggerworld.messagebus.event.CombatEvent
 import io.github.loggerworld.messagebus.event.LocationChangedEvent
 import io.github.loggerworld.messagebus.event.WrongCommandEvent
 import io.github.loggerworld.service.perfcount.PerfCounters
 import io.github.loggerworld.service.perfcount.PerformanceCounter
 import io.github.loggerworld.util.LogAware
+import io.github.loggerworld.util.WS_GAMEPLAY_COMBAT_EVENT_QUEUE
 import io.github.loggerworld.util.WS_GAMEPLAY_LOCATION_NOTIFICATION_QUEUE
 import io.github.loggerworld.util.WS_GAMEPLAY_LOG_QUEUE
 import io.github.loggerworld.util.WS_GAMEPLAY_WRONG_COMMAND_QUEUE
@@ -19,6 +21,7 @@ import org.springframework.stereotype.Service
 class MessagingService(
     private val locationNotificationBus: EventBus<LocationChangedEvent>,
     private val wrongCommandEventBus: EventBus<WrongCommandEvent>,
+    private val combatEventBus: EventBus<CombatEvent>,
     private val playerService: PlayerService,
     private val userService: UserService,
     private val simpleMessagingTemplate: SimpMessagingTemplate,
@@ -42,6 +45,15 @@ class MessagingService(
                 val user = userService.getUserById(player.userId)
 
                 simpleMessagingTemplate.convertAndSendToUser(user.loginName, WS_GAMEPLAY_WRONG_COMMAND_QUEUE, event)
+            }) {
+            // Empty body
+        }
+
+        while (combatEventBus.receiveEvent { event ->
+                val player = playerService.getPlayerById(event.playerId)
+                val user = userService.getUserById(player.userId)
+
+                simpleMessagingTemplate.convertAndSendToUser(user.loginName, WS_GAMEPLAY_COMBAT_EVENT_QUEUE, event)
             }) {
             // Empty body
         }
