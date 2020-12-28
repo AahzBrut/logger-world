@@ -8,7 +8,8 @@ const val WS_PLAYERS_START = "/players/start"
 const val WS_PLAYERS_MOVE = "/players/move"
 const val WS_PLAYERS_KICK_NEST = "/players/kick-nest"
 const val WS_PLAYERS_EQUIP_ITEM = "/players/equip-item"
-
+const val WS_PLAYERS_REQUEST_INVENTORY = "/players/request/inventory"
+const val WS_PLAYERS_REQUEST_EQUIPMENT = "/players/request/equipment"
 
 const val WS_TOPIC = "/topic"
 const val WS_CHAT = "/chat"
