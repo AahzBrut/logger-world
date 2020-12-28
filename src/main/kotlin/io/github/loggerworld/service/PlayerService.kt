@@ -21,6 +21,8 @@ import io.github.loggerworld.messagebus.event.LogoffEvent
 import io.github.loggerworld.messagebus.event.PlayerEquipItemCommand
 import io.github.loggerworld.messagebus.event.PlayerKickMonsterNestCommand
 import io.github.loggerworld.messagebus.event.PlayerMoveCommand
+import io.github.loggerworld.messagebus.event.PlayerRequestEquipmentCommand
+import io.github.loggerworld.messagebus.event.PlayerRequestInventoryCommand
 import io.github.loggerworld.messagebus.event.PlayerStartCommand
 import io.github.loggerworld.service.domain.PlayerAttributeDomainService
 import io.github.loggerworld.service.domain.PlayerClassDomainService
@@ -49,6 +51,8 @@ class PlayerService(
     private val logEventBus: LogEventBus<LogEvent>,
     private val playerAttributeDomainService: PlayerAttributeDomainService,
     private val equipItemCommandBus: EventBus<PlayerEquipItemCommand>,
+    private val requestInventoryBus: EventBus<PlayerRequestInventoryCommand>,
+    private val requestEquipmentBus: EventBus<PlayerRequestEquipmentCommand>,
 ) : LogAware {
 
     private val activePlayers: MutableMap<Long, Long> = ConcurrentHashMap()
@@ -196,6 +200,22 @@ class PlayerService(
             it.playerId = playerId
             it.itemId = request.itemId
             it.slotType = request.slotType
+        }
+    }
+
+    fun requestInventory(userName: String) {
+        val playerId = getActivePlayer(userDomainService.getUserByName(userName)!!.id)
+
+        requestInventoryBus.dispatchEvent {
+            it.playerId = playerId
+        }
+    }
+
+    fun requestEquipment(userName: String) {
+        val playerId = getActivePlayer(userDomainService.getUserByName(userName)!!.id)
+
+        requestEquipmentBus.dispatchEvent {
+            it.playerId = playerId
         }
     }
 }

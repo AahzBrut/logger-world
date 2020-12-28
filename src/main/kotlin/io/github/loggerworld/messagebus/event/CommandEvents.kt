@@ -75,3 +75,17 @@ data class PlayerEquipItemCommand(
 
     override fun reset() = Unit
 }
+
+data class PlayerRequestInventoryCommand(
+    var playerId: Long = -1
+) : CommandEvent(){
+
+    override fun reset() = Unit
+}
+
+data class PlayerRequestEquipmentCommand(
+    var playerId: Long = -1
+) : CommandEvent(){
+
+    override fun reset() = Unit
+}

@@ -9,6 +9,8 @@ import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.WS_PLAYERS_EQUIP_ITEM
 import io.github.loggerworld.util.WS_PLAYERS_KICK_NEST
 import io.github.loggerworld.util.WS_PLAYERS_MOVE
+import io.github.loggerworld.util.WS_PLAYERS_REQUEST_EQUIPMENT
+import io.github.loggerworld.util.WS_PLAYERS_REQUEST_INVENTORY
 import io.github.loggerworld.util.WS_PLAYERS_START
 import io.github.loggerworld.util.logger
 import org.springframework.messaging.handler.annotation.MessageMapping
@@ -40,5 +42,15 @@ class PlayerController(
     @MessageMapping(WS_PLAYERS_EQUIP_ITEM)
     fun equipItem(principal: Principal, request: PlayerEquipItemRequest) {
         playerService.equipItem(principal.name, request)
+    }
+
+    @MessageMapping(WS_PLAYERS_REQUEST_INVENTORY)
+    fun requestInventory(principal: Principal) {
+        playerService.requestInventory(principal.name)
+    }
+
+    @MessageMapping(WS_PLAYERS_REQUEST_EQUIPMENT)
+    fun requestEquipment(principal: Principal) {
+        playerService.requestEquipment(principal.name)
     }
 }

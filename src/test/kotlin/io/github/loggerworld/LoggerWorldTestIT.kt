@@ -48,6 +48,8 @@ import io.github.loggerworld.util.WS_GAMEPLAY_WRONG_COMMAND_QUEUE
 import io.github.loggerworld.util.WS_PLAYERS_EQUIP_ITEM
 import io.github.loggerworld.util.WS_PLAYERS_KICK_NEST
 import io.github.loggerworld.util.WS_PLAYERS_MOVE
+import io.github.loggerworld.util.WS_PLAYERS_REQUEST_EQUIPMENT
+import io.github.loggerworld.util.WS_PLAYERS_REQUEST_INVENTORY
 import io.github.loggerworld.util.WS_PLAYERS_START
 import io.github.loggerworld.util.WS_TOPIC_MESSAGES
 import io.github.loggerworld.util.logger
@@ -534,6 +536,20 @@ class LoggerWorldTestIT : LogAware {
 
     @Test
     @Order(35)
+    fun firstUserRequestInventory() {
+        stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_REQUEST_INVENTORY, "")
+        TimeUnit.MILLISECONDS.sleep(300)
+    }
+
+    @Test
+    @Order(36)
+    fun firstUserRequestEquipment() {
+        stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_REQUEST_EQUIPMENT, "")
+        TimeUnit.MILLISECONDS.sleep(300)
+    }
+
+    @Test
+    @Order(37)
     fun getPerformanceCounters() {
         val restTemplate2 = RestTemplateBuilder(RestTemplateCustomizer {
             it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
@@ -547,21 +563,21 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(36)
+    @Order(38)
     fun firstUserDisconnect() {
         stompSession1.disconnect()
         TimeUnit.MILLISECONDS.sleep(300)
     }
 
     @Test
-    @Order(37)
+    @Order(39)
     fun secondUserDisconnect() {
         stompSession2.disconnect()
         TimeUnit.MILLISECONDS.sleep(300)
     }
 
     @Test
-    @Order(38)
+    @Order(40)
     fun testMonsterSpawner() {
         val monsterSpawnerData = monsterService?.getMonsterSpawnerData()!!
 

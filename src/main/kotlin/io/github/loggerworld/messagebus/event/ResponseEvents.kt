@@ -13,12 +13,14 @@ import io.github.loggerworld.dto.response.monster.MonsterShortResponse
 sealed class NotificationEvent : Pool.Poolable
 
 data class LocationChangedEvent(
-
+    @JsonProperty("1")
     var locationId: Short = -1,
+    @JsonProperty("2")
     var players: MutableList<ShortPlayerResponse> = mutableListOf(),
+    @JsonProperty("3")
     var mobs: MutableList<MonsterShortResponse> = mutableListOf(),
+    @JsonProperty("4")
     var mobNests: MutableList<MobNestResponse> = mutableListOf(),
-
 ) : NotificationEvent() {
 
     override fun reset() {
