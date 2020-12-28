@@ -29,6 +29,7 @@ import io.github.loggerworld.dto.response.chat.ChatMessageResponse
 import io.github.loggerworld.dto.response.geography.LocationTypesResponse
 import io.github.loggerworld.dto.response.geography.LocationsResponse
 import io.github.loggerworld.dto.response.logging.PlayerLogEntryResponse
+import io.github.loggerworld.messagebus.event.CombatEvent
 import io.github.loggerworld.messagebus.event.EquipmentChangedEvent
 import io.github.loggerworld.messagebus.event.InventoryChangedEvent
 import io.github.loggerworld.messagebus.event.LocationChangedEvent
@@ -40,6 +41,7 @@ import io.github.loggerworld.util.TOKEN_PREFIX
 import io.github.loggerworld.util.WS_CHAT
 import io.github.loggerworld.util.WS_CONNECTION_POINT
 import io.github.loggerworld.util.WS_DESTINATION_PREFIX
+import io.github.loggerworld.util.WS_GAMEPLAY_COMBAT_EVENT_QUEUE
 import io.github.loggerworld.util.WS_GAMEPLAY_EQUIPMENT_CHANGE_QUEUE
 import io.github.loggerworld.util.WS_GAMEPLAY_INVENTORY_CHANGE_QUEUE
 import io.github.loggerworld.util.WS_GAMEPLAY_LOCATION_NOTIFICATION_QUEUE
@@ -611,6 +613,7 @@ class LoggerWorldTestIT : LogAware {
                 PERSONAL + WS_GAMEPLAY_LOG_QUEUE -> PlayerLogEntryResponse::class.java
                 PERSONAL + WS_GAMEPLAY_INVENTORY_CHANGE_QUEUE -> InventoryChangedEvent::class.java
                 PERSONAL + WS_GAMEPLAY_EQUIPMENT_CHANGE_QUEUE -> EquipmentChangedEvent::class.java
+                PERSONAL + WS_GAMEPLAY_COMBAT_EVENT_QUEUE -> CombatEvent::class.java
                 else -> LocationChangedEvent::class.java
             }
 
@@ -635,6 +638,7 @@ class LoggerWorldTestIT : LogAware {
             session.subscribe(PERSONAL + WS_GAMEPLAY_LOG_QUEUE, this)
             session.subscribe(PERSONAL + WS_GAMEPLAY_INVENTORY_CHANGE_QUEUE, this)
             session.subscribe(PERSONAL + WS_GAMEPLAY_EQUIPMENT_CHANGE_QUEUE, this)
+            session.subscribe(PERSONAL + WS_GAMEPLAY_COMBAT_EVENT_QUEUE, this)
 
             when (connectedHeaders["user-name"][0]) {
                 firstUserLoginRequest.userName -> stompSession1 = session

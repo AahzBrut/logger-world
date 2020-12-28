@@ -1,5 +1,6 @@
 package io.github.loggerworld.messagebus
 
+import io.github.loggerworld.messagebus.event.CombatEvent
 import io.github.loggerworld.messagebus.event.EquipmentChangedEvent
 import io.github.loggerworld.messagebus.event.InventoryChangedEvent
 import io.github.loggerworld.messagebus.event.LocationChangedEvent
@@ -30,4 +31,8 @@ class NotificationBusConfig {
     @Bean
     fun equipmentChangeNotificationBus() : EventBus<EquipmentChangedEvent> =
         EventBus(EquipmentChangedEvent::class)
+
+    @Bean
+    fun combatNotificationBus() : EventBus<CombatEvent> =
+        EventBus(CombatEvent::class)
 }
