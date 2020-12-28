@@ -10,4 +10,4 @@ Text-based MMORPG
 > 
 > [H2 Database console](http://localhost:8080/h2-console/)
 >
-> [STOMP API Documentation](https://github.com/bogdanovan/LoggerWorld/)
+> [STOMP API Documentation](https://github.com/bogdanovan/LoggerWorld/blob/main/STOMP%20API.md)
