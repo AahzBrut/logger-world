@@ -125,6 +125,8 @@ data class PlayerKilledByMobEvent(
     var eventType: LogTypes = LogTypes.PLAYER_KILLED_BY_MOB,
     var playerId: Long = 0,
     var monsterName: String = "",
+    var damageDealt: Float = 0f,
+    var damageReceived: Float = 0f,
     var created: OffsetDateTime = OffsetDateTime.now()
 ) : LogEvent(){
     override fun reset() {
@@ -135,6 +137,8 @@ data class PlayerKilledByMobEvent(
 data class PlayerKillMobEvent(
     var eventType: LogTypes = LogTypes.MOB_KILLED,
     var playerId: Long = 0,
+    var damageDealt: Float = 0f,
+    var damageReceived: Float = 0f,
     var monsterName: String = "",
     var created: OffsetDateTime = OffsetDateTime.now()
 ) : LogEvent(){

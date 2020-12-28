@@ -23,6 +23,8 @@ class LogEntryFromPlayerKilledByMobEventMapper : PlayerLogEntryMapper<PlayerKill
             message.format(
                 valueDecoders[LogValueTypes.PLAYER_ID]!!.invoke(source.playerId.toString(), language),
                 valueDecoders[LogValueTypes.MONSTER_ID]!!.invoke(source.monsterName, language),
+                valueDecoders[LogValueTypes.DAMAGE_AMOUNT]!!.invoke(source.damageDealt.toString(), language),
+                valueDecoders[LogValueTypes.DAMAGE_AMOUNT]!!.invoke(source.damageReceived.toString(), language),
             )
         )
     }

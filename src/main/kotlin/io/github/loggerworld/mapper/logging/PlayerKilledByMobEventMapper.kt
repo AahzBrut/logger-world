@@ -22,7 +22,7 @@ class PlayerKilledByMobEventMapper : LogEntryMapper<PlayerKilledByMobEvent> {
             source.created
         )
 
-        val logEntryVal = LogEntryVals(
+        val logEntryVal1 = LogEntryVals(
             logEntry,
             Player().also { it.id = source.playerId },
             1,
@@ -30,7 +30,25 @@ class PlayerKilledByMobEventMapper : LogEntryMapper<PlayerKilledByMobEvent> {
             source.monsterName
         )
 
-        logEntry.logEntryVals.add(logEntryVal)
+        val logEntryVal2 = LogEntryVals(
+            logEntry,
+            Player().also { it.id = source.playerId },
+            2,
+            LogValueTypes.DAMAGE_AMOUNT,
+            source.damageDealt.toString()
+        )
+
+        val logEntryVal3 = LogEntryVals(
+            logEntry,
+            Player().also { it.id = source.playerId },
+            3,
+            LogValueTypes.DAMAGE_AMOUNT,
+            source.damageReceived.toString()
+        )
+
+        logEntry.logEntryVals.add(logEntryVal1)
+        logEntry.logEntryVals.add(logEntryVal2)
+        logEntry.logEntryVals.add(logEntryVal3)
 
         return logEntry
     }
