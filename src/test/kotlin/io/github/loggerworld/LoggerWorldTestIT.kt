@@ -315,7 +315,7 @@ class LoggerWorldTestIT : LogAware {
     @Order(15)
     fun firstUserStartGame() {
         logger().info("\n\n First user starting the game")
-        stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_START, PlayerStartGameRequest(playerId = 1))
+        stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_START, PlayerStartGameRequest(1))
         TimeUnit.MILLISECONDS.sleep(1000)
         logger().info("\n\n First user started the game")
     }
@@ -355,14 +355,14 @@ class LoggerWorldTestIT : LogAware {
     @Test
     @Order(18)
     fun firstUserStartGame1() {
-        stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_START, PlayerStartGameRequest(playerId = 1))
+        stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_START, PlayerStartGameRequest(1))
         TimeUnit.MILLISECONDS.sleep(300)
     }
 
     @Test
     @Order(19)
     fun secondUserStartGame() {
-        stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_START, PlayerStartGameRequest(playerId = 2))
+        stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_START, PlayerStartGameRequest(2))
         TimeUnit.MILLISECONDS.sleep(300)
     }
 
