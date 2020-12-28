@@ -9,3 +9,5 @@ Text-based MMORPG
 > [Swagger API Documentation](http://localhost:8080/swagger-ui/)
 > 
 > [H2 Database console](http://localhost:8080/h2-console/)
+>
+> [STOMP API Documentation](https://github.com/bogdanovan/LoggerWorld/)
