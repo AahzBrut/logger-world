@@ -32,7 +32,9 @@ data class LocationChangedEvent(
 }
 
 data class WrongCommandEvent(
+    @JsonProperty("1")
     var playerId: Long = -1,
+    @JsonProperty("2")
     var message: String = ""
 ): NotificationEvent() {
 
