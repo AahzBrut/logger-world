@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="v_effect_quality-01" author="AahzBrut">
+        <createView viewName="V_EFFECT_QUALITY" replaceIfExists="true">
+            SELECT
+            EQ.EFFECT_QUALITY_ID,
+            E.CODE AS EFFECT_CODE,
+            IQ.CODE AS QUALITY_CODE
+            FROM REPOSITORY.EFFECT E
+            INNER JOIN REPOSITORY.EFFECT_QUALITY EQ ON EQ.EFFECT_ID=E.EFFECT_ID
+            INNER JOIN REPOSITORY.ITEM_QUALITY IQ ON IQ.ITEM_QUALITY_ID=EQ.ITEM_QUALITY_ID
+        </createView>
+    </changeSet>
+
+</databaseChangeLog>

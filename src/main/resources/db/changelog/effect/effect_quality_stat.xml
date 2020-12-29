@@ -20,10 +20,10 @@
             <column name="character_stat_id" type="TINYINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="min" type="FLOAT">
+            <column name="min_value" type="FLOAT">
                 <constraints nullable="false"/>
             </column>
-            <column name="max" type="FLOAT">
+            <column name="max_value" type="FLOAT">
                 <constraints nullable="false"/>
             </column>
         </createTable>

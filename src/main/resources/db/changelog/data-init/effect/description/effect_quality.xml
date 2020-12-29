@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="effect_quality-data-01" author="AahzBrut">
+        <insert tableName="effect_quality">
+            <column name="effect_id" valueComputed="SELECT effect_id FROM REPOSITORY.effect
+            WHERE CODE='BOOST_ATK'"/>
+            <column name="item_quality_id" valueComputed="SELECT item_quality_id FROM REPOSITORY.item_quality
+            WHERE CODE='COMMON'"/>
+        </insert>
+        <insert tableName="effect_quality">
+            <column name="effect_id" valueComputed="SELECT effect_id FROM REPOSITORY.effect
+            WHERE CODE='BOOST_ATK'"/>
+            <column name="item_quality_id" valueComputed="SELECT item_quality_id FROM REPOSITORY.item_quality
+            WHERE CODE='GOOD'"/>
+        </insert>
+        <insert tableName="effect_quality">
+            <column name="effect_id" valueComputed="SELECT effect_id FROM REPOSITORY.effect
+            WHERE CODE='BOOST_STR'"/>
+            <column name="item_quality_id" valueComputed="SELECT item_quality_id FROM REPOSITORY.item_quality
+            WHERE CODE='COMMON'"/>
+        </insert>
+        <insert tableName="effect_quality">
+            <column name="effect_id" valueComputed="SELECT effect_id FROM REPOSITORY.effect
+            WHERE CODE='BOOST_STR'"/>
+            <column name="item_quality_id" valueComputed="SELECT item_quality_id FROM REPOSITORY.item_quality
+            WHERE CODE='GOOD'"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
