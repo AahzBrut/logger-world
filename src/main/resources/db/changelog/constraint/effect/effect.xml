@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="effect-constraint-001" author="Aahz Brut">
+
+        <addForeignKeyConstraint baseColumnNames="parent_effect_id" baseTableName="effect"
+                                 constraintName="fk-effect-effect"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="effect_id" referencedTableName="effect"/>
+
+        <addForeignKeyConstraint baseColumnNames="calc_type_id" baseTableName="effect"
+                                 constraintName="fk-effect-calc_type"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="calc_type_id" referencedTableName="calc_type"/>
+
+    </changeSet>
+
+</databaseChangeLog>

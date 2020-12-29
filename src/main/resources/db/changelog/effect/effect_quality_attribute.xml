@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="effect_quality_attribute-01" author="AahzBrut">
+        <createSequence sequenceName="effect_quality_attribute_seq"/>
+    </changeSet>
+
+    <changeSet id="effect_quality_attribute-02" author="AahzBrut">
+        <createTable tableName="effect_quality_attribute">
+            <column name="effect_quality_attribute_id" type="INTEGER" defaultValueSequenceNext="effect_quality_attribute_seq">
+                <constraints primaryKey="true" primaryKeyName="effect_quality_attribute_pk"/>
+            </column>
+            <column name="effect_quality_id" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="character_attribute_id" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="min" type="FLOAT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="max" type="FLOAT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
