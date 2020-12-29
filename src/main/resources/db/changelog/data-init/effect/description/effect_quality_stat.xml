@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="effect_quality_stat-data-01" author="AahzBrut">
+        <insert tableName="effect_quality_stat">
+            <column name="effect_quality_id" valueComputed="SELECT effect_quality_id FROM REPOSITORY.V_EFFECT_QUALITY
+            WHERE EFFECT_CODE='BOOST_ATK' AND QUALITY_CODE='COMMON'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat
+            WHERE CODE='ATK'"/>
+            <column name="min_value" valueNumeric="1"/>
+            <column name="max_value" valueNumeric="2"/>
+        </insert>
+        <insert tableName="effect_quality_stat">
+            <column name="effect_quality_id" valueComputed="SELECT effect_quality_id FROM REPOSITORY.V_EFFECT_QUALITY
+            WHERE EFFECT_CODE='BOOST_ATK' AND QUALITY_CODE='GOOD'"/>
+            <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat
+            WHERE CODE='ATK'"/>
+            <column name="min_value" valueNumeric="2"/>
+            <column name="max_value" valueNumeric="5"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

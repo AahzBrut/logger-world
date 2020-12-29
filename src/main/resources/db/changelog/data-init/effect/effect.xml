@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="effect-data-01" author="AahzBrut">
+        <insert tableName="effect">
+            <column name="code" value="STAT_BOOSTER"/>
+            <column name="is_final" valueBoolean="false"/>
+        </insert>
+        <insert tableName="effect">
+            <column name="code" value="ATTRIBUTE_BOOSTER"/>
+            <column name="is_final" valueBoolean="false"/>
+        </insert>
+        <insert tableName="effect">
+            <column name="parent_effect_id" valueComputed="SELECT effect_id FROM REPOSITORY.effect
+            WHERE CODE='STAT_BOOSTER'"/>
+            <column name="code" value="BOOST_ATK"/>
+            <column name="calc_type_id" valueComputed="SELECT calc_type_id FROM REPOSITORY.calc_type
+            WHERE CODE='ADD_VALUE'"/>
+            <column name="is_final" valueBoolean="true"/>
+        </insert>
+        <insert tableName="effect">
+            <column name="parent_effect_id" valueComputed="SELECT effect_id FROM REPOSITORY.effect
+            WHERE CODE='ATTRIBUTE_BOOSTER'"/>
+            <column name="code" value="BOOST_STR"/>
+            <column name="calc_type_id" valueComputed="SELECT calc_type_id FROM REPOSITORY.calc_type
+            WHERE CODE='ADD_VALUE'"/>
+            <column name="is_final" valueBoolean="true"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

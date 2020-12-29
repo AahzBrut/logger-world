@@ -9,6 +9,12 @@
         <insert tableName="calc_type">
             <column name="code" value="ADD_MUL_COEFF"/>
         </insert>
+        <insert tableName="calc_type">
+            <column name="code" value="ADD_VALUE"/>
+        </insert>
+        <insert tableName="calc_type">
+            <column name="code" value="ADD_PERCENT_VALUE"/>
+        </insert>
     </changeSet>
 
 </databaseChangeLog>

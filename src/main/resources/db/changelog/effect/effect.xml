@@ -15,9 +15,7 @@
                 <constraints primaryKey="true" primaryKeyName="effect_pk"/>
             </column>
             <column name="parent_effect_id" type="SMALLINT"/>
-            <column name="calc_type_id" type="TINYINT">
-                <constraints nullable="false"/>
-            </column>
+            <column name="calc_type_id" type="TINYINT"/>
             <column name="code" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>

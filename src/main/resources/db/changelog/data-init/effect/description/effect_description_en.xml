@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="effect_description-en-data-01" author="AahzBrut">
+        <insert tableName="effect_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="effect_id" valueComputed="SELECT effect_id FROM REPOSITORY.effect
+            WHERE CODE='STAT_BOOSTER'"/>
+            <column name="name" value="Stat booster"/>
+            <column name="description" value="Increasing character stats"/>
+        </insert>
+        <insert tableName="effect_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="effect_id" valueComputed="SELECT effect_id FROM REPOSITORY.effect
+            WHERE CODE='ATTRIBUTE_BOOSTER'"/>
+            <column name="name" value="Attribute booster"/>
+            <column name="description" value="Increasing character attributes"/>
+        </insert>
+        <insert tableName="effect_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="effect_id" valueComputed="SELECT effect_id FROM REPOSITORY.effect
+            WHERE CODE='BOOST_ATK'"/>
+            <column name="name" value="Attack booster"/>
+            <column name="description" value="Increasing character attack"/>
+        </insert>
+        <insert tableName="effect_description">
+            <column name="language_id" valueComputed="SELECT language_id FROM REPOSITORY.language WHERE language_code='EN'"/>
+            <column name="effect_id" valueComputed="SELECT effect_id FROM REPOSITORY.effect
+            WHERE CODE='BOOST_STR'"/>
+            <column name="name" value="Strength booster"/>
+            <column name="description" value="Increasing character strength"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
