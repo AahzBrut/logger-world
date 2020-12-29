@@ -173,8 +173,100 @@
 			]
 		},
 		{
+			"name": "Items",
+			"item": [
+				{
+					"name": "Get all item stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/items/stats",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"items",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all item qualities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/items/qualities",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"items",
+								"qualities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all item categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/items/categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"items",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all equipment slots",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/items/equipment-slots",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"items",
+								"equipment-slots"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Register new user",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -205,6 +297,9 @@
 		{
 			"name": "Login user",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -258,7 +353,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBYWh6QnJ1dCIsImlhdCI6MTYwNTkwMTU3NywiZXhwIjoxNjA4NDkzNTc3fQ.8_0DUw3Ws5-Gtz9PvXoezMjwO2j4yXOE7yWw1L5PDjFfMq2YKI_pVOyJUwkbyErwlJrB6xcQeXWu-qbe-Vl5yQ",
+				"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBYWh6QnJ1dCIsImlhdCI6MTYwOTIyNzYxMiwiZXhwIjoxNjExODE5NjEyfQ.3Od9tDmNqNTVGrs67JGTqFwny3pULLiDYhK9MCFcsvSenm7Is46i89tbSGQ5H_9RHuUA4apNGQRZYS9zqu7sIw",
 				"type": "string"
 			}
 		]
