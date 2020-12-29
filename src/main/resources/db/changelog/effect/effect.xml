@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="effect-01" author="AahzBrut">
+        <createSequence sequenceName="effect_seq"/>
+    </changeSet>
+
+    <changeSet id="effect-02" author="AahzBrut">
+        <createTable tableName="effect">
+            <column name="effect_id" type="SMALLINT" defaultValueSequenceNext="effect_seq">
+                <constraints primaryKey="true" primaryKeyName="effect_pk"/>
+            </column>
+            <column name="parent_effect_id" type="SMALLINT"/>
+            <column name="calc_type_id" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_final" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

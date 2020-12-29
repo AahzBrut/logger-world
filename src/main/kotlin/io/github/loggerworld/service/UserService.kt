@@ -11,18 +11,16 @@ class UserService(
     private val userDomainService: UserDomainService,
 ) {
 
-    fun addNewUser(request: UserAddRequest) {
-
+    fun addNewUser(request: UserAddRequest) =
         userDomainService.addNewUser(request)
-    }
 
-    fun authenticate(request: UserLoginRequest)  =
+    fun authenticate(request: UserLoginRequest) =
         userDomainService.authenticate(request)
 
-    fun getUserById(userId: Long)  =
+    fun getUserById(userId: Long) =
         userDomainService.getUserById(userId)
 
-    fun getUserByName(userName: String)=
+    fun getUserByName(userName: String) =
         userDomainService.getUserByName(userName)!!
 
     fun getUserLanguage(userName: String) =

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="effect_quality_stat-constraint-001" author="Aahz Brut">
+
+        <addForeignKeyConstraint baseColumnNames="effect_quality_id" baseTableName="effect_quality_stat"
+                                 constraintName="fk-effect_quality_stat-effect_quality"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="effect_quality_id" referencedTableName="effect_quality"/>
+
+        <addForeignKeyConstraint baseColumnNames="character_stat_id" baseTableName="effect_quality_stat"
+                                 constraintName="fk-effect_quality_stat-character_stat"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="character_stat_id" referencedTableName="character_stat"/>
+
+    </changeSet>
+
+</databaseChangeLog>
