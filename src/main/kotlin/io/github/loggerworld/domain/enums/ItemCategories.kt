@@ -24,7 +24,7 @@ val goldStats = setOf(WEIGHT, STACK_SIZE)
 val emptyStats = emptySet<ItemStatEnum>()
 
 enum class ItemCategories(
-    private val parent: ItemCategories?,
+    val parent: ItemCategories?,
     val isItem: Boolean,
     val applicableStats: Set<ItemStatEnum>
 ) {

@@ -180,8 +180,104 @@
 			]
 		},
 		{
+			"name": "Items",
+			"item": [
+				{
+					"name": "Get all item stats",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://logger-world.herokuapp.com/api/items/stats",
+							"protocol": "https",
+							"host": [
+								"logger-world",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"items",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all item qualities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://logger-world.herokuapp.com/api/items/qualities",
+							"protocol": "https",
+							"host": [
+								"logger-world",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"items",
+								"qualities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all item categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://logger-world.herokuapp.com/api/items/categories",
+							"protocol": "https",
+							"host": [
+								"logger-world",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"items",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all equipment slots",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://logger-world.herokuapp.com/api/items/equipment-slots",
+							"protocol": "https",
+							"host": [
+								"logger-world",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"items",
+								"equipment-slots"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Register new user",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -213,6 +309,9 @@
 		{
 			"name": "Login user",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -268,7 +367,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBYWh6QnJ1dCIsImlhdCI6MTYwNzc4NTc3OCwiZXhwIjoxNjEwMzc3Nzc4fQ.hxU0Urm3mdn0e9p_qdY0cwtKf9UMNuwqD1A5Rz44DEkTTT3Bm9UUIrrPNCCDBC8tTEw4GxXrRPKhFKEdv82pxA",
+				"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBYWh6QnJ1dCIsImlhdCI6MTYwOTIyNzYxMiwiZXhwIjoxNjExODE5NjEyfQ.3Od9tDmNqNTVGrs67JGTqFwny3pULLiDYhK9MCFcsvSenm7Is46i89tbSGQ5H_9RHuUA4apNGQRZYS9zqu7sIw",
 				"type": "string"
 			}
 		]
