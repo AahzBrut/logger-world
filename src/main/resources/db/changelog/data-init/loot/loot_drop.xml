@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="loot_drop-data-01" author="AahzBrut">
+        <insert tableName="loot_drop">
+            <column name="monster_class_id" valueComputed="SELECT monster_class_id FROM REPOSITORY.monster_class
+            WHERE CODE='GREY_RAT'"/>
+            <column name="monster_type_id" valueComputed="SELECT monster_type_id FROM REPOSITORY.monster_type
+            WHERE CODE='NORMAL'"/>
+            <column name="level" valueNumeric="1"/>
+        </insert>
+        <insert tableName="loot_drop">
+            <column name="monster_class_id" valueComputed="SELECT monster_class_id FROM REPOSITORY.monster_class
+            WHERE CODE='GREY_RAT'"/>
+            <column name="monster_type_id" valueComputed="SELECT monster_type_id FROM REPOSITORY.monster_type
+            WHERE CODE='VETERAN'"/>
+            <column name="level" valueNumeric="1"/>
+        </insert>
+        <insert tableName="loot_drop">
+            <column name="monster_class_id" valueComputed="SELECT monster_class_id FROM REPOSITORY.monster_class
+            WHERE CODE='GREY_RAT'"/>
+            <column name="monster_type_id" valueComputed="SELECT monster_type_id FROM REPOSITORY.monster_type
+            WHERE CODE='ELITE'"/>
+            <column name="level" valueNumeric="1"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

@@ -14,5 +14,6 @@
     <includeAll path="classpath:/db/changelog/constraint/item"/>
     <includeAll path="classpath:/db/changelog/constraint/equipment"/>
     <includeAll path="classpath:/db/changelog/constraint/effect"/>
+    <includeAll path="classpath:/db/changelog/constraint/loot"/>
 
 </databaseChangeLog>

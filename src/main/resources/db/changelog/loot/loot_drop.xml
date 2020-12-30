@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="loot_drop-01" author="AahzBrut">
+        <createSequence sequenceName="loot_drop_seq" startValue="0"/>
+    </changeSet>
+
+    <changeSet id="loot_drop-02" author="AahzBrut">
+        <createTable tableName="loot_drop">
+            <column name="loot_drop_id" type="SMALLINT" defaultValueSequenceNext="loot_drop_seq">
+                <constraints primaryKey="true" primaryKeyName="loot_drop_pk"/>
+            </column>
+            <column name="monster_class_id" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="monster_type_id" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="level" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

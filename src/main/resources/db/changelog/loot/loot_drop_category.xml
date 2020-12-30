@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="loot_drop_category-01" author="AahzBrut">
+        <createSequence sequenceName="loot_drop_category_seq" startValue="0"/>
+    </changeSet>
+
+    <changeSet id="loot_drop_category-02" author="AahzBrut">
+        <createTable tableName="loot_drop_category">
+            <column name="loot_drop_category_id" type="SMALLINT" defaultValueSequenceNext="loot_drop_category_seq">
+                <constraints primaryKey="true" primaryKeyName="loot_drop_category_pk"/>
+            </column>
+            <column name="loot_drop_id" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="item_category_id" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="probability" type="FLOAT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

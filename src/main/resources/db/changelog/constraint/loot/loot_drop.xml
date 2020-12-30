@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="loot_drop-constraint-001" author="Aahz Brut">
+
+        <addForeignKeyConstraint baseColumnNames="monster_type_id" baseTableName="loot_drop"
+                                 constraintName="fk-loot_drop-monster_type"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="monster_type_id" referencedTableName="monster_type"/>
+
+        <addForeignKeyConstraint baseColumnNames="monster_class_id" baseTableName="loot_drop"
+                                 constraintName="fk-loot_drop-monster_class"
+                                 deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT"
+                                 referencedColumnNames="monster_class_id" referencedTableName="monster_class"/>
+
+    </changeSet>
+
+</databaseChangeLog>
