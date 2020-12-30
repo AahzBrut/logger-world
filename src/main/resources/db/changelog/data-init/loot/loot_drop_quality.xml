@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="loot_drop_quality-data-01" author="AahzBrut">
+        <insert tableName="loot_drop_quality">
+            <column name="loot_drop_category_id" valueComputed="SELECT loot_drop_category_id FROM REPOSITORY.v_loot_drop_category
+            WHERE MONSTER_CLASS='GREY_RAT' AND MONSTER_TYPE='NORMAL' AND LEVEL=1
+            AND ITEM_CATEGORY='GOLD'"/>
+            <column name="item_quality_id" valueComputed="SELECT item_quality_id FROM REPOSITORY.item_quality
+            WHERE CODE='COMMON'"/>
+            <column name="probability" valueNumeric="100"/>
+            <column name="quantity_min" valueNumeric="1"/>
+            <column name="quantity_max" valueNumeric="2"/>
+        </insert>
+        <insert tableName="loot_drop_quality">
+            <column name="loot_drop_category_id" valueComputed="SELECT loot_drop_category_id FROM REPOSITORY.v_loot_drop_category
+            WHERE MONSTER_CLASS='GREY_RAT' AND MONSTER_TYPE='VETERAN' AND LEVEL=1
+            AND ITEM_CATEGORY='GOLD'"/>
+            <column name="item_quality_id" valueComputed="SELECT item_quality_id FROM REPOSITORY.item_quality
+            WHERE CODE='COMMON'"/>
+            <column name="probability" valueNumeric="100"/>
+            <column name="quantity_min" valueNumeric="2"/>
+            <column name="quantity_max" valueNumeric="5"/>
+        </insert>
+        <insert tableName="loot_drop_quality">
+            <column name="loot_drop_category_id" valueComputed="SELECT loot_drop_category_id FROM REPOSITORY.v_loot_drop_category
+            WHERE MONSTER_CLASS='GREY_RAT' AND MONSTER_TYPE='ELITE' AND LEVEL=1
+            AND ITEM_CATEGORY='GOLD'"/>
+            <column name="item_quality_id" valueComputed="SELECT item_quality_id FROM REPOSITORY.item_quality
+            WHERE CODE='COMMON'"/>
+            <column name="probability" valueNumeric="100"/>
+            <column name="quantity_min" valueNumeric="5"/>
+            <column name="quantity_max" valueNumeric="10"/>
+        </insert>
+
+        <insert tableName="loot_drop_quality">
+            <column name="loot_drop_category_id" valueComputed="SELECT loot_drop_category_id FROM REPOSITORY.v_loot_drop_category
+            WHERE MONSTER_CLASS='GREY_RAT' AND MONSTER_TYPE='NORMAL' AND LEVEL=1
+            AND ITEM_CATEGORY='WEAPON'"/>
+            <column name="item_quality_id" valueComputed="SELECT item_quality_id FROM REPOSITORY.item_quality
+            WHERE CODE='COMMON'"/>
+            <column name="probability" valueNumeric="99"/>
+            <column name="quantity_min" valueNumeric="1"/>
+            <column name="quantity_max" valueNumeric="1"/>
+        </insert>
+        <insert tableName="loot_drop_quality">
+            <column name="loot_drop_category_id" valueComputed="SELECT loot_drop_category_id FROM REPOSITORY.v_loot_drop_category
+            WHERE MONSTER_CLASS='GREY_RAT' AND MONSTER_TYPE='NORMAL' AND LEVEL=1
+            AND ITEM_CATEGORY='WEAPON'"/>
+            <column name="item_quality_id" valueComputed="SELECT item_quality_id FROM REPOSITORY.item_quality
+            WHERE CODE='RARE'"/>
+            <column name="probability" valueNumeric="1"/>
+            <column name="quantity_min" valueNumeric="1"/>
+            <column name="quantity_max" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="loot_drop_quality">
+            <column name="loot_drop_category_id" valueComputed="SELECT loot_drop_category_id FROM REPOSITORY.v_loot_drop_category
+            WHERE MONSTER_CLASS='GREY_RAT' AND MONSTER_TYPE='VETERAN' AND LEVEL=1
+            AND ITEM_CATEGORY='WEAPON'"/>
+            <column name="item_quality_id" valueComputed="SELECT item_quality_id FROM REPOSITORY.item_quality
+            WHERE CODE='COMMON'"/>
+            <column name="probability" valueNumeric="95"/>
+            <column name="quantity_min" valueNumeric="1"/>
+            <column name="quantity_max" valueNumeric="1"/>
+        </insert>
+        <insert tableName="loot_drop_quality">
+            <column name="loot_drop_category_id" valueComputed="SELECT loot_drop_category_id FROM REPOSITORY.v_loot_drop_category
+            WHERE MONSTER_CLASS='GREY_RAT' AND MONSTER_TYPE='VETERAN' AND LEVEL=1
+            AND ITEM_CATEGORY='WEAPON'"/>
+            <column name="item_quality_id" valueComputed="SELECT item_quality_id FROM REPOSITORY.item_quality
+            WHERE CODE='RARE'"/>
+            <column name="probability" valueNumeric="5"/>
+            <column name="quantity_min" valueNumeric="1"/>
+            <column name="quantity_max" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="loot_drop_quality">
+            <column name="loot_drop_category_id" valueComputed="SELECT loot_drop_category_id FROM REPOSITORY.v_loot_drop_category
+            WHERE MONSTER_CLASS='GREY_RAT' AND MONSTER_TYPE='ELITE' AND LEVEL=1
+            AND ITEM_CATEGORY='WEAPON'"/>
+            <column name="item_quality_id" valueComputed="SELECT item_quality_id FROM REPOSITORY.item_quality
+            WHERE CODE='COMMON'"/>
+            <column name="probability" valueNumeric="70"/>
+            <column name="quantity_min" valueNumeric="1"/>
+            <column name="quantity_max" valueNumeric="1"/>
+        </insert>
+        <insert tableName="loot_drop_quality">
+            <column name="loot_drop_category_id" valueComputed="SELECT loot_drop_category_id FROM REPOSITORY.v_loot_drop_category
+            WHERE MONSTER_CLASS='GREY_RAT' AND MONSTER_TYPE='ELITE' AND LEVEL=1
+            AND ITEM_CATEGORY='WEAPON'"/>
+            <column name="item_quality_id" valueComputed="SELECT item_quality_id FROM REPOSITORY.item_quality
+            WHERE CODE='RARE'"/>
+            <column name="probability" valueNumeric="30"/>
+            <column name="quantity_min" valueNumeric="1"/>
+            <column name="quantity_max" valueNumeric="1"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

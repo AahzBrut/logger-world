@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.9.xsd">
+
+    <changeSet id="v_loot_drop-01" author="AahzBrut">
+        <createView viewName="V_LOOT_DROP" replaceIfExists="true">
+        SELECT
+        LD.LOOT_DROP_ID,
+        MC.CODE AS MONSTER_CLASS,
+        MT.CODE AS MONSTER_TYPE,
+        LD.LEVEL
+        FROM REPOSITORY.LOOT_DROP LD
+        INNER JOIN REPOSITORY.MONSTER_CLASS MC ON MC.MONSTER_CLASS_ID = LD.MONSTER_CLASS_ID
+        INNER JOIN REPOSITORY.MONSTER_TYPE MT ON MT.MONSTER_TYPE_ID = LD.MONSTER_TYPE_ID
+        </createView>
+    </changeSet>
+
+</databaseChangeLog>
