@@ -11,6 +11,7 @@
             WHERE EFFECT_CODE='BOOST_ATK' AND QUALITY_CODE='COMMON'"/>
             <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat
             WHERE CODE='ATK'"/>
+            <column name="level" valueNumeric="1"/>
             <column name="min_value" valueNumeric="1"/>
             <column name="max_value" valueNumeric="2"/>
         </insert>
@@ -19,6 +20,7 @@
             WHERE EFFECT_CODE='BOOST_ATK' AND QUALITY_CODE='GOOD'"/>
             <column name="character_stat_id" valueComputed="SELECT character_stat_id FROM REPOSITORY.character_stat
             WHERE CODE='ATK'"/>
+            <column name="level" valueNumeric="1"/>
             <column name="min_value" valueNumeric="2"/>
             <column name="max_value" valueNumeric="5"/>
         </insert>

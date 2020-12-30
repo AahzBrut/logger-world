@@ -20,6 +20,9 @@
             <column name="character_attribute_id" type="TINYINT">
                 <constraints nullable="false"/>
             </column>
+            <column name="level" type="TINYINT">
+                <constraints nullable="false"/>
+            </column>
             <column name="min_value" type="FLOAT">
                 <constraints nullable="false"/>
             </column>

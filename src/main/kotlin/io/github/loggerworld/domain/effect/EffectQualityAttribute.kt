@@ -21,6 +21,9 @@ data class EffectQualityAttribute(
     @JoinColumn(name = "character_attribute_id")
     var playerAttribute: PlayerAttribute,
 
+    @Column(name = "level")
+    var level: Byte = 0,
+
     @Column(name = "min_value")
     var minValue: Float = 0f,
 
