@@ -5,8 +5,6 @@ import com.badlogic.ashley.systems.IteratingSystem
 import io.github.loggerworld.domain.enums.CombatEventTypes.DEATH_FROM_MOB
 import io.github.loggerworld.domain.enums.CombatEventTypes.MOB_DEAD
 import io.github.loggerworld.domain.enums.CombatEventTypes.PLAYER_DEAD
-import io.github.loggerworld.domain.enums.ItemCategories
-import io.github.loggerworld.domain.enums.ItemQualities
 import io.github.loggerworld.domain.enums.ItemStatEnum.STACK_SIZE
 import io.github.loggerworld.dto.inner.item.ItemData
 import io.github.loggerworld.ecs.EngineSystems
@@ -26,7 +24,7 @@ import io.github.loggerworld.messagebus.event.LogEvent
 import io.github.loggerworld.messagebus.event.PlayerKillMobEvent
 import io.github.loggerworld.messagebus.event.PlayerKilledByMobEvent
 import io.github.loggerworld.messagebus.event.SerializeItemsDropFromMobCommand
-import io.github.loggerworld.service.ItemService
+import io.github.loggerworld.service.LootService
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.logger
 import ktx.ashley.addComponent
@@ -40,7 +38,7 @@ import java.time.OffsetDateTime
 @Service
 class GraveyardSystem(
     private val logEventBus: LogEventBus<LogEvent>,
-    private val itemService: ItemService,
+    private val lootService: LootService,
     private val dropSerializerBus: EventBus<SerializeItemsDropFromMobCommand>,
     private val combatEventBus: EventBus<CombatEvent>,
 ) : IteratingSystem(allOf(KilledComponent::class).get(), EngineSystems.GRAVEYARD_SYSTEM.ordinal),
@@ -82,7 +80,8 @@ class GraveyardSystem(
                 combatEventBus.dispatchEvent { event ->
                     event.playerId = enemy[PlayerComponent.mapper]!!.playerId
                     event.eventType = if (deceased.has(PlayerComponent.mapper)) PLAYER_DEAD else MOB_DEAD
-                    event.enemyId = if (deceased.has(PlayerComponent.mapper)) deceased[PlayerComponent.mapper]!!.playerId else deceased[MonsterComponent.mapper]!!.id
+                    event.enemyId =
+                        if (deceased.has(PlayerComponent.mapper)) deceased[PlayerComponent.mapper]!!.playerId else deceased[MonsterComponent.mapper]!!.id
                     event.damage = 0f
                 }
             }
@@ -138,7 +137,7 @@ class GraveyardSystem(
 
     private fun dropLoot(player: Entity, monsterComp: MonsterComponent, playerComp: PlayerComponent) {
         val inventoryComp = player[InventoryComponent.mapper]!!
-        val loot = getTempLoot()
+        val loot = lootService.getLootFor(monsterComp.monsterClass, monsterComp.monsterType, monsterComp.level)
         if (loot.isEmpty()) return
         val unstackedLoot = addLootToExistingStacks(loot, inventoryComp)
         dropSerializerBus.dispatchEvent {
@@ -181,12 +180,5 @@ class GraveyardSystem(
         return loot.filter {
             it.quantity > 0
         }
-    }
-
-    private fun getTempLoot(): List<ItemData> {
-        return listOf(
-            itemService.createItem(ItemCategories.SHORT_SWORD, ItemQualities.COMMON, 1, 1),
-            itemService.createItem(ItemCategories.GOLD, ItemQualities.COMMON, 1, 10),
-        )
     }
 }

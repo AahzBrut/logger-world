@@ -12,6 +12,7 @@ import io.github.loggerworld.controller.SIGN_UP_URL
 import io.github.loggerworld.domain.enums.EquipmentSlotTypes
 import io.github.loggerworld.domain.enums.Languages
 import io.github.loggerworld.domain.enums.MonsterClasses
+import io.github.loggerworld.domain.enums.MonsterTypes
 import io.github.loggerworld.domain.enums.PlayerAttributeEnum
 import io.github.loggerworld.domain.enums.PlayerClasses
 import io.github.loggerworld.dto.request.ChatMessageRequest
@@ -34,6 +35,7 @@ import io.github.loggerworld.messagebus.event.EquipmentChangedEvent
 import io.github.loggerworld.messagebus.event.InventoryChangedEvent
 import io.github.loggerworld.messagebus.event.LocationChangedEvent
 import io.github.loggerworld.messagebus.event.WrongCommandEvent
+import io.github.loggerworld.service.LootService
 import io.github.loggerworld.service.MonsterService
 import io.github.loggerworld.util.LogAware
 import io.github.loggerworld.util.PERSONAL
@@ -85,19 +87,23 @@ import java.util.concurrent.TimeUnit
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(
-    locations = ["classpath:application-integrationtest.properties"])
+    locations = ["classpath:application-integrationtest.properties"]
+)
 @TestMethodOrder(value = MethodOrderer.OrderAnnotation::class)
 class LoggerWorldTestIT : LogAware {
 
     @Autowired
     private var monsterService: MonsterService? = null
 
+    @Autowired
+    private var lootService: LootService? = null
+
     @LocalServerPort
     private var port = -1
     private final val restTemplate = RestTemplate()
     private final val signupUrl by lazy { "http://localhost:$port$SIGN_UP_URL" }
     private final val loginUrl by lazy { "http://localhost:$port/api/user/login" }
-    private final val baseUrl by lazy {  "http://localhost:$port" }
+    private final val baseUrl by lazy { "http://localhost:$port" }
 
     companion object {
         private var client1: WebSocketClient = StandardWebSocketClient()
@@ -114,14 +120,16 @@ class LoggerWorldTestIT : LogAware {
         "pwd123",
         Languages.EN,
         "Test User 1",
-        "testuser1@mail.ru")
+        "testuser1@mail.ru"
+    )
 
     val secondUserAddRequest = UserAddRequest(
         "testUser2",
         "pwd123",
         Languages.RU,
         "Вася",
-        "testuser2@mail.ru")
+        "testuser2@mail.ru"
+    )
 
     val firstUserLoginRequest = UserLoginRequest(
         "testUser1",
@@ -186,7 +194,12 @@ class LoggerWorldTestIT : LogAware {
         val stompHeader = StompHeaders()
         stompHeader.putAll(mutableMapOf(HttpHeaders.AUTHORIZATION to mutableListOf(token)))
 
-        stompClient1.connect("ws://localhost:$port$WS_CONNECTION_POINT", webSocketHttpHeaders, stompHeader, sessionHandler)
+        stompClient1.connect(
+            "ws://localhost:$port$WS_CONNECTION_POINT",
+            webSocketHttpHeaders,
+            stompHeader,
+            sessionHandler
+        )
         TimeUnit.MILLISECONDS.sleep(500)
         assert(stompSession1.isConnected)
     }
@@ -209,7 +222,12 @@ class LoggerWorldTestIT : LogAware {
         val stompHeader = StompHeaders()
         stompHeader.putAll(mutableMapOf(HttpHeaders.AUTHORIZATION to mutableListOf(token)))
 
-        stompClient2.connect("ws://localhost:$port$WS_CONNECTION_POINT", webSocketHttpHeaders, stompHeader, sessionHandler)
+        stompClient2.connect(
+            "ws://localhost:$port$WS_CONNECTION_POINT",
+            webSocketHttpHeaders,
+            stompHeader,
+            sessionHandler
+        )
         TimeUnit.MILLISECONDS.sleep(500)
         assert(stompSession2.isConnected)
     }
@@ -267,7 +285,18 @@ class LoggerWorldTestIT : LogAware {
             })
         }).build()
 
-        val newPlayer = restTemplate1.postForEntity<PlayerResponse>(baseUrl + PLAYERS_URL, PlayerAddRequest("Superman", PlayerClasses.WARRIOR, mapOf(PlayerAttributeEnum.STR.ordinal.toByte() to 2f, PlayerAttributeEnum.AGI.ordinal.toByte() to 1f, PlayerAttributeEnum.CON.ordinal.toByte() to 2f)))
+        val newPlayer = restTemplate1.postForEntity<PlayerResponse>(
+            baseUrl + PLAYERS_URL,
+            PlayerAddRequest(
+                "Superman",
+                PlayerClasses.WARRIOR,
+                mapOf(
+                    PlayerAttributeEnum.STR.ordinal.toByte() to 2f,
+                    PlayerAttributeEnum.AGI.ordinal.toByte() to 1f,
+                    PlayerAttributeEnum.CON.ordinal.toByte() to 2f
+                )
+            )
+        )
         logger().info(newPlayer.toString())
     }
 
@@ -281,7 +310,18 @@ class LoggerWorldTestIT : LogAware {
             })
         }).build()
 
-        val newPlayer = restTemplate1.postForEntity<PlayerResponse>(baseUrl + PLAYERS_URL, PlayerAddRequest("Spiderman", PlayerClasses.ASSASSIN, mapOf(PlayerAttributeEnum.STR.ordinal.toByte() to 1f, PlayerAttributeEnum.AGI.ordinal.toByte() to 3f, PlayerAttributeEnum.CON.ordinal.toByte() to 1f)))
+        val newPlayer = restTemplate1.postForEntity<PlayerResponse>(
+            baseUrl + PLAYERS_URL,
+            PlayerAddRequest(
+                "Spiderman",
+                PlayerClasses.ASSASSIN,
+                mapOf(
+                    PlayerAttributeEnum.STR.ordinal.toByte() to 1f,
+                    PlayerAttributeEnum.AGI.ordinal.toByte() to 3f,
+                    PlayerAttributeEnum.CON.ordinal.toByte() to 1f
+                )
+            )
+        )
         logger().info(newPlayer.toString())
     }
 
@@ -349,7 +389,12 @@ class LoggerWorldTestIT : LogAware {
         val stompHeader = StompHeaders()
         stompHeader.putAll(mutableMapOf(HttpHeaders.AUTHORIZATION to mutableListOf(token)))
 
-        stompClient1.connect("ws://localhost:$port$WS_CONNECTION_POINT", webSocketHttpHeaders, stompHeader, sessionHandler)
+        stompClient1.connect(
+            "ws://localhost:$port$WS_CONNECTION_POINT",
+            webSocketHttpHeaders,
+            stompHeader,
+            sessionHandler
+        )
         TimeUnit.MILLISECONDS.sleep(500)
         assert(stompSession1.isConnected)
     }
@@ -404,7 +449,12 @@ class LoggerWorldTestIT : LogAware {
         val stompHeader = StompHeaders()
         stompHeader.putAll(mutableMapOf(HttpHeaders.AUTHORIZATION to mutableListOf(token)))
 
-        stompClient1.connect("ws://localhost:$port$WS_CONNECTION_POINT", webSocketHttpHeaders, stompHeader, sessionHandler)
+        stompClient1.connect(
+            "ws://localhost:$port$WS_CONNECTION_POINT",
+            webSocketHttpHeaders,
+            stompHeader,
+            sessionHandler
+        )
         TimeUnit.MILLISECONDS.sleep(500)
         assert(stompSession1.isConnected)
     }
@@ -489,7 +539,10 @@ class LoggerWorldTestIT : LogAware {
     @Test
     @Order(30)
     fun firstUserEquipSword() {
-        stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_EQUIP_ITEM, PlayerEquipItemRequest(1, EquipmentSlotTypes.RIGHT_ARM))
+        stompSession1.send(
+            WS_DESTINATION_PREFIX + WS_PLAYERS_EQUIP_ITEM,
+            PlayerEquipItemRequest(1, EquipmentSlotTypes.RIGHT_ARM)
+        )
         TimeUnit.MILLISECONDS.sleep(300)
     }
 
@@ -504,7 +557,10 @@ class LoggerWorldTestIT : LogAware {
     @Test
     @Order(32)
     fun secondUserEquipSword() {
-        stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_EQUIP_ITEM, PlayerEquipItemRequest(3, EquipmentSlotTypes.RIGHT_ARM))
+        stompSession2.send(
+            WS_DESTINATION_PREFIX + WS_PLAYERS_EQUIP_ITEM,
+            PlayerEquipItemRequest(3, EquipmentSlotTypes.RIGHT_ARM)
+        )
         TimeUnit.MILLISECONDS.sleep(300)
     }
 
@@ -532,7 +588,7 @@ class LoggerWorldTestIT : LogAware {
             })
         }).build()
 
-        val responseEntity= restTemplate2.getForEntity(baseUrl + PLAYERS_LOGS_URL, ResponseObject::class.java)
+        val responseEntity = restTemplate2.getForEntity(baseUrl + PLAYERS_LOGS_URL, ResponseObject::class.java)
         logger().info("\n\nLogs for second user:\n${responseEntity.body}")
     }
 
@@ -560,7 +616,7 @@ class LoggerWorldTestIT : LogAware {
             })
         }).build()
 
-        val responseEntity= restTemplate2.getForEntity(baseUrl + PERFORMANCE_COUNTERS_URL, ResponseObject::class.java)
+        val responseEntity = restTemplate2.getForEntity(baseUrl + PERFORMANCE_COUNTERS_URL, ResponseObject::class.java)
         logger().info("\n\nPerformance counters:\n${responseEntity.body}")
     }
 
@@ -597,12 +653,51 @@ class LoggerWorldTestIT : LogAware {
         logger().info("\n\n$monsterTypes")
     }
 
+    @Test
+    @Order(41)
+    fun testLootGenerator() {
+
+        val normalDrops = (1..1000).flatMap {
+            lootService!!.getLootFor(MonsterClasses.GREY_RAT, MonsterTypes.NORMAL, 1)
+        }
+            .toList()
+            .groupBy {
+                it.category
+            }.entries.associate {
+                it.key to Pair(it.value.size, it.value.map { item -> item.quantity }.sum())
+            }
+
+        val veteranDrops = (1..1000).flatMap {
+            lootService!!.getLootFor(MonsterClasses.GREY_RAT, MonsterTypes.VETERAN, 1)
+        }
+            .toList()
+            .groupBy {
+                it.category
+            }.entries.associate {
+                it.key to Pair(it.value.size, it.value.map { item -> item.quantity }.sum())
+            }
+
+        val eliteDrops = (1..1000).flatMap {
+            lootService!!.getLootFor(MonsterClasses.GREY_RAT, MonsterTypes.ELITE, 1)
+        }
+            .toList()
+            .groupBy {
+                it.category
+            }.entries.associate {
+                it.key to Pair(it.value.size, it.value.map { item -> item.quantity }.sum())
+            }
+
+        logger().info("\n\n$normalDrops")
+        logger().info("\n\n$veteranDrops")
+        logger().info("\n\n$eliteDrops")
+    }
+
     private fun getJwtToken(userLoginRequest: UserLoginRequest): String? {
         val responseEntity = restTemplate.postForEntity(loginUrl, userLoginRequest, Object::class.java)
         return responseEntity.headers[HttpHeaders.AUTHORIZATION]?.get(0)
     }
 
-        //region Stomp client handler
+    //region Stomp client handler
     inner class MyStompSessionHandler : StompSessionHandler, LogAware {
 
         override fun getPayloadType(headers: StompHeaders): Type {
@@ -646,7 +741,13 @@ class LoggerWorldTestIT : LogAware {
             }
         }
 
-        override fun handleException(session: StompSession, command: StompCommand?, headers: StompHeaders, payload: ByteArray, exception: Throwable) {
+        override fun handleException(
+            session: StompSession,
+            command: StompCommand?,
+            headers: StompHeaders,
+            payload: ByteArray,
+            exception: Throwable
+        ) {
             logger().info("WebSocket got exception: ${exception.message}")
         }
 

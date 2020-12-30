@@ -37,7 +37,8 @@ enum class ItemCategories(
     MELEE(WEAPON, false, emptyStats),
     ONE_HANDED(MELEE, false, emptyStats),
     SWORD(ONE_HANDED, false, emptyStats),
-    SHORT_SWORD(SWORD, true, weaponStats
+    SHORT_SWORD(
+        SWORD, true, weaponStats
     );
 
     fun getAllParents(): Set<ItemCategories> {
@@ -51,6 +52,19 @@ enum class ItemCategories(
         }
 
         return result
+    }
+
+    fun getChildItems(): List<ItemCategories> {
+        if (this.isItem) return listOf(this)
+
+        return values()
+            .filter {
+                it.isItem
+            }
+            .filter {
+                it.getAllParents().contains(this)
+            }
+            .toList()
     }
 
     @JsonValue
