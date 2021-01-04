@@ -11,42 +11,42 @@
             WHERE MONSTER_CLASS='GREY_RAT' AND MONSTER_TYPE='NORMAL' AND LEVEL=1"/>
             <column name="item_category_id" valueComputed="SELECT item_category_id FROM REPOSITORY.item_category
             WHERE CODE='GOLD'"/>
-            <column name="probability" valueNumeric="30"/>
+            <column name="probability" valueNumeric="85"/>
         </insert>
         <insert tableName="loot_drop_category">
             <column name="loot_drop_id" valueComputed="SELECT loot_drop_id FROM REPOSITORY.v_loot_drop
             WHERE MONSTER_CLASS='GREY_RAT' AND MONSTER_TYPE='VETERAN' AND LEVEL=1"/>
             <column name="item_category_id" valueComputed="SELECT item_category_id FROM REPOSITORY.item_category
             WHERE CODE='GOLD'"/>
-            <column name="probability" valueNumeric="40"/>
+            <column name="probability" valueNumeric="90"/>
         </insert>
         <insert tableName="loot_drop_category">
             <column name="loot_drop_id" valueComputed="SELECT loot_drop_id FROM REPOSITORY.v_loot_drop
             WHERE MONSTER_CLASS='GREY_RAT' AND MONSTER_TYPE='ELITE' AND LEVEL=1"/>
             <column name="item_category_id" valueComputed="SELECT item_category_id FROM REPOSITORY.item_category
             WHERE CODE='GOLD'"/>
-            <column name="probability" valueNumeric="50"/>
+            <column name="probability" valueNumeric="95"/>
         </insert>
         <insert tableName="loot_drop_category">
             <column name="loot_drop_id" valueComputed="SELECT loot_drop_id FROM REPOSITORY.v_loot_drop
             WHERE MONSTER_CLASS='GREY_RAT' AND MONSTER_TYPE='NORMAL' AND LEVEL=1"/>
             <column name="item_category_id" valueComputed="SELECT item_category_id FROM REPOSITORY.item_category
             WHERE CODE='WEAPON'"/>
-            <column name="probability" valueNumeric="5"/>
+            <column name="probability" valueNumeric="85"/>
         </insert>
         <insert tableName="loot_drop_category">
             <column name="loot_drop_id" valueComputed="SELECT loot_drop_id FROM REPOSITORY.v_loot_drop
             WHERE MONSTER_CLASS='GREY_RAT' AND MONSTER_TYPE='VETERAN' AND LEVEL=1"/>
             <column name="item_category_id" valueComputed="SELECT item_category_id FROM REPOSITORY.item_category
             WHERE CODE='WEAPON'"/>
-            <column name="probability" valueNumeric="10"/>
+            <column name="probability" valueNumeric="90"/>
         </insert>
         <insert tableName="loot_drop_category">
             <column name="loot_drop_id" valueComputed="SELECT loot_drop_id FROM REPOSITORY.v_loot_drop
             WHERE MONSTER_CLASS='GREY_RAT' AND MONSTER_TYPE='ELITE' AND LEVEL=1"/>
             <column name="item_category_id" valueComputed="SELECT item_category_id FROM REPOSITORY.item_category
             WHERE CODE='WEAPON'"/>
-            <column name="probability" valueNumeric="15"/>
+            <column name="probability" valueNumeric="95"/>
         </insert>
     </changeSet>
 
