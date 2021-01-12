@@ -97,6 +97,12 @@ data class CombatEvent(
 
     @JsonProperty( "4")
     var damage: Float = 0f,
+
+    @JsonProperty( "5")
+    var playerHealth: Float = 0f,
+
+    @JsonProperty( "6")
+    var enemyHealth: Float = 0f,
     ) : NotificationEvent() {
 
     override fun reset() = Unit

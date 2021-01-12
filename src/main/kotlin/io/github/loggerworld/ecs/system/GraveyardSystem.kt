@@ -9,6 +9,7 @@ import io.github.loggerworld.domain.enums.ItemStatEnum.STACK_SIZE
 import io.github.loggerworld.dto.inner.item.ItemData
 import io.github.loggerworld.ecs.EngineSystems
 import io.github.loggerworld.ecs.component.CombatComponent
+import io.github.loggerworld.ecs.component.HealthComponent
 import io.github.loggerworld.ecs.component.InventoryComponent
 import io.github.loggerworld.ecs.component.ItemComponent
 import io.github.loggerworld.ecs.component.KilledComponent
@@ -50,18 +51,19 @@ class GraveyardSystem(
         val damageDealt = killedComp.killer[CombatComponent.mapper]!!.damageCounters[deceased]!!
         deceased[CombatComponent.mapper]!!.damageCounters.remove(killedComp.killer)
         killedComp.killer[CombatComponent.mapper]!!.damageCounters.remove(deceased)
+        val health = killedComp.killer[HealthComponent.mapper]!!.health
 
 
         if (deceased.has(PlayerComponent.mapper)) {
             val playerComp = deceased[PlayerComponent.mapper]!!
             val monsterComp = killedComp.killer[MonsterComponent.mapper]!!
-            logPlayerKilledEvent(playerComp, monsterComp, damageReceived, damageDealt)
+            logPlayerKilledEvent(playerComp, monsterComp, damageReceived, damageDealt, health)
             playerComp.location[LocationComponent.mapper]!!.players.remove(deceased)
             playerComp.location.addComponent<LocationUpdatedComponent>(engine)
         } else {
             val playerComp = killedComp.killer[PlayerComponent.mapper]!!
             val monsterComp = deceased[MonsterComponent.mapper]!!
-            logMonsterKilledEvent(playerComp, monsterComp, damageDealt, damageReceived)
+            logMonsterKilledEvent(playerComp, monsterComp, damageDealt, damageReceived, health)
             dropLoot(killedComp.killer, monsterComp, playerComp)
             playerComp.location[LocationComponent.mapper]!!.spawnedMonsters.remove(deceased)
             playerComp.location.addComponent<LocationUpdatedComponent>(engine)
@@ -73,6 +75,7 @@ class GraveyardSystem(
 
     private fun syncCombatComponents(deceased: Entity, killer: Entity) {
         val deceasedCombatComp = deceased[CombatComponent.mapper]!!
+        val killerHealthComp = killer[HealthComponent.mapper]!!
         deceasedCombatComp.enemies.remove(killer)
         deceasedCombatComp.enemies.forEach { enemy ->
             val combatComp = enemy[CombatComponent.mapper]!!
@@ -83,6 +86,8 @@ class GraveyardSystem(
                     event.enemyId =
                         if (deceased.has(PlayerComponent.mapper)) deceased[PlayerComponent.mapper]!!.playerId else deceased[MonsterComponent.mapper]!!.id
                     event.damage = 0f
+                    event.enemyHealth = if (deceased.has(PlayerComponent.mapper)) killerHealthComp.health else 0f
+                    event.playerHealth = if (deceased.has(PlayerComponent.mapper)) 0f else killerHealthComp.health
                 }
             }
             combatComp.enemies.remove(deceased)
@@ -96,12 +101,15 @@ class GraveyardSystem(
         monsterComp: MonsterComponent,
         damageReceived: Float,
         damageDealt: Float,
+        health: Float,
     ) {
         combatEventBus.dispatchEvent { combatEvent ->
             combatEvent.playerId = playerComp.playerId
             combatEvent.eventType = DEATH_FROM_MOB
             combatEvent.enemyId = monsterComp.id
             combatEvent.damage = 0f
+            combatEvent.playerHealth = 0f
+            combatEvent.enemyHealth = health
         }
 
         val event = logEventBus.newEvent(PlayerKilledByMobEvent::class) as PlayerKilledByMobEvent
@@ -118,12 +126,15 @@ class GraveyardSystem(
         monsterComp: MonsterComponent,
         damageReceived: Float,
         damageDealt: Float,
+        health: Float,
     ) {
         combatEventBus.dispatchEvent { combatEvent ->
             combatEvent.playerId = playerComp.playerId
             combatEvent.eventType = MOB_DEAD
             combatEvent.enemyId = monsterComp.id
             combatEvent.damage = 0f
+            combatEvent.enemyHealth = 0f
+            combatEvent.playerHealth = health
         }
 
         val event = logEventBus.newEvent(PlayerKillMobEvent::class) as PlayerKillMobEvent

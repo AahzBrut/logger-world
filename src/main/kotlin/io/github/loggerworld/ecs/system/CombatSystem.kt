@@ -61,6 +61,7 @@ class CombatSystem(
             }
         }
         val tgtHealthComp = combatComp.target!![HealthComponent.mapper]!!
+        val selfHealthComp = entity[HealthComponent.mapper]!!
         val targetCombatComp = combatComp.target!![CombatComponent.mapper]!!
         val damage = max(0f, combatComp.damage - tgtHealthComp.defence)
         tgtHealthComp.health -= damage
@@ -73,6 +74,8 @@ class CombatSystem(
             combatEvent.eventType = if (entity.has(PlayerComponent.mapper)) DEAL_DAMAGE_MOB else RECEIVE_DAMAGE_MOB
             combatEvent.enemyId = monsterId
             combatEvent.damage = damage
+            combatEvent.enemyHealth = if (entity.has(PlayerComponent.mapper)) tgtHealthComp.health else selfHealthComp.health
+            combatEvent.playerHealth = if (entity.has(PlayerComponent.mapper)) selfHealthComp.health else tgtHealthComp.health
         }
 
         if (tgtHealthComp.health <= 0f) {
@@ -89,11 +92,15 @@ class CombatSystem(
         if (entity.has(MonsterComponent.mapper)) {
             val monsterComp = entity[MonsterComponent.mapper]!!
             val playerComp = target[PlayerComponent.mapper]!!
+            val monsterHealthComp = entity[HealthComponent.mapper]!!
+            val playerHealthComp = target[HealthComponent.mapper]!!
             combatEventBus.dispatchEvent { combatEvent ->
                 combatEvent.playerId = playerComp.playerId
                 combatEvent.eventType = ATTACKED_BY_MOB
                 combatEvent.enemyId = monsterComp.id
                 combatEvent.damage = 0f
+                combatEvent.playerHealth = playerHealthComp.health
+                combatEvent.enemyHealth = monsterHealthComp.health
             }
             val attackEvent = logEventBus.newEvent(AttackedByMobEvent::class) as AttackedByMobEvent
             attackEvent.playerId = playerComp.playerId
@@ -103,11 +110,15 @@ class CombatSystem(
         } else {
             val monsterComp = target[MonsterComponent.mapper]!!
             val playerComp = entity[PlayerComponent.mapper]!!
+            val monsterHealthComp = target[HealthComponent.mapper]!!
+            val playerHealthComp = entity[HealthComponent.mapper]!!
             combatEventBus.dispatchEvent { combatEvent ->
                 combatEvent.playerId = playerComp.playerId
                 combatEvent.eventType = ATTACK_MOB
                 combatEvent.enemyId = monsterComp.id
                 combatEvent.damage = 0f
+                combatEvent.playerHealth = playerHealthComp.health
+                combatEvent.enemyHealth = monsterHealthComp.health
             }
             val attackEvent = logEventBus.newEvent(AttackMobEvent::class) as AttackMobEvent
             attackEvent.playerId = playerComp.playerId

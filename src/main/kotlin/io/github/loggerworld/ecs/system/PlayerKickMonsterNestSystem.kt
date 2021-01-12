@@ -89,11 +89,15 @@ class PlayerKickMonsterNestSystem(
     private fun logPlayerAttackMob(player: Entity, monster: Entity) {
         val monsterComp = monster[MonsterComponent.mapper]!!
         val playerComp = player[PlayerComponent.mapper]!!
+        val monsterHealthComp = monster[HealthComponent.mapper]!!
+        val playerHealthComp = player[HealthComponent.mapper]!!
         combatEventBus.dispatchEvent { combatEvent ->
             combatEvent.playerId = playerComp.playerId
             combatEvent.eventType = CombatEventTypes.ATTACK_MOB
             combatEvent.enemyId = monsterComp.id
             combatEvent.damage = 0f
+            combatEvent.playerHealth = playerHealthComp.health
+            combatEvent.enemyHealth = monsterHealthComp.health
         }
         val attackEvent = logEventBus.newEvent(AttackMobEvent::class) as AttackMobEvent
         attackEvent.playerId = playerComp.playerId
@@ -167,11 +171,15 @@ class PlayerKickMonsterNestSystem(
     private fun logMobAttackPlayer(mob: Entity, player: Entity) {
         val monsterComp = mob[MonsterComponent.mapper]!!
         val playerComp = player[PlayerComponent.mapper]!!
+        val monsterHealthComp = mob[HealthComponent.mapper]!!
+        val playerHealthComp = player[HealthComponent.mapper]!!
         combatEventBus.dispatchEvent { combatEvent ->
             combatEvent.playerId = playerComp.playerId
             combatEvent.eventType = CombatEventTypes.ATTACKED_BY_MOB
             combatEvent.enemyId = monsterComp.id
             combatEvent.damage = 0f
+            combatEvent.playerHealth = playerHealthComp.health
+            combatEvent.enemyHealth = monsterHealthComp.health
         }
         val attackEvent = logEventBus.newEvent(AttackedByMobEvent::class) as AttackedByMobEvent
         attackEvent.playerId = playerComp.playerId
