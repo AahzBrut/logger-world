@@ -69,7 +69,7 @@ class ItemService(
             it.key to getRandomValue(it.value.first, it.value.second)
         }.toMutableMap()
         if (category.applicableStats.contains(DURABILITY)) itemStats[DURABILITY] = itemStats[MAX_DURABILITY]!!
-        logger().debug("Item '$category' generated with stats: $itemStats")
+            //logger().debug("Item '$category' generated with stats: $itemStats")
         return ItemData(
             itemIdCounter.getAndDecrement(),
             category,

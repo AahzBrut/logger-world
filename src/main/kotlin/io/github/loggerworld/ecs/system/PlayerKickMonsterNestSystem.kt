@@ -54,9 +54,10 @@ class PlayerKickMonsterNestSystem(
                 val locationComp = location[LocationComponent.mapper]!!
                 val spawners = locationComp.monsterSpawners
                 val spawner = getSpawner(spawners, kickCommand.monsterNestId)
+                val nest = getNest(spawners, kickCommand.monsterNestId)
 
                 if (spawner.amount-- > 0) {
-                    val monster = spawnMonster(spawner, playerEntity)
+                    val monster = spawnMonster(nest, spawner, playerEntity)
                     locationComp.spawnedMonsters.add(monster)
                     location.addComponent<LocationUpdatedComponent>(engine)
                     logKickNestEvent(kickCommand)
@@ -125,7 +126,16 @@ class PlayerKickMonsterNestSystem(
             }
     }
 
-    private fun spawnMonster(spawnerComp: MonsterSpawnerComponent, playerEntity: Entity): Entity {
+    private fun getNest(spawners: GdxSet<Entity>, spawnerId: Short): Entity {
+
+        return spawners
+            .first {
+                val spawnerComp = it[MonsterSpawnerComponent.mapper]!!
+                spawnerComp.id == spawnerId
+            }
+    }
+
+    private fun spawnMonster(nestEntity: Entity, spawnerComp: MonsterSpawnerComponent, playerEntity: Entity): Entity {
         val monsterSpawnerData = monsterService.getMonsterSpawnerData()
         val type = monsterSpawnerData
             .classes[spawnerComp.monsterClass]!!
@@ -152,6 +162,7 @@ class PlayerKickMonsterNestSystem(
                 defence = stats[PlayerStatEnum.DEF]!!
                 state = States.IN_COMBAT
                 location = spawnerComp.location
+                nest = nestEntity
             }
             with<CombatComponent> {
                 baseAttackCooldown = 1.0f
