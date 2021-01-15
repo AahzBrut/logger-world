@@ -14,6 +14,14 @@
             <column name="min_respawn_time" valueNumeric="5"/>
             <column name="max_respawn_time" valueNumeric="10"/>
         </insert>
+        <insert tableName="location_monster_spawner">
+            <column name="location_id" valueComputed="SELECT location_id FROM REPOSITORY.location WHERE xcoord=0 and ycoord=1"/>
+            <column name="monster_spawner_id" valueComputed="SELECT monster_spawner_id FROM REPOSITORY.monster_spawner
+            WHERE level=1 and monster_class_id IN (SELECT monster_class_id FROM REPOSITORY.monster_class WHERE code='GRIZZLY_BEAR')"/>
+            <column name="amount" valueNumeric="2"/>
+            <column name="min_respawn_time" valueNumeric="5"/>
+            <column name="max_respawn_time" valueNumeric="10"/>
+        </insert>
     </changeSet>
 
 </databaseChangeLog>

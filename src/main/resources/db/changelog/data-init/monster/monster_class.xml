@@ -24,6 +24,9 @@
         <insert tableName="monster_class">
             <column name="code" value="UNBORN_CHICKEN"/>
         </insert>
+        <insert tableName="monster_class">
+            <column name="code" value="GRIZZLY_BEAR"/>
+        </insert>
     </changeSet>
 
 </databaseChangeLog>

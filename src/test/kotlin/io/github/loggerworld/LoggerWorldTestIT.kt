@@ -549,8 +549,8 @@ class LoggerWorldTestIT : LogAware {
     @Test
     @Order(31)
     fun secondUserKickNest() {
-        stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_KICK_NEST, PlayerKickMonsterNestRequest(3))
-        stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_KICK_NEST, PlayerKickMonsterNestRequest(3))
+        stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_KICK_NEST, PlayerKickMonsterNestRequest(4))
+        stompSession2.send(WS_DESTINATION_PREFIX + WS_PLAYERS_KICK_NEST, PlayerKickMonsterNestRequest(4))
         TimeUnit.MILLISECONDS.sleep(15000)
     }
 
@@ -608,6 +608,14 @@ class LoggerWorldTestIT : LogAware {
 
     @Test
     @Order(37)
+    fun firstUserKickBEarNest() {
+        stompSession1.send(WS_DESTINATION_PREFIX + WS_PLAYERS_KICK_NEST, PlayerKickMonsterNestRequest(2))
+        TimeUnit.MILLISECONDS.sleep(10000)
+    }
+
+
+    @Test
+    @Order(38)
     fun getPerformanceCounters() {
         val restTemplate2 = RestTemplateBuilder(RestTemplateCustomizer {
             it.interceptors.add(ClientHttpRequestInterceptor { request, body, execution ->
@@ -621,21 +629,21 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(38)
+    @Order(39)
     fun firstUserDisconnect() {
         stompSession1.disconnect()
         TimeUnit.MILLISECONDS.sleep(300)
     }
 
     @Test
-    @Order(39)
+    @Order(40)
     fun secondUserDisconnect() {
         stompSession2.disconnect()
         TimeUnit.MILLISECONDS.sleep(300)
     }
 
     @Test
-    @Order(40)
+    @Order(41)
     fun testMonsterSpawner() {
         val monsterSpawnerData = monsterService?.getMonsterSpawnerData()!!
 
@@ -654,7 +662,7 @@ class LoggerWorldTestIT : LogAware {
     }
 
     @Test
-    @Order(41)
+    @Order(42)
     fun testLootGenerator() {
 
         val normalDrops = (1..1000).flatMap {

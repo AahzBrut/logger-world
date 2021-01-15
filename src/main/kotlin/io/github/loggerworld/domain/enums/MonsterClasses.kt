@@ -8,7 +8,8 @@ enum class MonsterClasses {
     POISONOUS_ADDER,
     BEE_HIVE,
     GREEN_SLIME,
-    UNBORN_CHICKEN;
+    UNBORN_CHICKEN,
+    GRIZZLY_BEAR;
 
     @JsonValue
     fun jsonValue() = ordinal

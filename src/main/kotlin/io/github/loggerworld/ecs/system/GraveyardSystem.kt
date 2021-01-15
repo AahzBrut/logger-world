@@ -48,7 +48,7 @@ class GraveyardSystem(
     override fun processEntity(deceased: Entity, deltaTime: Float) {
         val killedComp = deceased[KilledComponent.mapper]!!
         val damageReceived = deceased[CombatComponent.mapper]!!.damageCounters[killedComp.killer]!!
-        val damageDealt = killedComp.killer[CombatComponent.mapper]!!.damageCounters[deceased]!!
+        val damageDealt = killedComp.killer[CombatComponent.mapper]!!.damageCounters[deceased] ?: 0f
         deceased[CombatComponent.mapper]!!.damageCounters.remove(killedComp.killer)
         killedComp.killer[CombatComponent.mapper]!!.damageCounters.remove(deceased)
         val health = killedComp.killer[HealthComponent.mapper]!!.health
