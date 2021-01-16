@@ -17,3 +17,7 @@ const val TOKEN_PREFIX = "Bearer "
 val emptyEntity = Entity()
 
 const val nanoSecond = 1 / 1_000_000_000f
+
+fun iif(flag: Boolean, trueValue: Any, falseValue: Any): Any {
+    return if (flag) trueValue else falseValue
+}

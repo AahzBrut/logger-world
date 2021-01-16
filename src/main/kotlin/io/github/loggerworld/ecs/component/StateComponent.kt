@@ -9,7 +9,8 @@ enum class States{
     IDLE,
     ARRIVING,
     DEPARTING,
-    IN_COMBAT;
+    IN_COMBAT,
+    RESURRECTING;
 
     @JsonValue
     fun jsonValue() = ordinal

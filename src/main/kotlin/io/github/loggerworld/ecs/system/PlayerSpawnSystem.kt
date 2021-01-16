@@ -99,6 +99,7 @@ class PlayerSpawnSystem(
             }
             with<StateComponent> { state = States.ARRIVING }
             with<HealthComponent> {
+                maxHealth = hp
                 health = hp
                 defence = def
             }
