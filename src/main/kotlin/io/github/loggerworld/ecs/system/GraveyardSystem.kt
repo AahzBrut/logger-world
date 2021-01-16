@@ -2,6 +2,7 @@ package io.github.loggerworld.ecs.system
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.systems.IteratingSystem
+import io.github.loggerworld.domain.enums.CombatEventTypes
 import io.github.loggerworld.domain.enums.CombatEventTypes.DEATH_FROM_MOB
 import io.github.loggerworld.domain.enums.CombatEventTypes.MOB_DEAD
 import io.github.loggerworld.domain.enums.CombatEventTypes.PLAYER_DEAD
@@ -17,7 +18,10 @@ import io.github.loggerworld.ecs.component.LocationComponent
 import io.github.loggerworld.ecs.component.LocationUpdatedComponent
 import io.github.loggerworld.ecs.component.MonsterComponent
 import io.github.loggerworld.ecs.component.PlayerComponent
+import io.github.loggerworld.ecs.component.PlayerMoveComponent
 import io.github.loggerworld.ecs.component.RemoveComponent
+import io.github.loggerworld.ecs.component.StateComponent
+import io.github.loggerworld.ecs.component.States
 import io.github.loggerworld.messagebus.EventBus
 import io.github.loggerworld.messagebus.LogEventBus
 import io.github.loggerworld.messagebus.event.CombatEvent
@@ -27,6 +31,7 @@ import io.github.loggerworld.messagebus.event.PlayerKilledByMobEvent
 import io.github.loggerworld.messagebus.event.SerializeItemsDropFromMobCommand
 import io.github.loggerworld.service.LootService
 import io.github.loggerworld.util.LogAware
+import io.github.loggerworld.util.iif
 import io.github.loggerworld.util.logger
 import ktx.ashley.addComponent
 import ktx.ashley.allOf
@@ -53,13 +58,20 @@ class GraveyardSystem(
         killedComp.killer[CombatComponent.mapper]!!.damageCounters.remove(deceased)
         val health = killedComp.killer[HealthComponent.mapper]!!.health
 
-
         if (deceased.has(PlayerComponent.mapper)) {
             val playerComp = deceased[PlayerComponent.mapper]!!
             val monsterComp = killedComp.killer[MonsterComponent.mapper]!!
+            val healthComp = deceased[HealthComponent.mapper]!!
             logPlayerKilledEvent(playerComp, monsterComp, damageReceived, damageDealt, health)
-            playerComp.location[LocationComponent.mapper]!!.players.remove(deceased)
             playerComp.location.addComponent<LocationUpdatedComponent>(engine)
+            healthComp.health = healthComp.maxHealth
+            deceased.addComponent<PlayerMoveComponent>(engine) {
+                fromLocationId = playerComp.location[LocationComponent.mapper]!!.locationId
+                currentLocationId = fromLocationId
+                toLocationId = 6 // Return to town
+                timeToArrive = 5f
+            }
+            deceased[StateComponent.mapper]!!.state = States.RESURRECTING
         } else {
             val playerComp = killedComp.killer[PlayerComponent.mapper]!!
             val monsterComp = deceased[MonsterComponent.mapper]!!
@@ -67,10 +79,11 @@ class GraveyardSystem(
             dropLoot(killedComp.killer, monsterComp, playerComp)
             playerComp.location[LocationComponent.mapper]!!.spawnedMonsters.remove(deceased)
             playerComp.location.addComponent<LocationUpdatedComponent>(engine)
+            deceased.addComponent<RemoveComponent>(engine)
         }
         deceased.remove<KilledComponent>()
-        deceased.addComponent<RemoveComponent>(engine)
         syncCombatComponents(deceased, killedComp.killer)
+        deceased.remove<CombatComponent>()
     }
 
     private fun syncCombatComponents(deceased: Entity, killer: Entity) {
@@ -80,14 +93,14 @@ class GraveyardSystem(
         deceasedCombatComp.enemies.forEach { enemy ->
             val combatComp = enemy[CombatComponent.mapper]!!
             if (enemy.has(PlayerComponent.mapper)) {
+                val isPlayer = deceased.has(PlayerComponent.mapper)
                 combatEventBus.dispatchEvent { event ->
                     event.playerId = enemy[PlayerComponent.mapper]!!.playerId
-                    event.eventType = if (deceased.has(PlayerComponent.mapper)) PLAYER_DEAD else MOB_DEAD
-                    event.enemyId =
-                        if (deceased.has(PlayerComponent.mapper)) deceased[PlayerComponent.mapper]!!.playerId else deceased[MonsterComponent.mapper]!!.id
+                    event.eventType = iif(isPlayer, PLAYER_DEAD, MOB_DEAD) as CombatEventTypes
+                    event.enemyId = iif(isPlayer, deceased[PlayerComponent.mapper]!!.playerId, deceased[MonsterComponent.mapper]!!.id) as Long
                     event.damage = 0f
-                    event.enemyHealth = if (deceased.has(PlayerComponent.mapper)) killerHealthComp.health else 0f
-                    event.playerHealth = if (deceased.has(PlayerComponent.mapper)) 0f else killerHealthComp.health
+                    event.enemyHealth = iif (isPlayer, killerHealthComp.health,0f) as Float
+                    event.playerHealth = iif (isPlayer, 0f, killerHealthComp.health) as Float
                 }
             }
             combatComp.enemies.remove(deceased)
