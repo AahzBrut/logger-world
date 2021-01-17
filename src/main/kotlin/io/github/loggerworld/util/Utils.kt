@@ -18,6 +18,6 @@ val emptyEntity = Entity()
 
 const val nanoSecond = 1 / 1_000_000_000f
 
-fun iif(flag: Boolean, trueValue: Any, falseValue: Any): Any {
+fun <T> iif(flag: Boolean, trueValue: T, falseValue: T): T {
     return if (flag) trueValue else falseValue
 }

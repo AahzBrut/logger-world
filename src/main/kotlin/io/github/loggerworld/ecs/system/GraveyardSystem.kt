@@ -2,7 +2,6 @@ package io.github.loggerworld.ecs.system
 
 import com.badlogic.ashley.core.Entity
 import com.badlogic.ashley.systems.IteratingSystem
-import io.github.loggerworld.domain.enums.CombatEventTypes
 import io.github.loggerworld.domain.enums.CombatEventTypes.DEATH_FROM_MOB
 import io.github.loggerworld.domain.enums.CombatEventTypes.MOB_DEAD
 import io.github.loggerworld.domain.enums.CombatEventTypes.PLAYER_DEAD
@@ -96,11 +95,15 @@ class GraveyardSystem(
                 val isPlayer = deceased.has(PlayerComponent.mapper)
                 combatEventBus.dispatchEvent { event ->
                     event.playerId = enemy[PlayerComponent.mapper]!!.playerId
-                    event.eventType = iif(isPlayer, PLAYER_DEAD, MOB_DEAD) as CombatEventTypes
-                    event.enemyId = iif(isPlayer, deceased[PlayerComponent.mapper]!!.playerId, deceased[MonsterComponent.mapper]!!.id) as Long
+                    event.eventType = iif(isPlayer, PLAYER_DEAD, MOB_DEAD)
+                    event.enemyId = iif(
+                        isPlayer,
+                        deceased[PlayerComponent.mapper]!!.playerId,
+                        deceased[MonsterComponent.mapper]!!.id
+                    )
                     event.damage = 0f
-                    event.enemyHealth = iif (isPlayer, killerHealthComp.health,0f) as Float
-                    event.playerHealth = iif (isPlayer, 0f, killerHealthComp.health) as Float
+                    event.enemyHealth = iif(isPlayer, killerHealthComp.health, 0f)
+                    event.playerHealth = iif(isPlayer, 0f, killerHealthComp.health)
                 }
             }
             combatComp.enemies.remove(deceased)
@@ -125,13 +128,14 @@ class GraveyardSystem(
             combatEvent.enemyHealth = health
         }
 
-        val event = logEventBus.newEvent(PlayerKilledByMobEvent::class) as PlayerKilledByMobEvent
-        event.playerId = playerComp.playerId
-        event.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
-        event.damageReceived = damageReceived
-        event.damageDealt = damageDealt
-        event.created = OffsetDateTime.now()
-        logEventBus.pushEvent(event)
+        with(logEventBus.newEvent(PlayerKilledByMobEvent::class) as PlayerKilledByMobEvent) {
+            this.playerId = playerComp.playerId
+            this.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
+            this.damageReceived = damageReceived
+            this.damageDealt = damageDealt
+            this.created = OffsetDateTime.now()
+            logEventBus.pushEvent(this)
+        }
     }
 
     private fun logMonsterKilledEvent(
@@ -150,13 +154,14 @@ class GraveyardSystem(
             combatEvent.playerHealth = health
         }
 
-        val event = logEventBus.newEvent(PlayerKillMobEvent::class) as PlayerKillMobEvent
-        event.playerId = playerComp.playerId
-        event.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
-        event.damageReceived = damageReceived
-        event.damageDealt = damageDealt
-        event.created = OffsetDateTime.now()
-        logEventBus.pushEvent(event)
+        with(logEventBus.newEvent(PlayerKillMobEvent::class) as PlayerKillMobEvent) {
+            this.playerId = playerComp.playerId
+            this.monsterName = "${monsterComp.monsterClass}(${monsterComp.monsterType}) ${monsterComp.level} Lvl"
+            this.damageReceived = damageReceived
+            this.damageDealt = damageDealt
+            this.created = OffsetDateTime.now()
+            logEventBus.pushEvent(this)
+        }
     }
 
     private fun dropLoot(player: Entity, monsterComp: MonsterComponent, playerComp: PlayerComponent) {
